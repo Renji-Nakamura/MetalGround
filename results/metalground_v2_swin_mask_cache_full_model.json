@@ -1,0 +1,276 @@
+{
+  "timestamp_utc": "2026-09-15T17:45:59.893904+00:00",
+  "experiment": "0024",
+  "purpose": "Full-model integration of exact shifted-Swin attention-mask caching on top of authoritative MetalGround v2.",
+  "model": "IDEA-Research/grounding-dino-tiny",
+  "device": "mps",
+  "dtype": "float32",
+  "software": {
+    "torch": "2.13.0",
+    "transformers": "5.17.0"
+  },
+  "configuration": {
+    "base_runtime": "MetalGround v2",
+    "swin_specialization": "per-block get_attn_mask cache keyed by padded geometry, dtype, device, window size, and runtime shift size",
+    "patched_shifted_blocks": [
+      {
+        "module": "model.backbone.conv_encoder.model.swin.encoder.layers.0.blocks.1",
+        "stage": 0,
+        "block": 1,
+        "configured_shift": 3
+      },
+      {
+        "module": "model.backbone.conv_encoder.model.swin.encoder.layers.1.blocks.1",
+        "stage": 1,
+        "block": 1,
+        "configured_shift": 3
+      },
+      {
+        "module": "model.backbone.conv_encoder.model.swin.encoder.layers.2.blocks.1",
+        "stage": 2,
+        "block": 1,
+        "configured_shift": 3
+      },
+      {
+        "module": "model.backbone.conv_encoder.model.swin.encoder.layers.2.blocks.3",
+        "stage": 2,
+        "block": 3,
+        "configured_shift": 3
+      },
+      {
+        "module": "model.backbone.conv_encoder.model.swin.encoder.layers.2.blocks.5",
+        "stage": 2,
+        "block": 5,
+        "configured_shift": 3
+      },
+      {
+        "module": "model.backbone.conv_encoder.model.swin.encoder.layers.3.blocks.1",
+        "stage": 3,
+        "block": 1,
+        "configured_shift": 3
+      }
+    ],
+    "warmup": 5,
+    "timed_iterations": 30,
+    "approximation": false,
+    "retraining": false,
+    "reduced_precision": false
+  },
+  "baselines": {
+    "experiment_0001_original_pytorch_mps_median_ms": 999.116584,
+    "experiment_0018_metalground_v2_median_ms": 542.305167
+  },
+  "latency": {
+    "n": 30,
+    "mean_ms": 564.9507014,
+    "median_ms": 565.0356875,
+    "p90_ms": 572.7909336,
+    "p95_ms": 594.7779667,
+    "p99_ms": 617.515807,
+    "min_ms": 546.108208,
+    "max_ms": 619.867417
+  },
+  "derived": {
+    "speedup_vs_original": 1.7682362479095624,
+    "latency_reduction_vs_original_ms": 434.0808965,
+    "latency_reduction_vs_original_percent": 43.44647095758747,
+    "speedup_vs_v2": 0.959771531245095,
+    "latency_reduction_vs_v2_ms": -22.73052050000001,
+    "latency_reduction_vs_v2_percent": -4.19146301440274,
+    "fps_from_median": 1.7697997172966178
+  },
+  "correctness": {
+    "reference_detections": [
+      {
+        "label": "a cat a dog",
+        "score": 0.505246102809906,
+        "box": [
+          8.241534233093262,
+          312.5841064453125,
+          570.35009765625,
+          872.4279174804688
+        ]
+      },
+      {
+        "label": "a dog",
+        "score": 0.3197939693927765,
+        "box": [
+          472.915283203125,
+          17.95140266418457,
+          1129.7747802734375,
+          891.8092041015625
+        ]
+      }
+    ],
+    "first_patched_forward": {
+      "logits": {
+        "shape": [
+          1,
+          900,
+          256
+        ],
+        "finite_mask_equal": true,
+        "nan_mask_equal": true,
+        "posinf_mask_equal": true,
+        "neginf_mask_equal": true,
+        "max_abs": 0.7076663970947266,
+        "mean_abs": 0.014952391386032104,
+        "rmse": 0.0533963218331337,
+        "allclose_1e-5": false,
+        "allclose_1e-4": false
+      },
+      "pred_boxes": {
+        "shape": [
+          1,
+          900,
+          4
+        ],
+        "finite_mask_equal": true,
+        "nan_mask_equal": true,
+        "posinf_mask_equal": true,
+        "neginf_mask_equal": true,
+        "max_abs": 0.1682472825050354,
+        "mean_abs": 0.0020120516419410706,
+        "rmse": 0.00887820590287447,
+        "allclose_1e-5": false,
+        "allclose_1e-4": false
+      },
+      "topk": {
+        "k": 900,
+        "set_overlap": 900,
+        "changed_membership_each_side": 0,
+        "rankwise_identical": 898,
+        "score_vector_max_abs": 7.62939453125e-06,
+        "score_vector_mean_abs": 5.313880819812766e-07,
+        "mismatched_ranks_zero_based": [
+          302,
+          303
+        ]
+      },
+      "detections": [
+        {
+          "label": "a cat a dog",
+          "score": 0.5051670670509338,
+          "box": [
+            8.241605758666992,
+            312.5823059082031,
+            570.352783203125,
+            872.4296875
+          ]
+        },
+        {
+          "label": "a dog",
+          "score": 0.31981927156448364,
+          "box": [
+            472.91943359375,
+            17.94871711730957,
+            1129.7764892578125,
+            891.8095092773438
+          ]
+        }
+      ],
+      "encoder_island_calls": 6,
+      "decoder_patched_msda_calls": 6,
+      "mask_cache_counts": {
+        "calls": 6,
+        "hits": 0,
+        "misses": 6
+      }
+    },
+    "final_timed_forward": {
+      "logits": {
+        "shape": [
+          1,
+          900,
+          256
+        ],
+        "finite_mask_equal": true,
+        "nan_mask_equal": true,
+        "posinf_mask_equal": true,
+        "neginf_mask_equal": true,
+        "max_abs": 0.7076663970947266,
+        "mean_abs": 0.014952391386032104,
+        "rmse": 0.0533963218331337,
+        "allclose_1e-5": false,
+        "allclose_1e-4": false
+      },
+      "pred_boxes": {
+        "shape": [
+          1,
+          900,
+          4
+        ],
+        "finite_mask_equal": true,
+        "nan_mask_equal": true,
+        "posinf_mask_equal": true,
+        "neginf_mask_equal": true,
+        "max_abs": 0.1682472825050354,
+        "mean_abs": 0.0020120516419410706,
+        "rmse": 0.00887820590287447,
+        "allclose_1e-5": false,
+        "allclose_1e-4": false
+      },
+      "topk": {
+        "k": 900,
+        "set_overlap": 900,
+        "changed_membership_each_side": 0,
+        "rankwise_identical": 898,
+        "score_vector_max_abs": 7.62939453125e-06,
+        "score_vector_mean_abs": 5.313880819812766e-07,
+        "mismatched_ranks_zero_based": [
+          302,
+          303
+        ]
+      },
+      "detections": [
+        {
+          "label": "a cat a dog",
+          "score": 0.5051670670509338,
+          "box": [
+            8.241605758666992,
+            312.5823059082031,
+            570.352783203125,
+            872.4296875
+          ]
+        },
+        {
+          "label": "a dog",
+          "score": 0.31981927156448364,
+          "box": [
+            472.91943359375,
+            17.94871711730957,
+            1129.7764892578125,
+            891.8095092773438
+          ]
+        }
+      ]
+    }
+  },
+  "cache_validation": {
+    "first_forward": {
+      "calls": 6,
+      "hits": 0,
+      "misses": 6
+    },
+    "steady_state": {
+      "calls": 210,
+      "hits": 210,
+      "misses": 0,
+      "expected_calls": 210
+    }
+  },
+  "call_counts": {
+    "encoder_island_calls": 210,
+    "expected_encoder_island_calls": 210,
+    "decoder_patched_msda_calls": 210,
+    "expected_decoder_patched_msda_calls": 210
+  },
+  "notes": [
+    "Only exact shifted-window attention masks are cached; relative-position bias remains on the original path because Experiment 0023 showed no robust benefit.",
+    "Cache keys include geometry, dtype, device, window size, and runtime shift size, so unseen shapes fall back to exact mask construction and populate a new entry.",
+    "The first patched forward populates caches and is excluded from timing.",
+    "The timed region is validated to contain cache hits only.",
+    "No approximation, quantization, pruning, retraining, or reduced precision is used.",
+    "Dataset-level accuracy equivalence remains unmeasured."
+  ]
+}

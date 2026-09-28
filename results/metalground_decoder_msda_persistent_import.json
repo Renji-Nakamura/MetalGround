@@ -1,0 +1,141 @@
+{
+  "timestamp_utc": "2026-09-16T03:32:14.518746+00:00",
+  "experiment": "0044e",
+  "purpose": "Reproduce the exact successful 44a execution condition by retaining one persistent set of zero-copy imported MLX inputs across stagewise warmup, full correctness, and steady-state benchmark.",
+  "model": "IDEA-Research/grounding-dino-tiny",
+  "device": "mps",
+  "dtype": "float32",
+  "software": {
+    "torch": "2.13.0",
+    "transformers": "5.17.0"
+  },
+  "configuration": {
+    "decoder_layer": 0,
+    "persistent_zero_copy_inputs": true,
+    "fresh_import_each_candidate_call": false,
+    "mx_compile_used": false,
+    "stagewise_warmup_excluded_from_timing": true,
+    "timed_final_mlx_to_torch_bridge_included": true,
+    "torch_to_mlx_import_cost_in_timed_candidate": false,
+    "approximation": false,
+    "retraining": false,
+    "reduced_precision": false
+  },
+  "stagewise_warmup": [
+    {
+      "name": "query_add",
+      "ms": 0.292917
+    },
+    {
+      "name": "value_projection",
+      "ms": 1.874125
+    },
+    {
+      "name": "value_mask",
+      "ms": 1.109375
+    },
+    {
+      "name": "value_reshape",
+      "ms": 0.306791
+    },
+    {
+      "name": "sampling_offsets",
+      "ms": 0.599833
+    },
+    {
+      "name": "attention_logits",
+      "ms": 0.400375
+    },
+    {
+      "name": "attention_softmax",
+      "ms": 0.283208
+    },
+    {
+      "name": "sampling_locations",
+      "ms": 0.887875
+    },
+    {
+      "name": "custom_metal_msda",
+      "ms": 0.549875
+    },
+    {
+      "name": "output_projection",
+      "ms": 0.331417
+    }
+  ],
+  "persistent_full_preflight_ms": 4.431709,
+  "correctness": {
+    "output": {
+      "shape": [
+        1,
+        900,
+        256
+      ],
+      "max_abs": 9.5367431640625e-07,
+      "mean_abs": 6.671196217666875e-08,
+      "rmse": 9.344155671442422e-08,
+      "allclose_1e-5": true,
+      "allclose_1e-4": true,
+      "finite": true
+    },
+    "attention_weights": {
+      "shape": [
+        1,
+        900,
+        8,
+        4,
+        4
+      ],
+      "max_abs": 8.940696716308594e-08,
+      "mean_abs": 3.099354328739423e-09,
+      "rmse": 6.949241182496735e-09,
+      "allclose_1e-5": true,
+      "allclose_1e-4": true,
+      "finite": true
+    }
+  },
+  "correctness_gate_passed": true,
+  "latency": {
+    "current_pytorch_wrapper_plus_metal_core": {
+      "n": 20,
+      "mean_ms": 4.89615415,
+      "median_ms": 4.779313,
+      "p90_ms": 5.296016,
+      "p95_ms": 5.5911972500000005,
+      "min_ms": 4.250875,
+      "max_ms": 6.373166
+    },
+    "persistent_import_uncompiled_mlx_wrapper": {
+      "n": 20,
+      "mean_ms": 3.5053894,
+      "median_ms": 3.181479,
+      "p90_ms": 4.3386334,
+      "p95_ms": 4.3936131,
+      "min_ms": 2.836875,
+      "max_ms": 4.581791
+    },
+    "paired_delta_current_minus_persistent": {
+      "n": 20,
+      "mean_ms": 1.39076475,
+      "median_ms": 1.655042,
+      "p90_ms": 2.3192208,
+      "p95_ms": 2.647012150000001,
+      "min_ms": -0.14933200000000024,
+      "max_ms": 3.5362910000000003
+    }
+  },
+  "derived": {
+    "speedup_from_medians": 1.5022299377113602,
+    "median_difference_of_marginals_ms": 1.5978340000000002,
+    "paired_delta_median_ms": 1.655042,
+    "paired_delta_mean_ms": 1.39076475,
+    "reduction_percent_from_medians": 33.43229455781616
+  },
+  "decision_rule": "This is diagnostic, not an adoption benchmark. If persistent inputs pass while fresh-import variants stall, conclude that the local decoder-wrapper port is not safely composable with fresh Torch-produced tensors under the current interop path. Do not adopt based on persistent-input speed alone.",
+  "notes": [
+    "This deliberately reproduces the exact input-lifetime condition of successful Experiment 0044a.",
+    "The timed candidate excludes repeated Torch-to-MLX import because the same imported arrays are reused.",
+    "Therefore any measured speedup is an upper-bound diagnostic, not a full-model integration result.",
+    "Experiment 0039 remains the end-to-end latency authority."
+  ]
+}

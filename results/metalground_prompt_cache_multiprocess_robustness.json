@@ -1,0 +1,405 @@
+{
+  "timestamp_utc": "2026-09-15T18:14:59.992234+00:00",
+  "experiment": "0029",
+  "purpose": "Multi-process robustness study of exact fixed-prompt BERT caching: independent fresh MetalGround-v2 processes, each with paired baseline-vs-cache full-model measurements.",
+  "model": "IDEA-Research/grounding-dino-tiny",
+  "device": "mps",
+  "dtype": "float32",
+  "software": {
+    "torch": "2.13.0",
+    "transformers": "5.17.0",
+    "python": "3.12.14 (main, Sep  1 2026, 14:09:38) [Clang 22.1.3 ]"
+  },
+  "protocol": {
+    "fresh_processes": 5,
+    "warmup_per_mode_per_process": 2,
+    "pairs_per_process": 10,
+    "pair_order": "alternating; initial order balanced by worker parity",
+    "primary_unit": "per-process paired-delta median"
+  },
+  "workers": [
+    {
+      "worker_index": 0,
+      "pid": 22402,
+      "baseline": {
+        "n": 10,
+        "mean_ms": 572.9687374,
+        "median_ms": 573.2940619999999,
+        "p10_ms": 561.9391958,
+        "p90_ms": 577.9864709,
+        "min_ms": 557.658083,
+        "max_ms": 593.142209
+      },
+      "cached": {
+        "n": 10,
+        "mean_ms": 561.9500375,
+        "median_ms": 562.339208,
+        "p10_ms": 553.9035045,
+        "p90_ms": 572.3766247,
+        "min_ms": 548.750667,
+        "max_ms": 572.963125
+      },
+      "paired_delta": {
+        "n": 10,
+        "mean_ms": 11.018699900000001,
+        "median_ms": 11.970937500000048,
+        "p10_ms": 4.440187200000014,
+        "p90_ms": 16.805919999999958,
+        "min_ms": 1.32487500000002,
+        "max_ms": 20.17908399999999
+      },
+      "speedup_from_medians": 1.0194808646527809,
+      "median_difference_of_marginals_ms": 10.954853999999955,
+      "correctness": {
+        "logits": {
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "finite_max_abs": 0.0,
+          "finite_mean_abs": 0.0,
+          "finite_rmse": 0.0,
+          "allclose_1e-5": true
+        },
+        "pred_boxes": {
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "finite_max_abs": 0.0,
+          "finite_mean_abs": 0.0,
+          "finite_rmse": 0.0,
+          "allclose_1e-5": true
+        },
+        "topk": {
+          "k": 900,
+          "set_overlap": 900,
+          "changed_membership_each_side": 0,
+          "rankwise_identical": 900,
+          "score_vector_max_abs": 0.0,
+          "score_vector_mean_abs": 0.0,
+          "mismatched_ranks_zero_based": []
+        }
+      },
+      "cache_hits": 10,
+      "cache_misses": 0
+    },
+    {
+      "worker_index": 1,
+      "pid": 22413,
+      "baseline": {
+        "n": 10,
+        "mean_ms": 567.8594251000001,
+        "median_ms": 561.4744165,
+        "p10_ms": 559.4574919,
+        "p90_ms": 586.5735462,
+        "min_ms": 558.711166,
+        "max_ms": 590.562834
+      },
+      "cached": {
+        "n": 10,
+        "mean_ms": 565.9187917,
+        "median_ms": 553.700917,
+        "p10_ms": 548.2410333,
+        "p90_ms": 589.2511297,
+        "min_ms": 540.826458,
+        "max_ms": 647.488291
+      },
+      "paired_delta": {
+        "n": 10,
+        "mean_ms": 1.9406334000000016,
+        "median_ms": 7.952499499999988,
+        "p10_ms": -2.001437399999996,
+        "p90_ms": 13.417195600000031,
+        "min_ms": -75.81774900000005,
+        "max_ms": 27.77208399999995
+      },
+      "speedup_from_medians": 1.0140391667438757,
+      "median_difference_of_marginals_ms": 7.773499499999957,
+      "correctness": {
+        "logits": {
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "finite_max_abs": 0.0,
+          "finite_mean_abs": 0.0,
+          "finite_rmse": 0.0,
+          "allclose_1e-5": true
+        },
+        "pred_boxes": {
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "finite_max_abs": 0.0,
+          "finite_mean_abs": 0.0,
+          "finite_rmse": 0.0,
+          "allclose_1e-5": true
+        },
+        "topk": {
+          "k": 900,
+          "set_overlap": 900,
+          "changed_membership_each_side": 0,
+          "rankwise_identical": 900,
+          "score_vector_max_abs": 0.0,
+          "score_vector_mean_abs": 0.0,
+          "mismatched_ranks_zero_based": []
+        }
+      },
+      "cache_hits": 10,
+      "cache_misses": 0
+    },
+    {
+      "worker_index": 2,
+      "pid": 22427,
+      "baseline": {
+        "n": 10,
+        "mean_ms": 583.2530001,
+        "median_ms": 580.4447295,
+        "p10_ms": 565.3771917,
+        "p90_ms": 606.9736291,
+        "min_ms": 562.537167,
+        "max_ms": 623.168041
+      },
+      "cached": {
+        "n": 10,
+        "mean_ms": 570.2935291,
+        "median_ms": 569.9346250000001,
+        "p10_ms": 555.2968211,
+        "p90_ms": 585.0587914,
+        "min_ms": 552.561083,
+        "max_ms": 587.333167
+      },
+      "paired_delta": {
+        "n": 10,
+        "mean_ms": 12.959471000000008,
+        "median_ms": 6.780875000000037,
+        "p10_ms": -4.144849399999987,
+        "p90_ms": 35.61279610000004,
+        "min_ms": -6.54950000000008,
+        "max_ms": 52.38545799999997
+      },
+      "speedup_from_medians": 1.0184408948657926,
+      "median_difference_of_marginals_ms": 10.510104499999898,
+      "correctness": {
+        "logits": {
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "finite_max_abs": 0.0,
+          "finite_mean_abs": 0.0,
+          "finite_rmse": 0.0,
+          "allclose_1e-5": true
+        },
+        "pred_boxes": {
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "finite_max_abs": 0.0,
+          "finite_mean_abs": 0.0,
+          "finite_rmse": 0.0,
+          "allclose_1e-5": true
+        },
+        "topk": {
+          "k": 900,
+          "set_overlap": 900,
+          "changed_membership_each_side": 0,
+          "rankwise_identical": 900,
+          "score_vector_max_abs": 0.0,
+          "score_vector_mean_abs": 0.0,
+          "mismatched_ranks_zero_based": []
+        }
+      },
+      "cache_hits": 10,
+      "cache_misses": 0
+    },
+    {
+      "worker_index": 3,
+      "pid": 22441,
+      "baseline": {
+        "n": 10,
+        "mean_ms": 585.4043667,
+        "median_ms": 584.0174795,
+        "p10_ms": 558.6446455,
+        "p90_ms": 612.5525048,
+        "min_ms": 557.534833,
+        "max_ms": 616.268792
+      },
+      "cached": {
+        "n": 10,
+        "mean_ms": 565.7699709000001,
+        "median_ms": 561.1402505000001,
+        "p10_ms": 546.25305,
+        "p90_ms": 589.3158205000001,
+        "min_ms": 545.76075,
+        "max_ms": 591.494833
+      },
+      "paired_delta": {
+        "n": 10,
+        "mean_ms": 19.634395799999982,
+        "median_ms": 15.929540999999972,
+        "p10_ms": 7.833546499999944,
+        "p90_ms": 32.09956209999996,
+        "min_ms": -3.992791000000011,
+        "max_ms": 58.038499
+      },
+      "speedup_from_medians": 1.0407691819997147,
+      "median_difference_of_marginals_ms": 22.877228999999943,
+      "correctness": {
+        "logits": {
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "finite_max_abs": 0.0,
+          "finite_mean_abs": 0.0,
+          "finite_rmse": 0.0,
+          "allclose_1e-5": true
+        },
+        "pred_boxes": {
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "finite_max_abs": 0.0,
+          "finite_mean_abs": 0.0,
+          "finite_rmse": 0.0,
+          "allclose_1e-5": true
+        },
+        "topk": {
+          "k": 900,
+          "set_overlap": 900,
+          "changed_membership_each_side": 0,
+          "rankwise_identical": 900,
+          "score_vector_max_abs": 0.0,
+          "score_vector_mean_abs": 0.0,
+          "mismatched_ranks_zero_based": []
+        }
+      },
+      "cache_hits": 10,
+      "cache_misses": 0
+    },
+    {
+      "worker_index": 4,
+      "pid": 22453,
+      "baseline": {
+        "n": 10,
+        "mean_ms": 568.6291918,
+        "median_ms": 568.935,
+        "p10_ms": 562.4146795,
+        "p90_ms": 574.5529715,
+        "min_ms": 562.068292,
+        "max_ms": 575.050334
+      },
+      "cached": {
+        "n": 10,
+        "mean_ms": 559.0978332,
+        "median_ms": 560.713083,
+        "p10_ms": 547.700033,
+        "p90_ms": 565.4367167,
+        "min_ms": 547.633208,
+        "max_ms": 567.452417
+      },
+      "paired_delta": {
+        "n": 10,
+        "mean_ms": 9.531358600000022,
+        "median_ms": 11.910521500000016,
+        "p10_ms": 1.839274100000034,
+        "p90_ms": 15.120250600000054,
+        "min_ms": -5.384124999999926,
+        "max_ms": 16.024
+      },
+      "speedup_from_medians": 1.0146633229173287,
+      "median_difference_of_marginals_ms": 8.221916999999962,
+      "correctness": {
+        "logits": {
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "finite_max_abs": 0.0,
+          "finite_mean_abs": 0.0,
+          "finite_rmse": 0.0,
+          "allclose_1e-5": true
+        },
+        "pred_boxes": {
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "finite_max_abs": 0.0,
+          "finite_mean_abs": 0.0,
+          "finite_rmse": 0.0,
+          "allclose_1e-5": true
+        },
+        "topk": {
+          "k": 900,
+          "set_overlap": 900,
+          "changed_membership_each_side": 0,
+          "rankwise_identical": 900,
+          "score_vector_max_abs": 0.0,
+          "score_vector_mean_abs": 0.0,
+          "mismatched_ranks_zero_based": []
+        }
+      },
+      "cache_hits": 10,
+      "cache_misses": 0
+    }
+  ],
+  "aggregate": {
+    "paired_delta_median_across_processes": {
+      "n": 5,
+      "mean_ms": 10.908874900000011,
+      "median_ms": 11.910521500000016,
+      "p10_ms": 7.249524800000017,
+      "p90_ms": 14.346099600000002,
+      "min_ms": 6.780875000000037,
+      "max_ms": 15.929540999999972
+    },
+    "paired_delta_mean_across_processes": {
+      "n": 5,
+      "mean_ms": 11.016911740000003,
+      "median_ms": 11.018699900000001,
+      "p10_ms": 4.97692348000001,
+      "p90_ms": 16.964425879999993,
+      "min_ms": 1.9406334000000016,
+      "max_ms": 19.634395799999982
+    },
+    "absolute_baseline_median_across_processes": {
+      "n": 5,
+      "mean_ms": 573.6331375,
+      "median_ms": 573.2940619999999,
+      "p10_ms": 564.4586499,
+      "p90_ms": 582.5883795,
+      "min_ms": 561.4744165,
+      "max_ms": 584.0174795
+    },
+    "absolute_cached_median_across_processes": {
+      "n": 5,
+      "mean_ms": 561.5656167,
+      "median_ms": 561.1402505000001,
+      "p10_ms": 556.5057833999999,
+      "p90_ms": 566.8964582000001,
+      "min_ms": 553.700917,
+      "max_ms": 569.9346250000001
+    },
+    "positive_process_count": 5,
+    "total_process_count": 5,
+    "median_of_process_paired_medians_ms": 11.910521500000016,
+    "median_absolute_baseline_ms": 573.2940619999999,
+    "median_absolute_cached_ms": 561.1402505000001,
+    "cross_process_baseline_median_range_ms": 22.543063000000075,
+    "cross_process_cached_median_range_ms": 16.233708000000092
+  },
+  "decision_rule": "Adopt prompt caching as a robust runtime optimization if at least 4/5 fresh processes have positive paired-delta medians and the median of process paired medians is materially positive. Keep absolute historical v2/v3 single-run medians separate from this causal estimate.",
+  "notes": [
+    "Each worker is a new Python process and rebuilds MetalGround v2 independently.",
+    "Within each worker, baseline and cached executions alternate on the same model and inputs.",
+    "The per-process paired-delta median is the primary causal statistic.",
+    "Absolute medians across processes quantify run-to-run drift and are not treated as paired effects.",
+    "No approximation, quantization, pruning, retraining, or reduced precision is used."
+  ]
+}

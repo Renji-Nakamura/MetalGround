@@ -1,0 +1,27 @@
+{
+  "diagnostic_letterbox_file" : "\/Users\/renji\/Projects\/metalground_bootstrap\/results\/metal_letterbox_rgba8_0054b2.raw",
+  "experiment" : "0054b-2",
+  "implementation" : {
+    "approximation" : false,
+    "hardware_linear_sampler_used" : false,
+    "precision_bits" : 22,
+    "reduced_precision_output" : false
+  },
+  "metal_device" : "Apple M3",
+  "output_file" : "\/Users\/renji\/Projects\/metalground_bootstrap\/results\/metal_pixel_values_f32_chw_0054b2.bin",
+  "output_shape_chw" : [
+    3,
+    800,
+    1065
+  ],
+  "timing_ms" : {
+    "max" : 1.4067080000000001,
+    "mean" : 0.79535729000000022,
+    "median" : 0.72899999999999998,
+    "min" : 0.66712499999999997,
+    "n" : 200,
+    "p90" : 1.1008663999999999,
+    "p95" : 1.1683892999999999
+  },
+  "timing_semantics" : "submit-to-completion for four kernels; setup excluded"
+}

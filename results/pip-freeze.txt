@@ -1,0 +1,1 @@
+<unavailable: Command '['/Users/renji/Projects/metalground_bootstrap/.venv/bin/python3', '-m', 'pip', 'freeze']' returned non-zero exit status 1.>

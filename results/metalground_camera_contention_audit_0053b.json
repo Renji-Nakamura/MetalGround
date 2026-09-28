@@ -1,0 +1,273 @@
+{
+  "timestamp_utc": "2026-09-17T00:22:25.892741+00:00",
+  "experiment": "0053b",
+  "purpose": "Same-process causal audit of the ~63 ms inference slowdown observed in 0053a, separating camera-open, active-capture, and display activity while holding model input fixed.",
+  "environment": {
+    "torch": "2.13.0",
+    "opencv": "4.14.0",
+    "device": "mps",
+    "dtype": "float32"
+  },
+  "configuration": {
+    "model": "IDEA-Research/grounding-dino-tiny",
+    "fixed_image": "assets/input.jpg",
+    "prompt": [
+      "a cat",
+      "a dog"
+    ],
+    "rounds": 4,
+    "samples_per_mode": 5,
+    "warmup_per_mode": 1,
+    "round_orders": [
+      [
+        "camera_closed_no_display",
+        "camera_open_idle_no_display",
+        "camera_capture_active_no_display",
+        "camera_capture_active_display_active"
+      ],
+      [
+        "camera_open_idle_no_display",
+        "camera_capture_active_display_active",
+        "camera_closed_no_display",
+        "camera_capture_active_no_display"
+      ],
+      [
+        "camera_capture_active_no_display",
+        "camera_closed_no_display",
+        "camera_capture_active_display_active",
+        "camera_open_idle_no_display"
+      ],
+      [
+        "camera_capture_active_display_active",
+        "camera_capture_active_no_display",
+        "camera_open_idle_no_display",
+        "camera_closed_no_display"
+      ]
+    ],
+    "camera_requested": {
+      "index": 0,
+      "size": [
+        1280,
+        720
+      ],
+      "fps": 30.0
+    },
+    "camera_actual_backend": "AVFOUNDATION",
+    "historical_context_ms": {
+      "exp0047_standalone_authority": 476.360333,
+      "exp0053a_live_camera_inference_median": 539.272854,
+      "cross_protocol_gap": 62.91252100000003
+    },
+    "performance_timing": true,
+    "approximation": false,
+    "retraining": false,
+    "quantization": false,
+    "reduced_precision": false
+  },
+  "timing": {
+    "per_mode_inference_ms": {
+      "camera_closed_no_display": {
+        "n": 20,
+        "mean": 522.0332021,
+        "median": 525.020313,
+        "p90": 535.3327875,
+        "p95": 536.46653125,
+        "min": 503.310666,
+        "max": 538.357625
+      },
+      "camera_open_idle_no_display": {
+        "n": 20,
+        "mean": 524.82524785,
+        "median": 522.4761875,
+        "p90": 538.7198583,
+        "p95": 550.45239555,
+        "min": 504.941625,
+        "max": 554.878209
+      },
+      "camera_capture_active_no_display": {
+        "n": 20,
+        "mean": 541.3050188,
+        "median": 541.6435835,
+        "p90": 555.9841628,
+        "p95": 556.6254645500001,
+        "min": 513.02475,
+        "max": 563.980166
+      },
+      "camera_capture_active_display_active": {
+        "n": 20,
+        "mean": 545.31560825,
+        "median": 538.6341044999999,
+        "p90": 564.0367410000001,
+        "p95": 606.9742973,
+        "min": 522.182791,
+        "max": 609.734167
+      }
+    },
+    "round_records": [
+      {
+        "round_index": 0,
+        "order": [
+          "camera_closed_no_display",
+          "camera_open_idle_no_display",
+          "camera_capture_active_no_display",
+          "camera_capture_active_display_active"
+        ],
+        "mode_medians_ms": {
+          "camera_closed_no_display": 526.620958,
+          "camera_open_idle_no_display": 514.6135,
+          "camera_capture_active_no_display": 549.915666,
+          "camera_capture_active_display_active": 524.114333
+        },
+        "deltas_ms": {
+          "camera_open_idle_minus_closed": -12.007457999999929,
+          "active_capture_minus_open_idle": 35.30216599999994,
+          "display_increment_minus_capture": -25.801333,
+          "full_live_minus_closed": -2.5066249999999854
+        }
+      },
+      {
+        "round_index": 1,
+        "order": [
+          "camera_open_idle_no_display",
+          "camera_capture_active_display_active",
+          "camera_closed_no_display",
+          "camera_capture_active_no_display"
+        ],
+        "mode_medians_ms": {
+          "camera_open_idle_no_display": 536.146625,
+          "camera_capture_active_display_active": 547.697916,
+          "camera_closed_no_display": 523.454375,
+          "camera_capture_active_no_display": 540.267875
+        },
+        "deltas_ms": {
+          "camera_open_idle_minus_closed": 12.692249999999945,
+          "active_capture_minus_open_idle": 4.121250000000032,
+          "display_increment_minus_capture": 7.43004099999996,
+          "full_live_minus_closed": 24.243540999999937
+        }
+      },
+      {
+        "round_index": 2,
+        "order": [
+          "camera_capture_active_no_display",
+          "camera_closed_no_display",
+          "camera_capture_active_display_active",
+          "camera_open_idle_no_display"
+        ],
+        "mode_medians_ms": {
+          "camera_capture_active_no_display": 546.464125,
+          "camera_closed_no_display": 506.889709,
+          "camera_capture_active_display_active": 545.322417,
+          "camera_open_idle_no_display": 512.424084
+        },
+        "deltas_ms": {
+          "camera_open_idle_minus_closed": 5.534375000000011,
+          "active_capture_minus_open_idle": 34.040040999999974,
+          "display_increment_minus_capture": -1.1417079999999942,
+          "full_live_minus_closed": 38.43270799999999
+        }
+      },
+      {
+        "round_index": 3,
+        "order": [
+          "camera_capture_active_display_active",
+          "camera_capture_active_no_display",
+          "camera_open_idle_no_display",
+          "camera_closed_no_display"
+        ],
+        "mode_medians_ms": {
+          "camera_capture_active_display_active": 538.664084,
+          "camera_capture_active_no_display": 521.291833,
+          "camera_open_idle_no_display": 530.544916,
+          "camera_closed_no_display": 524.146834
+        },
+        "deltas_ms": {
+          "camera_open_idle_minus_closed": 6.398081999999931,
+          "active_capture_minus_open_idle": -9.253082999999947,
+          "display_increment_minus_capture": 17.372251000000006,
+          "full_live_minus_closed": 14.51724999999999
+        }
+      }
+    ]
+  },
+  "pre_registered_component_rule": {
+    "material_threshold_ms": 10.0,
+    "definition": "A component is classified as a material causal slowdown iff its round-level median delta is positive in all 4 rounds and the median of the 4 round deltas is >=10 ms.",
+    "components": {
+      "camera_open_idle_minus_closed": {
+        "round_deltas_ms": [
+          -12.007457999999929,
+          12.692249999999945,
+          5.534375000000011,
+          6.398081999999931
+        ],
+        "median_round_delta_ms": 5.966228499999971,
+        "all_rounds_positive": false,
+        "all_rounds_negative": false,
+        "material_threshold_ms": 10.0,
+        "material_slowdown": false,
+        "material_speedup": false
+      },
+      "active_capture_minus_open_idle": {
+        "round_deltas_ms": [
+          35.30216599999994,
+          4.121250000000032,
+          34.040040999999974,
+          -9.253082999999947
+        ],
+        "median_round_delta_ms": 19.080645500000003,
+        "all_rounds_positive": false,
+        "all_rounds_negative": false,
+        "material_threshold_ms": 10.0,
+        "material_slowdown": false,
+        "material_speedup": false
+      },
+      "display_increment_minus_capture": {
+        "round_deltas_ms": [
+          -25.801333,
+          7.43004099999996,
+          -1.1417079999999942,
+          17.372251000000006
+        ],
+        "median_round_delta_ms": 3.144166499999983,
+        "all_rounds_positive": false,
+        "all_rounds_negative": false,
+        "material_threshold_ms": 10.0,
+        "material_slowdown": false,
+        "material_speedup": false
+      },
+      "full_live_minus_closed": {
+        "round_deltas_ms": [
+          -2.5066249999999854,
+          24.243540999999937,
+          38.43270799999999,
+          14.51724999999999
+        ],
+        "median_round_delta_ms": 19.380395499999963,
+        "all_rounds_positive": false,
+        "all_rounds_negative": false,
+        "material_threshold_ms": 10.0,
+        "material_slowdown": false,
+        "material_speedup": false
+      }
+    },
+    "material_slowdown_components": []
+  },
+  "same_process_summary": {
+    "closed_no_display_median_ms": 525.020313,
+    "capture_display_median_ms": 538.6341044999999,
+    "full_live_minus_closed_raw_median_difference_ms": 13.613791499999934,
+    "historical_0047_comparison_is_context_only": true,
+    "historical_0053a_comparison_is_context_only": true
+  },
+  "camera_capture_interval_ms": {
+    "n": 1188,
+    "mean": 56.434034792087544,
+    "median": 33.3563125,
+    "p90": 34.825575,
+    "p95": 35.7400896,
+    "min": 15.22275,
+    "max": 4753.325375
+  },
+  "decision_hint": "Use round-level component deltas for causal attribution. Do not attribute the historical 0047->0053a cross-protocol gap directly to camera/display without same-process evidence."
+}

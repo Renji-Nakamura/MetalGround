@@ -1,0 +1,1231 @@
+{
+  "timestamp_utc": "2026-09-16T12:11:31.233479+00:00",
+  "experiment": "0052",
+  "purpose": "Ground-truth COCO bbox accuracy comparison between untouched PyTorch/MPS Grounding DINO and adopted MetalGround under the fixed webcam-style geometry.",
+  "scope": "smoke_subset_not_for_accuracy_claim",
+  "model": "IDEA-Research/grounding-dino-tiny",
+  "device": "mps",
+  "dtype": "float32",
+  "images_evaluated": 20,
+  "configuration": {
+    "image_archive": "datasets/coco/val2017.zip",
+    "image_archive_sha256": "4f7e2ccb2866ec5041993c9cf2a952bbed69647b115d0f74da7ce8f4bef82f05",
+    "annotations": "datasets/coco/annotations/instances_val2017.json",
+    "annotations_sha256": "e8c7f7908f1d7278341fae127d0da654f102f11bd7b21d8aeefa635b8c810b6f",
+    "canvas_wh": [
+      1200,
+      901
+    ],
+    "canvas_fill_rgb": [
+      114,
+      114,
+      114
+    ],
+    "processor_pixel_values_shape": [
+      1,
+      3,
+      800,
+      1065
+    ],
+    "prompt_protocol": "GroundingDINO official COCO zero-shot style: 80 lower-case COCO category names in one caption, token-span normalized positive map, sigmoid token logits projected to category scores, top-300 over query x category.",
+    "prompt_caption": "person . bicycle . car . motorcycle . airplane . bus . train . truck . boat . traffic light . fire hydrant . stop sign . parking meter . bench . bird . cat . dog . horse . sheep . cow . elephant . bear . zebra . giraffe . backpack . umbrella . handbag . tie . suitcase . frisbee . skis . snowboard . sports ball . kite . baseball bat . baseball glove . skateboard . surfboard . tennis racket . bottle . wine glass . cup . fork . knife . spoon . bowl . banana . apple . sandwich . orange . broccoli . carrot . hot dog . pizza . donut . cake . chair . couch . potted plant . bed . dining table . toilet . tv . laptop . mouse . remote . keyboard . cell phone . microwave . oven . toaster . sink . refrigerator . book . clock . vase . scissors . teddy bear . hair drier . toothbrush .",
+    "prompt_token_count": 195,
+    "num_select": 300,
+    "performance_timing": false,
+    "approximation": false,
+    "retraining": false,
+    "reduced_precision": false,
+    "absolute_AP_protocol_note": "Input geometry is MetalGround's fixed 1200x901 letterbox, not the official repository's native-aspect RandomResize evaluation. Therefore absolute AP is protocol-specific; the primary scientific quantity is the matched original-vs-final delta."
+  },
+  "pre_registered_primary_gate": {
+    "metric": "COCO bbox AP@[0.50:0.95]",
+    "equivalence_margin_AP_points": 0.1,
+    "definition": "PASS iff absolute(final-original) AP delta is <= 0.10 AP points on the full 5000-image val2017.",
+    "applicable": false,
+    "pass": null
+  },
+  "original": {
+    "metrics": {
+      "AP": 0.5755282445388319,
+      "AP50": 0.7336816303080106,
+      "AP75": 0.6328188392679425,
+      "AP_small": 0.3706318694525556,
+      "AP_medium": 0.731276134321813,
+      "AP_large": 0.8006229108480294,
+      "AR_maxDets1": 0.4522376543209876,
+      "AR_maxDets10": 0.7155221193415637,
+      "AR_maxDets100": 0.7365689300411522,
+      "AR_small": 0.5239999999999999,
+      "AR_medium": 0.8087461300309596,
+      "AR_large": 0.874313725490196
+    },
+    "per_category": {
+      "1": {
+        "name": "person",
+        "AP": 0.6174487883495399
+      },
+      "2": {
+        "name": "bicycle",
+        "AP": NaN
+      },
+      "3": {
+        "name": "car",
+        "AP": 0.5042051347991943
+      },
+      "4": {
+        "name": "motorcycle",
+        "AP": NaN
+      },
+      "5": {
+        "name": "airplane",
+        "AP": 0.900990099009901
+      },
+      "6": {
+        "name": "bus",
+        "AP": 0.9554455445544554
+      },
+      "7": {
+        "name": "train",
+        "AP": 0.0
+      },
+      "8": {
+        "name": "truck",
+        "AP": 0.06867986798679868
+      },
+      "9": {
+        "name": "boat",
+        "AP": 0.31534653465346535
+      },
+      "10": {
+        "name": "traffic light",
+        "AP": NaN
+      },
+      "11": {
+        "name": "fire hydrant",
+        "AP": NaN
+      },
+      "13": {
+        "name": "stop sign",
+        "AP": 0.5049504950495048
+      },
+      "14": {
+        "name": "parking meter",
+        "AP": NaN
+      },
+      "15": {
+        "name": "bench",
+        "AP": NaN
+      },
+      "16": {
+        "name": "bird",
+        "AP": 0.7999999999999999
+      },
+      "17": {
+        "name": "cat",
+        "AP": 0.5999999999999999
+      },
+      "18": {
+        "name": "dog",
+        "AP": NaN
+      },
+      "19": {
+        "name": "horse",
+        "AP": NaN
+      },
+      "20": {
+        "name": "sheep",
+        "AP": NaN
+      },
+      "21": {
+        "name": "cow",
+        "AP": NaN
+      },
+      "22": {
+        "name": "elephant",
+        "AP": NaN
+      },
+      "23": {
+        "name": "bear",
+        "AP": 0.9999999999999998
+      },
+      "24": {
+        "name": "zebra",
+        "AP": NaN
+      },
+      "25": {
+        "name": "giraffe",
+        "AP": NaN
+      },
+      "27": {
+        "name": "backpack",
+        "AP": 0.3354393503866515
+      },
+      "28": {
+        "name": "umbrella",
+        "AP": NaN
+      },
+      "31": {
+        "name": "handbag",
+        "AP": 0.2553005657708628
+      },
+      "32": {
+        "name": "tie",
+        "AP": NaN
+      },
+      "33": {
+        "name": "suitcase",
+        "AP": NaN
+      },
+      "34": {
+        "name": "frisbee",
+        "AP": NaN
+      },
+      "35": {
+        "name": "skis",
+        "AP": 0.8999999999999999
+      },
+      "36": {
+        "name": "snowboard",
+        "AP": NaN
+      },
+      "37": {
+        "name": "sports ball",
+        "AP": 0.5999999999999999
+      },
+      "38": {
+        "name": "kite",
+        "AP": NaN
+      },
+      "39": {
+        "name": "baseball bat",
+        "AP": NaN
+      },
+      "40": {
+        "name": "baseball glove",
+        "AP": 0.6999999999999998
+      },
+      "41": {
+        "name": "skateboard",
+        "AP": NaN
+      },
+      "42": {
+        "name": "surfboard",
+        "AP": 0.7999999999999999
+      },
+      "43": {
+        "name": "tennis racket",
+        "AP": 0.4039603960396039
+      },
+      "44": {
+        "name": "bottle",
+        "AP": NaN
+      },
+      "46": {
+        "name": "wine glass",
+        "AP": NaN
+      },
+      "47": {
+        "name": "cup",
+        "AP": NaN
+      },
+      "48": {
+        "name": "fork",
+        "AP": NaN
+      },
+      "49": {
+        "name": "knife",
+        "AP": NaN
+      },
+      "50": {
+        "name": "spoon",
+        "AP": NaN
+      },
+      "51": {
+        "name": "bowl",
+        "AP": 0.8023809523809523
+      },
+      "52": {
+        "name": "banana",
+        "AP": NaN
+      },
+      "53": {
+        "name": "apple",
+        "AP": NaN
+      },
+      "54": {
+        "name": "sandwich",
+        "AP": 0.7999999999999999
+      },
+      "55": {
+        "name": "orange",
+        "AP": NaN
+      },
+      "56": {
+        "name": "broccoli",
+        "AP": NaN
+      },
+      "57": {
+        "name": "carrot",
+        "AP": NaN
+      },
+      "58": {
+        "name": "hot dog",
+        "AP": NaN
+      },
+      "59": {
+        "name": "pizza",
+        "AP": NaN
+      },
+      "60": {
+        "name": "donut",
+        "AP": NaN
+      },
+      "61": {
+        "name": "cake",
+        "AP": NaN
+      },
+      "62": {
+        "name": "chair",
+        "AP": 0.4154810673375029
+      },
+      "63": {
+        "name": "couch",
+        "AP": NaN
+      },
+      "64": {
+        "name": "potted plant",
+        "AP": 0.623960396039604
+      },
+      "65": {
+        "name": "bed",
+        "AP": 0.7016501650165015
+      },
+      "67": {
+        "name": "dining table",
+        "AP": 0.2666666666666666
+      },
+      "70": {
+        "name": "toilet",
+        "AP": NaN
+      },
+      "72": {
+        "name": "tv",
+        "AP": 0.6519471947194718
+      },
+      "73": {
+        "name": "laptop",
+        "AP": 0.9999999999999998
+      },
+      "74": {
+        "name": "mouse",
+        "AP": 0.5732673267326732
+      },
+      "75": {
+        "name": "remote",
+        "AP": NaN
+      },
+      "76": {
+        "name": "keyboard",
+        "AP": 0.9504950495049505
+      },
+      "77": {
+        "name": "cell phone",
+        "AP": 0.4838283828382838
+      },
+      "78": {
+        "name": "microwave",
+        "AP": 0.29999999999999993
+      },
+      "79": {
+        "name": "oven",
+        "AP": 0.3583333333333333
+      },
+      "80": {
+        "name": "toaster",
+        "AP": NaN
+      },
+      "81": {
+        "name": "sink",
+        "AP": NaN
+      },
+      "82": {
+        "name": "refrigerator",
+        "AP": 0.7359735973597358
+      },
+      "84": {
+        "name": "book",
+        "AP": 0.003991967475552676
+      },
+      "85": {
+        "name": "clock",
+        "AP": 0.4039603960396039
+      },
+      "86": {
+        "name": "vase",
+        "AP": 0.4410891089108911
+      },
+      "87": {
+        "name": "scissors",
+        "AP": NaN
+      },
+      "88": {
+        "name": "teddy bear",
+        "AP": 0.9442244224422442
+      },
+      "89": {
+        "name": "hair drier",
+        "AP": NaN
+      },
+      "90": {
+        "name": "toothbrush",
+        "AP": NaN
+      }
+    },
+    "predictions_file": "results/metalground_coco_accuracy_0052_smoke_original_predictions.json"
+  },
+  "final": {
+    "metrics": {
+      "AP": 0.5755314506206731,
+      "AP50": 0.7336892755512915,
+      "AP75": 0.6328233318871221,
+      "AP_small": 0.37063201475010416,
+      "AP_medium": 0.7312688589705447,
+      "AP_large": 0.8006230939513327,
+      "AR_maxDets1": 0.4522376543209876,
+      "AR_maxDets10": 0.7155221193415637,
+      "AR_maxDets100": 0.7365689300411522,
+      "AR_small": 0.5239999999999999,
+      "AR_medium": 0.8087461300309596,
+      "AR_large": 0.874313725490196
+    },
+    "per_category": {
+      "1": {
+        "name": "person",
+        "AP": 0.617514120454081
+      },
+      "2": {
+        "name": "bicycle",
+        "AP": NaN
+      },
+      "3": {
+        "name": "car",
+        "AP": 0.5042051347991943
+      },
+      "4": {
+        "name": "motorcycle",
+        "AP": NaN
+      },
+      "5": {
+        "name": "airplane",
+        "AP": 0.900990099009901
+      },
+      "6": {
+        "name": "bus",
+        "AP": 0.9554455445544554
+      },
+      "7": {
+        "name": "train",
+        "AP": 0.0
+      },
+      "8": {
+        "name": "truck",
+        "AP": 0.06867986798679868
+      },
+      "9": {
+        "name": "boat",
+        "AP": 0.31534653465346535
+      },
+      "10": {
+        "name": "traffic light",
+        "AP": NaN
+      },
+      "11": {
+        "name": "fire hydrant",
+        "AP": NaN
+      },
+      "13": {
+        "name": "stop sign",
+        "AP": 0.5049504950495048
+      },
+      "14": {
+        "name": "parking meter",
+        "AP": NaN
+      },
+      "15": {
+        "name": "bench",
+        "AP": NaN
+      },
+      "16": {
+        "name": "bird",
+        "AP": 0.7999999999999999
+      },
+      "17": {
+        "name": "cat",
+        "AP": 0.5999999999999999
+      },
+      "18": {
+        "name": "dog",
+        "AP": NaN
+      },
+      "19": {
+        "name": "horse",
+        "AP": NaN
+      },
+      "20": {
+        "name": "sheep",
+        "AP": NaN
+      },
+      "21": {
+        "name": "cow",
+        "AP": NaN
+      },
+      "22": {
+        "name": "elephant",
+        "AP": NaN
+      },
+      "23": {
+        "name": "bear",
+        "AP": 0.9999999999999998
+      },
+      "24": {
+        "name": "zebra",
+        "AP": NaN
+      },
+      "25": {
+        "name": "giraffe",
+        "AP": NaN
+      },
+      "27": {
+        "name": "backpack",
+        "AP": 0.3354393503866515
+      },
+      "28": {
+        "name": "umbrella",
+        "AP": NaN
+      },
+      "31": {
+        "name": "handbag",
+        "AP": 0.2553005657708628
+      },
+      "32": {
+        "name": "tie",
+        "AP": NaN
+      },
+      "33": {
+        "name": "suitcase",
+        "AP": NaN
+      },
+      "34": {
+        "name": "frisbee",
+        "AP": NaN
+      },
+      "35": {
+        "name": "skis",
+        "AP": 0.8999999999999999
+      },
+      "36": {
+        "name": "snowboard",
+        "AP": NaN
+      },
+      "37": {
+        "name": "sports ball",
+        "AP": 0.5999999999999999
+      },
+      "38": {
+        "name": "kite",
+        "AP": NaN
+      },
+      "39": {
+        "name": "baseball bat",
+        "AP": NaN
+      },
+      "40": {
+        "name": "baseball glove",
+        "AP": 0.6999999999999998
+      },
+      "41": {
+        "name": "skateboard",
+        "AP": NaN
+      },
+      "42": {
+        "name": "surfboard",
+        "AP": 0.7999999999999999
+      },
+      "43": {
+        "name": "tennis racket",
+        "AP": 0.4039603960396039
+      },
+      "44": {
+        "name": "bottle",
+        "AP": NaN
+      },
+      "46": {
+        "name": "wine glass",
+        "AP": NaN
+      },
+      "47": {
+        "name": "cup",
+        "AP": NaN
+      },
+      "48": {
+        "name": "fork",
+        "AP": NaN
+      },
+      "49": {
+        "name": "knife",
+        "AP": NaN
+      },
+      "50": {
+        "name": "spoon",
+        "AP": NaN
+      },
+      "51": {
+        "name": "bowl",
+        "AP": 0.8023809523809523
+      },
+      "52": {
+        "name": "banana",
+        "AP": NaN
+      },
+      "53": {
+        "name": "apple",
+        "AP": NaN
+      },
+      "54": {
+        "name": "sandwich",
+        "AP": 0.7999999999999999
+      },
+      "55": {
+        "name": "orange",
+        "AP": NaN
+      },
+      "56": {
+        "name": "broccoli",
+        "AP": NaN
+      },
+      "57": {
+        "name": "carrot",
+        "AP": NaN
+      },
+      "58": {
+        "name": "hot dog",
+        "AP": NaN
+      },
+      "59": {
+        "name": "pizza",
+        "AP": NaN
+      },
+      "60": {
+        "name": "donut",
+        "AP": NaN
+      },
+      "61": {
+        "name": "cake",
+        "AP": NaN
+      },
+      "62": {
+        "name": "chair",
+        "AP": 0.4155311541792477
+      },
+      "63": {
+        "name": "couch",
+        "AP": NaN
+      },
+      "64": {
+        "name": "potted plant",
+        "AP": 0.623960396039604
+      },
+      "65": {
+        "name": "bed",
+        "AP": 0.7016501650165015
+      },
+      "67": {
+        "name": "dining table",
+        "AP": 0.2666666666666666
+      },
+      "70": {
+        "name": "toilet",
+        "AP": NaN
+      },
+      "72": {
+        "name": "tv",
+        "AP": 0.6519471947194718
+      },
+      "73": {
+        "name": "laptop",
+        "AP": 0.9999999999999998
+      },
+      "74": {
+        "name": "mouse",
+        "AP": 0.5732673267326732
+      },
+      "75": {
+        "name": "remote",
+        "AP": NaN
+      },
+      "76": {
+        "name": "keyboard",
+        "AP": 0.9504950495049505
+      },
+      "77": {
+        "name": "cell phone",
+        "AP": 0.4838283828382838
+      },
+      "78": {
+        "name": "microwave",
+        "AP": 0.29999999999999993
+      },
+      "79": {
+        "name": "oven",
+        "AP": 0.3583333333333333
+      },
+      "80": {
+        "name": "toaster",
+        "AP": NaN
+      },
+      "81": {
+        "name": "sink",
+        "AP": NaN
+      },
+      "82": {
+        "name": "refrigerator",
+        "AP": 0.7359735973597358
+      },
+      "84": {
+        "name": "book",
+        "AP": 0.003991967475552676
+      },
+      "85": {
+        "name": "clock",
+        "AP": 0.4039603960396039
+      },
+      "86": {
+        "name": "vase",
+        "AP": 0.4410891089108911
+      },
+      "87": {
+        "name": "scissors",
+        "AP": NaN
+      },
+      "88": {
+        "name": "teddy bear",
+        "AP": 0.9442244224422442
+      },
+      "89": {
+        "name": "hair drier",
+        "AP": NaN
+      },
+      "90": {
+        "name": "toothbrush",
+        "AP": NaN
+      }
+    },
+    "predictions_file": "results/metalground_coco_accuracy_0052_smoke_final_predictions.json"
+  },
+  "delta_AP_points_final_minus_original": {
+    "AP": 0.0003206081841233832,
+    "AP50": 0.0007645243280895997,
+    "AP75": 0.0004492619179674584,
+    "AP_small": 1.4529754854830657e-05,
+    "AP_medium": -0.0007275351268321018,
+    "AP_large": 1.8310330329729396e-05,
+    "AR_maxDets1": 0.0,
+    "AR_maxDets10": 0.0,
+    "AR_maxDets100": 0.0,
+    "AR_small": 0.0,
+    "AR_medium": 0.0,
+    "AR_large": 0.0
+  },
+  "per_category_delta": {
+    "1": {
+      "name": "person",
+      "original_AP": 0.6174487883495399,
+      "final_AP": 0.617514120454081,
+      "delta_AP_points": 0.0065332104541182545
+    },
+    "2": {
+      "name": "bicycle",
+      "original_AP": NaN,
+      "final_AP": NaN,
+      "delta_AP_points": NaN
+    },
+    "3": {
+      "name": "car",
+      "original_AP": 0.5042051347991943,
+      "final_AP": 0.5042051347991943,
+      "delta_AP_points": 0.0
+    },
+    "4": {
+      "name": "motorcycle",
+      "original_AP": NaN,
+      "final_AP": NaN,
+      "delta_AP_points": NaN
+    },
+    "5": {
+      "name": "airplane",
+      "original_AP": 0.900990099009901,
+      "final_AP": 0.900990099009901,
+      "delta_AP_points": 0.0
+    },
+    "6": {
+      "name": "bus",
+      "original_AP": 0.9554455445544554,
+      "final_AP": 0.9554455445544554,
+      "delta_AP_points": 0.0
+    },
+    "7": {
+      "name": "train",
+      "original_AP": 0.0,
+      "final_AP": 0.0,
+      "delta_AP_points": 0.0
+    },
+    "8": {
+      "name": "truck",
+      "original_AP": 0.06867986798679868,
+      "final_AP": 0.06867986798679868,
+      "delta_AP_points": 0.0
+    },
+    "9": {
+      "name": "boat",
+      "original_AP": 0.31534653465346535,
+      "final_AP": 0.31534653465346535,
+      "delta_AP_points": 0.0
+    },
+    "10": {
+      "name": "traffic light",
+      "original_AP": NaN,
+      "final_AP": NaN,
+      "delta_AP_points": NaN
+    },
+    "11": {
+      "name": "fire hydrant",
+      "original_AP": NaN,
+      "final_AP": NaN,
+      "delta_AP_points": NaN
+    },
+    "13": {
+      "name": "stop sign",
+      "original_AP": 0.5049504950495048,
+      "final_AP": 0.5049504950495048,
+      "delta_AP_points": 0.0
+    },
+    "14": {
+      "name": "parking meter",
+      "original_AP": NaN,
+      "final_AP": NaN,
+      "delta_AP_points": NaN
+    },
+    "15": {
+      "name": "bench",
+      "original_AP": NaN,
+      "final_AP": NaN,
+      "delta_AP_points": NaN
+    },
+    "16": {
+      "name": "bird",
+      "original_AP": 0.7999999999999999,
+      "final_AP": 0.7999999999999999,
+      "delta_AP_points": 0.0
+    },
+    "17": {
+      "name": "cat",
+      "original_AP": 0.5999999999999999,
+      "final_AP": 0.5999999999999999,
+      "delta_AP_points": 0.0
+    },
+    "18": {
+      "name": "dog",
+      "original_AP": NaN,
+      "final_AP": NaN,
+      "delta_AP_points": NaN
+    },
+    "19": {
+      "name": "horse",
+      "original_AP": NaN,
+      "final_AP": NaN,
+      "delta_AP_points": NaN
+    },
+    "20": {
+      "name": "sheep",
+      "original_AP": NaN,
+      "final_AP": NaN,
+      "delta_AP_points": NaN
+    },
+    "21": {
+      "name": "cow",
+      "original_AP": NaN,
+      "final_AP": NaN,
+      "delta_AP_points": NaN
+    },
+    "22": {
+      "name": "elephant",
+      "original_AP": NaN,
+      "final_AP": NaN,
+      "delta_AP_points": NaN
+    },
+    "23": {
+      "name": "bear",
+      "original_AP": 0.9999999999999998,
+      "final_AP": 0.9999999999999998,
+      "delta_AP_points": 0.0
+    },
+    "24": {
+      "name": "zebra",
+      "original_AP": NaN,
+      "final_AP": NaN,
+      "delta_AP_points": NaN
+    },
+    "25": {
+      "name": "giraffe",
+      "original_AP": NaN,
+      "final_AP": NaN,
+      "delta_AP_points": NaN
+    },
+    "27": {
+      "name": "backpack",
+      "original_AP": 0.3354393503866515,
+      "final_AP": 0.3354393503866515,
+      "delta_AP_points": 0.0
+    },
+    "28": {
+      "name": "umbrella",
+      "original_AP": NaN,
+      "final_AP": NaN,
+      "delta_AP_points": NaN
+    },
+    "31": {
+      "name": "handbag",
+      "original_AP": 0.2553005657708628,
+      "final_AP": 0.2553005657708628,
+      "delta_AP_points": 0.0
+    },
+    "32": {
+      "name": "tie",
+      "original_AP": NaN,
+      "final_AP": NaN,
+      "delta_AP_points": NaN
+    },
+    "33": {
+      "name": "suitcase",
+      "original_AP": NaN,
+      "final_AP": NaN,
+      "delta_AP_points": NaN
+    },
+    "34": {
+      "name": "frisbee",
+      "original_AP": NaN,
+      "final_AP": NaN,
+      "delta_AP_points": NaN
+    },
+    "35": {
+      "name": "skis",
+      "original_AP": 0.8999999999999999,
+      "final_AP": 0.8999999999999999,
+      "delta_AP_points": 0.0
+    },
+    "36": {
+      "name": "snowboard",
+      "original_AP": NaN,
+      "final_AP": NaN,
+      "delta_AP_points": NaN
+    },
+    "37": {
+      "name": "sports ball",
+      "original_AP": 0.5999999999999999,
+      "final_AP": 0.5999999999999999,
+      "delta_AP_points": 0.0
+    },
+    "38": {
+      "name": "kite",
+      "original_AP": NaN,
+      "final_AP": NaN,
+      "delta_AP_points": NaN
+    },
+    "39": {
+      "name": "baseball bat",
+      "original_AP": NaN,
+      "final_AP": NaN,
+      "delta_AP_points": NaN
+    },
+    "40": {
+      "name": "baseball glove",
+      "original_AP": 0.6999999999999998,
+      "final_AP": 0.6999999999999998,
+      "delta_AP_points": 0.0
+    },
+    "41": {
+      "name": "skateboard",
+      "original_AP": NaN,
+      "final_AP": NaN,
+      "delta_AP_points": NaN
+    },
+    "42": {
+      "name": "surfboard",
+      "original_AP": 0.7999999999999999,
+      "final_AP": 0.7999999999999999,
+      "delta_AP_points": 0.0
+    },
+    "43": {
+      "name": "tennis racket",
+      "original_AP": 0.4039603960396039,
+      "final_AP": 0.4039603960396039,
+      "delta_AP_points": 0.0
+    },
+    "44": {
+      "name": "bottle",
+      "original_AP": NaN,
+      "final_AP": NaN,
+      "delta_AP_points": NaN
+    },
+    "46": {
+      "name": "wine glass",
+      "original_AP": NaN,
+      "final_AP": NaN,
+      "delta_AP_points": NaN
+    },
+    "47": {
+      "name": "cup",
+      "original_AP": NaN,
+      "final_AP": NaN,
+      "delta_AP_points": NaN
+    },
+    "48": {
+      "name": "fork",
+      "original_AP": NaN,
+      "final_AP": NaN,
+      "delta_AP_points": NaN
+    },
+    "49": {
+      "name": "knife",
+      "original_AP": NaN,
+      "final_AP": NaN,
+      "delta_AP_points": NaN
+    },
+    "50": {
+      "name": "spoon",
+      "original_AP": NaN,
+      "final_AP": NaN,
+      "delta_AP_points": NaN
+    },
+    "51": {
+      "name": "bowl",
+      "original_AP": 0.8023809523809523,
+      "final_AP": 0.8023809523809523,
+      "delta_AP_points": 0.0
+    },
+    "52": {
+      "name": "banana",
+      "original_AP": NaN,
+      "final_AP": NaN,
+      "delta_AP_points": NaN
+    },
+    "53": {
+      "name": "apple",
+      "original_AP": NaN,
+      "final_AP": NaN,
+      "delta_AP_points": NaN
+    },
+    "54": {
+      "name": "sandwich",
+      "original_AP": 0.7999999999999999,
+      "final_AP": 0.7999999999999999,
+      "delta_AP_points": 0.0
+    },
+    "55": {
+      "name": "orange",
+      "original_AP": NaN,
+      "final_AP": NaN,
+      "delta_AP_points": NaN
+    },
+    "56": {
+      "name": "broccoli",
+      "original_AP": NaN,
+      "final_AP": NaN,
+      "delta_AP_points": NaN
+    },
+    "57": {
+      "name": "carrot",
+      "original_AP": NaN,
+      "final_AP": NaN,
+      "delta_AP_points": NaN
+    },
+    "58": {
+      "name": "hot dog",
+      "original_AP": NaN,
+      "final_AP": NaN,
+      "delta_AP_points": NaN
+    },
+    "59": {
+      "name": "pizza",
+      "original_AP": NaN,
+      "final_AP": NaN,
+      "delta_AP_points": NaN
+    },
+    "60": {
+      "name": "donut",
+      "original_AP": NaN,
+      "final_AP": NaN,
+      "delta_AP_points": NaN
+    },
+    "61": {
+      "name": "cake",
+      "original_AP": NaN,
+      "final_AP": NaN,
+      "delta_AP_points": NaN
+    },
+    "62": {
+      "name": "chair",
+      "original_AP": 0.4154810673375029,
+      "final_AP": 0.4155311541792477,
+      "delta_AP_points": 0.005008684174478972
+    },
+    "63": {
+      "name": "couch",
+      "original_AP": NaN,
+      "final_AP": NaN,
+      "delta_AP_points": NaN
+    },
+    "64": {
+      "name": "potted plant",
+      "original_AP": 0.623960396039604,
+      "final_AP": 0.623960396039604,
+      "delta_AP_points": 0.0
+    },
+    "65": {
+      "name": "bed",
+      "original_AP": 0.7016501650165015,
+      "final_AP": 0.7016501650165015,
+      "delta_AP_points": 0.0
+    },
+    "67": {
+      "name": "dining table",
+      "original_AP": 0.2666666666666666,
+      "final_AP": 0.2666666666666666,
+      "delta_AP_points": 0.0
+    },
+    "70": {
+      "name": "toilet",
+      "original_AP": NaN,
+      "final_AP": NaN,
+      "delta_AP_points": NaN
+    },
+    "72": {
+      "name": "tv",
+      "original_AP": 0.6519471947194718,
+      "final_AP": 0.6519471947194718,
+      "delta_AP_points": 0.0
+    },
+    "73": {
+      "name": "laptop",
+      "original_AP": 0.9999999999999998,
+      "final_AP": 0.9999999999999998,
+      "delta_AP_points": 0.0
+    },
+    "74": {
+      "name": "mouse",
+      "original_AP": 0.5732673267326732,
+      "final_AP": 0.5732673267326732,
+      "delta_AP_points": 0.0
+    },
+    "75": {
+      "name": "remote",
+      "original_AP": NaN,
+      "final_AP": NaN,
+      "delta_AP_points": NaN
+    },
+    "76": {
+      "name": "keyboard",
+      "original_AP": 0.9504950495049505,
+      "final_AP": 0.9504950495049505,
+      "delta_AP_points": 0.0
+    },
+    "77": {
+      "name": "cell phone",
+      "original_AP": 0.4838283828382838,
+      "final_AP": 0.4838283828382838,
+      "delta_AP_points": 0.0
+    },
+    "78": {
+      "name": "microwave",
+      "original_AP": 0.29999999999999993,
+      "final_AP": 0.29999999999999993,
+      "delta_AP_points": 0.0
+    },
+    "79": {
+      "name": "oven",
+      "original_AP": 0.3583333333333333,
+      "final_AP": 0.3583333333333333,
+      "delta_AP_points": 0.0
+    },
+    "80": {
+      "name": "toaster",
+      "original_AP": NaN,
+      "final_AP": NaN,
+      "delta_AP_points": NaN
+    },
+    "81": {
+      "name": "sink",
+      "original_AP": NaN,
+      "final_AP": NaN,
+      "delta_AP_points": NaN
+    },
+    "82": {
+      "name": "refrigerator",
+      "original_AP": 0.7359735973597358,
+      "final_AP": 0.7359735973597358,
+      "delta_AP_points": 0.0
+    },
+    "84": {
+      "name": "book",
+      "original_AP": 0.003991967475552676,
+      "final_AP": 0.003991967475552676,
+      "delta_AP_points": 0.0
+    },
+    "85": {
+      "name": "clock",
+      "original_AP": 0.4039603960396039,
+      "final_AP": 0.4039603960396039,
+      "delta_AP_points": 0.0
+    },
+    "86": {
+      "name": "vase",
+      "original_AP": 0.4410891089108911,
+      "final_AP": 0.4410891089108911,
+      "delta_AP_points": 0.0
+    },
+    "87": {
+      "name": "scissors",
+      "original_AP": NaN,
+      "final_AP": NaN,
+      "delta_AP_points": NaN
+    },
+    "88": {
+      "name": "teddy bear",
+      "original_AP": 0.9442244224422442,
+      "final_AP": 0.9442244224422442,
+      "delta_AP_points": 0.0
+    },
+    "89": {
+      "name": "hair drier",
+      "original_AP": NaN,
+      "final_AP": NaN,
+      "delta_AP_points": NaN
+    },
+    "90": {
+      "name": "toothbrush",
+      "original_AP": NaN,
+      "final_AP": NaN,
+      "delta_AP_points": NaN
+    }
+  },
+  "max_absolute_category_AP_delta": {
+    "category_id": 1,
+    "name": "person",
+    "delta_AP_points": 0.0065332104541182545
+  },
+  "checkpoint": "results/metalground_coco_accuracy_0052_smoke.json.checkpoint.sqlite3",
+  "notes": [
+    "Subset/smoke AP is harness validation only and must not be used for a dataset-level accuracy claim.",
+    "COCO boxes are mapped from the fixed letterbox canvas back to original-image coordinates using the exact realized x/y resize scales."
+  ]
+}

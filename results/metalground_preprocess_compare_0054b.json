@@ -1,0 +1,52 @@
+{
+  "experiment": "0054b",
+  "reference_shape": [
+    3,
+    800,
+    1065
+  ],
+  "candidate_shape": [
+    3,
+    800,
+    1065
+  ],
+  "difference": {
+    "mean_abs": 0.013900949619710445,
+    "median_abs": 1.1920928955078125e-07,
+    "p95_abs": 0.07407402992248535,
+    "p99_abs": 0.22440099716186523,
+    "max_abs": 1.1335785388946533,
+    "rmse": 0.043441068637080985
+  },
+  "cpu_reference_timing_ms": {
+    "n": 30,
+    "mean": 8.480600133333333,
+    "median": 8.292438,
+    "p90": 9.7006837,
+    "p95": 10.14771525,
+    "min": 7.129792,
+    "max": 10.293292
+  },
+  "metal_timing_ms": {
+    "max": 1.204458,
+    "mean": 0.6701941599999998,
+    "median": 0.6249165000000001,
+    "min": 0.495125,
+    "n": 200,
+    "p90": 0.9623624999999999,
+    "p95": 1.02617115
+  },
+  "pre_registered_gates": {
+    "shape_exact": true,
+    "mean_abs_le_0_010": false,
+    "p99_abs_le_0_050": false,
+    "max_abs_le_0_250": false,
+    "metal_p95_ms_le_3": true
+  },
+  "all_gates_pass": false,
+  "notes": [
+    "This compares a faithful two-pass Metal implementation against the current PIL + HF image processor reference on a deterministic 1280x720 frame.",
+    "No Grounding DINO inference is run in 0054b.",
+    "A failure of numerical gates triggers interpolation-semantics diagnosis before any one-pass fusion."
+  ]
+}

@@ -1,0 +1,109 @@
+{
+  "experiment": "0054c-3",
+  "purpose": "Qualify zero-copy import of a foreign shared MTLBuffer into MLX via kDLMetal DLPack, then onward to PyTorch MPS.",
+  "environment": {
+    "torch": "2.13.0",
+    "mlx": "0.32.2",
+    "mps_available": true,
+    "mlx_metal_available": true
+  },
+  "foreign_buffer": {
+    "shape": [
+      1,
+      3,
+      800,
+      1065
+    ],
+    "dtype": "float32",
+    "dlpack_device": [
+      8,
+      0
+    ],
+    "storage_mode_raw": 0,
+    "storage_mode_expected": "MTLStorageModeShared",
+    "length_bytes": 10224000,
+    "owner": "native Objective-C++ Python extension"
+  },
+  "imports": {
+    "mlx_shape": [
+      1,
+      3,
+      800,
+      1065
+    ],
+    "mlx_dtype": "mlx.core.float32",
+    "torch_shape": [
+      1,
+      3,
+      800,
+      1065
+    ],
+    "torch_dtype": "torch.float32",
+    "torch_device": "mps",
+    "probe_values_torch": {
+      "0": 1.25,
+      "1278000": -2.5,
+      "2555999": 3.75
+    }
+  },
+  "alias_proofs": {
+    "native_to_torch": {
+      "index": 17,
+      "sentinel_written_via_mtlbuffer_contents": 1111.25,
+      "observed_via_torch_mps": 1111.25,
+      "pass": true
+    },
+    "torch_to_native": {
+      "index": 23,
+      "sentinel_written_via_torch_mps": -2222.5,
+      "observed_via_mtlbuffer_contents": -2222.5,
+      "pass": true
+    },
+    "torch_to_mlx": {
+      "index": 23,
+      "sentinel_written_via_torch_mps": -2222.5,
+      "observed_via_mlx": -2222.5,
+      "pass": true
+    }
+  },
+  "foreign_to_mlx_import_ms": {
+    "n": 500,
+    "mean": 0.000393484,
+    "median": 0.000375,
+    "p90": 0.000417,
+    "p95": 0.000417,
+    "min": 0.000333,
+    "max": 0.001167
+  },
+  "foreign_to_mlx_to_torch_boundary_ms": {
+    "n": 200,
+    "mean": 0.0012814500000000002,
+    "median": 0.001167,
+    "p90": 0.00125,
+    "p95": 0.0012940499999999993,
+    "min": 0.001083,
+    "max": 0.01825
+  },
+  "pre_registered_gates": {
+    "foreign_dlpack_device_is_metal_8": true,
+    "foreign_mtlbuffer_storage_mode_shared": true,
+    "foreign_buffer_size_sufficient": true,
+    "mlx_shape_exact": true,
+    "torch_shape_exact": true,
+    "torch_device_mps": true,
+    "torch_dtype_float32": true,
+    "initial_probe_values_exact": true,
+    "native_to_torch_alias_proven": true,
+    "torch_to_native_alias_proven": true,
+    "torch_to_mlx_alias_proven": true,
+    "foreign_to_mlx_import_p95_ms_le_1": true,
+    "foreign_to_torch_boundary_p95_ms_le_1": true
+  },
+  "all_gates_pass": true,
+  "guardrails": [
+    "The foreign buffer in 0054c-3 is a synthetic MTLStorageModeShared buffer, not yet a live camera/preprocess output buffer.",
+    "0054c-3 tests the ownership/interop mechanism required to connect the native Swift/Metal producer to the already-qualified MLX->PyTorch bridge.",
+    "No camera, preprocessing, or model performance claim is made from this experiment.",
+    "Alias proofs are stronger evidence than API choice alone: mutations are observed across native MTLBuffer, MLX, and PyTorch MPS views."
+  ]
+}

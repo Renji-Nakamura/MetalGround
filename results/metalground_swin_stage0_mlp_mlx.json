@@ -1,0 +1,152 @@
+{
+  "timestamp_utc": "2026-09-16T04:22:15.582080+00:00",
+  "experiment": "0045",
+  "purpose": "Exact real-workload microbenchmark of the two stage-0 Swin MLPs, testing compiled MLX fc1->exact GELU->fc2 against current PyTorch/MPS with fresh bridge cost included.",
+  "model": "IDEA-Research/grounding-dino-tiny",
+  "device": "mps",
+  "dtype": "float32",
+  "software": {
+    "torch": "2.13.0",
+    "transformers": "5.17.0"
+  },
+  "configuration": {
+    "targets": [
+      "stage0.block0.mlp",
+      "stage0.block1.mlp"
+    ],
+    "candidate": "compiled MLX fc1 -> exact erf GELU -> fc2",
+    "fresh_torch_to_mlx_bridge_each_call": true,
+    "final_mlx_to_torch_bridge_each_call": true,
+    "compile_first_call_excluded": true,
+    "approximation": false,
+    "retraining": false,
+    "reduced_precision": false
+  },
+  "results": [
+    {
+      "name": "stage0.block0.mlp",
+      "input_shape": [
+        1,
+        53400,
+        96
+      ],
+      "correctness": {
+        "shape": [
+          1,
+          53400,
+          96
+        ],
+        "max_abs": 1.430511474609375e-06,
+        "mean_abs": 1.2759640810600104e-07,
+        "rmse": 1.6648480993808334e-07,
+        "allclose_1e-5": true,
+        "allclose_1e-4": true,
+        "finite": true
+      },
+      "correctness_gate_passed": true,
+      "latency": {
+        "current_pytorch_mps": {
+          "n": 30,
+          "mean_ms": 12.257633333333333,
+          "median_ms": 12.716083000000001,
+          "p90_ms": 13.013987199999999,
+          "p95_ms": 13.170901899999999,
+          "min_ms": 10.869833,
+          "max_ms": 13.478458
+        },
+        "compiled_mlx_bridge_included": {
+          "n": 30,
+          "mean_ms": 7.0838138,
+          "median_ms": 7.3071874999999995,
+          "p90_ms": 7.951649400000001,
+          "p95_ms": 8.029523099999999,
+          "min_ms": 6.174916,
+          "max_ms": 8.197583
+        },
+        "paired_delta_current_minus_mlx": {
+          "n": 30,
+          "mean_ms": 5.173819533333333,
+          "median_ms": 5.0916665000000005,
+          "p90_ms": 6.739992300000001,
+          "p95_ms": 6.8098708,
+          "min_ms": 2.7930410000000006,
+          "max_ms": 6.902083
+        }
+      },
+      "derived": {
+        "speedup_from_medians": 1.7402157806953773,
+        "median_difference_of_marginals_ms": 5.408895500000002,
+        "paired_delta_median_ms": 5.0916665000000005,
+        "paired_delta_mean_ms": 5.173819533333333,
+        "reduction_percent_from_medians": 42.53586186878461
+      }
+    },
+    {
+      "name": "stage0.block1.mlp",
+      "input_shape": [
+        1,
+        53400,
+        96
+      ],
+      "correctness": {
+        "shape": [
+          1,
+          53400,
+          96
+        ],
+        "max_abs": 1.7881393432617188e-06,
+        "mean_abs": 1.4581337381969206e-07,
+        "rmse": 1.8816790259279514e-07,
+        "allclose_1e-5": true,
+        "allclose_1e-4": true,
+        "finite": true
+      },
+      "correctness_gate_passed": true,
+      "latency": {
+        "current_pytorch_mps": {
+          "n": 30,
+          "mean_ms": 12.344561133333334,
+          "median_ms": 12.098500000000001,
+          "p90_ms": 13.016095900000002,
+          "p95_ms": 14.299360899999996,
+          "min_ms": 10.943292,
+          "max_ms": 20.8975
+        },
+        "compiled_mlx_bridge_included": {
+          "n": 30,
+          "mean_ms": 6.939194333333333,
+          "median_ms": 6.8929165,
+          "p90_ms": 7.6410583,
+          "p95_ms": 7.790587349999999,
+          "min_ms": 6.083542,
+          "max_ms": 8.532833
+        },
+        "paired_delta_current_minus_mlx": {
+          "n": 30,
+          "mean_ms": 5.4053667999999995,
+          "median_ms": 5.494583,
+          "p90_ms": 6.596162300000001,
+          "p95_ms": 7.0336423,
+          "min_ms": 3.310542,
+          "max_ms": 12.364667
+        }
+      },
+      "derived": {
+        "speedup_from_medians": 1.7552076831338377,
+        "median_difference_of_marginals_ms": 5.205583500000001,
+        "paired_delta_median_ms": 5.494583,
+        "paired_delta_mean_ms": 5.4053667999999995,
+        "reduction_percent_from_medians": 43.02668512625533
+      }
+    }
+  ],
+  "correctness_all_passed": true,
+  "performance_gate_all_passed": true,
+  "decision_rule": "Proceed to a paired full-model replacement of both stage0 Swin MLPs only if both MLPs preserve outputs within 1e-4 and each shows either >=1.5 ms paired median saving or >=20% reduction bridge-included. Otherwise do not reopen the broad Swin MLX campaign.",
+  "notes": [
+    "This targets only SwinMLP, not attention, shifting, masks, LayerNorm, or the whole block.",
+    "HF Transformers SwinMLP is exactly fc1 -> activation -> fc2 in eval/inference.",
+    "GELU is implemented with the exact erf formula rather than an approximate tanh form.",
+    "Experiment 0039 remains the end-to-end latency authority."
+  ]
+}

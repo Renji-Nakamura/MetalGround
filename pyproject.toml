@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=75", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "metalground"
+version = "0.0.1"
+description = "Research harness for Grounding DINO inference on Apple Silicon"
+requires-python = ">=3.11,<3.14"
+dependencies = [
+  "numpy>=2.0",
+  "pillow>=10",
+  "psutil>=6",
+  "torch>=2.12,<2.14",
+  "torchvision>=0.23",
+  "transformers==5.17.0",
+  "mlx==0.32.2; platform_system == 'Darwin' and platform_machine == 'arm64'",
+  "pycocotools==2.0.11",
+  "opencv-python==4.14.0.94",
+]
+
+[tool.setuptools.packages.find]
+include = ["metalground*"]

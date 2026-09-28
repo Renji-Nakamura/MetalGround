@@ -1,0 +1,115 @@
+{
+  "timestamp_utc": "2026-09-15T17:12:23.762161+00:00",
+  "experiment": "0021",
+  "purpose": "Test whether the dominant MetalGround-v2 encoder FFN can be improved with explicit 2D GEMM layout and MLX addmm fusion before investing in a custom Metal MLP kernel.",
+  "model": "IDEA-Research/grounding-dino-tiny",
+  "device": "mps",
+  "dtype": "float32",
+  "workload": {
+    "input_shape": [
+      1,
+      17821,
+      256
+    ],
+    "external_dim": 256,
+    "ffn_dim": 2048,
+    "activation": "relu",
+    "analytical_two_gemm_macs": 18686672896
+  },
+  "latency_mlx_internal": {
+    "baseline_3d_compiled": {
+      "n": 30,
+      "mean_ms": 20.615194366666667,
+      "median_ms": 21.0390415,
+      "p90_ms": 21.467999700000004,
+      "p95_ms": 21.57424375,
+      "min_ms": 19.373375,
+      "max_ms": 22.441292
+    },
+    "flat_matmul_compiled": {
+      "n": 30,
+      "mean_ms": 21.921005533333336,
+      "median_ms": 21.875958,
+      "p90_ms": 22.4018164,
+      "p95_ms": 25.359921349999993,
+      "min_ms": 19.779375,
+      "max_ms": 33.12625
+    },
+    "flat_addmm_compiled": {
+      "n": 30,
+      "mean_ms": 21.131701433333333,
+      "median_ms": 21.206479,
+      "p90_ms": 21.968403900000002,
+      "p95_ms": 23.65428575,
+      "min_ms": 19.446583,
+      "max_ms": 26.19375
+    },
+    "speedup_flat_matmul": 0.9617426354539536,
+    "speedup_flat_addmm": 0.9921044177112097
+  },
+  "correctness": {
+    "preflight": {
+      "flat_matmul_vs_baseline": {
+        "shape": [
+          1,
+          17821,
+          256
+        ],
+        "max_abs": 0.0,
+        "mean_abs": 0.0,
+        "rmse": 0.0,
+        "allclose_1e-5": true,
+        "allclose_1e-4": true,
+        "finite": true
+      },
+      "flat_addmm_vs_baseline": {
+        "shape": [
+          1,
+          17821,
+          256
+        ],
+        "max_abs": 0.0,
+        "mean_abs": 0.0,
+        "rmse": 0.0,
+        "allclose_1e-5": true,
+        "allclose_1e-4": true,
+        "finite": true
+      }
+    },
+    "final": {
+      "flat_matmul_vs_baseline": {
+        "shape": [
+          1,
+          17821,
+          256
+        ],
+        "max_abs": 0.0,
+        "mean_abs": 0.0,
+        "rmse": 0.0,
+        "allclose_1e-5": true,
+        "allclose_1e-4": true,
+        "finite": true
+      },
+      "flat_addmm_vs_baseline": {
+        "shape": [
+          1,
+          17821,
+          256
+        ],
+        "max_abs": 0.0,
+        "mean_abs": 0.0,
+        "rmse": 0.0,
+        "allclose_1e-5": true,
+        "allclose_1e-4": true,
+        "finite": true
+      }
+    }
+  },
+  "decision_rule": "If the best exact API/layout variant improves median FFN latency by >=5%, integrate it into all six deformable islands. Otherwise treat the dense FFN as effectively GEMM-bound under current MLX primitives and move the next optimization campaign to Swin whole-block.",
+  "notes": [
+    "All variants use the same FP32 weights and exact ReLU/LayerNorm semantics.",
+    "Timings are MLX-internal and exclude PyTorch<->MLX bridge time.",
+    "No approximation, quantization, pruning, retraining, or reduced precision is used.",
+    "mx.addmm explicitly represents bias + matrix multiplication as one primitive."
+  ]
+}

@@ -1,0 +1,1097 @@
+{
+  "timestamp_utc": "2026-09-16T06:50:24.573987+00:00",
+  "experiment": "0049b",
+  "purpose": "Exact real-workload benchmark of all Swin attention submodules under the adopted Experiment-0047 runtime, testing compiled MLX attention plus fixed-geometry relative-position/mask partial evaluation.",
+  "model": "IDEA-Research/grounding-dino-tiny",
+  "device": "mps",
+  "dtype": "float32",
+  "software": {
+    "torch": "2.13.0",
+    "transformers": "5.17.0"
+  },
+  "configuration": {
+    "runtime_during_capture": "current adopted runtime including exact compiled MLX stage0 block0/block1 MLPs",
+    "targets": [
+      "stage0.block0.attention",
+      "stage0.block1.attention",
+      "stage1.block0.attention",
+      "stage1.block1.attention",
+      "stage2.block0.attention",
+      "stage2.block1.attention",
+      "stage2.block2.attention",
+      "stage2.block3.attention",
+      "stage2.block4.attention",
+      "stage2.block5.attention",
+      "stage3.block0.attention",
+      "stage3.block1.attention"
+    ],
+    "candidate": "compiled MLX q/k/v -> scaled attention -> exact softmax -> value aggregation -> output projection",
+    "static_specialization": "learned relative-position bias lookup and fixed shift-mask expansion/addition are precomputed exactly for the captured fixed input geometry",
+    "fresh_hidden_torch_to_mlx_bridge_each_call": true,
+    "attention_mask_bridge_in_timing": false,
+    "final_output_mlx_to_torch_bridge_each_call": true,
+    "attention_weights_bridge_in_timing": false,
+    "warmup_per_target": 2,
+    "pairs_per_target": 20,
+    "approximation": false,
+    "retraining": false,
+    "reduced_precision": false
+  },
+  "results": [
+    {
+      "name": "stage0.block0.attention",
+      "input_shape": [
+        1131,
+        49,
+        96
+      ],
+      "attention_mask_shape": null,
+      "correctness": {
+        "output_vs_production_backend": {
+          "shape": [
+            1131,
+            49,
+            96
+          ],
+          "max_abs": 7.152557373046875e-07,
+          "mean_abs": 3.08558796291436e-08,
+          "rmse": 4.733742997586887e-08,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        },
+        "attention_weights_vs_hf_eager": {
+          "shape": [
+            1131,
+            3,
+            49,
+            49
+          ],
+          "max_abs": 2.980232238769531e-07,
+          "mean_abs": 2.330099446723466e-09,
+          "rmse": 6.644758521190397e-09,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        },
+        "production_backend": "sdpa",
+        "production_returned_attention_weights": false
+      },
+      "correctness_gate_passed": true,
+      "latency": {
+        "current_pytorch_mps": {
+          "n": 20,
+          "mean_ms": 6.27874585,
+          "median_ms": 5.271396,
+          "p90_ms": 7.217320800000003,
+          "p95_ms": 9.319960100000007,
+          "min_ms": 4.840417,
+          "max_ms": 17.965
+        },
+        "compiled_mlx_static_geometry_bridge_included": {
+          "n": 20,
+          "mean_ms": 9.7984001,
+          "median_ms": 9.906875,
+          "p90_ms": 10.467821400000002,
+          "p95_ms": 10.996395550000003,
+          "min_ms": 8.478,
+          "max_ms": 13.496084
+        },
+        "paired_delta_current_minus_mlx": {
+          "n": 20,
+          "mean_ms": -3.51965425,
+          "median_ms": -4.576729,
+          "p90_ms": -2.0406711999999994,
+          "p95_ms": -1.150821449999994,
+          "min_ms": -5.4168330000000005,
+          "max_ms": 7.100166999999999
+        }
+      },
+      "derived": {
+        "speedup_from_medians": 0.5320947321935525,
+        "median_difference_of_marginals_ms": -4.635478999999999,
+        "paired_delta_median_ms": -4.576729,
+        "paired_delta_mean_ms": -3.51965425,
+        "reduction_percent_from_medians": -87.9364593363883
+      },
+      "stage_index": 0,
+      "block_index": 0
+    },
+    {
+      "name": "stage0.block1.attention",
+      "input_shape": [
+        1131,
+        49,
+        96
+      ],
+      "attention_mask_shape": [
+        1131,
+        49,
+        49
+      ],
+      "correctness": {
+        "output_vs_production_backend": {
+          "shape": [
+            1131,
+            49,
+            96
+          ],
+          "max_abs": 9.5367431640625e-07,
+          "mean_abs": 3.6245957346636715e-08,
+          "rmse": 5.190159058088284e-08,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        },
+        "attention_weights_vs_hf_eager": {
+          "shape": [
+            1131,
+            3,
+            49,
+            49
+          ],
+          "max_abs": 4.76837158203125e-07,
+          "mean_abs": 3.2859632792536786e-09,
+          "rmse": 8.78896866396417e-09,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        },
+        "production_backend": "sdpa",
+        "production_returned_attention_weights": false
+      },
+      "correctness_gate_passed": true,
+      "latency": {
+        "current_pytorch_mps": {
+          "n": 20,
+          "mean_ms": 8.617372900000001,
+          "median_ms": 8.5784585,
+          "p90_ms": 9.4455708,
+          "p95_ms": 9.525120499999998,
+          "min_ms": 7.741208,
+          "max_ms": 9.549583
+        },
+        "compiled_mlx_static_geometry_bridge_included": {
+          "n": 20,
+          "mean_ms": 10.017922899999999,
+          "median_ms": 10.058479,
+          "p90_ms": 10.7882958,
+          "p95_ms": 11.10226845,
+          "min_ms": 8.866458,
+          "max_ms": 11.203167
+        },
+        "paired_delta_current_minus_mlx": {
+          "n": 20,
+          "mean_ms": -1.4005499999999995,
+          "median_ms": -1.5481669999999994,
+          "p90_ms": 0.12791220000000103,
+          "p95_ms": 0.263697900000001,
+          "min_ms": -3.4619590000000002,
+          "max_ms": 0.28645799999999966
+        }
+      },
+      "derived": {
+        "speedup_from_medians": 0.8528584192500676,
+        "median_difference_of_marginals_ms": -1.4800205000000002,
+        "paired_delta_median_ms": -1.5481669999999994,
+        "paired_delta_mean_ms": -1.4005499999999995,
+        "reduction_percent_from_medians": -17.252755841856672
+      },
+      "stage_index": 0,
+      "block_index": 1
+    },
+    {
+      "name": "stage1.block0.attention",
+      "input_shape": [
+        300,
+        49,
+        192
+      ],
+      "attention_mask_shape": null,
+      "correctness": {
+        "output_vs_production_backend": {
+          "shape": [
+            300,
+            49,
+            192
+          ],
+          "max_abs": 5.960464477539062e-07,
+          "mean_abs": 3.9608401891655376e-08,
+          "rmse": 5.462650776166811e-08,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        },
+        "attention_weights_vs_hf_eager": {
+          "shape": [
+            300,
+            6,
+            49,
+            49
+          ],
+          "max_abs": 4.76837158203125e-07,
+          "mean_abs": 2.420965428129307e-09,
+          "rmse": 1.0682395412686674e-08,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        },
+        "production_backend": "sdpa",
+        "production_returned_attention_weights": false
+      },
+      "correctness_gate_passed": true,
+      "latency": {
+        "current_pytorch_mps": {
+          "n": 20,
+          "mean_ms": 5.0175563,
+          "median_ms": 4.192187499999999,
+          "p90_ms": 5.641487200000007,
+          "p95_ms": 10.621268750000002,
+          "min_ms": 3.803958,
+          "max_ms": 13.38375
+        },
+        "compiled_mlx_static_geometry_bridge_included": {
+          "n": 20,
+          "mean_ms": 6.25813335,
+          "median_ms": 5.821896000000001,
+          "p90_ms": 7.8554497,
+          "p95_ms": 8.135562499999999,
+          "min_ms": 5.402791,
+          "max_ms": 8.56425
+        },
+        "paired_delta_current_minus_mlx": {
+          "n": 20,
+          "mean_ms": -1.24057705,
+          "median_ms": -1.4706879999999996,
+          "p90_ms": -0.18616339999999665,
+          "p95_ms": 2.1598687500000042,
+          "min_ms": -3.750958,
+          "max_ms": 6.876499999999999
+        }
+      },
+      "derived": {
+        "speedup_from_medians": 0.7200725502482351,
+        "median_difference_of_marginals_ms": -1.6297085000000013,
+        "paired_delta_median_ms": -1.4706879999999996,
+        "paired_delta_mean_ms": -1.24057705,
+        "reduction_percent_from_medians": -38.87489526649277
+      },
+      "stage_index": 1,
+      "block_index": 0
+    },
+    {
+      "name": "stage1.block1.attention",
+      "input_shape": [
+        300,
+        49,
+        192
+      ],
+      "attention_mask_shape": [
+        300,
+        49,
+        49
+      ],
+      "correctness": {
+        "output_vs_production_backend": {
+          "shape": [
+            300,
+            49,
+            192
+          ],
+          "max_abs": 1.0728836059570312e-06,
+          "mean_abs": 7.177259675472669e-08,
+          "rmse": 9.746048590386636e-08,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        },
+        "attention_weights_vs_hf_eager": {
+          "shape": [
+            300,
+            6,
+            49,
+            49
+          ],
+          "max_abs": 4.76837158203125e-07,
+          "mean_abs": 2.977356583500068e-09,
+          "rmse": 1.0081295798158862e-08,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        },
+        "production_backend": "sdpa",
+        "production_returned_attention_weights": false
+      },
+      "correctness_gate_passed": true,
+      "latency": {
+        "current_pytorch_mps": {
+          "n": 20,
+          "mean_ms": 6.0579854,
+          "median_ms": 5.866728999999999,
+          "p90_ms": 7.4003455,
+          "p95_ms": 7.43628925,
+          "min_ms": 5.1175,
+          "max_ms": 7.561333
+        },
+        "compiled_mlx_static_geometry_bridge_included": {
+          "n": 20,
+          "mean_ms": 6.4940355,
+          "median_ms": 6.305479,
+          "p90_ms": 7.3616584000000005,
+          "p95_ms": 7.57115275,
+          "min_ms": 5.697209,
+          "max_ms": 8.831209
+        },
+        "paired_delta_current_minus_mlx": {
+          "n": 20,
+          "mean_ms": -0.4360501000000001,
+          "median_ms": -0.3656035000000002,
+          "p90_ms": 1.0680164,
+          "p95_ms": 1.1881502999999998,
+          "min_ms": -2.5342919999999998,
+          "max_ms": 1.4942080000000004
+        }
+      },
+      "derived": {
+        "speedup_from_medians": 0.9304176574055674,
+        "median_difference_of_marginals_ms": -0.43875000000000064,
+        "paired_delta_median_ms": -0.3656035000000002,
+        "paired_delta_mean_ms": -0.4360501000000001,
+        "reduction_percent_from_medians": -7.4786137215474024
+      },
+      "stage_index": 1,
+      "block_index": 1
+    },
+    {
+      "name": "stage2.block0.attention",
+      "input_shape": [
+        80,
+        49,
+        384
+      ],
+      "attention_mask_shape": null,
+      "correctness": {
+        "output_vs_production_backend": {
+          "shape": [
+            80,
+            49,
+            384
+          ],
+          "max_abs": 1.0728836059570312e-06,
+          "mean_abs": 6.314334655144194e-08,
+          "rmse": 8.647266014349952e-08,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        },
+        "attention_weights_vs_hf_eager": {
+          "shape": [
+            80,
+            12,
+            49,
+            49
+          ],
+          "max_abs": 3.5762786865234375e-07,
+          "mean_abs": 2.266680398932408e-09,
+          "rmse": 7.221080178254624e-09,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        },
+        "production_backend": "sdpa",
+        "production_returned_attention_weights": false
+      },
+      "correctness_gate_passed": true,
+      "latency": {
+        "current_pytorch_mps": {
+          "n": 20,
+          "mean_ms": 3.8662645499999995,
+          "median_ms": 3.5375,
+          "p90_ms": 4.94975,
+          "p95_ms": 5.19078955,
+          "min_ms": 3.161667,
+          "max_ms": 5.816166
+        },
+        "compiled_mlx_static_geometry_bridge_included": {
+          "n": 20,
+          "mean_ms": 4.3017333,
+          "median_ms": 4.2553335,
+          "p90_ms": 4.4693128,
+          "p95_ms": 4.56468335,
+          "min_ms": 4.073166,
+          "max_ms": 4.898292
+        },
+        "paired_delta_current_minus_mlx": {
+          "n": 20,
+          "mean_ms": -0.43546875000000007,
+          "median_ms": -0.6750625000000003,
+          "p90_ms": 0.7209672999999999,
+          "p95_ms": 0.9187149000000003,
+          "min_ms": -1.4363759999999997,
+          "max_ms": 1.3613749999999998
+        }
+      },
+      "derived": {
+        "speedup_from_medians": 0.8313096964080489,
+        "median_difference_of_marginals_ms": -0.7178334999999998,
+        "paired_delta_median_ms": -0.6750625000000003,
+        "paired_delta_mean_ms": -0.43546875000000007,
+        "reduction_percent_from_medians": -20.29211307420494
+      },
+      "stage_index": 2,
+      "block_index": 0
+    },
+    {
+      "name": "stage2.block1.attention",
+      "input_shape": [
+        80,
+        49,
+        384
+      ],
+      "attention_mask_shape": [
+        80,
+        49,
+        49
+      ],
+      "correctness": {
+        "output_vs_production_backend": {
+          "shape": [
+            80,
+            49,
+            384
+          ],
+          "max_abs": 1.0728836059570312e-06,
+          "mean_abs": 8.138840001947756e-08,
+          "rmse": 1.1201665017779305e-07,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        },
+        "attention_weights_vs_hf_eager": {
+          "shape": [
+            80,
+            12,
+            49,
+            49
+          ],
+          "max_abs": 4.172325134277344e-07,
+          "mean_abs": 2.7812732117382666e-09,
+          "rmse": 9.357564501044635e-09,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        },
+        "production_backend": "sdpa",
+        "production_returned_attention_weights": false
+      },
+      "correctness_gate_passed": true,
+      "latency": {
+        "current_pytorch_mps": {
+          "n": 20,
+          "mean_ms": 4.735425,
+          "median_ms": 4.4282915,
+          "p90_ms": 5.400121400000001,
+          "p95_ms": 5.929003850000001,
+          "min_ms": 4.043333,
+          "max_ms": 6.716
+        },
+        "compiled_mlx_static_geometry_bridge_included": {
+          "n": 20,
+          "mean_ms": 4.7307770499999995,
+          "median_ms": 4.5218755,
+          "p90_ms": 5.3999953,
+          "p95_ms": 5.524569400000001,
+          "min_ms": 4.192,
+          "max_ms": 5.890042
+        },
+        "paired_delta_current_minus_mlx": {
+          "n": 20,
+          "mean_ms": 0.004647949999999979,
+          "median_ms": -0.08029199999999959,
+          "p90_ms": 1.0048509000000005,
+          "p95_ms": 1.480135450000001,
+          "min_ms": -1.344958,
+          "max_ms": 2.2213340000000006
+        }
+      },
+      "derived": {
+        "speedup_from_medians": 0.9793041626201341,
+        "median_difference_of_marginals_ms": -0.09358399999999989,
+        "paired_delta_median_ms": -0.08029199999999959,
+        "paired_delta_mean_ms": 0.004647949999999979,
+        "reduction_percent_from_medians": -2.1133206790926002
+      },
+      "stage_index": 2,
+      "block_index": 1
+    },
+    {
+      "name": "stage2.block2.attention",
+      "input_shape": [
+        80,
+        49,
+        384
+      ],
+      "attention_mask_shape": null,
+      "correctness": {
+        "output_vs_production_backend": {
+          "shape": [
+            80,
+            49,
+            384
+          ],
+          "max_abs": 1.430511474609375e-06,
+          "mean_abs": 9.268060097156194e-08,
+          "rmse": 1.2639007707093697e-07,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        },
+        "attention_weights_vs_hf_eager": {
+          "shape": [
+            80,
+            12,
+            49,
+            49
+          ],
+          "max_abs": 3.8743019104003906e-07,
+          "mean_abs": 2.5192996577771964e-09,
+          "rmse": 7.602982243781753e-09,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        },
+        "production_backend": "sdpa",
+        "production_returned_attention_weights": false
+      },
+      "correctness_gate_passed": true,
+      "latency": {
+        "current_pytorch_mps": {
+          "n": 20,
+          "mean_ms": 3.6428604,
+          "median_ms": 3.5612085,
+          "p90_ms": 3.9983872000000003,
+          "p95_ms": 4.20610835,
+          "min_ms": 3.303375,
+          "max_ms": 4.381542
+        },
+        "compiled_mlx_static_geometry_bridge_included": {
+          "n": 20,
+          "mean_ms": 4.7722897,
+          "median_ms": 4.475125,
+          "p90_ms": 5.652583400000001,
+          "p95_ms": 6.051098550000001,
+          "min_ms": 4.164125,
+          "max_ms": 6.640375
+        },
+        "paired_delta_current_minus_mlx": {
+          "n": 20,
+          "mean_ms": -1.1294293,
+          "median_ms": -0.9219795,
+          "p90_ms": -0.3208130999999996,
+          "p95_ms": -0.06648954999999997,
+          "min_ms": -2.7455,
+          "max_ms": -0.004541000000000572
+        }
+      },
+      "derived": {
+        "speedup_from_medians": 0.7957785536716852,
+        "median_difference_of_marginals_ms": -0.9139165,
+        "paired_delta_median_ms": -0.9219795,
+        "paired_delta_mean_ms": -1.1294293,
+        "reduction_percent_from_medians": -25.66310004033743
+      },
+      "stage_index": 2,
+      "block_index": 2
+    },
+    {
+      "name": "stage2.block3.attention",
+      "input_shape": [
+        80,
+        49,
+        384
+      ],
+      "attention_mask_shape": [
+        80,
+        49,
+        49
+      ],
+      "correctness": {
+        "output_vs_production_backend": {
+          "shape": [
+            80,
+            49,
+            384
+          ],
+          "max_abs": 1.9073486328125e-06,
+          "mean_abs": 1.0137546269106679e-07,
+          "rmse": 1.3948748289749346e-07,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        },
+        "attention_weights_vs_hf_eager": {
+          "shape": [
+            80,
+            12,
+            49,
+            49
+          ],
+          "max_abs": 4.172325134277344e-07,
+          "mean_abs": 2.6012827447630116e-09,
+          "rmse": 8.708682663893796e-09,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        },
+        "production_backend": "sdpa",
+        "production_returned_attention_weights": false
+      },
+      "correctness_gate_passed": true,
+      "latency": {
+        "current_pytorch_mps": {
+          "n": 20,
+          "mean_ms": 4.8573978,
+          "median_ms": 4.6026875,
+          "p90_ms": 5.9369247000000005,
+          "p95_ms": 6.074960400000001,
+          "min_ms": 4.0015,
+          "max_ms": 7.613208
+        },
+        "compiled_mlx_static_geometry_bridge_included": {
+          "n": 20,
+          "mean_ms": 4.632668600000001,
+          "median_ms": 4.4259375,
+          "p90_ms": 5.3971962,
+          "p95_ms": 5.582977700000001,
+          "min_ms": 4.185541,
+          "max_ms": 5.687833
+        },
+        "paired_delta_current_minus_mlx": {
+          "n": 20,
+          "mean_ms": 0.22472920000000016,
+          "median_ms": 0.02556299999999956,
+          "p90_ms": 1.0609087000000013,
+          "p95_ms": 1.6146548000000007,
+          "min_ms": -1.171792,
+          "max_ms": 2.7108750000000006
+        }
+      },
+      "derived": {
+        "speedup_from_medians": 1.0399350420108735,
+        "median_difference_of_marginals_ms": 0.17675000000000018,
+        "paired_delta_median_ms": 0.02556299999999956,
+        "paired_delta_mean_ms": 0.22472920000000016,
+        "reduction_percent_from_medians": 3.840147739771605
+      },
+      "stage_index": 2,
+      "block_index": 3
+    },
+    {
+      "name": "stage2.block4.attention",
+      "input_shape": [
+        80,
+        49,
+        384
+      ],
+      "attention_mask_shape": null,
+      "correctness": {
+        "output_vs_production_backend": {
+          "shape": [
+            80,
+            49,
+            384
+          ],
+          "max_abs": 3.337860107421875e-06,
+          "mean_abs": 1.297170655334412e-07,
+          "rmse": 1.7883941438867623e-07,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        },
+        "attention_weights_vs_hf_eager": {
+          "shape": [
+            80,
+            12,
+            49,
+            49
+          ],
+          "max_abs": 3.8743019104003906e-07,
+          "mean_abs": 2.742466254090914e-09,
+          "rmse": 8.664799544533253e-09,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        },
+        "production_backend": "sdpa",
+        "production_returned_attention_weights": false
+      },
+      "correctness_gate_passed": true,
+      "latency": {
+        "current_pytorch_mps": {
+          "n": 20,
+          "mean_ms": 3.8709040999999997,
+          "median_ms": 3.759396,
+          "p90_ms": 4.2540872,
+          "p95_ms": 4.4875146,
+          "min_ms": 3.341291,
+          "max_ms": 4.646917
+        },
+        "compiled_mlx_static_geometry_bridge_included": {
+          "n": 20,
+          "mean_ms": 4.7113374,
+          "median_ms": 4.5776045,
+          "p90_ms": 5.410307700000001,
+          "p95_ms": 5.476728850000001,
+          "min_ms": 4.291791,
+          "max_ms": 5.603
+        },
+        "paired_delta_current_minus_mlx": {
+          "n": 20,
+          "mean_ms": -0.8404332999999999,
+          "median_ms": -0.8651880000000001,
+          "p90_ms": -0.07977969999999976,
+          "p95_ms": 0.18938399999999994,
+          "min_ms": -1.9649579999999998,
+          "max_ms": 0.22833400000000026
+        }
+      },
+      "derived": {
+        "speedup_from_medians": 0.821258367777295,
+        "median_difference_of_marginals_ms": -0.8182084999999995,
+        "paired_delta_median_ms": -0.8651880000000001,
+        "paired_delta_mean_ms": -0.8404332999999999,
+        "reduction_percent_from_medians": -21.764360551535393
+      },
+      "stage_index": 2,
+      "block_index": 4
+    },
+    {
+      "name": "stage2.block5.attention",
+      "input_shape": [
+        80,
+        49,
+        384
+      ],
+      "attention_mask_shape": [
+        80,
+        49,
+        49
+      ],
+      "correctness": {
+        "output_vs_production_backend": {
+          "shape": [
+            80,
+            49,
+            384
+          ],
+          "max_abs": 5.7220458984375e-06,
+          "mean_abs": 1.3805230025809578e-07,
+          "rmse": 1.9684944163600449e-07,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        },
+        "attention_weights_vs_hf_eager": {
+          "shape": [
+            80,
+            12,
+            49,
+            49
+          ],
+          "max_abs": 4.172325134277344e-07,
+          "mean_abs": 2.7126869639459983e-09,
+          "rmse": 9.238523723809067e-09,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        },
+        "production_backend": "sdpa",
+        "production_returned_attention_weights": false
+      },
+      "correctness_gate_passed": true,
+      "latency": {
+        "current_pytorch_mps": {
+          "n": 20,
+          "mean_ms": 4.830591549999999,
+          "median_ms": 4.840374499999999,
+          "p90_ms": 5.481962800000001,
+          "p95_ms": 6.221102049999999,
+          "min_ms": 4.004541,
+          "max_ms": 6.277666
+        },
+        "compiled_mlx_static_geometry_bridge_included": {
+          "n": 20,
+          "mean_ms": 4.64565635,
+          "median_ms": 4.4740625000000005,
+          "p90_ms": 5.152296499999999,
+          "p95_ms": 5.40077565,
+          "min_ms": 4.202,
+          "max_ms": 5.639542
+        },
+        "paired_delta_current_minus_mlx": {
+          "n": 20,
+          "mean_ms": 0.18493520000000005,
+          "median_ms": 0.15777050000000026,
+          "p90_ms": 1.0767086000000008,
+          "p95_ms": 1.7009621499999996,
+          "min_ms": -0.8303339999999997,
+          "max_ms": 1.8625410000000002
+        }
+      },
+      "derived": {
+        "speedup_from_medians": 1.0818745826639657,
+        "median_difference_of_marginals_ms": 0.36631199999999886,
+        "paired_delta_median_ms": 0.15777050000000026,
+        "paired_delta_mean_ms": 0.18493520000000005,
+        "reduction_percent_from_medians": 7.567844182304467
+      },
+      "stage_index": 2,
+      "block_index": 5
+    },
+    {
+      "name": "stage3.block0.attention",
+      "input_shape": [
+        20,
+        49,
+        768
+      ],
+      "attention_mask_shape": null,
+      "correctness": {
+        "output_vs_production_backend": {
+          "shape": [
+            20,
+            49,
+            768
+          ],
+          "max_abs": 2.86102294921875e-06,
+          "mean_abs": 1.1503513519528497e-07,
+          "rmse": 1.6336240094005916e-07,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        },
+        "attention_weights_vs_hf_eager": {
+          "shape": [
+            20,
+            24,
+            49,
+            49
+          ],
+          "max_abs": 3.5762786865234375e-07,
+          "mean_abs": 2.6394171293020463e-09,
+          "rmse": 9.482898910562199e-09,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        },
+        "production_backend": "sdpa",
+        "production_returned_attention_weights": false
+      },
+      "correctness_gate_passed": true,
+      "latency": {
+        "current_pytorch_mps": {
+          "n": 20,
+          "mean_ms": 3.3524687999999996,
+          "median_ms": 3.3231460000000004,
+          "p90_ms": 3.8092493999999997,
+          "p95_ms": 3.8413958500000005,
+          "min_ms": 2.910042,
+          "max_ms": 4.245542
+        },
+        "compiled_mlx_static_geometry_bridge_included": {
+          "n": 20,
+          "mean_ms": 3.5288479,
+          "median_ms": 3.420083,
+          "p90_ms": 4.227441400000001,
+          "p95_ms": 4.377000300000001,
+          "min_ms": 3.182292,
+          "max_ms": 4.570958
+        },
+        "paired_delta_current_minus_mlx": {
+          "n": 20,
+          "mean_ms": -0.1763791,
+          "median_ms": -0.10064599999999979,
+          "p90_ms": 0.39031249999999984,
+          "p95_ms": 0.43658960000000047,
+          "min_ms": -1.6259580000000002,
+          "max_ms": 1.0272920000000005
+        }
+      },
+      "derived": {
+        "speedup_from_medians": 0.9716565358209144,
+        "median_difference_of_marginals_ms": -0.0969369999999996,
+        "paired_delta_median_ms": -0.10064599999999979,
+        "paired_delta_mean_ms": -0.1763791,
+        "reduction_percent_from_medians": -2.9170250118411767
+      },
+      "stage_index": 3,
+      "block_index": 0
+    },
+    {
+      "name": "stage3.block1.attention",
+      "input_shape": [
+        20,
+        49,
+        768
+      ],
+      "attention_mask_shape": [
+        20,
+        49,
+        49
+      ],
+      "correctness": {
+        "output_vs_production_backend": {
+          "shape": [
+            20,
+            49,
+            768
+          ],
+          "max_abs": 7.62939453125e-06,
+          "mean_abs": 1.1859732040875315e-07,
+          "rmse": 1.8791226352732338e-07,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        },
+        "attention_weights_vs_hf_eager": {
+          "shape": [
+            20,
+            24,
+            49,
+            49
+          ],
+          "max_abs": 3.8743019104003906e-07,
+          "mean_abs": 2.317698477583008e-09,
+          "rmse": 8.642048854312634e-09,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        },
+        "production_backend": "sdpa",
+        "production_returned_attention_weights": false
+      },
+      "correctness_gate_passed": true,
+      "latency": {
+        "current_pytorch_mps": {
+          "n": 20,
+          "mean_ms": 3.3754979,
+          "median_ms": 3.3596455,
+          "p90_ms": 3.6327798,
+          "p95_ms": 3.7233232500000004,
+          "min_ms": 3.124583,
+          "max_ms": 3.828417
+        },
+        "compiled_mlx_static_geometry_bridge_included": {
+          "n": 20,
+          "mean_ms": 3.4867376,
+          "median_ms": 3.3725415,
+          "p90_ms": 3.903958600000001,
+          "p95_ms": 4.39743305,
+          "min_ms": 3.1585,
+          "max_ms": 4.596459
+        },
+        "paired_delta_current_minus_mlx": {
+          "n": 20,
+          "mean_ms": -0.11123970000000001,
+          "median_ms": 0.020728999999999997,
+          "p90_ms": 0.22682380000000035,
+          "p95_ms": 0.2515146000000006,
+          "min_ms": -1.1718750000000004,
+          "max_ms": 0.5296669999999999
+        }
+      },
+      "derived": {
+        "speedup_from_medians": 0.9961761775207214,
+        "median_difference_of_marginals_ms": -0.012896000000000019,
+        "paired_delta_median_ms": 0.020728999999999997,
+        "paired_delta_mean_ms": -0.11123970000000001,
+        "reduction_percent_from_medians": -0.38385002227169557
+      },
+      "stage_index": 3,
+      "block_index": 1
+    }
+  ],
+  "stage_summaries": {
+    "0": {
+      "blocks": 2,
+      "correctness_all_passed": true,
+      "all_block_paired_medians_positive": false,
+      "per_block_paired_medians_ms": [
+        -4.576729,
+        -1.5481669999999994
+      ],
+      "median_block_paired_saving_ms": -3.062448,
+      "per_block_reduction_percent": [
+        -87.9364593363883,
+        -17.252755841856672
+      ],
+      "median_block_reduction_percent": -52.59460758912248,
+      "selected_for_full_model_test": false
+    },
+    "1": {
+      "blocks": 2,
+      "correctness_all_passed": true,
+      "all_block_paired_medians_positive": false,
+      "per_block_paired_medians_ms": [
+        -1.4706879999999996,
+        -0.3656035000000002
+      ],
+      "median_block_paired_saving_ms": -0.9181457499999999,
+      "per_block_reduction_percent": [
+        -38.87489526649277,
+        -7.4786137215474024
+      ],
+      "median_block_reduction_percent": -23.176754494020088,
+      "selected_for_full_model_test": false
+    },
+    "2": {
+      "blocks": 6,
+      "correctness_all_passed": true,
+      "all_block_paired_medians_positive": false,
+      "per_block_paired_medians_ms": [
+        -0.6750625000000003,
+        -0.08029199999999959,
+        -0.9219795,
+        0.02556299999999956,
+        -0.8651880000000001,
+        0.15777050000000026
+      ],
+      "median_block_paired_saving_ms": -0.37767724999999996,
+      "per_block_reduction_percent": [
+        -20.29211307420494,
+        -2.1133206790926002,
+        -25.66310004033743,
+        3.840147739771605,
+        -21.764360551535393,
+        7.567844182304467
+      ],
+      "median_block_reduction_percent": -11.20271687664877,
+      "selected_for_full_model_test": false
+    },
+    "3": {
+      "blocks": 2,
+      "correctness_all_passed": true,
+      "all_block_paired_medians_positive": false,
+      "per_block_paired_medians_ms": [
+        -0.10064599999999979,
+        0.020728999999999997
+      ],
+      "median_block_paired_saving_ms": -0.0399584999999999,
+      "per_block_reduction_percent": [
+        -2.9170250118411767,
+        -0.38385002227169557
+      ],
+      "median_block_reduction_percent": -1.650437517056436,
+      "selected_for_full_model_test": false
+    }
+  },
+  "selected_stages_for_full_model_test": [],
+  "stage_selection_rule": "Proceed to full-model testing for a stage only if every attention block passes 1e-4 correctness, every block has positive paired median saving, and the stage median of block-level reduction percentages is at least 15%. Microbenchmark savings are selection evidence only.",
+  "notes": [
+    "Experiment 0049 preflight had a non-scientific harness bug: it assumed the configured production attention backend always returned attention weights; 0049b fixes this by using the production backend for output/timing and HF eager attention only for diagnostic weight comparison.",
+    "This does not replace whole Swin blocks.",
+    "Window partition/reverse, LayerNorm, residuals, dropout and patch merging remain outside the candidate.",
+    "Static mask/bias specialization is exact only for unchanged input geometry and model state.",
+    "Experiment 0047 remains the robust runtime authority until a later full-model candidate passes fresh-process replication."
+  ]
+}

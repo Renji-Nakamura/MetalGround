@@ -1,0 +1,230 @@
+{
+  "timestamp_utc": "2026-09-15T14:15:58.367804+00:00",
+  "case": "results/msda_cases/encoder_fp32.pt",
+  "device": "mps",
+  "warmup": 3,
+  "iterations": 20,
+  "shape": {
+    "batch": 1,
+    "queries": 17821,
+    "heads": 8,
+    "head_dim": 32,
+    "levels": 4,
+    "points": 4,
+    "spatial_shapes": [
+      [
+        100,
+        134
+      ],
+      [
+        50,
+        67
+      ],
+      [
+        25,
+        34
+      ],
+      [
+        13,
+        17
+      ]
+    ]
+  },
+  "whole_reference": {
+    "latency": {
+      "n": 20,
+      "mean_ms": 61.73816455,
+      "median_ms": 61.389708,
+      "p90_ms": 63.227988100000005,
+      "p95_ms": 63.882031250000004,
+      "min_ms": 59.549375,
+      "max_ms": 67.540125
+    },
+    "correctness_vs_captured": {
+      "max_abs": 0.0,
+      "mean_abs": 0.0,
+      "max_rel": 0.0,
+      "mean_rel": 0.0
+    }
+  },
+  "levels": [
+    {
+      "level": 0,
+      "height": 100,
+      "width": 134,
+      "value_shape": [
+        8,
+        32,
+        100,
+        134
+      ],
+      "grid_shape": [
+        8,
+        17821,
+        4,
+        2
+      ],
+      "sample_output_shape": [
+        8,
+        32,
+        17821,
+        4
+      ],
+      "sample_output_bytes": 72994816,
+      "grid_sample_latency": {
+        "n": 20,
+        "mean_ms": 3.6086730000000005,
+        "median_ms": 3.4369375,
+        "p90_ms": 4.0349625,
+        "p95_ms": 4.1212854,
+        "min_ms": 3.320208,
+        "max_ms": 4.207458
+      }
+    },
+    {
+      "level": 1,
+      "height": 50,
+      "width": 67,
+      "value_shape": [
+        8,
+        32,
+        50,
+        67
+      ],
+      "grid_shape": [
+        8,
+        17821,
+        4,
+        2
+      ],
+      "sample_output_shape": [
+        8,
+        32,
+        17821,
+        4
+      ],
+      "sample_output_bytes": 72994816,
+      "grid_sample_latency": {
+        "n": 20,
+        "mean_ms": 1.8608958000000002,
+        "median_ms": 1.7581250000000002,
+        "p90_ms": 1.938075000000001,
+        "p95_ms": 2.6273458500000006,
+        "min_ms": 1.695791,
+        "max_ms": 2.821542
+      }
+    },
+    {
+      "level": 2,
+      "height": 25,
+      "width": 34,
+      "value_shape": [
+        8,
+        32,
+        25,
+        34
+      ],
+      "grid_shape": [
+        8,
+        17821,
+        4,
+        2
+      ],
+      "sample_output_shape": [
+        8,
+        32,
+        17821,
+        4
+      ],
+      "sample_output_bytes": 72994816,
+      "grid_sample_latency": {
+        "n": 20,
+        "mean_ms": 1.5669083499999998,
+        "median_ms": 1.4865,
+        "p90_ms": 1.650808600000001,
+        "p95_ms": 2.25802885,
+        "min_ms": 1.393875,
+        "max_ms": 2.335375
+      }
+    },
+    {
+      "level": 3,
+      "height": 13,
+      "width": 17,
+      "value_shape": [
+        8,
+        32,
+        13,
+        17
+      ],
+      "grid_shape": [
+        8,
+        17821,
+        4,
+        2
+      ],
+      "sample_output_shape": [
+        8,
+        32,
+        17821,
+        4
+      ],
+      "sample_output_bytes": 72994816,
+      "grid_sample_latency": {
+        "n": 20,
+        "mean_ms": 1.635752,
+        "median_ms": 1.4680835,
+        "p90_ms": 1.8966919000000002,
+        "p95_ms": 2.1519848000000015,
+        "min_ms": 1.403791,
+        "max_ms": 3.599667
+      }
+    }
+  ],
+  "stack_flatten": {
+    "latency": {
+      "n": 20,
+      "mean_ms": 22.1496583,
+      "median_ms": 21.842166499999998,
+      "p90_ms": 23.3101286,
+      "p95_ms": 23.464642000000005,
+      "min_ms": 21.409125,
+      "max_ms": 23.905917
+    },
+    "tensor_bytes": 291979264
+  },
+  "weighted_reduce_and_output_layout": {
+    "latency": {
+      "n": 20,
+      "mean_ms": 31.66171665,
+      "median_ms": 31.6409785,
+      "p90_ms": 31.766521100000002,
+      "p95_ms": 32.2401476,
+      "min_ms": 30.792167,
+      "max_ms": 33.077375
+    },
+    "correctness_vs_captured": {
+      "max_abs": 0.0,
+      "mean_abs": 0.0,
+      "max_rel": 0.0,
+      "mean_rel": 0.0
+    }
+  },
+  "logical_tensor_volume": {
+    "value_input_bytes": 18248704,
+    "sampling_locations_input_bytes": 18248704,
+    "attention_weights_input_bytes": 9124352,
+    "per_level_sample_output_bytes": [
+      72994816,
+      72994816,
+      72994816,
+      72994816
+    ],
+    "sum_per_level_sample_output_bytes": 291979264,
+    "stacked_tensor_bytes": 291979264,
+    "logical_weighted_product_bytes": 291979264,
+    "output_bytes": 18248704,
+    "logical_materialized_write_volume_bytes": 894186496
+  },
+  "methodology_note": "MPS synchronization is inserted around each measured sub-operation. These are diagnostic isolated timings and can perturb scheduling. logical_materialized_write_volume_bytes is tensor-volume accounting, not measured physical DRAM traffic."
+}

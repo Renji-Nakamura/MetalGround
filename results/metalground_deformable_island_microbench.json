@@ -1,0 +1,209 @@
+{
+  "timestamp_utc": "2026-09-15T16:55:42.031192+00:00",
+  "experiment": "0017",
+  "purpose": "Test a larger MLX execution island for the encoder deformable layer: MSDA projections + fused Metal MSDA + residual/norm + FFN, using one PyTorch->MLX and one MLX->PyTorch synchronization boundary.",
+  "model": "IDEA-Research/grounding-dino-tiny",
+  "device": "mps",
+  "dtype": "float32",
+  "software": {
+    "torch": "2.13.0",
+    "transformers": "5.17.0"
+  },
+  "workload": {
+    "layer": "model.encoder.layers.0.deformable_layer",
+    "hidden_shape": [
+      1,
+      17821,
+      256
+    ],
+    "reference_points_shape": [
+      1,
+      17821,
+      4,
+      2
+    ],
+    "spatial_shapes_list": [
+      [
+        100,
+        134
+      ],
+      [
+        50,
+        67
+      ],
+      [
+        25,
+        34
+      ],
+      [
+        13,
+        17
+      ]
+    ],
+    "activation": "relu",
+    "encoder_ffn_dim": 2048
+  },
+  "latency": {
+    "current_hybrid_v1": {
+      "n": 20,
+      "mean_ms": 36.465199999999996,
+      "median_ms": 35.9804585,
+      "p90_ms": 38.227025,
+      "p95_ms": 39.49843545,
+      "min_ms": 35.405542,
+      "max_ms": 39.668209
+    },
+    "mlx_eager_island": {
+      "n": 20,
+      "mean_ms": 37.76012075,
+      "median_ms": 37.5105625,
+      "p90_ms": 39.4559788,
+      "p95_ms": 39.509736849999996,
+      "min_ms": 36.701083,
+      "max_ms": 40.271083
+    },
+    "speedup_eager_vs_hybrid": 0.9592087162116003,
+    "mlx_compiled_island": {
+      "n": 20,
+      "mean_ms": 33.36929155,
+      "median_ms": 33.311312,
+      "p90_ms": 33.638204200000004,
+      "p95_ms": 34.250192,
+      "min_ms": 32.68925,
+      "max_ms": 34.514292
+    },
+    "speedup_compiled_vs_hybrid": 1.0801273303195023
+  },
+  "correctness": {
+    "eager_preflight_vs_hybrid": {
+      "hidden_states": {
+        "shape": [
+          1,
+          17821,
+          256
+        ],
+        "max_abs": 1.1444091796875e-05,
+        "mean_abs": 1.4988611951594066e-07,
+        "rmse": 2.5568246542206907e-07,
+        "allclose_1e-5": true,
+        "allclose_1e-4": true,
+        "finite": true
+      },
+      "attention_weights": {
+        "shape": [
+          1,
+          17821,
+          8,
+          4,
+          4
+        ],
+        "max_abs": 2.384185791015625e-07,
+        "mean_abs": 2.864588344309027e-09,
+        "rmse": 1.197234134053815e-08,
+        "allclose_1e-5": true,
+        "allclose_1e-4": true,
+        "finite": true
+      }
+    },
+    "eager_final_vs_hybrid": {
+      "hidden_states": {
+        "shape": [
+          1,
+          17821,
+          256
+        ],
+        "max_abs": 1.1444091796875e-05,
+        "mean_abs": 1.4988611951594066e-07,
+        "rmse": 2.5568246542206907e-07,
+        "allclose_1e-5": true,
+        "allclose_1e-4": true,
+        "finite": true
+      },
+      "attention_weights": {
+        "shape": [
+          1,
+          17821,
+          8,
+          4,
+          4
+        ],
+        "max_abs": 2.384185791015625e-07,
+        "mean_abs": 2.864588344309027e-09,
+        "rmse": 1.197234134053815e-08,
+        "allclose_1e-5": true,
+        "allclose_1e-4": true,
+        "finite": true
+      }
+    },
+    "compiled_supported": true,
+    "compiled_error": null,
+    "compiled_preflight_vs_hybrid": {
+      "hidden_states": {
+        "shape": [
+          1,
+          17821,
+          256
+        ],
+        "max_abs": 1.1444091796875e-05,
+        "mean_abs": 1.4988611951594066e-07,
+        "rmse": 2.5568246542206907e-07,
+        "allclose_1e-5": true,
+        "allclose_1e-4": true,
+        "finite": true
+      },
+      "attention_weights": {
+        "shape": [
+          1,
+          17821,
+          8,
+          4,
+          4
+        ],
+        "max_abs": 2.384185791015625e-07,
+        "mean_abs": 2.864588344309027e-09,
+        "rmse": 1.197234134053815e-08,
+        "allclose_1e-5": true,
+        "allclose_1e-4": true,
+        "finite": true
+      }
+    },
+    "compiled_final_vs_hybrid": {
+      "hidden_states": {
+        "shape": [
+          1,
+          17821,
+          256
+        ],
+        "max_abs": 1.1444091796875e-05,
+        "mean_abs": 1.4988611951594066e-07,
+        "rmse": 2.5568246542206907e-07,
+        "allclose_1e-5": true,
+        "allclose_1e-4": true,
+        "finite": true
+      },
+      "attention_weights": {
+        "shape": [
+          1,
+          17821,
+          8,
+          4,
+          4
+        ],
+        "max_abs": 2.384185791015625e-07,
+        "mean_abs": 2.864588344309027e-09,
+        "rmse": 1.197234134053815e-08,
+        "allclose_1e-5": true,
+        "allclose_1e-4": true,
+        "finite": true
+      }
+    }
+  },
+  "notes": [
+    "The current-hybrid reference already contains MetalGround MSDA v0.",
+    "The MLX island keeps the same Metal MSDA v0 sampling core but moves its surrounding projections, residuals, layer norms, and encoder FFN into MLX.",
+    "DLPack conversion is zero-copy when supported, but producer/consumer synchronization remains explicit because conversion itself does not synchronize pending Metal work.",
+    "Dropout is inactive because the model is in eval mode.",
+    "No retraining, pruning, approximation, or reduced precision is used.",
+    "This is an isolated real layer workload; full-model integration is a later experiment."
+  ]
+}

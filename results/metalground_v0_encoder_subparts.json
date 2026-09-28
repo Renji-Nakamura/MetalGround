@@ -1,0 +1,1559 @@
+{
+  "timestamp_utc": "2026-09-15T15:50:53.596630+00:00",
+  "experiment": "0011",
+  "purpose": "Decompose the post-MSDA encoder bottlenecks: fusion internals and remaining deformable-layer projections/FFN.",
+  "model": "IDEA-Research/grounding-dino-tiny",
+  "device": "mps",
+  "dtype": "float32",
+  "image": "assets/input.jpg",
+  "prompt": [
+    "a cat",
+    "a dog"
+  ],
+  "warmup": 1,
+  "iterations_per_group": 3,
+  "baseline_median_ms": 632.6745625,
+  "groups": {
+    "fusion_layers": {
+      "selected_modules": [
+        "model.encoder.layers.0.fusion_layer",
+        "model.encoder.layers.1.fusion_layer",
+        "model.encoder.layers.2.fusion_layer",
+        "model.encoder.layers.3.fusion_layer",
+        "model.encoder.layers.4.fusion_layer",
+        "model.encoder.layers.5.fusion_layer"
+      ],
+      "instrumented_full_forward": {
+        "n": 3,
+        "mean_ms": 640.2366943333333,
+        "median_ms": 640.250709,
+        "p90_ms": 641.9727746,
+        "p95_ms": 642.1880328,
+        "min_ms": 638.056083,
+        "max_ms": 642.403291
+      },
+      "modules": {
+        "model.encoder.layers.0.fusion_layer": {
+          "class": "GroundingDinoFusionLayer",
+          "n": 3,
+          "mean_ms": 28.867819666666666,
+          "median_ms": 29.136292,
+          "p90_ms": 29.534292,
+          "p95_ms": 29.584042,
+          "min_ms": 27.833375,
+          "max_ms": 29.633792
+        },
+        "model.encoder.layers.1.fusion_layer": {
+          "class": "GroundingDinoFusionLayer",
+          "n": 3,
+          "mean_ms": 28.729416666666665,
+          "median_ms": 28.779584,
+          "p90_ms": 29.1271168,
+          "p95_ms": 29.170558399999997,
+          "min_ms": 28.194666,
+          "max_ms": 29.214
+        },
+        "model.encoder.layers.2.fusion_layer": {
+          "class": "GroundingDinoFusionLayer",
+          "n": 3,
+          "mean_ms": 28.997653,
+          "median_ms": 28.976083,
+          "p90_ms": 29.071483800000003,
+          "p95_ms": 29.0834089,
+          "min_ms": 28.921542,
+          "max_ms": 29.095334
+        },
+        "model.encoder.layers.3.fusion_layer": {
+          "class": "GroundingDinoFusionLayer",
+          "n": 3,
+          "mean_ms": 29.032611000000003,
+          "median_ms": 29.064333,
+          "p90_ms": 29.258900200000003,
+          "p95_ms": 29.283221100000002,
+          "min_ms": 28.725958,
+          "max_ms": 29.307542
+        },
+        "model.encoder.layers.4.fusion_layer": {
+          "class": "GroundingDinoFusionLayer",
+          "n": 3,
+          "mean_ms": 29.519791333333334,
+          "median_ms": 29.274625,
+          "p90_ms": 29.9891578,
+          "p95_ms": 30.078474399999998,
+          "min_ms": 29.116958,
+          "max_ms": 30.167791
+        },
+        "model.encoder.layers.5.fusion_layer": {
+          "class": "GroundingDinoFusionLayer",
+          "n": 3,
+          "mean_ms": 30.10655566666667,
+          "median_ms": 29.9055,
+          "p90_ms": 30.9758336,
+          "p95_ms": 31.1096253,
+          "min_ms": 29.17075,
+          "max_ms": 31.243417
+        }
+      },
+      "sum_module_medians_ms": 175.136417,
+      "rollup": {
+        "other": {
+          "count": 6,
+          "sum_median_ms": 175.136417,
+          "median_per_module_ms": 29.1003125
+        }
+      }
+    },
+    "fusion_attn": {
+      "selected_modules": [
+        "model.encoder.layers.0.fusion_layer.attn",
+        "model.encoder.layers.1.fusion_layer.attn",
+        "model.encoder.layers.2.fusion_layer.attn",
+        "model.encoder.layers.3.fusion_layer.attn",
+        "model.encoder.layers.4.fusion_layer.attn",
+        "model.encoder.layers.5.fusion_layer.attn"
+      ],
+      "instrumented_full_forward": {
+        "n": 3,
+        "mean_ms": 635.854111,
+        "median_ms": 637.043083,
+        "p90_ms": 637.5277502,
+        "p95_ms": 637.5883336,
+        "min_ms": 632.870333,
+        "max_ms": 637.648917
+      },
+      "modules": {
+        "model.encoder.layers.0.fusion_layer.attn": {
+          "class": "GroundingDinoBiMultiHeadAttention",
+          "n": 3,
+          "mean_ms": 26.55858333333333,
+          "median_ms": 26.558333,
+          "p90_ms": 26.6612666,
+          "p95_ms": 26.6741333,
+          "min_ms": 26.430417,
+          "max_ms": 26.687
+        },
+        "model.encoder.layers.1.fusion_layer.attn": {
+          "class": "GroundingDinoBiMultiHeadAttention",
+          "n": 3,
+          "mean_ms": 27.127124999999996,
+          "median_ms": 26.577167,
+          "p90_ms": 27.9899334,
+          "p95_ms": 28.1665292,
+          "min_ms": 26.461083,
+          "max_ms": 28.343125
+        },
+        "model.encoder.layers.2.fusion_layer.attn": {
+          "class": "GroundingDinoBiMultiHeadAttention",
+          "n": 3,
+          "mean_ms": 26.943027666666666,
+          "median_ms": 26.4005,
+          "p90_ms": 27.9709,
+          "p95_ms": 28.167199999999998,
+          "min_ms": 26.065083,
+          "max_ms": 28.3635
+        },
+        "model.encoder.layers.3.fusion_layer.attn": {
+          "class": "GroundingDinoBiMultiHeadAttention",
+          "n": 3,
+          "mean_ms": 26.607083,
+          "median_ms": 26.317541,
+          "p90_ms": 27.015474599999997,
+          "p95_ms": 27.1027163,
+          "min_ms": 26.31375,
+          "max_ms": 27.189958
+        },
+        "model.encoder.layers.4.fusion_layer.attn": {
+          "class": "GroundingDinoBiMultiHeadAttention",
+          "n": 3,
+          "mean_ms": 26.14129133333333,
+          "median_ms": 26.324666,
+          "p90_ms": 26.4111996,
+          "p95_ms": 26.422016299999996,
+          "min_ms": 25.666375,
+          "max_ms": 26.432833
+        },
+        "model.encoder.layers.5.fusion_layer.attn": {
+          "class": "GroundingDinoBiMultiHeadAttention",
+          "n": 3,
+          "mean_ms": 27.483652666666668,
+          "median_ms": 27.159083,
+          "p90_ms": 28.0664166,
+          "p95_ms": 28.1798333,
+          "min_ms": 26.998625,
+          "max_ms": 28.29325
+        }
+      },
+      "sum_module_medians_ms": 159.33729,
+      "rollup": {
+        "other": {
+          "count": 6,
+          "sum_median_ms": 159.33729,
+          "median_per_module_ms": 26.4794165
+        }
+      }
+    },
+    "fusion_children": {
+      "selected_modules": [
+        "model.encoder.layers.0.fusion_layer.layer_norm_vision",
+        "model.encoder.layers.0.fusion_layer.layer_norm_text",
+        "model.encoder.layers.0.fusion_layer.attn.vision_proj",
+        "model.encoder.layers.0.fusion_layer.attn.text_proj",
+        "model.encoder.layers.0.fusion_layer.attn.values_vision_proj",
+        "model.encoder.layers.0.fusion_layer.attn.values_text_proj",
+        "model.encoder.layers.0.fusion_layer.attn.out_vision_proj",
+        "model.encoder.layers.0.fusion_layer.attn.out_text_proj",
+        "model.encoder.layers.1.fusion_layer.layer_norm_vision",
+        "model.encoder.layers.1.fusion_layer.layer_norm_text",
+        "model.encoder.layers.1.fusion_layer.attn.vision_proj",
+        "model.encoder.layers.1.fusion_layer.attn.text_proj",
+        "model.encoder.layers.1.fusion_layer.attn.values_vision_proj",
+        "model.encoder.layers.1.fusion_layer.attn.values_text_proj",
+        "model.encoder.layers.1.fusion_layer.attn.out_vision_proj",
+        "model.encoder.layers.1.fusion_layer.attn.out_text_proj",
+        "model.encoder.layers.2.fusion_layer.layer_norm_vision",
+        "model.encoder.layers.2.fusion_layer.layer_norm_text",
+        "model.encoder.layers.2.fusion_layer.attn.vision_proj",
+        "model.encoder.layers.2.fusion_layer.attn.text_proj",
+        "model.encoder.layers.2.fusion_layer.attn.values_vision_proj",
+        "model.encoder.layers.2.fusion_layer.attn.values_text_proj",
+        "model.encoder.layers.2.fusion_layer.attn.out_vision_proj",
+        "model.encoder.layers.2.fusion_layer.attn.out_text_proj",
+        "model.encoder.layers.3.fusion_layer.layer_norm_vision",
+        "model.encoder.layers.3.fusion_layer.layer_norm_text",
+        "model.encoder.layers.3.fusion_layer.attn.vision_proj",
+        "model.encoder.layers.3.fusion_layer.attn.text_proj",
+        "model.encoder.layers.3.fusion_layer.attn.values_vision_proj",
+        "model.encoder.layers.3.fusion_layer.attn.values_text_proj",
+        "model.encoder.layers.3.fusion_layer.attn.out_vision_proj",
+        "model.encoder.layers.3.fusion_layer.attn.out_text_proj",
+        "model.encoder.layers.4.fusion_layer.layer_norm_vision",
+        "model.encoder.layers.4.fusion_layer.layer_norm_text",
+        "model.encoder.layers.4.fusion_layer.attn.vision_proj",
+        "model.encoder.layers.4.fusion_layer.attn.text_proj",
+        "model.encoder.layers.4.fusion_layer.attn.values_vision_proj",
+        "model.encoder.layers.4.fusion_layer.attn.values_text_proj",
+        "model.encoder.layers.4.fusion_layer.attn.out_vision_proj",
+        "model.encoder.layers.4.fusion_layer.attn.out_text_proj",
+        "model.encoder.layers.5.fusion_layer.layer_norm_vision",
+        "model.encoder.layers.5.fusion_layer.layer_norm_text",
+        "model.encoder.layers.5.fusion_layer.attn.vision_proj",
+        "model.encoder.layers.5.fusion_layer.attn.text_proj",
+        "model.encoder.layers.5.fusion_layer.attn.values_vision_proj",
+        "model.encoder.layers.5.fusion_layer.attn.values_text_proj",
+        "model.encoder.layers.5.fusion_layer.attn.out_vision_proj",
+        "model.encoder.layers.5.fusion_layer.attn.out_text_proj"
+      ],
+      "instrumented_full_forward": {
+        "n": 3,
+        "mean_ms": 648.8677083333333,
+        "median_ms": 649.5055,
+        "p90_ms": 650.3632,
+        "p95_ms": 650.4704125,
+        "min_ms": 646.52,
+        "max_ms": 650.577625
+      },
+      "modules": {
+        "model.encoder.layers.0.fusion_layer.layer_norm_vision": {
+          "class": "LayerNorm",
+          "n": 3,
+          "mean_ms": 0.7286806666666666,
+          "median_ms": 0.746875,
+          "p90_ms": 0.7662749999999999,
+          "p95_ms": 0.7686999999999999,
+          "min_ms": 0.668042,
+          "max_ms": 0.771125
+        },
+        "model.encoder.layers.0.fusion_layer.layer_norm_text": {
+          "class": "LayerNorm",
+          "n": 3,
+          "mean_ms": 0.199361,
+          "median_ms": 0.201291,
+          "p90_ms": 0.2024582,
+          "p95_ms": 0.2026041,
+          "min_ms": 0.194042,
+          "max_ms": 0.20275
+        },
+        "model.encoder.layers.0.fusion_layer.attn.vision_proj": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 3.986819333333333,
+          "median_ms": 3.986083,
+          "p90_ms": 3.9889166000000005,
+          "p95_ms": 3.9892708,
+          "min_ms": 3.98475,
+          "max_ms": 3.989625
+        },
+        "model.encoder.layers.0.fusion_layer.attn.text_proj": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 0.29376399999999997,
+          "median_ms": 0.28975,
+          "p90_ms": 0.3006172,
+          "p95_ms": 0.3019756,
+          "min_ms": 0.288208,
+          "max_ms": 0.303334
+        },
+        "model.encoder.layers.0.fusion_layer.attn.values_vision_proj": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 4.383264,
+          "median_ms": 3.98325,
+          "p90_ms": 4.95555,
+          "p95_ms": 5.0770875,
+          "min_ms": 3.967917,
+          "max_ms": 5.198625
+        },
+        "model.encoder.layers.0.fusion_layer.attn.values_text_proj": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 0.28506933333333334,
+          "median_ms": 0.283583,
+          "p90_ms": 0.293383,
+          "p95_ms": 0.294608,
+          "min_ms": 0.275792,
+          "max_ms": 0.295833
+        },
+        "model.encoder.layers.0.fusion_layer.attn.out_vision_proj": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 3.880778,
+          "median_ms": 3.880834,
+          "p90_ms": 3.8831668,
+          "p95_ms": 3.8834584,
+          "min_ms": 3.87775,
+          "max_ms": 3.88375
+        },
+        "model.encoder.layers.0.fusion_layer.attn.out_text_proj": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 0.3243196666666666,
+          "median_ms": 0.280917,
+          "p90_ms": 0.3971498,
+          "p95_ms": 0.41167889999999996,
+          "min_ms": 0.265834,
+          "max_ms": 0.426208
+        },
+        "model.encoder.layers.1.fusion_layer.layer_norm_vision": {
+          "class": "LayerNorm",
+          "n": 3,
+          "mean_ms": 0.7069303333333333,
+          "median_ms": 0.725542,
+          "p90_ms": 0.7308412,
+          "p95_ms": 0.7315035999999999,
+          "min_ms": 0.663083,
+          "max_ms": 0.732166
+        },
+        "model.encoder.layers.1.fusion_layer.layer_norm_text": {
+          "class": "LayerNorm",
+          "n": 3,
+          "mean_ms": 0.19166633333333336,
+          "median_ms": 0.195,
+          "p90_ms": 0.19533280000000003,
+          "p95_ms": 0.1953744,
+          "min_ms": 0.184583,
+          "max_ms": 0.195416
+        },
+        "model.encoder.layers.1.fusion_layer.attn.vision_proj": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 4.079041666666667,
+          "median_ms": 3.96725,
+          "p90_ms": 4.23815,
+          "p95_ms": 4.2720125,
+          "min_ms": 3.964,
+          "max_ms": 4.305875
+        },
+        "model.encoder.layers.1.fusion_layer.attn.text_proj": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 0.296653,
+          "median_ms": 0.280917,
+          "p90_ms": 0.3224834,
+          "p95_ms": 0.32767919999999995,
+          "min_ms": 0.276167,
+          "max_ms": 0.332875
+        },
+        "model.encoder.layers.1.fusion_layer.attn.values_vision_proj": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 3.9890416666666666,
+          "median_ms": 3.997292,
+          "p90_ms": 4.0012248,
+          "p95_ms": 4.0017164,
+          "min_ms": 3.967625,
+          "max_ms": 4.002208
+        },
+        "model.encoder.layers.1.fusion_layer.attn.values_text_proj": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 0.28625033333333333,
+          "median_ms": 0.279917,
+          "p90_ms": 0.295717,
+          "p95_ms": 0.297692,
+          "min_ms": 0.279167,
+          "max_ms": 0.299667
+        },
+        "model.encoder.layers.1.fusion_layer.attn.out_vision_proj": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 4.2147776666666665,
+          "median_ms": 3.864542,
+          "p90_ms": 4.7103084,
+          "p95_ms": 4.8160292,
+          "min_ms": 3.858041,
+          "max_ms": 4.92175
+        },
+        "model.encoder.layers.1.fusion_layer.attn.out_text_proj": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 0.2656943333333333,
+          "median_ms": 0.263458,
+          "p90_ms": 0.2695916,
+          "p95_ms": 0.2703583,
+          "min_ms": 0.2625,
+          "max_ms": 0.271125
+        },
+        "model.encoder.layers.2.fusion_layer.layer_norm_vision": {
+          "class": "LayerNorm",
+          "n": 3,
+          "mean_ms": 0.7520556666666667,
+          "median_ms": 0.749209,
+          "p90_ms": 0.7627082000000001,
+          "p95_ms": 0.7643956,
+          "min_ms": 0.740875,
+          "max_ms": 0.766083
+        },
+        "model.encoder.layers.2.fusion_layer.layer_norm_text": {
+          "class": "LayerNorm",
+          "n": 3,
+          "mean_ms": 0.1952223333333333,
+          "median_ms": 0.19525,
+          "p90_ms": 0.19635,
+          "p95_ms": 0.19648749999999998,
+          "min_ms": 0.193792,
+          "max_ms": 0.196625
+        },
+        "model.encoder.layers.2.fusion_layer.attn.vision_proj": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 3.999361,
+          "median_ms": 3.972542,
+          "p90_ms": 4.0431412,
+          "p95_ms": 4.0519661,
+          "min_ms": 3.96475,
+          "max_ms": 4.060791
+        },
+        "model.encoder.layers.2.fusion_layer.attn.text_proj": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 0.27987500000000004,
+          "median_ms": 0.280125,
+          "p90_ms": 0.2832578,
+          "p95_ms": 0.2836494,
+          "min_ms": 0.275459,
+          "max_ms": 0.284041
+        },
+        "model.encoder.layers.2.fusion_layer.attn.values_vision_proj": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 3.9975273333333337,
+          "median_ms": 3.997458,
+          "p90_ms": 4.0237244,
+          "p95_ms": 4.0270077,
+          "min_ms": 3.964833,
+          "max_ms": 4.030291
+        },
+        "model.encoder.layers.2.fusion_layer.attn.values_text_proj": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 0.2898193333333334,
+          "median_ms": 0.292125,
+          "p90_ms": 0.298725,
+          "p95_ms": 0.29955,
+          "min_ms": 0.276958,
+          "max_ms": 0.300375
+        },
+        "model.encoder.layers.2.fusion_layer.attn.out_vision_proj": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 3.875861,
+          "median_ms": 3.875583,
+          "p90_ms": 3.8764165999999998,
+          "p95_ms": 3.8765208,
+          "min_ms": 3.875375,
+          "max_ms": 3.876625
+        },
+        "model.encoder.layers.2.fusion_layer.attn.out_text_proj": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 0.27051366666666665,
+          "median_ms": 0.271125,
+          "p90_ms": 0.2721914,
+          "p95_ms": 0.2723247,
+          "min_ms": 0.267958,
+          "max_ms": 0.272458
+        },
+        "model.encoder.layers.3.fusion_layer.layer_norm_vision": {
+          "class": "LayerNorm",
+          "n": 3,
+          "mean_ms": 0.7453333333333333,
+          "median_ms": 0.740542,
+          "p90_ms": 0.7588748000000001,
+          "p95_ms": 0.7611664,
+          "min_ms": 0.732,
+          "max_ms": 0.763458
+        },
+        "model.encoder.layers.3.fusion_layer.layer_norm_text": {
+          "class": "LayerNorm",
+          "n": 3,
+          "mean_ms": 0.19501366666666667,
+          "median_ms": 0.19375,
+          "p90_ms": 0.19705,
+          "p95_ms": 0.19746249999999999,
+          "min_ms": 0.193416,
+          "max_ms": 0.197875
+        },
+        "model.encoder.layers.3.fusion_layer.attn.vision_proj": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 4.0234586666666665,
+          "median_ms": 3.989417,
+          "p90_ms": 4.0794505999999995,
+          "p95_ms": 4.0907048,
+          "min_ms": 3.979,
+          "max_ms": 4.101959
+        },
+        "model.encoder.layers.3.fusion_layer.attn.text_proj": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 0.282264,
+          "median_ms": 0.281625,
+          "p90_ms": 0.2842914,
+          "p95_ms": 0.2846247,
+          "min_ms": 0.280209,
+          "max_ms": 0.284958
+        },
+        "model.encoder.layers.3.fusion_layer.attn.values_vision_proj": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 3.949472333333334,
+          "median_ms": 3.96925,
+          "p90_ms": 3.9764836000000003,
+          "p95_ms": 3.9773878000000003,
+          "min_ms": 3.900875,
+          "max_ms": 3.978292
+        },
+        "model.encoder.layers.3.fusion_layer.attn.values_text_proj": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 0.27125,
+          "median_ms": 0.275417,
+          "p90_ms": 0.2761498,
+          "p95_ms": 0.27624139999999997,
+          "min_ms": 0.262,
+          "max_ms": 0.276333
+        },
+        "model.encoder.layers.3.fusion_layer.attn.out_vision_proj": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 3.863986333333333,
+          "median_ms": 3.862542,
+          "p90_ms": 3.866942,
+          "p95_ms": 3.867492,
+          "min_ms": 3.861375,
+          "max_ms": 3.868042
+        },
+        "model.encoder.layers.3.fusion_layer.attn.out_text_proj": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 0.2655,
+          "median_ms": 0.266292,
+          "p90_ms": 0.2696248,
+          "p95_ms": 0.2700414,
+          "min_ms": 0.25975,
+          "max_ms": 0.270458
+        },
+        "model.encoder.layers.4.fusion_layer.layer_norm_vision": {
+          "class": "LayerNorm",
+          "n": 3,
+          "mean_ms": 0.737333,
+          "median_ms": 0.733083,
+          "p90_ms": 0.7458830000000001,
+          "p95_ms": 0.7474830000000001,
+          "min_ms": 0.729833,
+          "max_ms": 0.749083
+        },
+        "model.encoder.layers.4.fusion_layer.layer_norm_text": {
+          "class": "LayerNorm",
+          "n": 3,
+          "mean_ms": 0.19073600000000002,
+          "median_ms": 0.190042,
+          "p90_ms": 0.19180840000000002,
+          "p95_ms": 0.1920292,
+          "min_ms": 0.189916,
+          "max_ms": 0.19225
+        },
+        "model.encoder.layers.4.fusion_layer.attn.vision_proj": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 3.973611333333333,
+          "median_ms": 3.979958,
+          "p90_ms": 3.9858588,
+          "p95_ms": 3.9865964000000003,
+          "min_ms": 3.953542,
+          "max_ms": 3.987334
+        },
+        "model.encoder.layers.4.fusion_layer.attn.text_proj": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 0.27658333333333335,
+          "median_ms": 0.276,
+          "p90_ms": 0.2775336,
+          "p95_ms": 0.2777253,
+          "min_ms": 0.275833,
+          "max_ms": 0.277917
+        },
+        "model.encoder.layers.4.fusion_layer.attn.values_vision_proj": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 3.9704029999999997,
+          "median_ms": 3.969625,
+          "p90_ms": 3.971825,
+          "p95_ms": 3.9721,
+          "min_ms": 3.969209,
+          "max_ms": 3.972375
+        },
+        "model.encoder.layers.4.fusion_layer.attn.values_text_proj": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 0.27920833333333334,
+          "median_ms": 0.278708,
+          "p90_ms": 0.28497520000000004,
+          "p95_ms": 0.28575860000000003,
+          "min_ms": 0.272375,
+          "max_ms": 0.286542
+        },
+        "model.encoder.layers.4.fusion_layer.attn.out_vision_proj": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 3.918486,
+          "median_ms": 3.86725,
+          "p90_ms": 3.99625,
+          "p95_ms": 4.0123750000000005,
+          "min_ms": 3.859708,
+          "max_ms": 4.0285
+        },
+        "model.encoder.layers.4.fusion_layer.attn.out_text_proj": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 0.260472,
+          "median_ms": 0.256041,
+          "p90_ms": 0.2686082,
+          "p95_ms": 0.2701791,
+          "min_ms": 0.253625,
+          "max_ms": 0.27175
+        },
+        "model.encoder.layers.5.fusion_layer.layer_norm_vision": {
+          "class": "LayerNorm",
+          "n": 3,
+          "mean_ms": 0.744514,
+          "median_ms": 0.744542,
+          "p90_ms": 0.747042,
+          "p95_ms": 0.7473544999999999,
+          "min_ms": 0.741333,
+          "max_ms": 0.747667
+        },
+        "model.encoder.layers.5.fusion_layer.layer_norm_text": {
+          "class": "LayerNorm",
+          "n": 3,
+          "mean_ms": 0.19029133333333334,
+          "median_ms": 0.190958,
+          "p90_ms": 0.1915244,
+          "p95_ms": 0.19159520000000002,
+          "min_ms": 0.18825,
+          "max_ms": 0.191666
+        },
+        "model.encoder.layers.5.fusion_layer.attn.vision_proj": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 3.9535416666666663,
+          "median_ms": 3.926167,
+          "p90_ms": 3.9965998000000003,
+          "p95_ms": 4.0054039,
+          "min_ms": 3.92025,
+          "max_ms": 4.014208
+        },
+        "model.encoder.layers.5.fusion_layer.attn.text_proj": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 0.5707639999999999,
+          "median_ms": 0.511875,
+          "p90_ms": 0.817975,
+          "p95_ms": 0.8562375,
+          "min_ms": 0.305917,
+          "max_ms": 0.8945
+        },
+        "model.encoder.layers.5.fusion_layer.attn.values_vision_proj": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 4.034722333333334,
+          "median_ms": 3.994792,
+          "p90_ms": 4.134691999999999,
+          "p95_ms": 4.1521795,
+          "min_ms": 3.939708,
+          "max_ms": 4.169667
+        },
+        "model.encoder.layers.5.fusion_layer.attn.values_text_proj": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 0.29319466666666666,
+          "median_ms": 0.277292,
+          "p90_ms": 0.31982479999999996,
+          "p95_ms": 0.32514139999999997,
+          "min_ms": 0.271834,
+          "max_ms": 0.330458
+        },
+        "model.encoder.layers.5.fusion_layer.attn.out_vision_proj": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 3.9639026666666672,
+          "median_ms": 3.988708,
+          "p90_ms": 4.017208,
+          "p95_ms": 4.0207705,
+          "min_ms": 3.878667,
+          "max_ms": 4.024333
+        },
+        "model.encoder.layers.5.fusion_layer.attn.out_text_proj": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 0.296889,
+          "median_ms": 0.274417,
+          "p90_ms": 0.33128339999999995,
+          "p95_ms": 0.33839169999999996,
+          "min_ms": 0.27075,
+          "max_ms": 0.3455
+        }
+      },
+      "sum_module_medians_ms": 81.898211,
+      "rollup": {
+        "values_vision_proj": {
+          "count": 6,
+          "sum_median_ms": 23.911667,
+          "median_per_module_ms": 3.989021
+        },
+        "vision_proj": {
+          "count": 6,
+          "sum_median_ms": 23.821417,
+          "median_per_module_ms": 3.97625
+        },
+        "out_vision_proj": {
+          "count": 6,
+          "sum_median_ms": 23.339458999999998,
+          "median_per_module_ms": 3.8714164999999996
+        },
+        "layer_norm_vision": {
+          "count": 6,
+          "sum_median_ms": 4.439793,
+          "median_per_module_ms": 0.742542
+        },
+        "text_proj": {
+          "count": 6,
+          "sum_median_ms": 1.9202919999999999,
+          "median_per_module_ms": 0.281271
+        },
+        "values_text_proj": {
+          "count": 6,
+          "sum_median_ms": 1.687042,
+          "median_per_module_ms": 0.2793125
+        },
+        "out_text_proj": {
+          "count": 6,
+          "sum_median_ms": 1.61225,
+          "median_per_module_ms": 0.2687085
+        },
+        "layer_norm_text": {
+          "count": 6,
+          "sum_median_ms": 1.166291,
+          "median_per_module_ms": 0.19437500000000002
+        }
+      }
+    },
+    "deformable_layers": {
+      "selected_modules": [
+        "model.encoder.layers.0.deformable_layer",
+        "model.encoder.layers.1.deformable_layer",
+        "model.encoder.layers.2.deformable_layer",
+        "model.encoder.layers.3.deformable_layer",
+        "model.encoder.layers.4.deformable_layer",
+        "model.encoder.layers.5.deformable_layer"
+      ],
+      "instrumented_full_forward": {
+        "n": 3,
+        "mean_ms": 633.489972,
+        "median_ms": 636.259875,
+        "p90_ms": 636.943575,
+        "p95_ms": 637.0290375000001,
+        "min_ms": 627.095541,
+        "max_ms": 637.1145
+      },
+      "modules": {
+        "model.encoder.layers.0.deformable_layer": {
+          "class": "GroundingDinoDeformableLayer",
+          "n": 3,
+          "mean_ms": 35.97654166666667,
+          "median_ms": 35.975209,
+          "p90_ms": 36.3357746,
+          "p95_ms": 36.380845300000004,
+          "min_ms": 35.5285,
+          "max_ms": 36.425916
+        },
+        "model.encoder.layers.1.deformable_layer": {
+          "class": "GroundingDinoDeformableLayer",
+          "n": 3,
+          "mean_ms": 35.741736,
+          "median_ms": 35.64475,
+          "p90_ms": 36.0130164,
+          "p95_ms": 36.059049699999996,
+          "min_ms": 35.475375,
+          "max_ms": 36.105083
+        },
+        "model.encoder.layers.2.deformable_layer": {
+          "class": "GroundingDinoDeformableLayer",
+          "n": 3,
+          "mean_ms": 35.89151366666667,
+          "median_ms": 35.842125,
+          "p90_ms": 36.1950578,
+          "p95_ms": 36.2391744,
+          "min_ms": 35.549125,
+          "max_ms": 36.283291
+        },
+        "model.encoder.layers.3.deformable_layer": {
+          "class": "GroundingDinoDeformableLayer",
+          "n": 3,
+          "mean_ms": 36.550555333333335,
+          "median_ms": 36.794625,
+          "p90_ms": 37.4117914,
+          "p95_ms": 37.4889372,
+          "min_ms": 35.290958,
+          "max_ms": 37.566083
+        },
+        "model.encoder.layers.4.deformable_layer": {
+          "class": "GroundingDinoDeformableLayer",
+          "n": 3,
+          "mean_ms": 35.74491666666667,
+          "median_ms": 35.748417,
+          "p90_ms": 36.0421834,
+          "p95_ms": 36.0789042,
+          "min_ms": 35.370708,
+          "max_ms": 36.115625
+        },
+        "model.encoder.layers.5.deformable_layer": {
+          "class": "GroundingDinoDeformableLayer",
+          "n": 3,
+          "mean_ms": 36.24919433333333,
+          "median_ms": 36.09675,
+          "p90_ms": 36.5819164,
+          "p95_ms": 36.64256219999999,
+          "min_ms": 35.947625,
+          "max_ms": 36.703208
+        }
+      },
+      "sum_module_medians_ms": 216.101876,
+      "rollup": {
+        "other": {
+          "count": 6,
+          "sum_median_ms": 216.101876,
+          "median_per_module_ms": 35.908667
+        }
+      }
+    },
+    "deformable_wrappers": {
+      "selected_modules": [
+        "model.encoder.layers.0.deformable_layer.self_attn",
+        "model.encoder.layers.1.deformable_layer.self_attn",
+        "model.encoder.layers.2.deformable_layer.self_attn",
+        "model.encoder.layers.3.deformable_layer.self_attn",
+        "model.encoder.layers.4.deformable_layer.self_attn",
+        "model.encoder.layers.5.deformable_layer.self_attn"
+      ],
+      "instrumented_full_forward": {
+        "n": 3,
+        "mean_ms": 645.5443750000001,
+        "median_ms": 645.047917,
+        "p90_ms": 647.8654834,
+        "p95_ms": 648.2176792,
+        "min_ms": 643.015333,
+        "max_ms": 648.569875
+      },
+      "modules": {
+        "model.encoder.layers.0.deformable_layer.self_attn": {
+          "class": "GroundingDinoMultiscaleDeformableAttention",
+          "n": 3,
+          "mean_ms": 15.549138666666666,
+          "median_ms": 14.977583,
+          "p90_ms": 16.398383,
+          "p95_ms": 16.575983,
+          "min_ms": 14.91625,
+          "max_ms": 16.753583
+        },
+        "model.encoder.layers.1.deformable_layer.self_attn": {
+          "class": "GroundingDinoMultiscaleDeformableAttention",
+          "n": 3,
+          "mean_ms": 15.4375,
+          "median_ms": 14.916542,
+          "p90_ms": 16.2953412,
+          "p95_ms": 16.4676911,
+          "min_ms": 14.755917,
+          "max_ms": 16.640041
+        },
+        "model.encoder.layers.2.deformable_layer.self_attn": {
+          "class": "GroundingDinoMultiscaleDeformableAttention",
+          "n": 3,
+          "mean_ms": 15.365889333333334,
+          "median_ms": 14.714209,
+          "p90_ms": 16.3070418,
+          "p95_ms": 16.5061459,
+          "min_ms": 14.678209,
+          "max_ms": 16.70525
+        },
+        "model.encoder.layers.3.deformable_layer.self_attn": {
+          "class": "GroundingDinoMultiscaleDeformableAttention",
+          "n": 3,
+          "mean_ms": 15.322389000000001,
+          "median_ms": 14.687625,
+          "p90_ms": 16.3078922,
+          "p95_ms": 16.5104256,
+          "min_ms": 14.566583,
+          "max_ms": 16.712959
+        },
+        "model.encoder.layers.4.deformable_layer.self_attn": {
+          "class": "GroundingDinoMultiscaleDeformableAttention",
+          "n": 3,
+          "mean_ms": 15.391333333333334,
+          "median_ms": 15.021083,
+          "p90_ms": 16.113250200000003,
+          "p95_ms": 16.2497711,
+          "min_ms": 14.766625,
+          "max_ms": 16.386292
+        },
+        "model.encoder.layers.5.deformable_layer.self_attn": {
+          "class": "GroundingDinoMultiscaleDeformableAttention",
+          "n": 3,
+          "mean_ms": 15.340722,
+          "median_ms": 14.974375,
+          "p90_ms": 15.862541399999998,
+          "p95_ms": 15.9735622,
+          "min_ms": 14.963208,
+          "max_ms": 16.084583
+        }
+      },
+      "sum_module_medians_ms": 89.291417,
+      "rollup": {
+        "other": {
+          "count": 6,
+          "sum_median_ms": 89.291417,
+          "median_per_module_ms": 14.9454585
+        }
+      }
+    },
+    "deformable_children": {
+      "selected_modules": [
+        "model.encoder.layers.0.deformable_layer.self_attn.sampling_offsets",
+        "model.encoder.layers.0.deformable_layer.self_attn.attention_weights",
+        "model.encoder.layers.0.deformable_layer.self_attn.value_proj",
+        "model.encoder.layers.0.deformable_layer.self_attn.output_proj",
+        "model.encoder.layers.0.deformable_layer.self_attn_layer_norm",
+        "model.encoder.layers.0.deformable_layer.fc1",
+        "model.encoder.layers.0.deformable_layer.fc2",
+        "model.encoder.layers.0.deformable_layer.final_layer_norm",
+        "model.encoder.layers.1.deformable_layer.self_attn.sampling_offsets",
+        "model.encoder.layers.1.deformable_layer.self_attn.attention_weights",
+        "model.encoder.layers.1.deformable_layer.self_attn.value_proj",
+        "model.encoder.layers.1.deformable_layer.self_attn.output_proj",
+        "model.encoder.layers.1.deformable_layer.self_attn_layer_norm",
+        "model.encoder.layers.1.deformable_layer.fc1",
+        "model.encoder.layers.1.deformable_layer.fc2",
+        "model.encoder.layers.1.deformable_layer.final_layer_norm",
+        "model.encoder.layers.2.deformable_layer.self_attn.sampling_offsets",
+        "model.encoder.layers.2.deformable_layer.self_attn.attention_weights",
+        "model.encoder.layers.2.deformable_layer.self_attn.value_proj",
+        "model.encoder.layers.2.deformable_layer.self_attn.output_proj",
+        "model.encoder.layers.2.deformable_layer.self_attn_layer_norm",
+        "model.encoder.layers.2.deformable_layer.fc1",
+        "model.encoder.layers.2.deformable_layer.fc2",
+        "model.encoder.layers.2.deformable_layer.final_layer_norm",
+        "model.encoder.layers.3.deformable_layer.self_attn.sampling_offsets",
+        "model.encoder.layers.3.deformable_layer.self_attn.attention_weights",
+        "model.encoder.layers.3.deformable_layer.self_attn.value_proj",
+        "model.encoder.layers.3.deformable_layer.self_attn.output_proj",
+        "model.encoder.layers.3.deformable_layer.self_attn_layer_norm",
+        "model.encoder.layers.3.deformable_layer.fc1",
+        "model.encoder.layers.3.deformable_layer.fc2",
+        "model.encoder.layers.3.deformable_layer.final_layer_norm",
+        "model.encoder.layers.4.deformable_layer.self_attn.sampling_offsets",
+        "model.encoder.layers.4.deformable_layer.self_attn.attention_weights",
+        "model.encoder.layers.4.deformable_layer.self_attn.value_proj",
+        "model.encoder.layers.4.deformable_layer.self_attn.output_proj",
+        "model.encoder.layers.4.deformable_layer.self_attn_layer_norm",
+        "model.encoder.layers.4.deformable_layer.fc1",
+        "model.encoder.layers.4.deformable_layer.fc2",
+        "model.encoder.layers.4.deformable_layer.final_layer_norm",
+        "model.encoder.layers.5.deformable_layer.self_attn.sampling_offsets",
+        "model.encoder.layers.5.deformable_layer.self_attn.attention_weights",
+        "model.encoder.layers.5.deformable_layer.self_attn.value_proj",
+        "model.encoder.layers.5.deformable_layer.self_attn.output_proj",
+        "model.encoder.layers.5.deformable_layer.self_attn_layer_norm",
+        "model.encoder.layers.5.deformable_layer.fc1",
+        "model.encoder.layers.5.deformable_layer.fc2",
+        "model.encoder.layers.5.deformable_layer.final_layer_norm"
+      ],
+      "instrumented_full_forward": {
+        "n": 3,
+        "mean_ms": 650.9615416666667,
+        "median_ms": 647.29675,
+        "p90_ms": 657.32025,
+        "p95_ms": 658.5731875,
+        "min_ms": 645.76175,
+        "max_ms": 659.826125
+      },
+      "modules": {
+        "model.encoder.layers.0.deformable_layer.self_attn.sampling_offsets": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 1.304333,
+          "median_ms": 1.300708,
+          "p90_ms": 1.3160079999999998,
+          "p95_ms": 1.3179205,
+          "min_ms": 1.292458,
+          "max_ms": 1.319833
+        },
+        "model.encoder.layers.0.deformable_layer.self_attn.attention_weights": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 0.8351113333333333,
+          "median_ms": 0.834167,
+          "p90_ms": 0.8486670000000001,
+          "p95_ms": 0.8504795,
+          "min_ms": 0.818875,
+          "max_ms": 0.852292
+        },
+        "model.encoder.layers.0.deformable_layer.self_attn.value_proj": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 1.4053470000000001,
+          "median_ms": 1.347166,
+          "p90_ms": 1.5220004,
+          "p95_ms": 1.5438547,
+          "min_ms": 1.303166,
+          "max_ms": 1.565709
+        },
+        "model.encoder.layers.0.deformable_layer.self_attn.output_proj": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 1.300931,
+          "median_ms": 1.293667,
+          "p90_ms": 1.3193006,
+          "p95_ms": 1.3225048,
+          "min_ms": 1.283417,
+          "max_ms": 1.325709
+        },
+        "model.encoder.layers.0.deformable_layer.self_attn_layer_norm": {
+          "class": "LayerNorm",
+          "n": 3,
+          "mean_ms": 0.7651526666666667,
+          "median_ms": 0.741666,
+          "p90_ms": 0.8401668,
+          "p95_ms": 0.8524794,
+          "min_ms": 0.689,
+          "max_ms": 0.864792
+        },
+        "model.encoder.layers.0.deformable_layer.fc1": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 7.932111333333334,
+          "median_ms": 7.603167,
+          "p90_ms": 8.450067,
+          "p95_ms": 8.555929500000001,
+          "min_ms": 7.531375,
+          "max_ms": 8.661792
+        },
+        "model.encoder.layers.0.deformable_layer.fc2": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 7.340402666666667,
+          "median_ms": 7.330166,
+          "p90_ms": 7.362833200000001,
+          "p95_ms": 7.366916600000001,
+          "min_ms": 7.320042,
+          "max_ms": 7.371
+        },
+        "model.encoder.layers.0.deformable_layer.final_layer_norm": {
+          "class": "LayerNorm",
+          "n": 3,
+          "mean_ms": 0.736708,
+          "median_ms": 0.736833,
+          "p90_ms": 0.743333,
+          "p95_ms": 0.7441454999999999,
+          "min_ms": 0.728333,
+          "max_ms": 0.744958
+        },
+        "model.encoder.layers.1.deformable_layer.self_attn.sampling_offsets": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 1.304375,
+          "median_ms": 1.302208,
+          "p90_ms": 1.3115752,
+          "p95_ms": 1.3127460999999998,
+          "min_ms": 1.297,
+          "max_ms": 1.313917
+        },
+        "model.encoder.layers.1.deformable_layer.self_attn.attention_weights": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 0.7960969999999999,
+          "median_ms": 0.81275,
+          "p90_ms": 0.8170164,
+          "p95_ms": 0.8175497,
+          "min_ms": 0.757458,
+          "max_ms": 0.818083
+        },
+        "model.encoder.layers.1.deformable_layer.self_attn.value_proj": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 1.3955693333333332,
+          "median_ms": 1.308417,
+          "p90_ms": 1.5245161999999999,
+          "p95_ms": 1.5515286,
+          "min_ms": 1.29975,
+          "max_ms": 1.578541
+        },
+        "model.encoder.layers.1.deformable_layer.self_attn.output_proj": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 1.3137223333333334,
+          "median_ms": 1.319459,
+          "p90_ms": 1.3374918,
+          "p95_ms": 1.3397459,
+          "min_ms": 1.279708,
+          "max_ms": 1.342
+        },
+        "model.encoder.layers.1.deformable_layer.self_attn_layer_norm": {
+          "class": "LayerNorm",
+          "n": 3,
+          "mean_ms": 0.7448753333333333,
+          "median_ms": 0.732042,
+          "p90_ms": 0.7677756,
+          "p95_ms": 0.7722422999999999,
+          "min_ms": 0.725875,
+          "max_ms": 0.776709
+        },
+        "model.encoder.layers.1.deformable_layer.fc1": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 7.766402666666667,
+          "median_ms": 7.601542,
+          "p90_ms": 8.0540412,
+          "p95_ms": 8.110603600000001,
+          "min_ms": 7.5305,
+          "max_ms": 8.167166
+        },
+        "model.encoder.layers.1.deformable_layer.fc2": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 7.423485666666667,
+          "median_ms": 7.329916,
+          "p90_ms": 7.5721832,
+          "p95_ms": 7.6024666,
+          "min_ms": 7.307791,
+          "max_ms": 7.63275
+        },
+        "model.encoder.layers.1.deformable_layer.final_layer_norm": {
+          "class": "LayerNorm",
+          "n": 3,
+          "mean_ms": 0.7537916666666667,
+          "median_ms": 0.751292,
+          "p90_ms": 0.7703583999999999,
+          "p95_ms": 0.7727416999999999,
+          "min_ms": 0.734958,
+          "max_ms": 0.775125
+        },
+        "model.encoder.layers.2.deformable_layer.self_attn.sampling_offsets": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 1.3097223333333334,
+          "median_ms": 1.313334,
+          "p90_ms": 1.3219668,
+          "p95_ms": 1.3230459,
+          "min_ms": 1.291708,
+          "max_ms": 1.324125
+        },
+        "model.encoder.layers.2.deformable_layer.self_attn.attention_weights": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 0.8041666666666667,
+          "median_ms": 0.823167,
+          "p90_ms": 0.8337334,
+          "p95_ms": 0.8350542000000001,
+          "min_ms": 0.752958,
+          "max_ms": 0.836375
+        },
+        "model.encoder.layers.2.deformable_layer.self_attn.value_proj": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 1.4204999999999999,
+          "median_ms": 1.337917,
+          "p90_ms": 1.5522833999999999,
+          "p95_ms": 1.5790792,
+          "min_ms": 1.317708,
+          "max_ms": 1.605875
+        },
+        "model.encoder.layers.2.deformable_layer.self_attn.output_proj": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 1.303069,
+          "median_ms": 1.307666,
+          "p90_ms": 1.3128332,
+          "p95_ms": 1.3134791,
+          "min_ms": 1.287416,
+          "max_ms": 1.314125
+        },
+        "model.encoder.layers.2.deformable_layer.self_attn_layer_norm": {
+          "class": "LayerNorm",
+          "n": 3,
+          "mean_ms": 0.7852643333333335,
+          "median_ms": 0.747125,
+          "p90_ms": 0.8583921999999999,
+          "p95_ms": 0.8723006,
+          "min_ms": 0.722459,
+          "max_ms": 0.886209
+        },
+        "model.encoder.layers.2.deformable_layer.fc1": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 7.578833333333333,
+          "median_ms": 7.58275,
+          "p90_ms": 7.62075,
+          "p95_ms": 7.625500000000001,
+          "min_ms": 7.5235,
+          "max_ms": 7.63025
+        },
+        "model.encoder.layers.2.deformable_layer.fc2": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 7.33875,
+          "median_ms": 7.342875,
+          "p90_ms": 7.3606086,
+          "p95_ms": 7.3628253,
+          "min_ms": 7.308333,
+          "max_ms": 7.365042
+        },
+        "model.encoder.layers.2.deformable_layer.final_layer_norm": {
+          "class": "LayerNorm",
+          "n": 3,
+          "mean_ms": 0.701375,
+          "median_ms": 0.718708,
+          "p90_ms": 0.7228752,
+          "p95_ms": 0.7233961,
+          "min_ms": 0.6615,
+          "max_ms": 0.723917
+        },
+        "model.encoder.layers.3.deformable_layer.self_attn.sampling_offsets": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 1.312778,
+          "median_ms": 1.31375,
+          "p90_ms": 1.3229172,
+          "p95_ms": 1.3240631,
+          "min_ms": 1.299375,
+          "max_ms": 1.325209
+        },
+        "model.encoder.layers.3.deformable_layer.self_attn.attention_weights": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 0.8285969999999999,
+          "median_ms": 0.823917,
+          "p90_ms": 0.8361162,
+          "p95_ms": 0.8376410999999999,
+          "min_ms": 0.822708,
+          "max_ms": 0.839166
+        },
+        "model.encoder.layers.3.deformable_layer.self_attn.value_proj": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 1.3340136666666667,
+          "median_ms": 1.301458,
+          "p90_ms": 1.3804916,
+          "p95_ms": 1.3903708000000001,
+          "min_ms": 1.300333,
+          "max_ms": 1.40025
+        },
+        "model.encoder.layers.3.deformable_layer.self_attn.output_proj": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 1.3053606666666666,
+          "median_ms": 1.310166,
+          "p90_ms": 1.3156332,
+          "p95_ms": 1.3163166,
+          "min_ms": 1.288916,
+          "max_ms": 1.317
+        },
+        "model.encoder.layers.3.deformable_layer.self_attn_layer_norm": {
+          "class": "LayerNorm",
+          "n": 3,
+          "mean_ms": 0.7679166666666667,
+          "median_ms": 0.724625,
+          "p90_ms": 0.8394250000000001,
+          "p95_ms": 0.8537750000000001,
+          "min_ms": 0.711,
+          "max_ms": 0.868125
+        },
+        "model.encoder.layers.3.deformable_layer.fc1": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 7.685888333333334,
+          "median_ms": 7.597208,
+          "p90_ms": 7.8114744,
+          "p95_ms": 7.8382577,
+          "min_ms": 7.595416,
+          "max_ms": 7.865041
+        },
+        "model.encoder.layers.3.deformable_layer.fc2": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 7.348305333333333,
+          "median_ms": 7.353458,
+          "p90_ms": 7.3790916,
+          "p95_ms": 7.3822958,
+          "min_ms": 7.305958,
+          "max_ms": 7.3855
+        },
+        "model.encoder.layers.3.deformable_layer.final_layer_norm": {
+          "class": "LayerNorm",
+          "n": 3,
+          "mean_ms": 0.7325693333333333,
+          "median_ms": 0.734541,
+          "p90_ms": 0.7354417999999999,
+          "p95_ms": 0.7355543999999999,
+          "min_ms": 0.7275,
+          "max_ms": 0.735667
+        },
+        "model.encoder.layers.4.deformable_layer.self_attn.sampling_offsets": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 1.297264,
+          "median_ms": 1.30275,
+          "p90_ms": 1.30295,
+          "p95_ms": 1.302975,
+          "min_ms": 1.286042,
+          "max_ms": 1.303
+        },
+        "model.encoder.layers.4.deformable_layer.self_attn.attention_weights": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 0.7980693333333333,
+          "median_ms": 0.820917,
+          "p90_ms": 0.8236162,
+          "p95_ms": 0.8239536000000001,
+          "min_ms": 0.749,
+          "max_ms": 0.824291
+        },
+        "model.encoder.layers.4.deformable_layer.self_attn.value_proj": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 1.306611,
+          "median_ms": 1.2985,
+          "p90_ms": 1.3203328,
+          "p95_ms": 1.3230619,
+          "min_ms": 1.295542,
+          "max_ms": 1.325791
+        },
+        "model.encoder.layers.4.deformable_layer.self_attn.output_proj": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 1.292111,
+          "median_ms": 1.290417,
+          "p90_ms": 1.2978498,
+          "p95_ms": 1.2987789,
+          "min_ms": 1.286208,
+          "max_ms": 1.299708
+        },
+        "model.encoder.layers.4.deformable_layer.self_attn_layer_norm": {
+          "class": "LayerNorm",
+          "n": 3,
+          "mean_ms": 0.8410416666666668,
+          "median_ms": 0.733333,
+          "p90_ms": 0.9946002,
+          "p95_ms": 1.0272586,
+          "min_ms": 0.729875,
+          "max_ms": 1.059917
+        },
+        "model.encoder.layers.4.deformable_layer.fc1": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 7.615777666666666,
+          "median_ms": 7.602583,
+          "p90_ms": 7.6459494,
+          "p95_ms": 7.651370200000001,
+          "min_ms": 7.587959,
+          "max_ms": 7.656791
+        },
+        "model.encoder.layers.4.deformable_layer.fc2": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 7.709888666666667,
+          "median_ms": 7.506291,
+          "p90_ms": 8.1554582,
+          "p95_ms": 8.236604100000001,
+          "min_ms": 7.305625,
+          "max_ms": 8.31775
+        },
+        "model.encoder.layers.4.deformable_layer.final_layer_norm": {
+          "class": "LayerNorm",
+          "n": 3,
+          "mean_ms": 0.7182776666666667,
+          "median_ms": 0.730875,
+          "p90_ms": 0.7459414,
+          "p95_ms": 0.7478247,
+          "min_ms": 0.67425,
+          "max_ms": 0.749708
+        },
+        "model.encoder.layers.5.deformable_layer.self_attn.sampling_offsets": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 1.321625,
+          "median_ms": 1.327458,
+          "p90_ms": 1.3274916,
+          "p95_ms": 1.3274958,
+          "min_ms": 1.309917,
+          "max_ms": 1.3275
+        },
+        "model.encoder.layers.5.deformable_layer.self_attn.attention_weights": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 0.854292,
+          "median_ms": 0.843209,
+          "p90_ms": 0.8871754000000001,
+          "p95_ms": 0.8926712,
+          "min_ms": 0.8215,
+          "max_ms": 0.898167
+        },
+        "model.encoder.layers.5.deformable_layer.self_attn.value_proj": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 1.3183333333333334,
+          "median_ms": 1.319042,
+          "p90_ms": 1.3255412,
+          "p95_ms": 1.3263536,
+          "min_ms": 1.308792,
+          "max_ms": 1.327166
+        },
+        "model.encoder.layers.5.deformable_layer.self_attn.output_proj": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 1.3685003333333334,
+          "median_ms": 1.316417,
+          "p90_ms": 1.444417,
+          "p95_ms": 1.460417,
+          "min_ms": 1.312667,
+          "max_ms": 1.476417
+        },
+        "model.encoder.layers.5.deformable_layer.self_attn_layer_norm": {
+          "class": "LayerNorm",
+          "n": 3,
+          "mean_ms": 0.74275,
+          "median_ms": 0.744708,
+          "p90_ms": 0.7465416,
+          "p95_ms": 0.7467708,
+          "min_ms": 0.736542,
+          "max_ms": 0.747
+        },
+        "model.encoder.layers.5.deformable_layer.fc1": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 7.667083333333333,
+          "median_ms": 7.679125,
+          "p90_ms": 7.694725,
+          "p95_ms": 7.696675,
+          "min_ms": 7.6235,
+          "max_ms": 7.698625
+        },
+        "model.encoder.layers.5.deformable_layer.fc2": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 7.476041666666667,
+          "median_ms": 7.414042,
+          "p90_ms": 7.588941200000001,
+          "p95_ms": 7.610803600000001,
+          "min_ms": 7.381417,
+          "max_ms": 7.632666
+        },
+        "model.encoder.layers.5.deformable_layer.final_layer_norm": {
+          "class": "LayerNorm",
+          "n": 3,
+          "mean_ms": 0.7395833333333334,
+          "median_ms": 0.740792,
+          "p90_ms": 0.7415584,
+          "p95_ms": 0.7416541999999999,
+          "min_ms": 0.736208,
+          "max_ms": 0.74175
+        }
+      },
+      "sum_module_medians_ms": 127.34829,
+      "rollup": {
+        "fc1": {
+          "count": 6,
+          "sum_median_ms": 45.666375,
+          "median_per_module_ms": 7.602062500000001
+        },
+        "fc2": {
+          "count": 6,
+          "sum_median_ms": 44.276748,
+          "median_per_module_ms": 7.3481665
+        },
+        "value_proj": {
+          "count": 6,
+          "sum_median_ms": 7.9125,
+          "median_per_module_ms": 1.3137295
+        },
+        "sampling_offsets": {
+          "count": 6,
+          "sum_median_ms": 7.860208,
+          "median_per_module_ms": 1.308042
+        },
+        "output_proj": {
+          "count": 6,
+          "sum_median_ms": 7.837791999999999,
+          "median_per_module_ms": 1.308916
+        },
+        "attention_weights": {
+          "count": 6,
+          "sum_median_ms": 4.958127,
+          "median_per_module_ms": 0.823542
+        },
+        "self_attn_layer_norm": {
+          "count": 6,
+          "sum_median_ms": 4.423499,
+          "median_per_module_ms": 0.7374995
+        },
+        "final_layer_norm": {
+          "count": 6,
+          "sum_median_ms": 4.413041,
+          "median_per_module_ms": 0.735687
+        }
+      }
+    }
+  },
+  "derived": {
+    "fusion_parent_sum_median_ms": 175.136417,
+    "fusion_attn_sum_median_ms": 159.33729,
+    "fusion_children_sum_median_ms": 81.898211,
+    "fusion_parent_minus_attn_ms": 15.799126999999999,
+    "fusion_attn_minus_profiled_child_modules_ms": 77.43907899999999,
+    "deformable_parent_sum_median_ms": 216.101876,
+    "deformable_wrapper_sum_median_ms": 89.291417,
+    "deformable_children_sum_median_ms": 127.34829,
+    "deformable_parent_minus_wrapper_ms": 126.81045900000001,
+    "baseline_median_ms": 632.6745625
+  },
+  "methodology_note": "Each group is profiled in a separate forward pass set. Hooks synchronize PyTorch MPS and MLX at module boundaries and therefore perturb scheduling. Sums of medians are diagnostic only and are not additive GPU timelines. Experiment 0009 remains the authoritative uninstrumented latency."
+}

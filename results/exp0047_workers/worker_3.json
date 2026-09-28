@@ -1,0 +1,150 @@
+{
+  "worker_index": 3,
+  "correctness": {
+    "candidate_vs_current": {
+      "logits": {
+        "finite_mask_equal": true,
+        "max_abs": 1.5944910049438477,
+        "mean_abs": 0.019737515598535538,
+        "rmse": 0.07691836357116699,
+        "allclose_1e-5": false,
+        "allclose_1e-4": false
+      },
+      "pred_boxes": {
+        "finite_mask_equal": true,
+        "max_abs": 0.22995337843894958,
+        "mean_abs": 0.00260987039655447,
+        "rmse": 0.010995911434292793,
+        "allclose_1e-5": false,
+        "allclose_1e-4": false
+      },
+      "topk": {
+        "k": 900,
+        "set_overlap": 900,
+        "changed_membership_each_side": 0,
+        "rankwise_identical": 896,
+        "score_vector_max_abs": 1.239776611328125e-05,
+        "score_vector_mean_abs": 6.236597300812718e-07,
+        "mismatched_ranks_zero_based": [
+          302,
+          303,
+          472,
+          473
+        ]
+      }
+    },
+    "current_vs_original": {
+      "logits": {
+        "finite_mask_equal": true,
+        "max_abs": 0.7076988220214844,
+        "mean_abs": 0.01495429314672947,
+        "rmse": 0.05339790880680084,
+        "allclose_1e-5": false,
+        "allclose_1e-4": false
+      },
+      "pred_boxes": {
+        "finite_mask_equal": true,
+        "max_abs": 0.1682538092136383,
+        "mean_abs": 0.002012120559811592,
+        "rmse": 0.008878474123775959,
+        "allclose_1e-5": false,
+        "allclose_1e-4": false
+      },
+      "topk": {
+        "k": 900,
+        "set_overlap": 900,
+        "changed_membership_each_side": 0,
+        "rankwise_identical": 898,
+        "score_vector_max_abs": 7.62939453125e-06,
+        "score_vector_mean_abs": 5.744669238083588e-07,
+        "mismatched_ranks_zero_based": [
+          302,
+          303
+        ]
+      }
+    },
+    "candidate_vs_original": {
+      "logits": {
+        "finite_mask_equal": true,
+        "max_abs": 1.5872535705566406,
+        "mean_abs": 0.008581399917602539,
+        "rmse": 0.05608613044023514,
+        "allclose_1e-5": false,
+        "allclose_1e-4": false
+      },
+      "pred_boxes": {
+        "finite_mask_equal": true,
+        "max_abs": 0.2324000895023346,
+        "mean_abs": 0.0010737688280642033,
+        "rmse": 0.006741285789757967,
+        "allclose_1e-5": false,
+        "allclose_1e-4": false
+      },
+      "topk": {
+        "k": 900,
+        "set_overlap": 900,
+        "changed_membership_each_side": 0,
+        "rankwise_identical": 898,
+        "score_vector_max_abs": 1.239776611328125e-05,
+        "score_vector_mean_abs": 5.673562100128038e-07,
+        "mismatched_ranks_zero_based": [
+          472,
+          473
+        ]
+      }
+    }
+  },
+  "topk_membership_gate_passed": true,
+  "latency": {
+    "current_consolidated": {
+      "n": 8,
+      "mean_ms": 484.901463625,
+      "median_ms": 485.474875,
+      "p90_ms": 494.40827939999997,
+      "p95_ms": 494.5281397,
+      "min_ms": 472.4645,
+      "max_ms": 494.648
+    },
+    "stage0_two_mlp_mlx": {
+      "n": 8,
+      "mean_ms": 476.26138000000003,
+      "median_ms": 476.1137915,
+      "p90_ms": 483.9167708,
+      "p95_ms": 484.3063649,
+      "min_ms": 465.655666,
+      "max_ms": 484.695959
+    },
+    "paired_delta_current_minus_candidate": {
+      "n": 8,
+      "mean_ms": 8.640083625000003,
+      "median_ms": 9.530125500000025,
+      "p90_ms": 14.891925099999963,
+      "p95_ms": 14.92042104999998,
+      "min_ms": 0.33483300000000327,
+      "max_ms": 14.948916999999994
+    }
+  },
+  "paired_deltas_ms": [
+    12.731167000000028,
+    14.948916999999994,
+    5.674209000000019,
+    1.5037919999999758,
+    12.440709000000027,
+    14.86749999999995,
+    6.619542000000024,
+    0.33483300000000327
+  ],
+  "call_validation": {
+    "block0_current_calls": 8,
+    "block0_mlx_calls": 8,
+    "block1_current_calls": 8,
+    "block1_mlx_calls": 8,
+    "expected_each_mode_per_mlp": 8,
+    "cache_hits": 16,
+    "cache_misses": 0,
+    "expected_cache_hits": 16,
+    "decoder_metal_msda_calls": 96,
+    "expected_decoder_metal_msda_calls": 96
+  },
+  "call_validation_passed": true
+}

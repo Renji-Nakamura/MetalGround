@@ -1,0 +1,150 @@
+{
+  "worker_index": 2,
+  "correctness": {
+    "candidate_vs_current": {
+      "logits": {
+        "finite_mask_equal": true,
+        "max_abs": 1.5944910049438477,
+        "mean_abs": 0.019737515598535538,
+        "rmse": 0.07691836357116699,
+        "allclose_1e-5": false,
+        "allclose_1e-4": false
+      },
+      "pred_boxes": {
+        "finite_mask_equal": true,
+        "max_abs": 0.22995337843894958,
+        "mean_abs": 0.00260987039655447,
+        "rmse": 0.010995911434292793,
+        "allclose_1e-5": false,
+        "allclose_1e-4": false
+      },
+      "topk": {
+        "k": 900,
+        "set_overlap": 900,
+        "changed_membership_each_side": 0,
+        "rankwise_identical": 896,
+        "score_vector_max_abs": 1.239776611328125e-05,
+        "score_vector_mean_abs": 6.236597300812718e-07,
+        "mismatched_ranks_zero_based": [
+          302,
+          303,
+          472,
+          473
+        ]
+      }
+    },
+    "current_vs_original": {
+      "logits": {
+        "finite_mask_equal": true,
+        "max_abs": 0.7076988220214844,
+        "mean_abs": 0.01495429314672947,
+        "rmse": 0.05339790880680084,
+        "allclose_1e-5": false,
+        "allclose_1e-4": false
+      },
+      "pred_boxes": {
+        "finite_mask_equal": true,
+        "max_abs": 0.1682538092136383,
+        "mean_abs": 0.002012120559811592,
+        "rmse": 0.008878474123775959,
+        "allclose_1e-5": false,
+        "allclose_1e-4": false
+      },
+      "topk": {
+        "k": 900,
+        "set_overlap": 900,
+        "changed_membership_each_side": 0,
+        "rankwise_identical": 898,
+        "score_vector_max_abs": 7.62939453125e-06,
+        "score_vector_mean_abs": 5.744669238083588e-07,
+        "mismatched_ranks_zero_based": [
+          302,
+          303
+        ]
+      }
+    },
+    "candidate_vs_original": {
+      "logits": {
+        "finite_mask_equal": true,
+        "max_abs": 1.5872535705566406,
+        "mean_abs": 0.008581399917602539,
+        "rmse": 0.05608613044023514,
+        "allclose_1e-5": false,
+        "allclose_1e-4": false
+      },
+      "pred_boxes": {
+        "finite_mask_equal": true,
+        "max_abs": 0.2324000895023346,
+        "mean_abs": 0.0010737688280642033,
+        "rmse": 0.006741285789757967,
+        "allclose_1e-5": false,
+        "allclose_1e-4": false
+      },
+      "topk": {
+        "k": 900,
+        "set_overlap": 900,
+        "changed_membership_each_side": 0,
+        "rankwise_identical": 898,
+        "score_vector_max_abs": 1.239776611328125e-05,
+        "score_vector_mean_abs": 5.673562100128038e-07,
+        "mismatched_ranks_zero_based": [
+          472,
+          473
+        ]
+      }
+    }
+  },
+  "topk_membership_gate_passed": true,
+  "latency": {
+    "current_consolidated": {
+      "n": 8,
+      "mean_ms": 486.868724125,
+      "median_ms": 485.958209,
+      "p90_ms": 497.69856230000005,
+      "p95_ms": 498.12023915,
+      "min_ms": 473.222084,
+      "max_ms": 498.541916
+    },
+    "stage0_two_mlp_mlx": {
+      "n": 8,
+      "mean_ms": 476.482651125,
+      "median_ms": 476.78535450000004,
+      "p90_ms": 484.0379795,
+      "p95_ms": 485.73438575,
+      "min_ms": 464.312625,
+      "max_ms": 487.430792
+    },
+    "paired_delta_current_minus_candidate": {
+      "n": 8,
+      "mean_ms": 10.38607300000001,
+      "median_ms": 10.156562000000008,
+      "p90_ms": 20.796883900000005,
+      "p95_ms": 20.938837950000018,
+      "min_ms": -2.6220410000000243,
+      "max_ms": 21.08079200000003
+    }
+  },
+  "paired_deltas_ms": [
+    9.201999999999998,
+    15.627709000000038,
+    11.111124000000018,
+    1.8927080000000274,
+    21.08079200000003,
+    20.675208999999995,
+    6.121082999999999,
+    -2.6220410000000243
+  ],
+  "call_validation": {
+    "block0_current_calls": 8,
+    "block0_mlx_calls": 8,
+    "block1_current_calls": 8,
+    "block1_mlx_calls": 8,
+    "expected_each_mode_per_mlp": 8,
+    "cache_hits": 16,
+    "cache_misses": 0,
+    "expected_cache_hits": 16,
+    "decoder_metal_msda_calls": 96,
+    "expected_decoder_metal_msda_calls": 96
+  },
+  "call_validation_passed": true
+}

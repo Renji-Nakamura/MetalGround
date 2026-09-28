@@ -1,0 +1,4668 @@
+{
+  "timestamp_utc": "2026-09-16T11:48:31.171101+00:00",
+  "experiment": "0051a",
+  "purpose": "Targeted audit of the six Experiment 0051 anomaly cases: one non-adjacent-only top-k rank permutation and five permissive-threshold phrase-label disagreements.",
+  "model": "IDEA-Research/grounding-dino-tiny",
+  "device": "mps",
+  "dtype": "float32",
+  "source_0051_result": "results/metalground_faithfulness_sweep_0051.json",
+  "target_selection": "Automatically selected from 0051: any case where all_rank_mismatches_are_adjacent_swaps is false, or any postprocess profile where label_multiset_equal is false.",
+  "targets": 6,
+  "summary": {
+    "non_adjacent_rank_targets": 1,
+    "label_mismatch_targets": 5,
+    "all_topk_membership_preserved_on_rerun": true,
+    "exact_topk_mismatch_patterns_reproduced": 6,
+    "total_targets": 6,
+    "token_threshold_crossing_events_in_label_mismatches": 5
+  },
+  "token_threshold_crossing_events": [
+    {
+      "image_id": "coco_001_000000002473",
+      "prompt_id": "road",
+      "profile": "permissive",
+      "original_phrase": "a person",
+      "final_phrase": "a",
+      "query_index": 19,
+      "position": 2,
+      "token_id": 2711,
+      "token": "person",
+      "original_prob": 0.20003995299339294,
+      "final_prob": 0.19991563260555267,
+      "abs_diff": 0.000124320387840271,
+      "original_above_text_threshold": true,
+      "final_above_text_threshold": false
+    },
+    {
+      "image_id": "coco_004_000000051738",
+      "prompt_id": "mixed_open_vocab",
+      "profile": "permissive",
+      "original_phrase": "a suitcase",
+      "final_phrase": "a",
+      "query_index": 3,
+      "position": 8,
+      "token_id": 15940,
+      "token": "suitcase",
+      "original_prob": 0.20029760897159576,
+      "final_prob": 0.1990707665681839,
+      "abs_diff": 0.0012268424034118652,
+      "original_above_text_threshold": true,
+      "final_above_text_threshold": false
+    },
+    {
+      "image_id": "coco_018_000000331075",
+      "prompt_id": "mixed_open_vocab",
+      "profile": "permissive",
+      "original_phrase": "a rack",
+      "final_phrase": "a racket",
+      "query_index": 2,
+      "position": 17,
+      "token_id": 3388,
+      "token": "##et",
+      "original_prob": 0.19989962875843048,
+      "final_prob": 0.200192391872406,
+      "abs_diff": 0.0002927631139755249,
+      "original_above_text_threshold": false,
+      "final_above_text_threshold": true
+    },
+    {
+      "image_id": "coco_019_000000342295",
+      "prompt_id": "mixed_open_vocab",
+      "profile": "permissive",
+      "original_phrase": "backpack",
+      "final_phrase": "a backpack",
+      "query_index": 10,
+      "position": 1,
+      "token_id": 1037,
+      "token": "a",
+      "original_prob": 0.19996948540210724,
+      "final_prob": 0.20004509389400482,
+      "abs_diff": 7.560849189758301e-05,
+      "original_above_text_threshold": false,
+      "final_above_text_threshold": true
+    },
+    {
+      "image_id": "coco_022_000000372466",
+      "prompt_id": "mixed_open_vocab",
+      "profile": "permissive",
+      "original_phrase": "a",
+      "final_phrase": "aboard",
+      "query_index": 2,
+      "position": 12,
+      "token_id": 6277,
+      "token": "##board",
+      "original_prob": 0.19998112320899963,
+      "final_prob": 0.20038831233978271,
+      "abs_diff": 0.00040718913078308105,
+      "original_above_text_threshold": false,
+      "final_above_text_threshold": true
+    }
+  ],
+  "cases": [
+    {
+      "image_id": "coco_001_000000002473",
+      "image_path": "assets/faithfulness_0051/images/coco_001_000000002473.png",
+      "prompt_id": "road",
+      "labels": [
+        "a person",
+        "a bicycle",
+        "a car",
+        "a motorcycle",
+        "a bus",
+        "a truck",
+        "a traffic light",
+        "a stop sign"
+      ],
+      "reasons": [
+        "label_multiset_mismatch:permissive"
+      ],
+      "topk": {
+        "k": 900,
+        "set_overlap": 900,
+        "rankwise_identical": 894,
+        "mismatched_ranks_zero_based": [
+          731,
+          732,
+          774,
+          775,
+          843,
+          844
+        ],
+        "expected_mismatched_ranks_from_0051": [
+          731,
+          732,
+          774,
+          775,
+          843,
+          844
+        ],
+        "exact_mismatch_pattern_reproduced": true,
+        "groups": [
+          {
+            "mismatch_ranks_zero_based": [
+              731,
+              732
+            ],
+            "same_query_members_within_group": true,
+            "original_query_order": [
+              10562,
+              11773
+            ],
+            "final_query_order": [
+              11773,
+              10562
+            ],
+            "original_scores_in_original_order": [
+              -2.445458173751831,
+              -2.445458173751831
+            ],
+            "final_scores_in_original_order": [
+              -2.44545841217041,
+              -2.4454574584960938
+            ],
+            "original_scores_in_final_order": [
+              -2.445458173751831,
+              -2.445458173751831
+            ],
+            "final_scores_in_final_order": [
+              -2.4454574584960938,
+              -2.44545841217041
+            ],
+            "context_window": [
+              {
+                "rank_zero_based": 729,
+                "original_query_index": 11995,
+                "final_query_index": 11995,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.445194721221924,
+                "final_rank_score": -2.445195198059082,
+                "original_score_of_final_query": -2.445194721221924,
+                "final_score_of_original_query": -2.445195198059082
+              },
+              {
+                "rank_zero_based": 730,
+                "original_query_index": 6889,
+                "final_query_index": 6889,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.4453465938568115,
+                "final_rank_score": -2.445345878601074,
+                "original_score_of_final_query": -2.4453465938568115,
+                "final_score_of_original_query": -2.445345878601074
+              },
+              {
+                "rank_zero_based": 731,
+                "original_query_index": 10562,
+                "final_query_index": 11773,
+                "same_query_at_rank": false,
+                "original_rank_score": -2.445458173751831,
+                "final_rank_score": -2.4454574584960938,
+                "original_score_of_final_query": -2.445458173751831,
+                "final_score_of_original_query": -2.44545841217041
+              },
+              {
+                "rank_zero_based": 732,
+                "original_query_index": 11773,
+                "final_query_index": 10562,
+                "same_query_at_rank": false,
+                "original_rank_score": -2.445458173751831,
+                "final_rank_score": -2.44545841217041,
+                "original_score_of_final_query": -2.445458173751831,
+                "final_score_of_original_query": -2.4454574584960938
+              },
+              {
+                "rank_zero_based": 733,
+                "original_query_index": 11439,
+                "final_query_index": 11439,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.4457156658172607,
+                "final_rank_score": -2.4457168579101562,
+                "original_score_of_final_query": -2.4457156658172607,
+                "final_score_of_original_query": -2.4457168579101562
+              },
+              {
+                "rank_zero_based": 734,
+                "original_query_index": 11099,
+                "final_query_index": 11099,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.445779800415039,
+                "final_rank_score": -2.4457805156707764,
+                "original_score_of_final_query": -2.445779800415039,
+                "final_score_of_original_query": -2.4457805156707764
+              }
+            ]
+          },
+          {
+            "mismatch_ranks_zero_based": [
+              774,
+              775
+            ],
+            "same_query_members_within_group": true,
+            "original_query_order": [
+              10282,
+              10964
+            ],
+            "final_query_order": [
+              10964,
+              10282
+            ],
+            "original_scores_in_original_order": [
+              -2.450894594192505,
+              -2.450894594192505
+            ],
+            "final_scores_in_original_order": [
+              -2.4508979320526123,
+              -2.450894594192505
+            ],
+            "original_scores_in_final_order": [
+              -2.450894594192505,
+              -2.450894594192505
+            ],
+            "final_scores_in_final_order": [
+              -2.450894594192505,
+              -2.4508979320526123
+            ],
+            "context_window": [
+              {
+                "rank_zero_based": 772,
+                "original_query_index": 16185,
+                "final_query_index": 16185,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.4506568908691406,
+                "final_rank_score": -2.450655937194824,
+                "original_score_of_final_query": -2.4506568908691406,
+                "final_score_of_original_query": -2.450655937194824
+              },
+              {
+                "rank_zero_based": 773,
+                "original_query_index": 10008,
+                "final_query_index": 10008,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.450833559036255,
+                "final_rank_score": -2.4508345127105713,
+                "original_score_of_final_query": -2.450833559036255,
+                "final_score_of_original_query": -2.4508345127105713
+              },
+              {
+                "rank_zero_based": 774,
+                "original_query_index": 10282,
+                "final_query_index": 10964,
+                "same_query_at_rank": false,
+                "original_rank_score": -2.450894594192505,
+                "final_rank_score": -2.450894594192505,
+                "original_score_of_final_query": -2.450894594192505,
+                "final_score_of_original_query": -2.4508979320526123
+              },
+              {
+                "rank_zero_based": 775,
+                "original_query_index": 10964,
+                "final_query_index": 10282,
+                "same_query_at_rank": false,
+                "original_rank_score": -2.450894594192505,
+                "final_rank_score": -2.4508979320526123,
+                "original_score_of_final_query": -2.450894594192505,
+                "final_score_of_original_query": -2.450894594192505
+              },
+              {
+                "rank_zero_based": 776,
+                "original_query_index": 16070,
+                "final_query_index": 16070,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.450958251953125,
+                "final_rank_score": -2.450956106185913,
+                "original_score_of_final_query": -2.450958251953125,
+                "final_score_of_original_query": -2.450956106185913
+              },
+              {
+                "rank_zero_based": 777,
+                "original_query_index": 12157,
+                "final_query_index": 12157,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.4515316486358643,
+                "final_rank_score": -2.451531410217285,
+                "original_score_of_final_query": -2.4515316486358643,
+                "final_score_of_original_query": -2.451531410217285
+              }
+            ]
+          },
+          {
+            "mismatch_ranks_zero_based": [
+              843,
+              844
+            ],
+            "same_query_members_within_group": true,
+            "original_query_order": [
+              13084,
+              16301
+            ],
+            "final_query_order": [
+              16301,
+              13084
+            ],
+            "original_scores_in_original_order": [
+              -2.4601738452911377,
+              -2.460174083709717
+            ],
+            "final_scores_in_original_order": [
+              -2.460174798965454,
+              -2.4601736068725586
+            ],
+            "original_scores_in_final_order": [
+              -2.460174083709717,
+              -2.4601738452911377
+            ],
+            "final_scores_in_final_order": [
+              -2.4601736068725586,
+              -2.460174798965454
+            ],
+            "context_window": [
+              {
+                "rank_zero_based": 841,
+                "original_query_index": 12008,
+                "final_query_index": 12008,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.459408760070801,
+                "final_rank_score": -2.4594085216522217,
+                "original_score_of_final_query": -2.459408760070801,
+                "final_score_of_original_query": -2.4594085216522217
+              },
+              {
+                "rank_zero_based": 842,
+                "original_query_index": 13097,
+                "final_query_index": 13097,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.4597110748291016,
+                "final_rank_score": -2.4597105979919434,
+                "original_score_of_final_query": -2.4597110748291016,
+                "final_score_of_original_query": -2.4597105979919434
+              },
+              {
+                "rank_zero_based": 843,
+                "original_query_index": 13084,
+                "final_query_index": 16301,
+                "same_query_at_rank": false,
+                "original_rank_score": -2.4601738452911377,
+                "final_rank_score": -2.4601736068725586,
+                "original_score_of_final_query": -2.460174083709717,
+                "final_score_of_original_query": -2.460174798965454
+              },
+              {
+                "rank_zero_based": 844,
+                "original_query_index": 16301,
+                "final_query_index": 13084,
+                "same_query_at_rank": false,
+                "original_rank_score": -2.460174083709717,
+                "final_rank_score": -2.460174798965454,
+                "original_score_of_final_query": -2.4601738452911377,
+                "final_score_of_original_query": -2.4601736068725586
+              },
+              {
+                "rank_zero_based": 845,
+                "original_query_index": 12294,
+                "final_query_index": 12294,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.4602506160736084,
+                "final_rank_score": -2.46025013923645,
+                "original_score_of_final_query": -2.4602506160736084,
+                "final_score_of_original_query": -2.46025013923645
+              },
+              {
+                "rank_zero_based": 846,
+                "original_query_index": 10515,
+                "final_query_index": 10515,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.4604692459106445,
+                "final_rank_score": -2.4604687690734863,
+                "original_score_of_final_query": -2.4604692459106445,
+                "final_score_of_original_query": -2.4604687690734863
+              }
+            ]
+          }
+        ],
+        "score_vector_max_abs": 2.372264862060547e-05,
+        "score_vector_mean_abs": 8.204200980799214e-07
+      },
+      "label_threshold_audits": {
+        "permissive": {
+          "box_threshold": 0.2,
+          "text_threshold": 0.2,
+          "original_kept_query_indices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            10,
+            12,
+            13,
+            14,
+            15,
+            16,
+            19,
+            20,
+            68
+          ],
+          "final_kept_query_indices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            10,
+            12,
+            13,
+            14,
+            15,
+            16,
+            19,
+            20,
+            68
+          ],
+          "same_kept_query_set": true,
+          "paired_by_box": [
+            {
+              "iou": 0.9999884206526239,
+              "original_query_index": 2,
+              "final_query_index": 2,
+              "same_query_index": true,
+              "original_phrase": "a person",
+              "final_phrase": "a person",
+              "phrase_equal": true,
+              "original_score": 0.3304097056388855,
+              "final_score": 0.3304537236690521,
+              "original_box": [
+                460.1784973144531,
+                218.56932067871094,
+                700.3409423828125,
+                501.0935974121094
+              ],
+              "final_box": [
+                460.1779479980469,
+                218.5694580078125,
+                700.3425903320312,
+                501.0930480957031
+              ]
+            },
+            {
+              "iou": 0.9999797021073588,
+              "original_query_index": 13,
+              "final_query_index": 13,
+              "same_query_index": true,
+              "original_phrase": "a person",
+              "final_phrase": "a person",
+              "phrase_equal": true,
+              "original_score": 0.2691996693611145,
+              "final_score": 0.2692582905292511,
+              "original_box": [
+                410.7297668457031,
+                208.37106323242188,
+                749.1986083984375,
+                553.2867431640625
+              ],
+              "final_box": [
+                410.72601318359375,
+                208.36900329589844,
+                749.1976928710938,
+                553.2869262695312
+              ]
+            },
+            {
+              "iou": 0.9999718063840889,
+              "original_query_index": 3,
+              "final_query_index": 3,
+              "same_query_index": true,
+              "original_phrase": "motorcycle",
+              "final_phrase": "motorcycle",
+              "phrase_equal": true,
+              "original_score": 0.20353181660175323,
+              "final_score": 0.20348036289215088,
+              "original_box": [
+                533.5875244140625,
+                453.8722229003906,
+                617.4046630859375,
+                551.6102294921875
+              ],
+              "final_box": [
+                533.5868530273438,
+                453.8718566894531,
+                617.4058837890625,
+                551.6100463867188
+              ]
+            },
+            {
+              "iou": 0.9999644847554577,
+              "original_query_index": 0,
+              "final_query_index": 0,
+              "same_query_index": true,
+              "original_phrase": "a person",
+              "final_phrase": "a person",
+              "phrase_equal": true,
+              "original_score": 0.42544740438461304,
+              "final_score": 0.4254983365535736,
+              "original_box": [
+                817.5533447265625,
+                568.6083984375,
+                936.2314453125,
+                765.9219970703125
+              ],
+              "final_box": [
+                817.5510864257812,
+                568.6097412109375,
+                936.23193359375,
+                765.9208984375
+              ]
+            },
+            {
+              "iou": 0.999916975301237,
+              "original_query_index": 1,
+              "final_query_index": 1,
+              "same_query_index": true,
+              "original_phrase": "a person",
+              "final_phrase": "a person",
+              "phrase_equal": true,
+              "original_score": 0.35343754291534424,
+              "final_score": 0.35347267985343933,
+              "original_box": [
+                217.74569702148438,
+                685.5247802734375,
+                272.3384094238281,
+                774.9251708984375
+              ],
+              "final_box": [
+                217.743896484375,
+                685.5238037109375,
+                272.3402099609375,
+                774.9257202148438
+              ]
+            },
+            {
+              "iou": 0.9999108907560924,
+              "original_query_index": 10,
+              "final_query_index": 10,
+              "same_query_index": true,
+              "original_phrase": "a person",
+              "final_phrase": "a person",
+              "phrase_equal": true,
+              "original_score": 0.2947515845298767,
+              "final_score": 0.2947441041469574,
+              "original_box": [
+                803.9058837890625,
+                551.9337768554688,
+                955.3452758789062,
+                782.0478515625
+              ],
+              "final_box": [
+                803.9075927734375,
+                551.9396362304688,
+                955.3377075195312,
+                782.0484008789062
+              ]
+            },
+            {
+              "iou": 0.9999082687587943,
+              "original_query_index": 15,
+              "final_query_index": 15,
+              "same_query_index": true,
+              "original_phrase": "a bicycle",
+              "final_phrase": "a bicycle",
+              "phrase_equal": true,
+              "original_score": 0.21863502264022827,
+              "final_score": 0.21879251301288605,
+              "original_box": [
+                848.7364501953125,
+                684.6143188476562,
+                930.8193969726562,
+                766.2223510742188
+              ],
+              "final_box": [
+                848.7330322265625,
+                684.6166381835938,
+                930.8192138671875,
+                766.2207641601562
+              ]
+            },
+            {
+              "iou": 0.9998685468851427,
+              "original_query_index": 5,
+              "final_query_index": 5,
+              "same_query_index": true,
+              "original_phrase": "a person",
+              "final_phrase": "a person",
+              "phrase_equal": true,
+              "original_score": 0.30328822135925293,
+              "final_score": 0.303324818611145,
+              "original_box": [
+                57.871726989746094,
+                664.5934448242188,
+                108.59734344482422,
+                715.02099609375
+              ],
+              "final_box": [
+                57.869956970214844,
+                664.5923461914062,
+                108.59954071044922,
+                715.0225830078125
+              ]
+            },
+            {
+              "iou": 0.9998631573146486,
+              "original_query_index": 7,
+              "final_query_index": 7,
+              "same_query_index": true,
+              "original_phrase": "a bicycle a",
+              "final_phrase": "a bicycle a",
+              "phrase_equal": true,
+              "original_score": 0.27311980724334717,
+              "final_score": 0.27321597933769226,
+              "original_box": [
+                889.3675537109375,
+                683.3661499023438,
+                931.4013061523438,
+                763.7853393554688
+              ],
+              "final_box": [
+                889.365234375,
+                683.3654174804688,
+                931.39892578125,
+                763.78662109375
+              ]
+            },
+            {
+              "iou": 0.9998061633929675,
+              "original_query_index": 12,
+              "final_query_index": 12,
+              "same_query_index": true,
+              "original_phrase": "a traffic light",
+              "final_phrase": "a traffic light",
+              "phrase_equal": true,
+              "original_score": 0.21945583820343018,
+              "final_score": 0.21923549473285675,
+              "original_box": [
+                1135.2364501953125,
+                678.1992797851562,
+                1158.837890625,
+                761.3115844726562
+              ],
+              "final_box": [
+                1135.2342529296875,
+                678.1975708007812,
+                1158.8385009765625,
+                761.3161010742188
+              ]
+            },
+            {
+              "iou": 0.9996838714183941,
+              "original_query_index": 20,
+              "final_query_index": 20,
+              "same_query_index": true,
+              "original_phrase": "a person",
+              "final_phrase": "a person",
+              "phrase_equal": true,
+              "original_score": 0.23423391580581665,
+              "final_score": 0.23436982929706573,
+              "original_box": [
+                781.0631103515625,
+                532.2847900390625,
+                983.75146484375,
+                802.0404052734375
+              ],
+              "final_box": [
+                781.0792236328125,
+                532.303955078125,
+                983.7247314453125,
+                802.0313110351562
+              ]
+            },
+            {
+              "iou": 0.9996166077092146,
+              "original_query_index": 6,
+              "final_query_index": 6,
+              "same_query_index": true,
+              "original_phrase": "a traffic light",
+              "final_phrase": "a traffic light",
+              "phrase_equal": true,
+              "original_score": 0.22880539298057556,
+              "final_score": 0.22839494049549103,
+              "original_box": [
+                1124.1309814453125,
+                672.5933227539062,
+                1171.124755859375,
+                771.787353515625
+              ],
+              "final_box": [
+                1124.1217041015625,
+                672.5900268554688,
+                1171.127197265625,
+                771.79736328125
+              ]
+            },
+            {
+              "iou": 0.9995859326986445,
+              "original_query_index": 68,
+              "final_query_index": 68,
+              "same_query_index": true,
+              "original_phrase": "a person",
+              "final_phrase": "a person",
+              "phrase_equal": true,
+              "original_score": 0.24180321395397186,
+              "final_score": 0.2418089509010315,
+              "original_box": [
+                47.98490524291992,
+                653.8750610351562,
+                122.8196792602539,
+                725.6803588867188
+              ],
+              "final_box": [
+                47.983280181884766,
+                653.8693237304688,
+                122.83270263671875,
+                725.6903076171875
+              ]
+            },
+            {
+              "iou": 0.9995831011851763,
+              "original_query_index": 16,
+              "final_query_index": 16,
+              "same_query_index": true,
+              "original_phrase": "a bicycle",
+              "final_phrase": "a bicycle",
+              "phrase_equal": true,
+              "original_score": 0.2137838453054428,
+              "final_score": 0.21406172215938568,
+              "original_box": [
+                876.1255493164062,
+                672.7189331054688,
+                950.6986694335938,
+                772.7919311523438
+              ],
+              "final_box": [
+                876.1312866210938,
+                672.7154541015625,
+                950.6810913085938,
+                772.7849731445312
+              ]
+            },
+            {
+              "iou": 0.999446257516652,
+              "original_query_index": 4,
+              "final_query_index": 4,
+              "same_query_index": true,
+              "original_phrase": "a person",
+              "final_phrase": "a person",
+              "phrase_equal": true,
+              "original_score": 0.2834518253803253,
+              "final_score": 0.28343260288238525,
+              "original_box": [
+                205.51560974121094,
+                674.3056640625,
+                289.1122131347656,
+                784.8011474609375
+              ],
+              "final_box": [
+                205.5018768310547,
+                674.2941284179688,
+                289.12890625,
+                784.8106079101562
+              ]
+            },
+            {
+              "iou": 0.9991129607927371,
+              "original_query_index": 19,
+              "final_query_index": 19,
+              "same_query_index": true,
+              "original_phrase": "a person",
+              "final_phrase": "a",
+              "phrase_equal": false,
+              "original_score": 0.2085389494895935,
+              "final_score": 0.2084188312292099,
+              "original_box": [
+                186.21371459960938,
+                654.1937866210938,
+                312.8488464355469,
+                802.0152587890625
+              ],
+              "final_box": [
+                186.1837158203125,
+                654.1493530273438,
+                312.8681945800781,
+                802.04443359375
+              ]
+            },
+            {
+              "iou": 0.9989301030301292,
+              "original_query_index": 14,
+              "final_query_index": 14,
+              "same_query_index": true,
+              "original_phrase": "a",
+              "final_phrase": "a",
+              "phrase_equal": true,
+              "original_score": 0.20170526206493378,
+              "final_score": 0.20188750326633453,
+              "original_box": [
+                900.7857055664062,
+                689.8346557617188,
+                932.553955078125,
+                741.4187622070312
+              ],
+              "final_box": [
+                900.7738647460938,
+                689.8046264648438,
+                932.551513671875,
+                741.416748046875
+              ]
+            }
+          ],
+          "phrase_differences": [
+            {
+              "iou": 0.9991129607927371,
+              "original_query_index": 19,
+              "final_query_index": 19,
+              "same_query_index": true,
+              "original_phrase": "a person",
+              "final_phrase": "a",
+              "phrase_equal": false,
+              "original_score": 0.2085389494895935,
+              "final_score": 0.2084188312292099,
+              "original_box": [
+                186.21371459960938,
+                654.1937866210938,
+                312.8488464355469,
+                802.0152587890625
+              ],
+              "final_box": [
+                186.1837158203125,
+                654.1493530273438,
+                312.8681945800781,
+                802.04443359375
+              ],
+              "original_query_token_view": {
+                "query_index": 19,
+                "text_threshold": 0.2,
+                "original_phrase": "a person",
+                "final_phrase": "a",
+                "threshold_crossings": [
+                  {
+                    "position": 2,
+                    "token_id": 2711,
+                    "token": "person",
+                    "original_prob": 0.20003995299339294,
+                    "final_prob": 0.19991563260555267,
+                    "abs_diff": 0.000124320387840271,
+                    "original_above_text_threshold": true,
+                    "final_above_text_threshold": false
+                  }
+                ],
+                "tokens": [
+                  {
+                    "position": 0,
+                    "token_id": 101,
+                    "token": "[CLS]",
+                    "original_prob": 0.0021466559264808893,
+                    "final_prob": 0.0021427953615784645,
+                    "abs_diff": 3.860564902424812e-06,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 1,
+                    "token_id": 1037,
+                    "token": "a",
+                    "original_prob": 0.2085389494895935,
+                    "final_prob": 0.2084188312292099,
+                    "abs_diff": 0.00012011826038360596,
+                    "original_above_text_threshold": true,
+                    "final_above_text_threshold": true
+                  },
+                  {
+                    "position": 2,
+                    "token_id": 2711,
+                    "token": "person",
+                    "original_prob": 0.20003995299339294,
+                    "final_prob": 0.19991563260555267,
+                    "abs_diff": 0.000124320387840271,
+                    "original_above_text_threshold": true,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 3,
+                    "token_id": 1012,
+                    "token": ".",
+                    "original_prob": 0.0030299860518425703,
+                    "final_prob": 0.003024234203621745,
+                    "abs_diff": 5.751848220825195e-06,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 4,
+                    "token_id": 1037,
+                    "token": "a",
+                    "original_prob": 0.041257791221141815,
+                    "final_prob": 0.04120481386780739,
+                    "abs_diff": 5.297735333442688e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 5,
+                    "token_id": 10165,
+                    "token": "bicycle",
+                    "original_prob": 0.04383349046111107,
+                    "final_prob": 0.04377466440200806,
+                    "abs_diff": 5.8826059103012085e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 6,
+                    "token_id": 1012,
+                    "token": ".",
+                    "original_prob": 0.002607331145554781,
+                    "final_prob": 0.0026023397222161293,
+                    "abs_diff": 4.991423338651657e-06,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 7,
+                    "token_id": 1037,
+                    "token": "a",
+                    "original_prob": 0.04274372383952141,
+                    "final_prob": 0.04271665960550308,
+                    "abs_diff": 2.7064234018325806e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 8,
+                    "token_id": 2482,
+                    "token": "car",
+                    "original_prob": 0.047966260462999344,
+                    "final_prob": 0.04793277010321617,
+                    "abs_diff": 3.349035978317261e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 9,
+                    "token_id": 1012,
+                    "token": ".",
+                    "original_prob": 0.0027776514180004597,
+                    "final_prob": 0.002772847656160593,
+                    "abs_diff": 4.803761839866638e-06,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 10,
+                    "token_id": 1037,
+                    "token": "a",
+                    "original_prob": 0.053202126175165176,
+                    "final_prob": 0.05315256863832474,
+                    "abs_diff": 4.955753684043884e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 11,
+                    "token_id": 9055,
+                    "token": "motorcycle",
+                    "original_prob": 0.046470556408166885,
+                    "final_prob": 0.04641875624656677,
+                    "abs_diff": 5.1800161600112915e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 12,
+                    "token_id": 1012,
+                    "token": ".",
+                    "original_prob": 0.0023946440778672695,
+                    "final_prob": 0.002390078268945217,
+                    "abs_diff": 4.565808922052383e-06,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 13,
+                    "token_id": 1037,
+                    "token": "a",
+                    "original_prob": 0.06476444751024246,
+                    "final_prob": 0.06472515314817429,
+                    "abs_diff": 3.929436206817627e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 14,
+                    "token_id": 3902,
+                    "token": "bus",
+                    "original_prob": 0.07249298691749573,
+                    "final_prob": 0.07244143635034561,
+                    "abs_diff": 5.155056715011597e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 15,
+                    "token_id": 1012,
+                    "token": ".",
+                    "original_prob": 0.003609713399782777,
+                    "final_prob": 0.0036040721461176872,
+                    "abs_diff": 5.641253665089607e-06,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 16,
+                    "token_id": 1037,
+                    "token": "a",
+                    "original_prob": 0.04502882435917854,
+                    "final_prob": 0.04498995468020439,
+                    "abs_diff": 3.886967897415161e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 17,
+                    "token_id": 4744,
+                    "token": "truck",
+                    "original_prob": 0.05572403594851494,
+                    "final_prob": 0.055676303803920746,
+                    "abs_diff": 4.7732144594192505e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 18,
+                    "token_id": 1012,
+                    "token": ".",
+                    "original_prob": 0.003292066976428032,
+                    "final_prob": 0.0032863751985132694,
+                    "abs_diff": 5.691777914762497e-06,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 19,
+                    "token_id": 1037,
+                    "token": "a",
+                    "original_prob": 0.024076100438833237,
+                    "final_prob": 0.02403206191956997,
+                    "abs_diff": 4.403851926326752e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 20,
+                    "token_id": 4026,
+                    "token": "traffic",
+                    "original_prob": 0.019397925585508347,
+                    "final_prob": 0.019359596073627472,
+                    "abs_diff": 3.8329511880874634e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 21,
+                    "token_id": 2422,
+                    "token": "light",
+                    "original_prob": 0.02141520567238331,
+                    "final_prob": 0.021372556686401367,
+                    "abs_diff": 4.264898598194122e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 22,
+                    "token_id": 1012,
+                    "token": ".",
+                    "original_prob": 0.0030294214375317097,
+                    "final_prob": 0.0030234851874411106,
+                    "abs_diff": 5.93625009059906e-06,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 23,
+                    "token_id": 1037,
+                    "token": "a",
+                    "original_prob": 0.05421357601881027,
+                    "final_prob": 0.05416130647063255,
+                    "abs_diff": 5.2269548177719116e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 24,
+                    "token_id": 2644,
+                    "token": "stop",
+                    "original_prob": 0.050448328256607056,
+                    "final_prob": 0.05039479583501816,
+                    "abs_diff": 5.3532421588897705e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 25,
+                    "token_id": 3696,
+                    "token": "sign",
+                    "original_prob": 0.0514569990336895,
+                    "final_prob": 0.05140300095081329,
+                    "abs_diff": 5.3998082876205444e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 26,
+                    "token_id": 1012,
+                    "token": ".",
+                    "original_prob": 0.0040432242676615715,
+                    "final_prob": 0.004035912919789553,
+                    "abs_diff": 7.311347872018814e-06,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 27,
+                    "token_id": 102,
+                    "token": "[SEP]",
+                    "original_prob": 0.0021478524431586266,
+                    "final_prob": 0.002143987687304616,
+                    "abs_diff": 3.864755854010582e-06,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "image_id": "coco_030_000000533493",
+      "image_path": "assets/faithfulness_0051/images/coco_030_000000533493.png",
+      "prompt_id": "food",
+      "labels": [
+        "a banana",
+        "an apple",
+        "a sandwich",
+        "a pizza",
+        "a cake"
+      ],
+      "reasons": [
+        "non_adjacent_rank_permutation"
+      ],
+      "topk": {
+        "k": 900,
+        "set_overlap": 900,
+        "rankwise_identical": 891,
+        "mismatched_ranks_zero_based": [
+          582,
+          583,
+          584,
+          756,
+          757,
+          758,
+          759,
+          809,
+          810
+        ],
+        "expected_mismatched_ranks_from_0051": [
+          582,
+          583,
+          584,
+          756,
+          757,
+          758,
+          759,
+          809,
+          810
+        ],
+        "exact_mismatch_pattern_reproduced": true,
+        "groups": [
+          {
+            "mismatch_ranks_zero_based": [
+              582,
+              583,
+              584
+            ],
+            "same_query_members_within_group": true,
+            "original_query_order": [
+              14372,
+              15998,
+              11031
+            ],
+            "final_query_order": [
+              11031,
+              14372,
+              15998
+            ],
+            "original_scores_in_original_order": [
+              -2.647829294204712,
+              -2.6478333473205566,
+              -2.6478335857391357
+            ],
+            "final_scores_in_original_order": [
+              -2.6478304862976074,
+              -2.647833824157715,
+              -2.6478304862976074
+            ],
+            "original_scores_in_final_order": [
+              -2.6478335857391357,
+              -2.647829294204712,
+              -2.6478333473205566
+            ],
+            "final_scores_in_final_order": [
+              -2.6478304862976074,
+              -2.6478304862976074,
+              -2.647833824157715
+            ],
+            "context_window": [
+              {
+                "rank_zero_based": 580,
+                "original_query_index": 11604,
+                "final_query_index": 11604,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.647392749786377,
+                "final_rank_score": -2.6473922729492188,
+                "original_score_of_final_query": -2.647392749786377,
+                "final_score_of_original_query": -2.6473922729492188
+              },
+              {
+                "rank_zero_based": 581,
+                "original_query_index": 15999,
+                "final_query_index": 15999,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.647798538208008,
+                "final_rank_score": -2.647798538208008,
+                "original_score_of_final_query": -2.647798538208008,
+                "final_score_of_original_query": -2.647798538208008
+              },
+              {
+                "rank_zero_based": 582,
+                "original_query_index": 14372,
+                "final_query_index": 11031,
+                "same_query_at_rank": false,
+                "original_rank_score": -2.647829294204712,
+                "final_rank_score": -2.6478304862976074,
+                "original_score_of_final_query": -2.6478335857391357,
+                "final_score_of_original_query": -2.6478304862976074
+              },
+              {
+                "rank_zero_based": 583,
+                "original_query_index": 15998,
+                "final_query_index": 14372,
+                "same_query_at_rank": false,
+                "original_rank_score": -2.6478333473205566,
+                "final_rank_score": -2.6478304862976074,
+                "original_score_of_final_query": -2.647829294204712,
+                "final_score_of_original_query": -2.647833824157715
+              },
+              {
+                "rank_zero_based": 584,
+                "original_query_index": 11031,
+                "final_query_index": 15998,
+                "same_query_at_rank": false,
+                "original_rank_score": -2.6478335857391357,
+                "final_rank_score": -2.647833824157715,
+                "original_score_of_final_query": -2.6478333473205566,
+                "final_score_of_original_query": -2.6478304862976074
+              },
+              {
+                "rank_zero_based": 585,
+                "original_query_index": 11733,
+                "final_query_index": 11733,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.6478383541107178,
+                "final_rank_score": -2.6478374004364014,
+                "original_score_of_final_query": -2.6478383541107178,
+                "final_score_of_original_query": -2.6478374004364014
+              },
+              {
+                "rank_zero_based": 586,
+                "original_query_index": 10809,
+                "final_query_index": 10809,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.6479012966156006,
+                "final_rank_score": -2.647899627685547,
+                "original_score_of_final_query": -2.6479012966156006,
+                "final_score_of_original_query": -2.647899627685547
+              }
+            ]
+          },
+          {
+            "mismatch_ranks_zero_based": [
+              756,
+              757,
+              758,
+              759
+            ],
+            "same_query_members_within_group": true,
+            "original_query_order": [
+              3404,
+              17166,
+              11775,
+              6636
+            ],
+            "final_query_order": [
+              17166,
+              3404,
+              6636,
+              11775
+            ],
+            "original_scores_in_original_order": [
+              -2.6812872886657715,
+              -2.6812875270843506,
+              -2.6814804077148438,
+              -2.6814823150634766
+            ],
+            "final_scores_in_original_order": [
+              -2.6812875270843506,
+              -2.681286573410034,
+              -2.6814823150634766,
+              -2.6814823150634766
+            ],
+            "original_scores_in_final_order": [
+              -2.6812875270843506,
+              -2.6812872886657715,
+              -2.6814823150634766,
+              -2.6814804077148438
+            ],
+            "final_scores_in_final_order": [
+              -2.681286573410034,
+              -2.6812875270843506,
+              -2.6814823150634766,
+              -2.6814823150634766
+            ],
+            "context_window": [
+              {
+                "rank_zero_based": 754,
+                "original_query_index": 15639,
+                "final_query_index": 15639,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.6812069416046143,
+                "final_rank_score": -2.6812055110931396,
+                "original_score_of_final_query": -2.6812069416046143,
+                "final_score_of_original_query": -2.6812055110931396
+              },
+              {
+                "rank_zero_based": 755,
+                "original_query_index": 10357,
+                "final_query_index": 10357,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.6812076568603516,
+                "final_rank_score": -2.6812069416046143,
+                "original_score_of_final_query": -2.6812076568603516,
+                "final_score_of_original_query": -2.6812069416046143
+              },
+              {
+                "rank_zero_based": 756,
+                "original_query_index": 3404,
+                "final_query_index": 17166,
+                "same_query_at_rank": false,
+                "original_rank_score": -2.6812872886657715,
+                "final_rank_score": -2.681286573410034,
+                "original_score_of_final_query": -2.6812875270843506,
+                "final_score_of_original_query": -2.6812875270843506
+              },
+              {
+                "rank_zero_based": 757,
+                "original_query_index": 17166,
+                "final_query_index": 3404,
+                "same_query_at_rank": false,
+                "original_rank_score": -2.6812875270843506,
+                "final_rank_score": -2.6812875270843506,
+                "original_score_of_final_query": -2.6812872886657715,
+                "final_score_of_original_query": -2.681286573410034
+              },
+              {
+                "rank_zero_based": 758,
+                "original_query_index": 11775,
+                "final_query_index": 6636,
+                "same_query_at_rank": false,
+                "original_rank_score": -2.6814804077148438,
+                "final_rank_score": -2.6814823150634766,
+                "original_score_of_final_query": -2.6814823150634766,
+                "final_score_of_original_query": -2.6814823150634766
+              },
+              {
+                "rank_zero_based": 759,
+                "original_query_index": 6636,
+                "final_query_index": 11775,
+                "same_query_at_rank": false,
+                "original_rank_score": -2.6814823150634766,
+                "final_rank_score": -2.6814823150634766,
+                "original_score_of_final_query": -2.6814804077148438,
+                "final_score_of_original_query": -2.6814823150634766
+              },
+              {
+                "rank_zero_based": 760,
+                "original_query_index": 11726,
+                "final_query_index": 11726,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.6815381050109863,
+                "final_rank_score": -2.6815381050109863,
+                "original_score_of_final_query": -2.6815381050109863,
+                "final_score_of_original_query": -2.6815381050109863
+              },
+              {
+                "rank_zero_based": 761,
+                "original_query_index": 11725,
+                "final_query_index": 11725,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.6817209720611572,
+                "final_rank_score": -2.6817209720611572,
+                "original_score_of_final_query": -2.6817209720611572,
+                "final_score_of_original_query": -2.6817209720611572
+              }
+            ]
+          },
+          {
+            "mismatch_ranks_zero_based": [
+              809,
+              810
+            ],
+            "same_query_members_within_group": true,
+            "original_query_order": [
+              9095,
+              14826
+            ],
+            "final_query_order": [
+              14826,
+              9095
+            ],
+            "original_scores_in_original_order": [
+              -2.690246105194092,
+              -2.6902480125427246
+            ],
+            "final_scores_in_original_order": [
+              -2.6902475357055664,
+              -2.690246105194092
+            ],
+            "original_scores_in_final_order": [
+              -2.6902480125427246,
+              -2.690246105194092
+            ],
+            "final_scores_in_final_order": [
+              -2.690246105194092,
+              -2.6902475357055664
+            ],
+            "context_window": [
+              {
+                "rank_zero_based": 807,
+                "original_query_index": 16314,
+                "final_query_index": 16314,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.690092086791992,
+                "final_rank_score": -2.6900908946990967,
+                "original_score_of_final_query": -2.690092086791992,
+                "final_score_of_original_query": -2.6900908946990967
+              },
+              {
+                "rank_zero_based": 808,
+                "original_query_index": 15233,
+                "final_query_index": 15233,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.6901421546936035,
+                "final_rank_score": -2.690140962600708,
+                "original_score_of_final_query": -2.6901421546936035,
+                "final_score_of_original_query": -2.690140962600708
+              },
+              {
+                "rank_zero_based": 809,
+                "original_query_index": 9095,
+                "final_query_index": 14826,
+                "same_query_at_rank": false,
+                "original_rank_score": -2.690246105194092,
+                "final_rank_score": -2.690246105194092,
+                "original_score_of_final_query": -2.6902480125427246,
+                "final_score_of_original_query": -2.6902475357055664
+              },
+              {
+                "rank_zero_based": 810,
+                "original_query_index": 14826,
+                "final_query_index": 9095,
+                "same_query_at_rank": false,
+                "original_rank_score": -2.6902480125427246,
+                "final_rank_score": -2.6902475357055664,
+                "original_score_of_final_query": -2.690246105194092,
+                "final_score_of_original_query": -2.690246105194092
+              },
+              {
+                "rank_zero_based": 811,
+                "original_query_index": 11590,
+                "final_query_index": 11590,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.6902618408203125,
+                "final_rank_score": -2.6902613639831543,
+                "original_score_of_final_query": -2.6902618408203125,
+                "final_score_of_original_query": -2.6902613639831543
+              },
+              {
+                "rank_zero_based": 812,
+                "original_query_index": 15028,
+                "final_query_index": 15028,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.6903610229492188,
+                "final_rank_score": -2.690361976623535,
+                "original_score_of_final_query": -2.6903610229492188,
+                "final_score_of_original_query": -2.690361976623535
+              }
+            ]
+          }
+        ],
+        "score_vector_max_abs": 2.1457672119140625e-05,
+        "score_vector_mean_abs": 7.860615482968569e-07
+      },
+      "label_threshold_audits": {}
+    },
+    {
+      "image_id": "coco_004_000000051738",
+      "image_path": "assets/faithfulness_0051/images/coco_004_000000051738.png",
+      "prompt_id": "mixed_open_vocab",
+      "labels": [
+        "a backpack",
+        "an umbrella",
+        "a suitcase",
+        "a skateboard",
+        "a tennis racket",
+        "a teddy bear"
+      ],
+      "reasons": [
+        "label_multiset_mismatch:permissive"
+      ],
+      "topk": {
+        "k": 900,
+        "set_overlap": 900,
+        "rankwise_identical": 894,
+        "mismatched_ranks_zero_based": [
+          275,
+          276,
+          771,
+          772,
+          827,
+          828
+        ],
+        "expected_mismatched_ranks_from_0051": [
+          275,
+          276,
+          771,
+          772,
+          827,
+          828
+        ],
+        "exact_mismatch_pattern_reproduced": true,
+        "groups": [
+          {
+            "mismatch_ranks_zero_based": [
+              275,
+              276
+            ],
+            "same_query_members_within_group": true,
+            "original_query_order": [
+              9521,
+              15482
+            ],
+            "final_query_order": [
+              15482,
+              9521
+            ],
+            "original_scores_in_original_order": [
+              -2.5766499042510986,
+              -2.5766513347625732
+            ],
+            "final_scores_in_original_order": [
+              -2.576650381088257,
+              -2.5766494274139404
+            ],
+            "original_scores_in_final_order": [
+              -2.5766513347625732,
+              -2.5766499042510986
+            ],
+            "final_scores_in_final_order": [
+              -2.5766494274139404,
+              -2.576650381088257
+            ],
+            "context_window": [
+              {
+                "rank_zero_based": 273,
+                "original_query_index": 17769,
+                "final_query_index": 17769,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.574742555618286,
+                "final_rank_score": -2.574742317199707,
+                "original_score_of_final_query": -2.574742555618286,
+                "final_score_of_original_query": -2.574742317199707
+              },
+              {
+                "rank_zero_based": 274,
+                "original_query_index": 15279,
+                "final_query_index": 15279,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.5763354301452637,
+                "final_rank_score": -2.5763349533081055,
+                "original_score_of_final_query": -2.5763354301452637,
+                "final_score_of_original_query": -2.5763349533081055
+              },
+              {
+                "rank_zero_based": 275,
+                "original_query_index": 9521,
+                "final_query_index": 15482,
+                "same_query_at_rank": false,
+                "original_rank_score": -2.5766499042510986,
+                "final_rank_score": -2.5766494274139404,
+                "original_score_of_final_query": -2.5766513347625732,
+                "final_score_of_original_query": -2.576650381088257
+              },
+              {
+                "rank_zero_based": 276,
+                "original_query_index": 15482,
+                "final_query_index": 9521,
+                "same_query_at_rank": false,
+                "original_rank_score": -2.5766513347625732,
+                "final_rank_score": -2.576650381088257,
+                "original_score_of_final_query": -2.5766499042510986,
+                "final_score_of_original_query": -2.5766494274139404
+              },
+              {
+                "rank_zero_based": 277,
+                "original_query_index": 14988,
+                "final_query_index": 14988,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.5775156021118164,
+                "final_rank_score": -2.5775163173675537,
+                "original_score_of_final_query": -2.5775156021118164,
+                "final_score_of_original_query": -2.5775163173675537
+              },
+              {
+                "rank_zero_based": 278,
+                "original_query_index": 7095,
+                "final_query_index": 7095,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.5779407024383545,
+                "final_rank_score": -2.577939987182617,
+                "original_score_of_final_query": -2.5779407024383545,
+                "final_score_of_original_query": -2.577939987182617
+              }
+            ]
+          },
+          {
+            "mismatch_ranks_zero_based": [
+              771,
+              772
+            ],
+            "same_query_members_within_group": true,
+            "original_query_order": [
+              398,
+              14830
+            ],
+            "final_query_order": [
+              14830,
+              398
+            ],
+            "original_scores_in_original_order": [
+              -2.741110324859619,
+              -2.7411108016967773
+            ],
+            "final_scores_in_original_order": [
+              -2.7411110401153564,
+              -2.7411108016967773
+            ],
+            "original_scores_in_final_order": [
+              -2.7411108016967773,
+              -2.741110324859619
+            ],
+            "final_scores_in_final_order": [
+              -2.7411108016967773,
+              -2.7411110401153564
+            ],
+            "context_window": [
+              {
+                "rank_zero_based": 769,
+                "original_query_index": 12628,
+                "final_query_index": 12628,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.7405476570129395,
+                "final_rank_score": -2.740546464920044,
+                "original_score_of_final_query": -2.7405476570129395,
+                "final_score_of_original_query": -2.740546464920044
+              },
+              {
+                "rank_zero_based": 770,
+                "original_query_index": 8991,
+                "final_query_index": 8991,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.7408928871154785,
+                "final_rank_score": -2.740891695022583,
+                "original_score_of_final_query": -2.7408928871154785,
+                "final_score_of_original_query": -2.740891695022583
+              },
+              {
+                "rank_zero_based": 771,
+                "original_query_index": 398,
+                "final_query_index": 14830,
+                "same_query_at_rank": false,
+                "original_rank_score": -2.741110324859619,
+                "final_rank_score": -2.7411108016967773,
+                "original_score_of_final_query": -2.7411108016967773,
+                "final_score_of_original_query": -2.7411110401153564
+              },
+              {
+                "rank_zero_based": 772,
+                "original_query_index": 14830,
+                "final_query_index": 398,
+                "same_query_at_rank": false,
+                "original_rank_score": -2.7411108016967773,
+                "final_rank_score": -2.7411110401153564,
+                "original_score_of_final_query": -2.741110324859619,
+                "final_score_of_original_query": -2.7411108016967773
+              },
+              {
+                "rank_zero_based": 773,
+                "original_query_index": 15891,
+                "final_query_index": 15891,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.7411961555480957,
+                "final_rank_score": -2.7411932945251465,
+                "original_score_of_final_query": -2.7411961555480957,
+                "final_score_of_original_query": -2.7411932945251465
+              },
+              {
+                "rank_zero_based": 774,
+                "original_query_index": 15061,
+                "final_query_index": 15061,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.7413346767425537,
+                "final_rank_score": -2.741335153579712,
+                "original_score_of_final_query": -2.7413346767425537,
+                "final_score_of_original_query": -2.741335153579712
+              }
+            ]
+          },
+          {
+            "mismatch_ranks_zero_based": [
+              827,
+              828
+            ],
+            "same_query_members_within_group": true,
+            "original_query_order": [
+              12239,
+              7080
+            ],
+            "final_query_order": [
+              7080,
+              12239
+            ],
+            "original_scores_in_original_order": [
+              -2.7505433559417725,
+              -2.7505435943603516
+            ],
+            "final_scores_in_original_order": [
+              -2.7505431175231934,
+              -2.750541925430298
+            ],
+            "original_scores_in_final_order": [
+              -2.7505435943603516,
+              -2.7505433559417725
+            ],
+            "final_scores_in_final_order": [
+              -2.750541925430298,
+              -2.7505431175231934
+            ],
+            "context_window": [
+              {
+                "rank_zero_based": 825,
+                "original_query_index": 15824,
+                "final_query_index": 15824,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.749958038330078,
+                "final_rank_score": -2.7499582767486572,
+                "original_score_of_final_query": -2.749958038330078,
+                "final_score_of_original_query": -2.7499582767486572
+              },
+              {
+                "rank_zero_based": 826,
+                "original_query_index": 6891,
+                "final_query_index": 6891,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.749983310699463,
+                "final_rank_score": -2.749981641769409,
+                "original_score_of_final_query": -2.749983310699463,
+                "final_score_of_original_query": -2.749981641769409
+              },
+              {
+                "rank_zero_based": 827,
+                "original_query_index": 12239,
+                "final_query_index": 7080,
+                "same_query_at_rank": false,
+                "original_rank_score": -2.7505433559417725,
+                "final_rank_score": -2.750541925430298,
+                "original_score_of_final_query": -2.7505435943603516,
+                "final_score_of_original_query": -2.7505431175231934
+              },
+              {
+                "rank_zero_based": 828,
+                "original_query_index": 7080,
+                "final_query_index": 12239,
+                "same_query_at_rank": false,
+                "original_rank_score": -2.7505435943603516,
+                "final_rank_score": -2.7505431175231934,
+                "original_score_of_final_query": -2.7505433559417725,
+                "final_score_of_original_query": -2.750541925430298
+              },
+              {
+                "rank_zero_based": 829,
+                "original_query_index": 171,
+                "final_query_index": 171,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.7506675720214844,
+                "final_rank_score": -2.750666856765747,
+                "original_score_of_final_query": -2.7506675720214844,
+                "final_score_of_original_query": -2.750666856765747
+              },
+              {
+                "rank_zero_based": 830,
+                "original_query_index": 9940,
+                "final_query_index": 9940,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.750795364379883,
+                "final_rank_score": -2.7507944107055664,
+                "original_score_of_final_query": -2.750795364379883,
+                "final_score_of_original_query": -2.7507944107055664
+              }
+            ]
+          }
+        ],
+        "score_vector_max_abs": 9.5367431640625e-06,
+        "score_vector_mean_abs": 9.354410508422006e-07
+      },
+      "label_threshold_audits": {
+        "permissive": {
+          "box_threshold": 0.2,
+          "text_threshold": 0.2,
+          "original_kept_query_indices": [
+            0,
+            1,
+            3,
+            7
+          ],
+          "final_kept_query_indices": [
+            0,
+            1,
+            3,
+            7
+          ],
+          "same_kept_query_set": true,
+          "paired_by_box": [
+            {
+              "iou": 0.9997693304592685,
+              "original_query_index": 0,
+              "final_query_index": 0,
+              "same_query_index": true,
+              "original_phrase": "a suitcase",
+              "final_phrase": "a suitcase",
+              "phrase_equal": true,
+              "original_score": 0.3543165326118469,
+              "final_score": 0.35468214750289917,
+              "original_box": [
+                1.8680288791656494,
+                374.09930419921875,
+                133.25738525390625,
+                678.62939453125
+              ],
+              "final_box": [
+                1.875288724899292,
+                374.09027099609375,
+                133.27474975585938,
+                678.633544921875
+              ]
+            },
+            {
+              "iou": 0.9997359028883716,
+              "original_query_index": 1,
+              "final_query_index": 1,
+              "same_query_index": true,
+              "original_phrase": "a suitcase",
+              "final_phrase": "a suitcase",
+              "phrase_equal": true,
+              "original_score": 0.3045503497123718,
+              "final_score": 0.3047390878200531,
+              "original_box": [
+                3.6494359970092773,
+                494.2488708496094,
+                130.34445190429688,
+                674.8759765625
+              ],
+              "final_box": [
+                3.6611080169677734,
+                494.25457763671875,
+                130.3584747314453,
+                674.87060546875
+              ]
+            },
+            {
+              "iou": 0.9991539501701324,
+              "original_query_index": 7,
+              "final_query_index": 7,
+              "same_query_index": true,
+              "original_phrase": "a suitcase",
+              "final_phrase": "a suitcase",
+              "phrase_equal": true,
+              "original_score": 0.2230747640132904,
+              "final_score": 0.22327381372451782,
+              "original_box": [
+                1.4796316623687744,
+                356.1818542480469,
+                183.5304412841797,
+                721.492431640625
+              ],
+              "final_box": [
+                1.4764577150344849,
+                356.1641540527344,
+                183.6399383544922,
+                721.5579223632812
+              ]
+            },
+            {
+              "iou": 0.9980196355494235,
+              "original_query_index": 3,
+              "final_query_index": 3,
+              "same_query_index": true,
+              "original_phrase": "a suitcase",
+              "final_phrase": "a",
+              "phrase_equal": false,
+              "original_score": 0.21972572803497314,
+              "final_score": 0.21876662969589233,
+              "original_box": [
+                2.813610553741455,
+                476.27227783203125,
+                166.64120483398438,
+                690.9585571289062
+              ],
+              "final_box": [
+                2.834773063659668,
+                476.22149658203125,
+                166.86888122558594,
+                691.0075073242188
+              ]
+            }
+          ],
+          "phrase_differences": [
+            {
+              "iou": 0.9980196355494235,
+              "original_query_index": 3,
+              "final_query_index": 3,
+              "same_query_index": true,
+              "original_phrase": "a suitcase",
+              "final_phrase": "a",
+              "phrase_equal": false,
+              "original_score": 0.21972572803497314,
+              "final_score": 0.21876662969589233,
+              "original_box": [
+                2.813610553741455,
+                476.27227783203125,
+                166.64120483398438,
+                690.9585571289062
+              ],
+              "final_box": [
+                2.834773063659668,
+                476.22149658203125,
+                166.86888122558594,
+                691.0075073242188
+              ],
+              "original_query_token_view": {
+                "query_index": 3,
+                "text_threshold": 0.2,
+                "original_phrase": "a suitcase",
+                "final_phrase": "a",
+                "threshold_crossings": [
+                  {
+                    "position": 8,
+                    "token_id": 15940,
+                    "token": "suitcase",
+                    "original_prob": 0.20029760897159576,
+                    "final_prob": 0.1990707665681839,
+                    "abs_diff": 0.0012268424034118652,
+                    "original_above_text_threshold": true,
+                    "final_above_text_threshold": false
+                  }
+                ],
+                "tokens": [
+                  {
+                    "position": 0,
+                    "token_id": 101,
+                    "token": "[CLS]",
+                    "original_prob": 0.002415901515632868,
+                    "final_prob": 0.0024162691552191973,
+                    "abs_diff": 3.6763958632946014e-07,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 1,
+                    "token_id": 1037,
+                    "token": "a",
+                    "original_prob": 0.13599659502506256,
+                    "final_prob": 0.13608968257904053,
+                    "abs_diff": 9.308755397796631e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 2,
+                    "token_id": 13383,
+                    "token": "backpack",
+                    "original_prob": 0.10350234061479568,
+                    "final_prob": 0.10373353213071823,
+                    "abs_diff": 0.0002311915159225464,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 3,
+                    "token_id": 1012,
+                    "token": ".",
+                    "original_prob": 0.0035804114304482937,
+                    "final_prob": 0.003574834205210209,
+                    "abs_diff": 5.577225238084793e-06,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 4,
+                    "token_id": 2019,
+                    "token": "an",
+                    "original_prob": 0.16035574674606323,
+                    "final_prob": 0.16032050549983978,
+                    "abs_diff": 3.524124622344971e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 5,
+                    "token_id": 12977,
+                    "token": "umbrella",
+                    "original_prob": 0.09882232546806335,
+                    "final_prob": 0.09889234602451324,
+                    "abs_diff": 7.002055644989014e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 6,
+                    "token_id": 1012,
+                    "token": ".",
+                    "original_prob": 0.0026673288084566593,
+                    "final_prob": 0.002666514366865158,
+                    "abs_diff": 8.14441591501236e-07,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 7,
+                    "token_id": 1037,
+                    "token": "a",
+                    "original_prob": 0.21972572803497314,
+                    "final_prob": 0.21876662969589233,
+                    "abs_diff": 0.0009590983390808105,
+                    "original_above_text_threshold": true,
+                    "final_above_text_threshold": true
+                  },
+                  {
+                    "position": 8,
+                    "token_id": 15940,
+                    "token": "suitcase",
+                    "original_prob": 0.20029760897159576,
+                    "final_prob": 0.1990707665681839,
+                    "abs_diff": 0.0012268424034118652,
+                    "original_above_text_threshold": true,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 9,
+                    "token_id": 1012,
+                    "token": ".",
+                    "original_prob": 0.003233918221667409,
+                    "final_prob": 0.0032286979258060455,
+                    "abs_diff": 5.220295861363411e-06,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 10,
+                    "token_id": 1037,
+                    "token": "a",
+                    "original_prob": 0.07001456618309021,
+                    "final_prob": 0.07004909962415695,
+                    "abs_diff": 3.453344106674194e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 11,
+                    "token_id": 17260,
+                    "token": "skate",
+                    "original_prob": 0.0546603761613369,
+                    "final_prob": 0.05466917157173157,
+                    "abs_diff": 8.795410394668579e-06,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 12,
+                    "token_id": 6277,
+                    "token": "##board",
+                    "original_prob": 0.055442553013563156,
+                    "final_prob": 0.055452316999435425,
+                    "abs_diff": 9.763985872268677e-06,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 13,
+                    "token_id": 1012,
+                    "token": ".",
+                    "original_prob": 0.00456917705014348,
+                    "final_prob": 0.004561090376228094,
+                    "abs_diff": 8.0866739153862e-06,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 14,
+                    "token_id": 1037,
+                    "token": "a",
+                    "original_prob": 0.10287531465291977,
+                    "final_prob": 0.1028260663151741,
+                    "abs_diff": 4.9248337745666504e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 15,
+                    "token_id": 5093,
+                    "token": "tennis",
+                    "original_prob": 0.06624159961938858,
+                    "final_prob": 0.06625387817621231,
+                    "abs_diff": 1.2278556823730469e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 16,
+                    "token_id": 14513,
+                    "token": "rack",
+                    "original_prob": 0.062461353838443756,
+                    "final_prob": 0.062450625002384186,
+                    "abs_diff": 1.0728836059570312e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 17,
+                    "token_id": 3388,
+                    "token": "##et",
+                    "original_prob": 0.06592494249343872,
+                    "final_prob": 0.06593982130289078,
+                    "abs_diff": 1.4878809452056885e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 18,
+                    "token_id": 1012,
+                    "token": ".",
+                    "original_prob": 0.004588840529322624,
+                    "final_prob": 0.004582391120493412,
+                    "abs_diff": 6.449408829212189e-06,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 19,
+                    "token_id": 1037,
+                    "token": "a",
+                    "original_prob": 0.05936405807733536,
+                    "final_prob": 0.05933282524347305,
+                    "abs_diff": 3.123283386230469e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 20,
+                    "token_id": 11389,
+                    "token": "teddy",
+                    "original_prob": 0.054718825966119766,
+                    "final_prob": 0.054705724120140076,
+                    "abs_diff": 1.3101845979690552e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 21,
+                    "token_id": 4562,
+                    "token": "bear",
+                    "original_prob": 0.05300213396549225,
+                    "final_prob": 0.05299516022205353,
+                    "abs_diff": 6.973743438720703e-06,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 22,
+                    "token_id": 1012,
+                    "token": ".",
+                    "original_prob": 0.004900743253529072,
+                    "final_prob": 0.0048933797515928745,
+                    "abs_diff": 7.363501936197281e-06,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 23,
+                    "token_id": 102,
+                    "token": "[SEP]",
+                    "original_prob": 0.002418715273961425,
+                    "final_prob": 0.002419079886749387,
+                    "abs_diff": 3.6461278796195984e-07,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "image_id": "coco_018_000000331075",
+      "image_path": "assets/faithfulness_0051/images/coco_018_000000331075.png",
+      "prompt_id": "mixed_open_vocab",
+      "labels": [
+        "a backpack",
+        "an umbrella",
+        "a suitcase",
+        "a skateboard",
+        "a tennis racket",
+        "a teddy bear"
+      ],
+      "reasons": [
+        "label_multiset_mismatch:permissive"
+      ],
+      "topk": {
+        "k": 900,
+        "set_overlap": 900,
+        "rankwise_identical": 892,
+        "mismatched_ranks_zero_based": [
+          416,
+          417,
+          478,
+          479,
+          756,
+          757,
+          774,
+          775
+        ],
+        "expected_mismatched_ranks_from_0051": [
+          416,
+          417,
+          478,
+          479,
+          756,
+          757,
+          774,
+          775
+        ],
+        "exact_mismatch_pattern_reproduced": true,
+        "groups": [
+          {
+            "mismatch_ranks_zero_based": [
+              416,
+              417
+            ],
+            "same_query_members_within_group": true,
+            "original_query_order": [
+              16161,
+              16261
+            ],
+            "final_query_order": [
+              16261,
+              16161
+            ],
+            "original_scores_in_original_order": [
+              -2.753967046737671,
+              -2.7539703845977783
+            ],
+            "final_scores_in_original_order": [
+              -2.7539687156677246,
+              -2.753967761993408
+            ],
+            "original_scores_in_final_order": [
+              -2.7539703845977783,
+              -2.753967046737671
+            ],
+            "final_scores_in_final_order": [
+              -2.753967761993408,
+              -2.7539687156677246
+            ],
+            "context_window": [
+              {
+                "rank_zero_based": 414,
+                "original_query_index": 17660,
+                "final_query_index": 17660,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.7519030570983887,
+                "final_rank_score": -2.7519021034240723,
+                "original_score_of_final_query": -2.7519030570983887,
+                "final_score_of_original_query": -2.7519021034240723
+              },
+              {
+                "rank_zero_based": 415,
+                "original_query_index": 12136,
+                "final_query_index": 12136,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.7537918090820312,
+                "final_rank_score": -2.7537920475006104,
+                "original_score_of_final_query": -2.7537918090820312,
+                "final_score_of_original_query": -2.7537920475006104
+              },
+              {
+                "rank_zero_based": 416,
+                "original_query_index": 16161,
+                "final_query_index": 16261,
+                "same_query_at_rank": false,
+                "original_rank_score": -2.753967046737671,
+                "final_rank_score": -2.753967761993408,
+                "original_score_of_final_query": -2.7539703845977783,
+                "final_score_of_original_query": -2.7539687156677246
+              },
+              {
+                "rank_zero_based": 417,
+                "original_query_index": 16261,
+                "final_query_index": 16161,
+                "same_query_at_rank": false,
+                "original_rank_score": -2.7539703845977783,
+                "final_rank_score": -2.7539687156677246,
+                "original_score_of_final_query": -2.753967046737671,
+                "final_score_of_original_query": -2.753967761993408
+              },
+              {
+                "rank_zero_based": 418,
+                "original_query_index": 7418,
+                "final_query_index": 7418,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.7558164596557617,
+                "final_rank_score": -2.7558162212371826,
+                "original_score_of_final_query": -2.7558164596557617,
+                "final_score_of_original_query": -2.7558162212371826
+              },
+              {
+                "rank_zero_based": 419,
+                "original_query_index": 17552,
+                "final_query_index": 17552,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.7571611404418945,
+                "final_rank_score": -2.75716233253479,
+                "original_score_of_final_query": -2.7571611404418945,
+                "final_score_of_original_query": -2.75716233253479
+              }
+            ]
+          },
+          {
+            "mismatch_ranks_zero_based": [
+              478,
+              479
+            ],
+            "same_query_members_within_group": true,
+            "original_query_order": [
+              14644,
+              16126
+            ],
+            "final_query_order": [
+              16126,
+              14644
+            ],
+            "original_scores_in_original_order": [
+              -2.789496660232544,
+              -2.7894999980926514
+            ],
+            "final_scores_in_original_order": [
+              -2.7895007133483887,
+              -2.7894997596740723
+            ],
+            "original_scores_in_final_order": [
+              -2.7894999980926514,
+              -2.789496660232544
+            ],
+            "final_scores_in_final_order": [
+              -2.7894997596740723,
+              -2.7895007133483887
+            ],
+            "context_window": [
+              {
+                "rank_zero_based": 476,
+                "original_query_index": 16318,
+                "final_query_index": 16318,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.7870354652404785,
+                "final_rank_score": -2.787034749984741,
+                "original_score_of_final_query": -2.7870354652404785,
+                "final_score_of_original_query": -2.787034749984741
+              },
+              {
+                "rank_zero_based": 477,
+                "original_query_index": 7148,
+                "final_query_index": 7148,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.7884652614593506,
+                "final_rank_score": -2.788463830947876,
+                "original_score_of_final_query": -2.7884652614593506,
+                "final_score_of_original_query": -2.788463830947876
+              },
+              {
+                "rank_zero_based": 478,
+                "original_query_index": 14644,
+                "final_query_index": 16126,
+                "same_query_at_rank": false,
+                "original_rank_score": -2.789496660232544,
+                "final_rank_score": -2.7894997596740723,
+                "original_score_of_final_query": -2.7894999980926514,
+                "final_score_of_original_query": -2.7895007133483887
+              },
+              {
+                "rank_zero_based": 479,
+                "original_query_index": 16126,
+                "final_query_index": 14644,
+                "same_query_at_rank": false,
+                "original_rank_score": -2.7894999980926514,
+                "final_rank_score": -2.7895007133483887,
+                "original_score_of_final_query": -2.789496660232544,
+                "final_score_of_original_query": -2.7894997596740723
+              },
+              {
+                "rank_zero_based": 480,
+                "original_query_index": 7419,
+                "final_query_index": 7419,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.7902820110321045,
+                "final_rank_score": -2.7902820110321045,
+                "original_score_of_final_query": -2.7902820110321045,
+                "final_score_of_original_query": -2.7902820110321045
+              },
+              {
+                "rank_zero_based": 481,
+                "original_query_index": 16333,
+                "final_query_index": 16333,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.7912404537200928,
+                "final_rank_score": -2.791238784790039,
+                "original_score_of_final_query": -2.7912404537200928,
+                "final_score_of_original_query": -2.791238784790039
+              }
+            ]
+          },
+          {
+            "mismatch_ranks_zero_based": [
+              756,
+              757
+            ],
+            "same_query_members_within_group": true,
+            "original_query_order": [
+              16295,
+              15426
+            ],
+            "final_query_order": [
+              15426,
+              16295
+            ],
+            "original_scores_in_original_order": [
+              -2.9108846187591553,
+              -2.9108853340148926
+            ],
+            "final_scores_in_original_order": [
+              -2.910885810852051,
+              -2.9108853340148926
+            ],
+            "original_scores_in_final_order": [
+              -2.9108853340148926,
+              -2.9108846187591553
+            ],
+            "final_scores_in_final_order": [
+              -2.9108853340148926,
+              -2.910885810852051
+            ],
+            "context_window": [
+              {
+                "rank_zero_based": 754,
+                "original_query_index": 17643,
+                "final_query_index": 17643,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.9099977016448975,
+                "final_rank_score": -2.9099977016448975,
+                "original_score_of_final_query": -2.9099977016448975,
+                "final_score_of_original_query": -2.9099977016448975
+              },
+              {
+                "rank_zero_based": 755,
+                "original_query_index": 15425,
+                "final_query_index": 15425,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.9101648330688477,
+                "final_rank_score": -2.9101650714874268,
+                "original_score_of_final_query": -2.9101648330688477,
+                "final_score_of_original_query": -2.9101650714874268
+              },
+              {
+                "rank_zero_based": 756,
+                "original_query_index": 16295,
+                "final_query_index": 15426,
+                "same_query_at_rank": false,
+                "original_rank_score": -2.9108846187591553,
+                "final_rank_score": -2.9108853340148926,
+                "original_score_of_final_query": -2.9108853340148926,
+                "final_score_of_original_query": -2.910885810852051
+              },
+              {
+                "rank_zero_based": 757,
+                "original_query_index": 15426,
+                "final_query_index": 16295,
+                "same_query_at_rank": false,
+                "original_rank_score": -2.9108853340148926,
+                "final_rank_score": -2.910885810852051,
+                "original_score_of_final_query": -2.9108846187591553,
+                "final_score_of_original_query": -2.9108853340148926
+              },
+              {
+                "rank_zero_based": 758,
+                "original_query_index": 16586,
+                "final_query_index": 16586,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.9111433029174805,
+                "final_rank_score": -2.9111428260803223,
+                "original_score_of_final_query": -2.9111433029174805,
+                "final_score_of_original_query": -2.9111428260803223
+              },
+              {
+                "rank_zero_based": 759,
+                "original_query_index": 12833,
+                "final_query_index": 12833,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.912595510482788,
+                "final_rank_score": -2.9125964641571045,
+                "original_score_of_final_query": -2.912595510482788,
+                "final_score_of_original_query": -2.9125964641571045
+              }
+            ]
+          },
+          {
+            "mismatch_ranks_zero_based": [
+              774,
+              775
+            ],
+            "same_query_members_within_group": true,
+            "original_query_order": [
+              6452,
+              16523
+            ],
+            "final_query_order": [
+              16523,
+              6452
+            ],
+            "original_scores_in_original_order": [
+              -2.9167098999023438,
+              -2.916710376739502
+            ],
+            "final_scores_in_original_order": [
+              -2.91671085357666,
+              -2.916710376739502
+            ],
+            "original_scores_in_final_order": [
+              -2.916710376739502,
+              -2.9167098999023438
+            ],
+            "final_scores_in_final_order": [
+              -2.916710376739502,
+              -2.91671085357666
+            ],
+            "context_window": [
+              {
+                "rank_zero_based": 772,
+                "original_query_index": 12961,
+                "final_query_index": 12961,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.916142463684082,
+                "final_rank_score": -2.9161603450775146,
+                "original_score_of_final_query": -2.916142463684082,
+                "final_score_of_original_query": -2.9161603450775146
+              },
+              {
+                "rank_zero_based": 773,
+                "original_query_index": 6888,
+                "final_query_index": 6888,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.9166221618652344,
+                "final_rank_score": -2.9166221618652344,
+                "original_score_of_final_query": -2.9166221618652344,
+                "final_score_of_original_query": -2.9166221618652344
+              },
+              {
+                "rank_zero_based": 774,
+                "original_query_index": 6452,
+                "final_query_index": 16523,
+                "same_query_at_rank": false,
+                "original_rank_score": -2.9167098999023438,
+                "final_rank_score": -2.916710376739502,
+                "original_score_of_final_query": -2.916710376739502,
+                "final_score_of_original_query": -2.91671085357666
+              },
+              {
+                "rank_zero_based": 775,
+                "original_query_index": 16523,
+                "final_query_index": 6452,
+                "same_query_at_rank": false,
+                "original_rank_score": -2.916710376739502,
+                "final_rank_score": -2.91671085357666,
+                "original_score_of_final_query": -2.9167098999023438,
+                "final_score_of_original_query": -2.916710376739502
+              },
+              {
+                "rank_zero_based": 776,
+                "original_query_index": 15448,
+                "final_query_index": 15448,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.9172091484069824,
+                "final_rank_score": -2.917208194732666,
+                "original_score_of_final_query": -2.9172091484069824,
+                "final_score_of_original_query": -2.917208194732666
+              },
+              {
+                "rank_zero_based": 777,
+                "original_query_index": 16624,
+                "final_query_index": 16624,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.917238473892212,
+                "final_rank_score": -2.917238473892212,
+                "original_score_of_final_query": -2.917238473892212,
+                "final_score_of_original_query": -2.917238473892212
+              }
+            ]
+          }
+        ],
+        "score_vector_max_abs": 1.7881393432617188e-05,
+        "score_vector_mean_abs": 9.516976433587843e-07
+      },
+      "label_threshold_audits": {
+        "permissive": {
+          "box_threshold": 0.2,
+          "text_threshold": 0.2,
+          "original_kept_query_indices": [
+            0,
+            1,
+            2
+          ],
+          "final_kept_query_indices": [
+            0,
+            1,
+            2
+          ],
+          "same_kept_query_set": true,
+          "paired_by_box": [
+            {
+              "iou": 0.9999803098254266,
+              "original_query_index": 0,
+              "final_query_index": 0,
+              "same_query_index": true,
+              "original_phrase": "a teddy bear",
+              "final_phrase": "a teddy bear",
+              "phrase_equal": true,
+              "original_score": 0.49596351385116577,
+              "final_score": 0.4960179626941681,
+              "original_box": [
+                119.13911437988281,
+                160.33778381347656,
+                931.5523681640625,
+                894.2492065429688
+              ],
+              "final_box": [
+                119.1401138305664,
+                160.33343505859375,
+                931.5465087890625,
+                894.2531127929688
+              ]
+            },
+            {
+              "iou": 0.9998279805586058,
+              "original_query_index": 1,
+              "final_query_index": 1,
+              "same_query_index": true,
+              "original_phrase": "a tennis racket",
+              "final_phrase": "a tennis racket",
+              "phrase_equal": true,
+              "original_score": 0.22481469810009003,
+              "final_score": 0.22511930763721466,
+              "original_box": [
+                655.94384765625,
+                442.900390625,
+                711.3006591796875,
+                489.4751892089844
+              ],
+              "final_box": [
+                655.9483642578125,
+                442.9009704589844,
+                711.29931640625,
+                489.4726867675781
+              ]
+            },
+            {
+              "iou": 0.9996408777722173,
+              "original_query_index": 2,
+              "final_query_index": 2,
+              "same_query_index": true,
+              "original_phrase": "a rack",
+              "final_phrase": "a racket",
+              "phrase_equal": false,
+              "original_score": 0.2121301293373108,
+              "final_score": 0.21245352923870087,
+              "original_box": [
+                642.2074584960938,
+                432.56671142578125,
+                722.5718994140625,
+                497.7354736328125
+              ],
+              "final_box": [
+                642.21484375,
+                432.5677795410156,
+                722.5615234375,
+                497.7275390625
+              ]
+            }
+          ],
+          "phrase_differences": [
+            {
+              "iou": 0.9996408777722173,
+              "original_query_index": 2,
+              "final_query_index": 2,
+              "same_query_index": true,
+              "original_phrase": "a rack",
+              "final_phrase": "a racket",
+              "phrase_equal": false,
+              "original_score": 0.2121301293373108,
+              "final_score": 0.21245352923870087,
+              "original_box": [
+                642.2074584960938,
+                432.56671142578125,
+                722.5718994140625,
+                497.7354736328125
+              ],
+              "final_box": [
+                642.21484375,
+                432.5677795410156,
+                722.5615234375,
+                497.7275390625
+              ],
+              "original_query_token_view": {
+                "query_index": 2,
+                "text_threshold": 0.2,
+                "original_phrase": "a rack",
+                "final_phrase": "a racket",
+                "threshold_crossings": [
+                  {
+                    "position": 17,
+                    "token_id": 3388,
+                    "token": "##et",
+                    "original_prob": 0.19989962875843048,
+                    "final_prob": 0.200192391872406,
+                    "abs_diff": 0.0002927631139755249,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": true
+                  }
+                ],
+                "tokens": [
+                  {
+                    "position": 0,
+                    "token_id": 101,
+                    "token": "[CLS]",
+                    "original_prob": 0.003226695815101266,
+                    "final_prob": 0.0032261221203953028,
+                    "abs_diff": 5.736947059631348e-07,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 1,
+                    "token_id": 1037,
+                    "token": "a",
+                    "original_prob": 0.0937095656991005,
+                    "final_prob": 0.0936133861541748,
+                    "abs_diff": 9.61795449256897e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 2,
+                    "token_id": 13383,
+                    "token": "backpack",
+                    "original_prob": 0.09825059771537781,
+                    "final_prob": 0.0981721356511116,
+                    "abs_diff": 7.846206426620483e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 3,
+                    "token_id": 1012,
+                    "token": ".",
+                    "original_prob": 0.003058886853978038,
+                    "final_prob": 0.003059311071410775,
+                    "abs_diff": 4.2421743273735046e-07,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 4,
+                    "token_id": 2019,
+                    "token": "an",
+                    "original_prob": 0.16258087754249573,
+                    "final_prob": 0.1627557873725891,
+                    "abs_diff": 0.0001749098300933838,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 5,
+                    "token_id": 12977,
+                    "token": "umbrella",
+                    "original_prob": 0.14180894196033478,
+                    "final_prob": 0.1418536752462387,
+                    "abs_diff": 4.4733285903930664e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 6,
+                    "token_id": 1012,
+                    "token": ".",
+                    "original_prob": 0.003364123636856675,
+                    "final_prob": 0.003365286160260439,
+                    "abs_diff": 1.162523403763771e-06,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 7,
+                    "token_id": 1037,
+                    "token": "a",
+                    "original_prob": 0.1002107560634613,
+                    "final_prob": 0.10020839422941208,
+                    "abs_diff": 2.3618340492248535e-06,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 8,
+                    "token_id": 15940,
+                    "token": "suitcase",
+                    "original_prob": 0.07329374551773071,
+                    "final_prob": 0.07323715090751648,
+                    "abs_diff": 5.65946102142334e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 9,
+                    "token_id": 1012,
+                    "token": ".",
+                    "original_prob": 0.00280242832377553,
+                    "final_prob": 0.0028035398572683334,
+                    "abs_diff": 1.1115334928035736e-06,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 10,
+                    "token_id": 1037,
+                    "token": "a",
+                    "original_prob": 0.13543635606765747,
+                    "final_prob": 0.13542982935905457,
+                    "abs_diff": 6.5267086029052734e-06,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 11,
+                    "token_id": 17260,
+                    "token": "skate",
+                    "original_prob": 0.10885719954967499,
+                    "final_prob": 0.1088452860713005,
+                    "abs_diff": 1.1913478374481201e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 12,
+                    "token_id": 6277,
+                    "token": "##board",
+                    "original_prob": 0.10965796560049057,
+                    "final_prob": 0.10964498668909073,
+                    "abs_diff": 1.2978911399841309e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 13,
+                    "token_id": 1012,
+                    "token": ".",
+                    "original_prob": 0.0044199516996741295,
+                    "final_prob": 0.004420824348926544,
+                    "abs_diff": 8.726492524147034e-07,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 14,
+                    "token_id": 1037,
+                    "token": "a",
+                    "original_prob": 0.20139214396476746,
+                    "final_prob": 0.20172087848186493,
+                    "abs_diff": 0.00032873451709747314,
+                    "original_above_text_threshold": true,
+                    "final_above_text_threshold": true
+                  },
+                  {
+                    "position": 15,
+                    "token_id": 5093,
+                    "token": "tennis",
+                    "original_prob": 0.19672787189483643,
+                    "final_prob": 0.19701822102069855,
+                    "abs_diff": 0.0002903491258621216,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 16,
+                    "token_id": 14513,
+                    "token": "rack",
+                    "original_prob": 0.2121301293373108,
+                    "final_prob": 0.21245352923870087,
+                    "abs_diff": 0.0003233999013900757,
+                    "original_above_text_threshold": true,
+                    "final_above_text_threshold": true
+                  },
+                  {
+                    "position": 17,
+                    "token_id": 3388,
+                    "token": "##et",
+                    "original_prob": 0.19989962875843048,
+                    "final_prob": 0.200192391872406,
+                    "abs_diff": 0.0002927631139755249,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": true
+                  },
+                  {
+                    "position": 18,
+                    "token_id": 1012,
+                    "token": ".",
+                    "original_prob": 0.00431810412555933,
+                    "final_prob": 0.004318940918892622,
+                    "abs_diff": 8.367933332920074e-07,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 19,
+                    "token_id": 1037,
+                    "token": "a",
+                    "original_prob": 0.035212837159633636,
+                    "final_prob": 0.03521273285150528,
+                    "abs_diff": 1.043081283569336e-07,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 20,
+                    "token_id": 11389,
+                    "token": "teddy",
+                    "original_prob": 0.05113996937870979,
+                    "final_prob": 0.051143817603588104,
+                    "abs_diff": 3.848224878311157e-06,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 21,
+                    "token_id": 4562,
+                    "token": "bear",
+                    "original_prob": 0.05145849287509918,
+                    "final_prob": 0.0514645092189312,
+                    "abs_diff": 6.016343832015991e-06,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 22,
+                    "token_id": 1012,
+                    "token": ".",
+                    "original_prob": 0.003893059678375721,
+                    "final_prob": 0.003893862711265683,
+                    "abs_diff": 8.030328899621964e-07,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 23,
+                    "token_id": 102,
+                    "token": "[SEP]",
+                    "original_prob": 0.0032299733720719814,
+                    "final_prob": 0.003229403868317604,
+                    "abs_diff": 5.695037543773651e-07,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "image_id": "coco_019_000000342295",
+      "image_path": "assets/faithfulness_0051/images/coco_019_000000342295.png",
+      "prompt_id": "mixed_open_vocab",
+      "labels": [
+        "a backpack",
+        "an umbrella",
+        "a suitcase",
+        "a skateboard",
+        "a tennis racket",
+        "a teddy bear"
+      ],
+      "reasons": [
+        "label_multiset_mismatch:permissive"
+      ],
+      "topk": {
+        "k": 900,
+        "set_overlap": 900,
+        "rankwise_identical": 898,
+        "mismatched_ranks_zero_based": [
+          734,
+          735
+        ],
+        "expected_mismatched_ranks_from_0051": [
+          734,
+          735
+        ],
+        "exact_mismatch_pattern_reproduced": true,
+        "groups": [
+          {
+            "mismatch_ranks_zero_based": [
+              734,
+              735
+            ],
+            "same_query_members_within_group": true,
+            "original_query_order": [
+              16969,
+              14118
+            ],
+            "final_query_order": [
+              14118,
+              16969
+            ],
+            "original_scores_in_original_order": [
+              -3.2124276161193848,
+              -3.2124297618865967
+            ],
+            "final_scores_in_original_order": [
+              -3.212427854537964,
+              -3.2124276161193848
+            ],
+            "original_scores_in_final_order": [
+              -3.2124297618865967,
+              -3.2124276161193848
+            ],
+            "final_scores_in_final_order": [
+              -3.2124276161193848,
+              -3.212427854537964
+            ],
+            "context_window": [
+              {
+                "rank_zero_based": 732,
+                "original_query_index": 14232,
+                "final_query_index": 14232,
+                "same_query_at_rank": true,
+                "original_rank_score": -3.211359739303589,
+                "final_rank_score": -3.211354970932007,
+                "original_score_of_final_query": -3.211359739303589,
+                "final_score_of_original_query": -3.211354970932007
+              },
+              {
+                "rank_zero_based": 733,
+                "original_query_index": 12156,
+                "final_query_index": 12156,
+                "same_query_at_rank": true,
+                "original_rank_score": -3.2118239402770996,
+                "final_rank_score": -3.211820363998413,
+                "original_score_of_final_query": -3.2118239402770996,
+                "final_score_of_original_query": -3.211820363998413
+              },
+              {
+                "rank_zero_based": 734,
+                "original_query_index": 16969,
+                "final_query_index": 14118,
+                "same_query_at_rank": false,
+                "original_rank_score": -3.2124276161193848,
+                "final_rank_score": -3.2124276161193848,
+                "original_score_of_final_query": -3.2124297618865967,
+                "final_score_of_original_query": -3.212427854537964
+              },
+              {
+                "rank_zero_based": 735,
+                "original_query_index": 14118,
+                "final_query_index": 16969,
+                "same_query_at_rank": false,
+                "original_rank_score": -3.2124297618865967,
+                "final_rank_score": -3.212427854537964,
+                "original_score_of_final_query": -3.2124276161193848,
+                "final_score_of_original_query": -3.2124276161193848
+              },
+              {
+                "rank_zero_based": 736,
+                "original_query_index": 7830,
+                "final_query_index": 7830,
+                "same_query_at_rank": true,
+                "original_rank_score": -3.2128257751464844,
+                "final_rank_score": -3.2128283977508545,
+                "original_score_of_final_query": -3.2128257751464844,
+                "final_score_of_original_query": -3.2128283977508545
+              },
+              {
+                "rank_zero_based": 737,
+                "original_query_index": 5721,
+                "final_query_index": 5721,
+                "same_query_at_rank": true,
+                "original_rank_score": -3.2128520011901855,
+                "final_rank_score": -3.2128493785858154,
+                "original_score_of_final_query": -3.2128520011901855,
+                "final_score_of_original_query": -3.2128493785858154
+              }
+            ]
+          }
+        ],
+        "score_vector_max_abs": 5.412101745605469e-05,
+        "score_vector_mean_abs": 3.0929963941161986e-06
+      },
+      "label_threshold_audits": {
+        "permissive": {
+          "box_threshold": 0.2,
+          "text_threshold": 0.2,
+          "original_kept_query_indices": [
+            0,
+            1,
+            3,
+            6,
+            9,
+            10,
+            57
+          ],
+          "final_kept_query_indices": [
+            0,
+            1,
+            3,
+            6,
+            9,
+            10,
+            57
+          ],
+          "same_kept_query_set": true,
+          "paired_by_box": [
+            {
+              "iou": 0.9999846719597146,
+              "original_query_index": 3,
+              "final_query_index": 3,
+              "same_query_index": true,
+              "original_phrase": "an umbrella",
+              "final_phrase": "an umbrella",
+              "phrase_equal": true,
+              "original_score": 0.22885897755622864,
+              "final_score": 0.2288571000099182,
+              "original_box": [
+                316.3663024902344,
+                461.80670166015625,
+                561.6159057617188,
+                603.3257446289062
+              ],
+              "final_box": [
+                316.3671569824219,
+                461.80621337890625,
+                561.6155395507812,
+                603.3267211914062
+              ]
+            },
+            {
+              "iou": 0.9999840112318795,
+              "original_query_index": 0,
+              "final_query_index": 0,
+              "same_query_index": true,
+              "original_phrase": "an umbrella a",
+              "final_phrase": "an umbrella a",
+              "phrase_equal": true,
+              "original_score": 0.2482762485742569,
+              "final_score": 0.24826639890670776,
+              "original_box": [
+                361.5078430175781,
+                489.0027160644531,
+                470.9931945800781,
+                563.4313354492188
+              ],
+              "final_box": [
+                361.50775146484375,
+                489.0021667480469,
+                470.9938659667969,
+                563.4314575195312
+              ]
+            },
+            {
+              "iou": 0.9999679877890799,
+              "original_query_index": 9,
+              "final_query_index": 9,
+              "same_query_index": true,
+              "original_phrase": "backpack",
+              "final_phrase": "backpack",
+              "phrase_equal": true,
+              "original_score": 0.20503202080726624,
+              "final_score": 0.2051069736480713,
+              "original_box": [
+                471.73797607421875,
+                402.0247802734375,
+                577.7435913085938,
+                571.3960571289062
+              ],
+              "final_box": [
+                471.7392578125,
+                402.0256652832031,
+                577.7440795898438,
+                571.3977661132812
+              ]
+            },
+            {
+              "iou": 0.9999648817594414,
+              "original_query_index": 6,
+              "final_query_index": 6,
+              "same_query_index": true,
+              "original_phrase": "a backpack",
+              "final_phrase": "a backpack",
+              "phrase_equal": true,
+              "original_score": 0.24483492970466614,
+              "final_score": 0.24487201869487762,
+              "original_box": [
+                528.5023193359375,
+                407.51123046875,
+                575.3412475585938,
+                499.73681640625
+              ],
+              "final_box": [
+                528.5018920898438,
+                407.510498046875,
+                575.3416748046875,
+                499.7359924316406
+              ]
+            },
+            {
+              "iou": 0.9999616089127247,
+              "original_query_index": 1,
+              "final_query_index": 1,
+              "same_query_index": true,
+              "original_phrase": "a teddy bear",
+              "final_phrase": "a teddy bear",
+              "phrase_equal": true,
+              "original_score": 0.21269166469573975,
+              "final_score": 0.21267829835414886,
+              "original_box": [
+                604.8014526367188,
+                554.2291259765625,
+                644.0872802734375,
+                589.236572265625
+              ],
+              "final_box": [
+                604.8016357421875,
+                554.2293701171875,
+                644.0869140625,
+                589.2359619140625
+              ]
+            },
+            {
+              "iou": 0.9999205441501879,
+              "original_query_index": 57,
+              "final_query_index": 57,
+              "same_query_index": true,
+              "original_phrase": "a teddy bear",
+              "final_phrase": "a teddy bear",
+              "phrase_equal": true,
+              "original_score": 0.2194611132144928,
+              "final_score": 0.21946290135383606,
+              "original_box": [
+                597.2073364257812,
+                546.2757568359375,
+                654.6729736328125,
+                598.733642578125
+              ],
+              "final_box": [
+                597.2064819335938,
+                546.27490234375,
+                654.6754150390625,
+                598.7339477539062
+              ]
+            },
+            {
+              "iou": 0.999768008348604,
+              "original_query_index": 10,
+              "final_query_index": 10,
+              "same_query_index": true,
+              "original_phrase": "backpack",
+              "final_phrase": "a backpack",
+              "phrase_equal": false,
+              "original_score": 0.23195786774158478,
+              "final_score": 0.23201191425323486,
+              "original_box": [
+                506.5939636230469,
+                394.4201354980469,
+                594.8483276367188,
+                525.7078247070312
+              ],
+              "final_box": [
+                506.5864562988281,
+                394.4158630371094,
+                594.8574829101562,
+                525.709228515625
+              ]
+            }
+          ],
+          "phrase_differences": [
+            {
+              "iou": 0.999768008348604,
+              "original_query_index": 10,
+              "final_query_index": 10,
+              "same_query_index": true,
+              "original_phrase": "backpack",
+              "final_phrase": "a backpack",
+              "phrase_equal": false,
+              "original_score": 0.23195786774158478,
+              "final_score": 0.23201191425323486,
+              "original_box": [
+                506.5939636230469,
+                394.4201354980469,
+                594.8483276367188,
+                525.7078247070312
+              ],
+              "final_box": [
+                506.5864562988281,
+                394.4158630371094,
+                594.8574829101562,
+                525.709228515625
+              ],
+              "original_query_token_view": {
+                "query_index": 10,
+                "text_threshold": 0.2,
+                "original_phrase": "backpack",
+                "final_phrase": "a backpack",
+                "threshold_crossings": [
+                  {
+                    "position": 1,
+                    "token_id": 1037,
+                    "token": "a",
+                    "original_prob": 0.19996948540210724,
+                    "final_prob": 0.20004509389400482,
+                    "abs_diff": 7.560849189758301e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": true
+                  }
+                ],
+                "tokens": [
+                  {
+                    "position": 0,
+                    "token_id": 101,
+                    "token": "[CLS]",
+                    "original_prob": 0.0025230352766811848,
+                    "final_prob": 0.0025238178204745054,
+                    "abs_diff": 7.825437933206558e-07,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 1,
+                    "token_id": 1037,
+                    "token": "a",
+                    "original_prob": 0.19996948540210724,
+                    "final_prob": 0.20004509389400482,
+                    "abs_diff": 7.560849189758301e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": true
+                  },
+                  {
+                    "position": 2,
+                    "token_id": 13383,
+                    "token": "backpack",
+                    "original_prob": 0.23195786774158478,
+                    "final_prob": 0.23201191425323486,
+                    "abs_diff": 5.404651165008545e-05,
+                    "original_above_text_threshold": true,
+                    "final_above_text_threshold": true
+                  },
+                  {
+                    "position": 3,
+                    "token_id": 1012,
+                    "token": ".",
+                    "original_prob": 0.0025730333290994167,
+                    "final_prob": 0.002575801219791174,
+                    "abs_diff": 2.767890691757202e-06,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 4,
+                    "token_id": 2019,
+                    "token": "an",
+                    "original_prob": 0.06078155338764191,
+                    "final_prob": 0.06076624616980553,
+                    "abs_diff": 1.5307217836380005e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 5,
+                    "token_id": 12977,
+                    "token": "umbrella",
+                    "original_prob": 0.06716367602348328,
+                    "final_prob": 0.06714873015880585,
+                    "abs_diff": 1.49458646774292e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 6,
+                    "token_id": 1012,
+                    "token": ".",
+                    "original_prob": 0.0026535075157880783,
+                    "final_prob": 0.0026564416475594044,
+                    "abs_diff": 2.934131771326065e-06,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 7,
+                    "token_id": 1037,
+                    "token": "a",
+                    "original_prob": 0.09376029670238495,
+                    "final_prob": 0.09375397861003876,
+                    "abs_diff": 6.318092346191406e-06,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 8,
+                    "token_id": 15940,
+                    "token": "suitcase",
+                    "original_prob": 0.10760509967803955,
+                    "final_prob": 0.10759828239679337,
+                    "abs_diff": 6.817281246185303e-06,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 9,
+                    "token_id": 1012,
+                    "token": ".",
+                    "original_prob": 0.002657549921423197,
+                    "final_prob": 0.002660342026501894,
+                    "abs_diff": 2.7921050786972046e-06,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 10,
+                    "token_id": 1037,
+                    "token": "a",
+                    "original_prob": 0.04327280819416046,
+                    "final_prob": 0.04328996688127518,
+                    "abs_diff": 1.7158687114715576e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 11,
+                    "token_id": 17260,
+                    "token": "skate",
+                    "original_prob": 0.039848871529102325,
+                    "final_prob": 0.03987069055438042,
+                    "abs_diff": 2.181902527809143e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 12,
+                    "token_id": 6277,
+                    "token": "##board",
+                    "original_prob": 0.040425196290016174,
+                    "final_prob": 0.040447235107421875,
+                    "abs_diff": 2.2038817405700684e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 13,
+                    "token_id": 1012,
+                    "token": ".",
+                    "original_prob": 0.0032577156089246273,
+                    "final_prob": 0.0032619053963571787,
+                    "abs_diff": 4.189787432551384e-06,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 14,
+                    "token_id": 1037,
+                    "token": "a",
+                    "original_prob": 0.05484363064169884,
+                    "final_prob": 0.05484112352132797,
+                    "abs_diff": 2.507120370864868e-06,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 15,
+                    "token_id": 5093,
+                    "token": "tennis",
+                    "original_prob": 0.05672214552760124,
+                    "final_prob": 0.056725047528743744,
+                    "abs_diff": 2.902001142501831e-06,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 16,
+                    "token_id": 14513,
+                    "token": "rack",
+                    "original_prob": 0.039260536432266235,
+                    "final_prob": 0.03926645591855049,
+                    "abs_diff": 5.9194862842559814e-06,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 17,
+                    "token_id": 3388,
+                    "token": "##et",
+                    "original_prob": 0.05662890523672104,
+                    "final_prob": 0.05663071945309639,
+                    "abs_diff": 1.8142163753509521e-06,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 18,
+                    "token_id": 1012,
+                    "token": ".",
+                    "original_prob": 0.0029770811088383198,
+                    "final_prob": 0.0029806739185005426,
+                    "abs_diff": 3.5928096622228622e-06,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 19,
+                    "token_id": 1037,
+                    "token": "a",
+                    "original_prob": 0.054444294422864914,
+                    "final_prob": 0.05441934987902641,
+                    "abs_diff": 2.4944543838500977e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 20,
+                    "token_id": 11389,
+                    "token": "teddy",
+                    "original_prob": 0.052407119423151016,
+                    "final_prob": 0.05237672105431557,
+                    "abs_diff": 3.039836883544922e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 21,
+                    "token_id": 4562,
+                    "token": "bear",
+                    "original_prob": 0.051861267536878586,
+                    "final_prob": 0.051829710602760315,
+                    "abs_diff": 3.1556934118270874e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 22,
+                    "token_id": 1012,
+                    "token": ".",
+                    "original_prob": 0.0036198170855641365,
+                    "final_prob": 0.003622468328103423,
+                    "abs_diff": 2.6512425392866135e-06,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 23,
+                    "token_id": 102,
+                    "token": "[SEP]",
+                    "original_prob": 0.0025250401813536882,
+                    "final_prob": 0.00252581131644547,
+                    "abs_diff": 7.711350917816162e-07,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "image_id": "coco_022_000000372466",
+      "image_path": "assets/faithfulness_0051/images/coco_022_000000372466.png",
+      "prompt_id": "mixed_open_vocab",
+      "labels": [
+        "a backpack",
+        "an umbrella",
+        "a suitcase",
+        "a skateboard",
+        "a tennis racket",
+        "a teddy bear"
+      ],
+      "reasons": [
+        "label_multiset_mismatch:permissive"
+      ],
+      "topk": {
+        "k": 900,
+        "set_overlap": 900,
+        "rankwise_identical": 888,
+        "mismatched_ranks_zero_based": [
+          315,
+          316,
+          325,
+          326,
+          465,
+          466,
+          593,
+          594,
+          749,
+          750,
+          893,
+          894
+        ],
+        "expected_mismatched_ranks_from_0051": [
+          315,
+          316,
+          325,
+          326,
+          465,
+          466,
+          593,
+          594,
+          749,
+          750,
+          893,
+          894
+        ],
+        "exact_mismatch_pattern_reproduced": true,
+        "groups": [
+          {
+            "mismatch_ranks_zero_based": [
+              315,
+              316
+            ],
+            "same_query_members_within_group": true,
+            "original_query_order": [
+              14883,
+              4177
+            ],
+            "final_query_order": [
+              4177,
+              14883
+            ],
+            "original_scores_in_original_order": [
+              -2.6723272800445557,
+              -2.672328472137451
+            ],
+            "final_scores_in_original_order": [
+              -2.6723287105560303,
+              -2.67232608795166
+            ],
+            "original_scores_in_final_order": [
+              -2.672328472137451,
+              -2.6723272800445557
+            ],
+            "final_scores_in_final_order": [
+              -2.67232608795166,
+              -2.6723287105560303
+            ],
+            "context_window": [
+              {
+                "rank_zero_based": 313,
+                "original_query_index": 287,
+                "final_query_index": 287,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.671434164047241,
+                "final_rank_score": -2.6714348793029785,
+                "original_score_of_final_query": -2.671434164047241,
+                "final_score_of_original_query": -2.6714348793029785
+              },
+              {
+                "rank_zero_based": 314,
+                "original_query_index": 17380,
+                "final_query_index": 17380,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.6717801094055176,
+                "final_rank_score": -2.671780824661255,
+                "original_score_of_final_query": -2.6717801094055176,
+                "final_score_of_original_query": -2.671780824661255
+              },
+              {
+                "rank_zero_based": 315,
+                "original_query_index": 14883,
+                "final_query_index": 4177,
+                "same_query_at_rank": false,
+                "original_rank_score": -2.6723272800445557,
+                "final_rank_score": -2.67232608795166,
+                "original_score_of_final_query": -2.672328472137451,
+                "final_score_of_original_query": -2.6723287105560303
+              },
+              {
+                "rank_zero_based": 316,
+                "original_query_index": 4177,
+                "final_query_index": 14883,
+                "same_query_at_rank": false,
+                "original_rank_score": -2.672328472137451,
+                "final_rank_score": -2.6723287105560303,
+                "original_score_of_final_query": -2.6723272800445557,
+                "final_score_of_original_query": -2.67232608795166
+              },
+              {
+                "rank_zero_based": 317,
+                "original_query_index": 15655,
+                "final_query_index": 15655,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.673537254333496,
+                "final_rank_score": -2.6735384464263916,
+                "original_score_of_final_query": -2.673537254333496,
+                "final_score_of_original_query": -2.6735384464263916
+              },
+              {
+                "rank_zero_based": 318,
+                "original_query_index": 15714,
+                "final_query_index": 15714,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.673719882965088,
+                "final_rank_score": -2.6737189292907715,
+                "original_score_of_final_query": -2.673719882965088,
+                "final_score_of_original_query": -2.6737189292907715
+              }
+            ]
+          },
+          {
+            "mismatch_ranks_zero_based": [
+              325,
+              326
+            ],
+            "same_query_members_within_group": true,
+            "original_query_order": [
+              262,
+              360
+            ],
+            "final_query_order": [
+              360,
+              262
+            ],
+            "original_scores_in_original_order": [
+              -2.680001974105835,
+              -2.680001974105835
+            ],
+            "final_scores_in_original_order": [
+              -2.680001974105835,
+              -2.6800010204315186
+            ],
+            "original_scores_in_final_order": [
+              -2.680001974105835,
+              -2.680001974105835
+            ],
+            "final_scores_in_final_order": [
+              -2.6800010204315186,
+              -2.680001974105835
+            ],
+            "context_window": [
+              {
+                "rank_zero_based": 323,
+                "original_query_index": 371,
+                "final_query_index": 371,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.6775550842285156,
+                "final_rank_score": -2.677555561065674,
+                "original_score_of_final_query": -2.6775550842285156,
+                "final_score_of_original_query": -2.677555561065674
+              },
+              {
+                "rank_zero_based": 324,
+                "original_query_index": 349,
+                "final_query_index": 349,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.6797919273376465,
+                "final_rank_score": -2.6797919273376465,
+                "original_score_of_final_query": -2.6797919273376465,
+                "final_score_of_original_query": -2.6797919273376465
+              },
+              {
+                "rank_zero_based": 325,
+                "original_query_index": 262,
+                "final_query_index": 360,
+                "same_query_at_rank": false,
+                "original_rank_score": -2.680001974105835,
+                "final_rank_score": -2.6800010204315186,
+                "original_score_of_final_query": -2.680001974105835,
+                "final_score_of_original_query": -2.680001974105835
+              },
+              {
+                "rank_zero_based": 326,
+                "original_query_index": 360,
+                "final_query_index": 262,
+                "same_query_at_rank": false,
+                "original_rank_score": -2.680001974105835,
+                "final_rank_score": -2.680001974105835,
+                "original_score_of_final_query": -2.680001974105835,
+                "final_score_of_original_query": -2.6800010204315186
+              },
+              {
+                "rank_zero_based": 327,
+                "original_query_index": 17381,
+                "final_query_index": 17381,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.680781126022339,
+                "final_rank_score": -2.6807801723480225,
+                "original_score_of_final_query": -2.680781126022339,
+                "final_score_of_original_query": -2.6807801723480225
+              },
+              {
+                "rank_zero_based": 328,
+                "original_query_index": 17133,
+                "final_query_index": 17133,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.6810309886932373,
+                "final_rank_score": -2.681027412414551,
+                "original_score_of_final_query": -2.6810309886932373,
+                "final_score_of_original_query": -2.681027412414551
+              }
+            ]
+          },
+          {
+            "mismatch_ranks_zero_based": [
+              465,
+              466
+            ],
+            "same_query_members_within_group": true,
+            "original_query_order": [
+              334,
+              14949
+            ],
+            "final_query_order": [
+              14949,
+              334
+            ],
+            "original_scores_in_original_order": [
+              -2.7449686527252197,
+              -2.744968891143799
+            ],
+            "final_scores_in_original_order": [
+              -2.744969606399536,
+              -2.7449686527252197
+            ],
+            "original_scores_in_final_order": [
+              -2.744968891143799,
+              -2.7449686527252197
+            ],
+            "final_scores_in_final_order": [
+              -2.7449686527252197,
+              -2.744969606399536
+            ],
+            "context_window": [
+              {
+                "rank_zero_based": 463,
+                "original_query_index": 17309,
+                "final_query_index": 17309,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.744654417037964,
+                "final_rank_score": -2.7446539402008057,
+                "original_score_of_final_query": -2.744654417037964,
+                "final_score_of_original_query": -2.7446539402008057
+              },
+              {
+                "rank_zero_based": 464,
+                "original_query_index": 2527,
+                "final_query_index": 2527,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.7446913719177246,
+                "final_rank_score": -2.744691848754883,
+                "original_score_of_final_query": -2.7446913719177246,
+                "final_score_of_original_query": -2.744691848754883
+              },
+              {
+                "rank_zero_based": 465,
+                "original_query_index": 334,
+                "final_query_index": 14949,
+                "same_query_at_rank": false,
+                "original_rank_score": -2.7449686527252197,
+                "final_rank_score": -2.7449686527252197,
+                "original_score_of_final_query": -2.744968891143799,
+                "final_score_of_original_query": -2.744969606399536
+              },
+              {
+                "rank_zero_based": 466,
+                "original_query_index": 14949,
+                "final_query_index": 334,
+                "same_query_at_rank": false,
+                "original_rank_score": -2.744968891143799,
+                "final_rank_score": -2.744969606399536,
+                "original_score_of_final_query": -2.7449686527252197,
+                "final_score_of_original_query": -2.7449686527252197
+              },
+              {
+                "rank_zero_based": 467,
+                "original_query_index": 15591,
+                "final_query_index": 15591,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.7453525066375732,
+                "final_rank_score": -2.745351552963257,
+                "original_score_of_final_query": -2.7453525066375732,
+                "final_score_of_original_query": -2.745351552963257
+              },
+              {
+                "rank_zero_based": 468,
+                "original_query_index": 255,
+                "final_query_index": 255,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.74684476852417,
+                "final_rank_score": -2.7468442916870117,
+                "original_score_of_final_query": -2.74684476852417,
+                "final_score_of_original_query": -2.7468442916870117
+              }
+            ]
+          },
+          {
+            "mismatch_ranks_zero_based": [
+              593,
+              594
+            ],
+            "same_query_members_within_group": true,
+            "original_query_order": [
+              377,
+              14625
+            ],
+            "final_query_order": [
+              14625,
+              377
+            ],
+            "original_scores_in_original_order": [
+              -2.793090581893921,
+              -2.7930908203125
+            ],
+            "final_scores_in_original_order": [
+              -2.79309344291687,
+              -2.793090581893921
+            ],
+            "original_scores_in_final_order": [
+              -2.7930908203125,
+              -2.793090581893921
+            ],
+            "final_scores_in_final_order": [
+              -2.793090581893921,
+              -2.79309344291687
+            ],
+            "context_window": [
+              {
+                "rank_zero_based": 591,
+                "original_query_index": 5529,
+                "final_query_index": 5529,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.7929749488830566,
+                "final_rank_score": -2.7929770946502686,
+                "original_score_of_final_query": -2.7929749488830566,
+                "final_score_of_original_query": -2.7929770946502686
+              },
+              {
+                "rank_zero_based": 592,
+                "original_query_index": 328,
+                "final_query_index": 328,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.7929883003234863,
+                "final_rank_score": -2.792989492416382,
+                "original_score_of_final_query": -2.7929883003234863,
+                "final_score_of_original_query": -2.792989492416382
+              },
+              {
+                "rank_zero_based": 593,
+                "original_query_index": 377,
+                "final_query_index": 14625,
+                "same_query_at_rank": false,
+                "original_rank_score": -2.793090581893921,
+                "final_rank_score": -2.793090581893921,
+                "original_score_of_final_query": -2.7930908203125,
+                "final_score_of_original_query": -2.79309344291687
+              },
+              {
+                "rank_zero_based": 594,
+                "original_query_index": 14625,
+                "final_query_index": 377,
+                "same_query_at_rank": false,
+                "original_rank_score": -2.7930908203125,
+                "final_rank_score": -2.79309344291687,
+                "original_score_of_final_query": -2.793090581893921,
+                "final_score_of_original_query": -2.793090581893921
+              },
+              {
+                "rank_zero_based": 595,
+                "original_query_index": 369,
+                "final_query_index": 369,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.7931952476501465,
+                "final_rank_score": -2.7931957244873047,
+                "original_score_of_final_query": -2.7931952476501465,
+                "final_score_of_original_query": -2.7931957244873047
+              },
+              {
+                "rank_zero_based": 596,
+                "original_query_index": 314,
+                "final_query_index": 314,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.793226718902588,
+                "final_rank_score": -2.793226957321167,
+                "original_score_of_final_query": -2.793226718902588,
+                "final_score_of_original_query": -2.793226957321167
+              }
+            ]
+          },
+          {
+            "mismatch_ranks_zero_based": [
+              749,
+              750
+            ],
+            "same_query_members_within_group": true,
+            "original_query_order": [
+              5278,
+              14232
+            ],
+            "final_query_order": [
+              14232,
+              5278
+            ],
+            "original_scores_in_original_order": [
+              -2.840099573135376,
+              -2.8401026725769043
+            ],
+            "final_scores_in_original_order": [
+              -2.840102195739746,
+              -2.8401012420654297
+            ],
+            "original_scores_in_final_order": [
+              -2.8401026725769043,
+              -2.840099573135376
+            ],
+            "final_scores_in_final_order": [
+              -2.8401012420654297,
+              -2.840102195739746
+            ],
+            "context_window": [
+              {
+                "rank_zero_based": 747,
+                "original_query_index": 374,
+                "final_query_index": 374,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.839933395385742,
+                "final_rank_score": -2.8399364948272705,
+                "original_score_of_final_query": -2.839933395385742,
+                "final_score_of_original_query": -2.8399364948272705
+              },
+              {
+                "rank_zero_based": 748,
+                "original_query_index": 15789,
+                "final_query_index": 15789,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.840090274810791,
+                "final_rank_score": -2.8400912284851074,
+                "original_score_of_final_query": -2.840090274810791,
+                "final_score_of_original_query": -2.8400912284851074
+              },
+              {
+                "rank_zero_based": 749,
+                "original_query_index": 5278,
+                "final_query_index": 14232,
+                "same_query_at_rank": false,
+                "original_rank_score": -2.840099573135376,
+                "final_rank_score": -2.8401012420654297,
+                "original_score_of_final_query": -2.8401026725769043,
+                "final_score_of_original_query": -2.840102195739746
+              },
+              {
+                "rank_zero_based": 750,
+                "original_query_index": 14232,
+                "final_query_index": 5278,
+                "same_query_at_rank": false,
+                "original_rank_score": -2.8401026725769043,
+                "final_rank_score": -2.840102195739746,
+                "original_score_of_final_query": -2.840099573135376,
+                "final_score_of_original_query": -2.8401012420654297
+              },
+              {
+                "rank_zero_based": 751,
+                "original_query_index": 210,
+                "final_query_index": 210,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.8417906761169434,
+                "final_rank_score": -2.841789484024048,
+                "original_score_of_final_query": -2.8417906761169434,
+                "final_score_of_original_query": -2.841789484024048
+              },
+              {
+                "rank_zero_based": 752,
+                "original_query_index": 16941,
+                "final_query_index": 16941,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.8419289588928223,
+                "final_rank_score": -2.841930866241455,
+                "original_score_of_final_query": -2.8419289588928223,
+                "final_score_of_original_query": -2.841930866241455
+              }
+            ]
+          },
+          {
+            "mismatch_ranks_zero_based": [
+              893,
+              894
+            ],
+            "same_query_members_within_group": true,
+            "original_query_order": [
+              409,
+              14315
+            ],
+            "final_query_order": [
+              14315,
+              409
+            ],
+            "original_scores_in_original_order": [
+              -2.8814890384674072,
+              -2.8814914226531982
+            ],
+            "final_scores_in_original_order": [
+              -2.88149094581604,
+              -2.881490707397461
+            ],
+            "original_scores_in_final_order": [
+              -2.8814914226531982,
+              -2.8814890384674072
+            ],
+            "final_scores_in_final_order": [
+              -2.881490707397461,
+              -2.88149094581604
+            ],
+            "context_window": [
+              {
+                "rank_zero_based": 891,
+                "original_query_index": 6375,
+                "final_query_index": 6375,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.8812925815582275,
+                "final_rank_score": -2.8812921047210693,
+                "original_score_of_final_query": -2.8812925815582275,
+                "final_score_of_original_query": -2.8812921047210693
+              },
+              {
+                "rank_zero_based": 892,
+                "original_query_index": 419,
+                "final_query_index": 419,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.881310224533081,
+                "final_rank_score": -2.8813118934631348,
+                "original_score_of_final_query": -2.881310224533081,
+                "final_score_of_original_query": -2.8813118934631348
+              },
+              {
+                "rank_zero_based": 893,
+                "original_query_index": 409,
+                "final_query_index": 14315,
+                "same_query_at_rank": false,
+                "original_rank_score": -2.8814890384674072,
+                "final_rank_score": -2.881490707397461,
+                "original_score_of_final_query": -2.8814914226531982,
+                "final_score_of_original_query": -2.88149094581604
+              },
+              {
+                "rank_zero_based": 894,
+                "original_query_index": 14315,
+                "final_query_index": 409,
+                "same_query_at_rank": false,
+                "original_rank_score": -2.8814914226531982,
+                "final_rank_score": -2.88149094581604,
+                "original_score_of_final_query": -2.8814890384674072,
+                "final_score_of_original_query": -2.881490707397461
+              },
+              {
+                "rank_zero_based": 895,
+                "original_query_index": 522,
+                "final_query_index": 522,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.88150954246521,
+                "final_rank_score": -2.8815112113952637,
+                "original_score_of_final_query": -2.88150954246521,
+                "final_score_of_original_query": -2.8815112113952637
+              },
+              {
+                "rank_zero_based": 896,
+                "original_query_index": 3970,
+                "final_query_index": 3970,
+                "same_query_at_rank": true,
+                "original_rank_score": -2.881960868835449,
+                "final_rank_score": -2.881960868835449,
+                "original_score_of_final_query": -2.881960868835449,
+                "final_score_of_original_query": -2.881960868835449
+              }
+            ]
+          }
+        ],
+        "score_vector_max_abs": 2.09808349609375e-05,
+        "score_vector_mean_abs": 1.1453148545115255e-06
+      },
+      "label_threshold_audits": {
+        "permissive": {
+          "box_threshold": 0.2,
+          "text_threshold": 0.2,
+          "original_kept_query_indices": [
+            0,
+            2,
+            3
+          ],
+          "final_kept_query_indices": [
+            0,
+            2,
+            3
+          ],
+          "same_kept_query_set": true,
+          "paired_by_box": [
+            {
+              "iou": 0.9999836155244897,
+              "original_query_index": 0,
+              "final_query_index": 0,
+              "same_query_index": true,
+              "original_phrase": "a suitcase",
+              "final_phrase": "a suitcase",
+              "phrase_equal": true,
+              "original_score": 0.2506852447986603,
+              "final_score": 0.2508472204208374,
+              "original_box": [
+                6.682240962982178,
+                308.40753173828125,
+                1194.8232421875,
+                785.7035522460938
+              ],
+              "final_box": [
+                6.681418418884277,
+                308.4134216308594,
+                1194.82373046875,
+                785.7049560546875
+              ]
+            },
+            {
+              "iou": 0.9998854205191162,
+              "original_query_index": 3,
+              "final_query_index": 3,
+              "same_query_index": true,
+              "original_phrase": "suitcase",
+              "final_phrase": "suitcase",
+              "phrase_equal": true,
+              "original_score": 0.22715674340724945,
+              "final_score": 0.22728727757930756,
+              "original_box": [
+                5.317139625549316,
+                193.46632385253906,
+                1196.1904296875,
+                787.8721923828125
+              ],
+              "final_box": [
+                5.317282676696777,
+                193.5166015625,
+                1196.1885986328125,
+                787.8890380859375
+              ]
+            },
+            {
+              "iou": 0.9992373268368654,
+              "original_query_index": 2,
+              "final_query_index": 2,
+              "same_query_index": true,
+              "original_phrase": "a",
+              "final_phrase": "aboard",
+              "phrase_equal": false,
+              "original_score": 0.2170400470495224,
+              "final_score": 0.21746008098125458,
+              "original_box": [
+                330.91082763671875,
+                156.8161163330078,
+                1194.5384521484375,
+                387.58160400390625
+              ],
+              "final_box": [
+                330.88885498046875,
+                156.71868896484375,
+                1194.548095703125,
+                387.65185546875
+              ]
+            }
+          ],
+          "phrase_differences": [
+            {
+              "iou": 0.9992373268368654,
+              "original_query_index": 2,
+              "final_query_index": 2,
+              "same_query_index": true,
+              "original_phrase": "a",
+              "final_phrase": "aboard",
+              "phrase_equal": false,
+              "original_score": 0.2170400470495224,
+              "final_score": 0.21746008098125458,
+              "original_box": [
+                330.91082763671875,
+                156.8161163330078,
+                1194.5384521484375,
+                387.58160400390625
+              ],
+              "final_box": [
+                330.88885498046875,
+                156.71868896484375,
+                1194.548095703125,
+                387.65185546875
+              ],
+              "original_query_token_view": {
+                "query_index": 2,
+                "text_threshold": 0.2,
+                "original_phrase": "a",
+                "final_phrase": "aboard",
+                "threshold_crossings": [
+                  {
+                    "position": 12,
+                    "token_id": 6277,
+                    "token": "##board",
+                    "original_prob": 0.19998112320899963,
+                    "final_prob": 0.20038831233978271,
+                    "abs_diff": 0.00040718913078308105,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": true
+                  }
+                ],
+                "tokens": [
+                  {
+                    "position": 0,
+                    "token_id": 101,
+                    "token": "[CLS]",
+                    "original_prob": 0.003708889242261648,
+                    "final_prob": 0.003715845290571451,
+                    "abs_diff": 6.956048309803009e-06,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 1,
+                    "token_id": 1037,
+                    "token": "a",
+                    "original_prob": 0.11212287098169327,
+                    "final_prob": 0.11237014830112457,
+                    "abs_diff": 0.00024727731943130493,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 2,
+                    "token_id": 13383,
+                    "token": "backpack",
+                    "original_prob": 0.09774234890937805,
+                    "final_prob": 0.09794871509075165,
+                    "abs_diff": 0.0002063661813735962,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 3,
+                    "token_id": 1012,
+                    "token": ".",
+                    "original_prob": 0.005205086898058653,
+                    "final_prob": 0.005218620412051678,
+                    "abs_diff": 1.3533513993024826e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 4,
+                    "token_id": 2019,
+                    "token": "an",
+                    "original_prob": 0.14364095032215118,
+                    "final_prob": 0.14379443228244781,
+                    "abs_diff": 0.00015348196029663086,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 5,
+                    "token_id": 12977,
+                    "token": "umbrella",
+                    "original_prob": 0.0958217978477478,
+                    "final_prob": 0.0958639532327652,
+                    "abs_diff": 4.215538501739502e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 6,
+                    "token_id": 1012,
+                    "token": ".",
+                    "original_prob": 0.0033339664805680513,
+                    "final_prob": 0.0033423586282879114,
+                    "abs_diff": 8.392147719860077e-06,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 7,
+                    "token_id": 1037,
+                    "token": "a",
+                    "original_prob": 0.18249286711215973,
+                    "final_prob": 0.18310168385505676,
+                    "abs_diff": 0.0006088167428970337,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 8,
+                    "token_id": 15940,
+                    "token": "suitcase",
+                    "original_prob": 0.18445467948913574,
+                    "final_prob": 0.18510562181472778,
+                    "abs_diff": 0.000650942325592041,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 9,
+                    "token_id": 1012,
+                    "token": ".",
+                    "original_prob": 0.005608397535979748,
+                    "final_prob": 0.0056254081428050995,
+                    "abs_diff": 1.7010606825351715e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 10,
+                    "token_id": 1037,
+                    "token": "a",
+                    "original_prob": 0.2170400470495224,
+                    "final_prob": 0.21746008098125458,
+                    "abs_diff": 0.00042003393173217773,
+                    "original_above_text_threshold": true,
+                    "final_above_text_threshold": true
+                  },
+                  {
+                    "position": 11,
+                    "token_id": 17260,
+                    "token": "skate",
+                    "original_prob": 0.19424568116664886,
+                    "final_prob": 0.19464197754859924,
+                    "abs_diff": 0.0003962963819503784,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 12,
+                    "token_id": 6277,
+                    "token": "##board",
+                    "original_prob": 0.19998112320899963,
+                    "final_prob": 0.20038831233978271,
+                    "abs_diff": 0.00040718913078308105,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": true
+                  },
+                  {
+                    "position": 13,
+                    "token_id": 1012,
+                    "token": ".",
+                    "original_prob": 0.005898056551814079,
+                    "final_prob": 0.005912161432206631,
+                    "abs_diff": 1.4104880392551422e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 14,
+                    "token_id": 1037,
+                    "token": "a",
+                    "original_prob": 0.1463191658258438,
+                    "final_prob": 0.14660823345184326,
+                    "abs_diff": 0.0002890676259994507,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 15,
+                    "token_id": 5093,
+                    "token": "tennis",
+                    "original_prob": 0.12452482432126999,
+                    "final_prob": 0.12475945055484772,
+                    "abs_diff": 0.00023462623357772827,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 16,
+                    "token_id": 14513,
+                    "token": "rack",
+                    "original_prob": 0.1174069494009018,
+                    "final_prob": 0.1176038458943367,
+                    "abs_diff": 0.000196896493434906,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 17,
+                    "token_id": 3388,
+                    "token": "##et",
+                    "original_prob": 0.12570986151695251,
+                    "final_prob": 0.1259327530860901,
+                    "abs_diff": 0.00022289156913757324,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 18,
+                    "token_id": 1012,
+                    "token": ".",
+                    "original_prob": 0.005281005520373583,
+                    "final_prob": 0.005292962305247784,
+                    "abs_diff": 1.1956784874200821e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 19,
+                    "token_id": 1037,
+                    "token": "a",
+                    "original_prob": 0.07096543163061142,
+                    "final_prob": 0.07103229314088821,
+                    "abs_diff": 6.686151027679443e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 20,
+                    "token_id": 11389,
+                    "token": "teddy",
+                    "original_prob": 0.06197007745504379,
+                    "final_prob": 0.062008507549762726,
+                    "abs_diff": 3.8430094718933105e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 21,
+                    "token_id": 4562,
+                    "token": "bear",
+                    "original_prob": 0.06167786568403244,
+                    "final_prob": 0.06171252205967903,
+                    "abs_diff": 3.4656375646591187e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 22,
+                    "token_id": 1012,
+                    "token": ".",
+                    "original_prob": 0.006844140589237213,
+                    "final_prob": 0.006859585642814636,
+                    "abs_diff": 1.5445053577423096e-05,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  },
+                  {
+                    "position": 23,
+                    "token_id": 102,
+                    "token": "[SEP]",
+                    "original_prob": 0.003711998462677002,
+                    "final_prob": 0.003718986874446273,
+                    "abs_diff": 6.988411769270897e-06,
+                    "original_above_text_threshold": false,
+                    "final_above_text_threshold": false
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "notes": [
+    "This is a targeted diagnostic rerun, not a new population-level faithfulness estimate.",
+    "Proposal rank windows save both proposal indices and proposal scores, allowing multi-way local permutations to be reconstructed.",
+    "For phrase-label disagreements, detections are paired by box IoU without requiring label equality, then token probabilities around the text threshold are saved.",
+    "No performance timing is performed."
+  ]
+}

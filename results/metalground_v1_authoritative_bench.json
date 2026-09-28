@@ -1,0 +1,224 @@
+{
+  "timestamp_utc": "2026-09-15T16:15:33.574011+00:00",
+  "experiment": "0015",
+  "purpose": "Fresh-process authoritative benchmark of MetalGround v1: twelve fused Metal MSDA cores plus six fully-folded fusion attentions.",
+  "model": "IDEA-Research/grounding-dino-tiny",
+  "device": "mps",
+  "dtype": "float32",
+  "image": "assets/input.jpg",
+  "prompt": [
+    "a cat",
+    "a dog"
+  ],
+  "helper_source": {
+    "path": "scripts/14_full_model_fusion_algebraic.py",
+    "sha256": "d8798da0bbd3bb563c6f1a1a9c4d3a2dabc5900bdc750553504f0640f3022a73"
+  },
+  "configuration": {
+    "msda": "metalground_msda_v0_fp32",
+    "fusion": "fully_folded_algebraic_bimha",
+    "fusion_layers": 6,
+    "batch_specialization": 1,
+    "threadgroup_size": 256,
+    "warmup": 5,
+    "timed_iterations": 30,
+    "approximation": false,
+    "retraining": false,
+    "reduced_precision": false
+  },
+  "baselines": {
+    "experiment_0001_original_pytorch_mps_median_ms": 999.116584,
+    "experiment_0009_msda_v0_median_ms": 632.6745625
+  },
+  "latency": {
+    "n": 30,
+    "mean_ms": 576.2843750333334,
+    "median_ms": 574.3521465,
+    "p90_ms": 600.6825086,
+    "p95_ms": 602.07301235,
+    "p99_ms": 603.5451926799999,
+    "min_ms": 553.777459,
+    "max_ms": 604.118583
+  },
+  "derived": {
+    "speedup_vs_original_pytorch_mps": 1.739554017667452,
+    "latency_reduction_vs_original_ms": 424.7644375,
+    "latency_reduction_vs_original_percent": 42.51400129897153,
+    "speedup_vs_msda_v0": 1.101544699284936,
+    "latency_reduction_vs_msda_v0_ms": 58.322415999999976,
+    "latency_reduction_vs_msda_v0_percent": 9.218391169314632,
+    "fps_from_median": 1.7410921263093078
+  },
+  "correctness": {
+    "reference_detections": [
+      {
+        "label": "a cat a dog",
+        "score": 0.505246102809906,
+        "box": [
+          8.241534233093262,
+          312.5841064453125,
+          570.35009765625,
+          872.4279174804688
+        ]
+      },
+      {
+        "label": "a dog",
+        "score": 0.3197939693927765,
+        "box": [
+          472.915283203125,
+          17.95140266418457,
+          1129.7747802734375,
+          891.8092041015625
+        ]
+      }
+    ],
+    "first_patched_forward": {
+      "logits": {
+        "shape": [
+          1,
+          900,
+          256
+        ],
+        "finite_mask_equal": true,
+        "nan_mask_equal": true,
+        "posinf_mask_equal": true,
+        "neginf_mask_equal": true,
+        "max_abs": 0.38730478286743164,
+        "mean_abs": 0.003140622517094016,
+        "rmse": 0.01760869473218918,
+        "allclose_1e-5": false,
+        "allclose_1e-4": false
+      },
+      "pred_boxes": {
+        "shape": [
+          1,
+          900,
+          4
+        ],
+        "finite_mask_equal": true,
+        "nan_mask_equal": true,
+        "posinf_mask_equal": true,
+        "neginf_mask_equal": true,
+        "max_abs": 0.11897493898868561,
+        "mean_abs": 0.00044676754623651505,
+        "rmse": 0.0035724325571209192,
+        "allclose_1e-5": false,
+        "allclose_1e-4": false
+      },
+      "topk": {
+        "k": 900,
+        "set_overlap": 900,
+        "changed_membership_each_side": 0,
+        "rankwise_identical": 898,
+        "score_vector_max_abs": 7.867813110351562e-06,
+        "score_vector_mean_abs": 5.621386094389891e-07,
+        "mismatched_ranks_zero_based": [
+          808,
+          809
+        ]
+      },
+      "detections": [
+        {
+          "label": "a cat a dog",
+          "score": 0.5053585171699524,
+          "box": [
+            8.240121841430664,
+            312.5821838378906,
+            570.355712890625,
+            872.43017578125
+          ]
+        },
+        {
+          "label": "a dog",
+          "score": 0.3197922706604004,
+          "box": [
+            472.9143371582031,
+            17.952665328979492,
+            1129.7734375,
+            891.8095703125
+          ]
+        }
+      ],
+      "msda_calls": 12
+    },
+    "final_timed_forward": {
+      "logits": {
+        "shape": [
+          1,
+          900,
+          256
+        ],
+        "finite_mask_equal": true,
+        "nan_mask_equal": true,
+        "posinf_mask_equal": true,
+        "neginf_mask_equal": true,
+        "max_abs": 0.38730478286743164,
+        "mean_abs": 0.003140622517094016,
+        "rmse": 0.01760869473218918,
+        "allclose_1e-5": false,
+        "allclose_1e-4": false
+      },
+      "pred_boxes": {
+        "shape": [
+          1,
+          900,
+          4
+        ],
+        "finite_mask_equal": true,
+        "nan_mask_equal": true,
+        "posinf_mask_equal": true,
+        "neginf_mask_equal": true,
+        "max_abs": 0.11897493898868561,
+        "mean_abs": 0.00044676754623651505,
+        "rmse": 0.0035724325571209192,
+        "allclose_1e-5": false,
+        "allclose_1e-4": false
+      },
+      "topk": {
+        "k": 900,
+        "set_overlap": 900,
+        "changed_membership_each_side": 0,
+        "rankwise_identical": 898,
+        "score_vector_max_abs": 7.867813110351562e-06,
+        "score_vector_mean_abs": 5.621386094389891e-07,
+        "mismatched_ranks_zero_based": [
+          808,
+          809
+        ]
+      },
+      "detections": [
+        {
+          "label": "a cat a dog",
+          "score": 0.5053585171699524,
+          "box": [
+            8.240121841430664,
+            312.5821838378906,
+            570.355712890625,
+            872.43017578125
+          ]
+        },
+        {
+          "label": "a dog",
+          "score": 0.3197922706604004,
+          "box": [
+            472.9143371582031,
+            17.952665328979492,
+            1129.7734375,
+            891.8095703125
+          ]
+        }
+      ]
+    }
+  },
+  "call_counts": {
+    "msda_timed_region_including_warmup": 420,
+    "expected": 420
+  },
+  "notes": [
+    "This is a fresh-process, single-variant benchmark intended to become the authoritative MetalGround v1 latency.",
+    "The first patched execution is excluded from timing.",
+    "Experiment 0001 and Experiment 0009 remain the authoritative historical baselines.",
+    "Raw query-wise tensors are rank-sensitive; top-k set overlap/order and postprocessed detections are recorded separately.",
+    "Dataset-level accuracy equivalence remains to be established."
+  ]
+}

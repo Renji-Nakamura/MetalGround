@@ -1,0 +1,38 @@
+{
+  "experiment": "0054b-2",
+  "precision_bits": 22,
+  "stages": {
+    "stage1_h": {
+      "in_size": 1280,
+      "out_size": 1200,
+      "ksize": 5,
+      "bounds_file": "stage1_h_bounds_i32.bin",
+      "coeffs_file": "stage1_h_coeffs_i32.bin",
+      "precision_bits": 22
+    },
+    "stage1_v": {
+      "in_size": 720,
+      "out_size": 675,
+      "ksize": 5,
+      "bounds_file": "stage1_v_bounds_i32.bin",
+      "coeffs_file": "stage1_v_coeffs_i32.bin",
+      "precision_bits": 22
+    },
+    "stage2_h": {
+      "in_size": 1200,
+      "out_size": 1065,
+      "ksize": 5,
+      "bounds_file": "stage2_h_bounds_i32.bin",
+      "coeffs_file": "stage2_h_coeffs_i32.bin",
+      "precision_bits": 22
+    },
+    "stage2_v": {
+      "in_size": 901,
+      "out_size": 800,
+      "ksize": 5,
+      "bounds_file": "stage2_v_bounds_i32.bin",
+      "coeffs_file": "stage2_v_coeffs_i32.bin",
+      "precision_bits": 22
+    }
+  }
+}

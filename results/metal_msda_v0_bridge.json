@@ -1,0 +1,60 @@
+{
+  "timestamp_utc": "2026-09-15T15:00:35.068454+00:00",
+  "experiment": "0007c",
+  "method": "Large PyTorch MPS compute tensors -> MLX shared Metal import with copy=False -> fused MSDA v0 -> PyTorch MPS export. Tiny static int metadata is constructed directly as native MLX int32.",
+  "warmup": 3,
+  "iterations": 20,
+  "threadgroup_size": 256,
+  "encoder": {
+    "fixture": "results/msda_cases/encoder_fp32.pt",
+    "correctness": {
+      "max_abs": 4.589557647705078e-06,
+      "mean_abs": 1.8652352551384865e-08,
+      "rmse": 5.085669130266979e-08,
+      "cosine_similarity": 1.0000003576278687,
+      "allclose_1e-5": true,
+      "finite": true
+    },
+    "latency_bridge_kernel_bridge": {
+      "n": 20,
+      "mean_ms": 5.76928535,
+      "median_ms": 5.202875000000001,
+      "p90_ms": 6.824375,
+      "p95_ms": 7.029725000000001,
+      "min_ms": 4.96425,
+      "max_ms": 8.6015
+    },
+    "reference_median_ms": 69.892125,
+    "speedup_vs_reference": 13.433366167743793,
+    "output_device": "mps:0"
+  },
+  "decoder": {
+    "fixture": "results/msda_cases/decoder_fp32.pt",
+    "correctness": {
+      "max_abs": 3.5762786865234375e-07,
+      "mean_abs": 1.096167867586928e-08,
+      "rmse": 1.923123349456546e-08,
+      "cosine_similarity": 1.0,
+      "allclose_1e-5": true,
+      "finite": true
+    },
+    "latency_bridge_kernel_bridge": {
+      "n": 20,
+      "mean_ms": 0.57081045,
+      "median_ms": 0.5328335,
+      "p90_ms": 0.7536710999999999,
+      "p95_ms": 0.76212675,
+      "min_ms": 0.498958,
+      "max_ms": 0.793833
+    },
+    "reference_median_ms": 3.540291,
+    "speedup_vs_reference": 6.644272554184375,
+    "output_device": "mps:0"
+  },
+  "notes": [
+    "Large compute tensors use the validated zero-copy MPS/MLX bridge.",
+    "Tiny spatial metadata intentionally avoids cross-framework MPS int64 interop.",
+    "JIT/first execution is excluded from timing.",
+    "Timing includes conservative explicit synchronization across frameworks."
+  ]
+}

@@ -1,0 +1,429 @@
+{
+  "timestamp_utc": "2026-09-15T19:39:17.570600+00:00",
+  "experiment": "0040",
+  "purpose": "Re-profile the consolidated MetalGround runtime after robust adoption of compiled MLX fusion, corrected wide encoder islands, and exact fixed-prompt BERT caching.",
+  "model": "IDEA-Research/grounding-dino-tiny",
+  "device": "mps",
+  "dtype": "float32",
+  "software": {
+    "torch": "2.13.0",
+    "transformers": "5.17.0"
+  },
+  "configuration": {
+    "runtime": "corrected wide fusion+deformable MLX islands + exact fixed-prompt BERT cache + decoder Metal MSDA",
+    "prompt_cache": true,
+    "warmup": 3,
+    "iterations": 10,
+    "profiling_sync": "explicit MPS synchronization before/after every registered module forward",
+    "approximation": false,
+    "retraining": false,
+    "reduced_precision": false
+  },
+  "uninstrumented_context": {
+    "n": 10,
+    "mean_ms": 494.2944917,
+    "median_ms": 491.78554199999996,
+    "p90_ms": 508.7803497,
+    "p95_ms": 521.21392485,
+    "min_ms": 474.297125,
+    "max_ms": 533.6475
+  },
+  "profiled_wall": {
+    "n": 10,
+    "mean_ms": 499.6821083,
+    "median_ms": 497.898604,
+    "p90_ms": 510.0272042,
+    "p95_ms": 513.2360606,
+    "min_ms": 490.607417,
+    "max_ms": 516.444917
+  },
+  "module_stats": {
+    "backbone": {
+      "n": 10,
+      "mean_ms": 171.3973876,
+      "median_ms": 170.0295835,
+      "p90_ms": 175.10510899999997,
+      "p95_ms": 176.244284,
+      "min_ms": 168.205,
+      "max_ms": 177.383459
+    },
+    "backbone.swin_stage0": {
+      "n": 10,
+      "mean_ms": 57.2320957,
+      "median_ms": 56.878958,
+      "p90_ms": 59.007954500000004,
+      "p95_ms": 59.69943575,
+      "min_ms": 55.045,
+      "max_ms": 60.390917
+    },
+    "backbone.swin_stage0.block0": {
+      "n": 10,
+      "mean_ms": 23.0542251,
+      "median_ms": 22.915625499999997,
+      "p90_ms": 23.614949399999997,
+      "p95_ms": 24.121349699999996,
+      "min_ms": 22.382542,
+      "max_ms": 24.62775
+    },
+    "backbone.swin_stage0.block1": {
+      "n": 10,
+      "mean_ms": 30.6054915,
+      "median_ms": 30.358625,
+      "p90_ms": 32.485270500000006,
+      "p95_ms": 32.65373925,
+      "min_ms": 28.996,
+      "max_ms": 32.822208
+    },
+    "backbone.swin_stage1": {
+      "n": 10,
+      "mean_ms": 28.6236582,
+      "median_ms": 28.7194165,
+      "p90_ms": 28.9841419,
+      "p95_ms": 28.99752895,
+      "min_ms": 27.544333,
+      "max_ms": 29.010916
+    },
+    "backbone.swin_stage1.block0": {
+      "n": 10,
+      "mean_ms": 11.6083626,
+      "median_ms": 11.651270499999999,
+      "p90_ms": 11.959691999999999,
+      "p95_ms": 12.014367,
+      "min_ms": 10.756041,
+      "max_ms": 12.069042
+    },
+    "backbone.swin_stage1.block1": {
+      "n": 10,
+      "mean_ms": 14.9162791,
+      "median_ms": 14.884646,
+      "p90_ms": 15.535474399999998,
+      "p95_ms": 15.6982997,
+      "min_ms": 14.073792,
+      "max_ms": 15.861125
+    },
+    "backbone.swin_stage2": {
+      "n": 10,
+      "mean_ms": 59.014808300000006,
+      "median_ms": 58.7825415,
+      "p90_ms": 60.8603167,
+      "p95_ms": 61.36124185,
+      "min_ms": 57.283,
+      "max_ms": 61.862167
+    },
+    "backbone.swin_stage2.block0": {
+      "n": 10,
+      "mean_ms": 8.743870900000001,
+      "median_ms": 8.520291499999999,
+      "p90_ms": 9.6329878,
+      "p95_ms": 9.858868899999997,
+      "min_ms": 8.108584,
+      "max_ms": 10.08475
+    },
+    "backbone.swin_stage2.block1": {
+      "n": 10,
+      "mean_ms": 10.2992916,
+      "median_ms": 9.9588335,
+      "p90_ms": 11.0769211,
+      "p95_ms": 11.07806455,
+      "min_ms": 9.741125,
+      "max_ms": 11.079208
+    },
+    "backbone.swin_stage2.block2": {
+      "n": 10,
+      "mean_ms": 8.7446415,
+      "median_ms": 8.6567295,
+      "p90_ms": 9.230815999999999,
+      "p95_ms": 9.4784285,
+      "min_ms": 8.131292,
+      "max_ms": 9.726041
+    },
+    "backbone.swin_stage2.block3": {
+      "n": 10,
+      "mean_ms": 10.301941600000001,
+      "median_ms": 10.1975,
+      "p90_ms": 10.8429128,
+      "p95_ms": 11.0555189,
+      "min_ms": 9.738333,
+      "max_ms": 11.268125
+    },
+    "backbone.swin_stage2.block4": {
+      "n": 10,
+      "mean_ms": 8.606629,
+      "median_ms": 8.579729,
+      "p90_ms": 9.131074400000001,
+      "p95_ms": 9.1632872,
+      "min_ms": 8.071916,
+      "max_ms": 9.1955
+    },
+    "backbone.swin_stage2.block5": {
+      "n": 10,
+      "mean_ms": 10.3668583,
+      "median_ms": 10.181437500000001,
+      "p90_ms": 11.1299256,
+      "p95_ms": 11.390775299999998,
+      "min_ms": 9.698291,
+      "max_ms": 11.651625
+    },
+    "backbone.swin_stage3": {
+      "n": 10,
+      "mean_ms": 15.9939917,
+      "median_ms": 15.945250000000001,
+      "p90_ms": 16.4007542,
+      "p95_ms": 16.5554606,
+      "min_ms": 15.512708,
+      "max_ms": 16.710167
+    },
+    "backbone.swin_stage3.block0": {
+      "n": 10,
+      "mean_ms": 7.284279100000001,
+      "median_ms": 7.164542,
+      "p90_ms": 7.734583100000001,
+      "p95_ms": 7.75989605,
+      "min_ms": 6.99475,
+      "max_ms": 7.785209
+    },
+    "backbone.swin_stage3.block1": {
+      "n": 10,
+      "mean_ms": 8.3535123,
+      "median_ms": 8.168937,
+      "p90_ms": 8.916025,
+      "p95_ms": 8.978012499999998,
+      "min_ms": 7.904125,
+      "max_ms": 9.04
+    },
+    "decoder": {
+      "n": 10,
+      "mean_ms": 61.1861626,
+      "median_ms": 61.0565835,
+      "p90_ms": 62.5767875,
+      "p95_ms": 62.608456249999996,
+      "min_ms": 59.521917,
+      "max_ms": 62.640125
+    },
+    "decoder.layer0": {
+      "n": 10,
+      "mean_ms": 8.8462625,
+      "median_ms": 8.7430625,
+      "p90_ms": 9.420478899999999,
+      "p95_ms": 9.633760449999999,
+      "min_ms": 8.270667,
+      "max_ms": 9.847042
+    },
+    "decoder.layer1": {
+      "n": 10,
+      "mean_ms": 8.8934457,
+      "median_ms": 8.901937499999999,
+      "p90_ms": 9.5591044,
+      "p95_ms": 9.7033852,
+      "min_ms": 8.145583,
+      "max_ms": 9.847666
+    },
+    "decoder.layer2": {
+      "n": 10,
+      "mean_ms": 9.0055835,
+      "median_ms": 9.081375,
+      "p90_ms": 9.525284,
+      "p95_ms": 9.553184,
+      "min_ms": 8.27875,
+      "max_ms": 9.581084
+    },
+    "decoder.layer3": {
+      "n": 10,
+      "mean_ms": 8.5703002,
+      "median_ms": 8.3738335,
+      "p90_ms": 9.0904417,
+      "p95_ms": 9.12280435,
+      "min_ms": 8.250042,
+      "max_ms": 9.155167
+    },
+    "decoder.layer4": {
+      "n": 10,
+      "mean_ms": 8.895928999999999,
+      "median_ms": 8.955520499999999,
+      "p90_ms": 9.403212199999999,
+      "p95_ms": 9.5179811,
+      "min_ms": 8.26225,
+      "max_ms": 9.63275
+    },
+    "decoder.layer5": {
+      "n": 10,
+      "mean_ms": 8.5775039,
+      "median_ms": 8.369812,
+      "p90_ms": 9.0575452,
+      "p95_ms": 9.299439099999999,
+      "min_ms": 8.198041,
+      "max_ms": 9.541333
+    },
+    "encoder": {
+      "n": 10,
+      "mean_ms": 245.163775,
+      "median_ms": 244.3320205,
+      "p90_ms": 250.9731586,
+      "p95_ms": 252.28318330000002,
+      "min_ms": 239.972917,
+      "max_ms": 253.593208
+    },
+    "encoder.layer0": {
+      "n": 10,
+      "mean_ms": 40.5989917,
+      "median_ms": 40.481917,
+      "p90_ms": 41.7078,
+      "p95_ms": 41.715900000000005,
+      "min_ms": 39.752958,
+      "max_ms": 41.724
+    },
+    "encoder.layer0.text_enhancer": {
+      "n": 10,
+      "mean_ms": 0.7652793,
+      "median_ms": 0.7425415,
+      "p90_ms": 0.8505499999999999,
+      "p95_ms": 0.8530249999999999,
+      "min_ms": 0.717417,
+      "max_ms": 0.8555
+    },
+    "encoder.layer1": {
+      "n": 10,
+      "mean_ms": 40.6340332,
+      "median_ms": 40.3265835,
+      "p90_ms": 42.3314372,
+      "p95_ms": 42.7453436,
+      "min_ms": 39.575292,
+      "max_ms": 43.15925
+    },
+    "encoder.layer1.text_enhancer": {
+      "n": 10,
+      "mean_ms": 0.8085875,
+      "median_ms": 0.695667,
+      "p90_ms": 0.8710665999999996,
+      "p95_ms": 1.3208037999999989,
+      "min_ms": 0.658834,
+      "max_ms": 1.770541
+    },
+    "encoder.layer2": {
+      "n": 10,
+      "mean_ms": 40.9944834,
+      "median_ms": 40.798771,
+      "p90_ms": 42.2622583,
+      "p95_ms": 42.39448315,
+      "min_ms": 39.450667,
+      "max_ms": 42.526708
+    },
+    "encoder.layer2.text_enhancer": {
+      "n": 10,
+      "mean_ms": 0.7797877,
+      "median_ms": 0.678104,
+      "p90_ms": 0.9473585999999998,
+      "p95_ms": 1.2125957999999994,
+      "min_ms": 0.649042,
+      "max_ms": 1.477833
+    },
+    "encoder.layer3": {
+      "n": 10,
+      "mean_ms": 40.3939207,
+      "median_ms": 39.8908955,
+      "p90_ms": 42.230916099999995,
+      "p95_ms": 42.51554155,
+      "min_ms": 39.4625,
+      "max_ms": 42.800167
+    },
+    "encoder.layer3.text_enhancer": {
+      "n": 10,
+      "mean_ms": 0.7431040999999999,
+      "median_ms": 0.681708,
+      "p90_ms": 0.7897958999999999,
+      "p95_ms": 1.0774399499999991,
+      "min_ms": 0.631875,
+      "max_ms": 1.365084
+    },
+    "encoder.layer4": {
+      "n": 10,
+      "mean_ms": 41.499983400000005,
+      "median_ms": 41.944,
+      "p90_ms": 42.779429199999996,
+      "p95_ms": 43.3348606,
+      "min_ms": 39.446084,
+      "max_ms": 43.890292
+    },
+    "encoder.layer4.text_enhancer": {
+      "n": 10,
+      "mean_ms": 0.7541625,
+      "median_ms": 0.674875,
+      "p90_ms": 0.7897708999999997,
+      "p95_ms": 1.1431149499999993,
+      "min_ms": 0.646458,
+      "max_ms": 1.496459
+    },
+    "encoder.layer5": {
+      "n": 10,
+      "mean_ms": 40.336824899999996,
+      "median_ms": 40.4077915,
+      "p90_ms": 41.2538205,
+      "p95_ms": 41.342076750000004,
+      "min_ms": 39.494875,
+      "max_ms": 41.430333
+    },
+    "encoder.layer5.text_enhancer": {
+      "n": 10,
+      "mean_ms": 0.7307374999999999,
+      "median_ms": 0.682458,
+      "p90_ms": 0.7583291999999998,
+      "p95_ms": 0.9864980999999994,
+      "min_ms": 0.6475,
+      "max_ms": 1.214667
+    },
+    "text_backbone_cached": {
+      "n": 10,
+      "mean_ms": 0.0038580999999999997,
+      "median_ms": 0.0036245,
+      "p90_ms": 0.0043079999999999985,
+      "p95_ms": 0.005882999999999997,
+      "min_ms": 0.003,
+      "max_ms": 0.007458
+    }
+  },
+  "summaries": {
+    "encoder_layer_medians_ms": {
+      "layer0": 40.481917,
+      "layer1": 40.3265835,
+      "layer2": 40.798771,
+      "layer3": 39.8908955,
+      "layer4": 41.944,
+      "layer5": 40.4077915
+    },
+    "text_enhancer_medians_ms": {
+      "layer0": 0.7425415,
+      "layer1": 0.695667,
+      "layer2": 0.678104,
+      "layer3": 0.681708,
+      "layer4": 0.674875,
+      "layer5": 0.682458
+    },
+    "decoder_layer_medians_ms": {
+      "layer0": 8.7430625,
+      "layer1": 8.901937499999999,
+      "layer2": 9.081375,
+      "layer3": 8.3738335,
+      "layer4": 8.955520499999999,
+      "layer5": 8.369812
+    },
+    "swin_stage_medians_ms": {
+      "stage0": 56.878958,
+      "stage1": 28.7194165,
+      "stage2": 58.7825415,
+      "stage3": 15.945250000000001
+    }
+  },
+  "cache_validation": {
+    "calls": 10,
+    "hits": 10,
+    "misses": 0,
+    "expected_hits": 10
+  },
+  "interpretation_rules": [
+    "Use Experiment 0039, not this profiler, for headline latency.",
+    "Profiler synchronization is intrusive and can perturb scheduling.",
+    "Nested module medians are not additive.",
+    "Parent-minus-children is not exact exclusive GPU attribution.",
+    "Use this experiment only to rank the next optimization targets."
+  ]
+}

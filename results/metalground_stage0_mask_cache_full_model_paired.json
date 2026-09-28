@@ -1,0 +1,124 @@
+{
+  "timestamp_utc": "2026-09-15T17:55:04.680696+00:00",
+  "experiment": "0026",
+  "purpose": "Same-process paired full-model A/B test of the only robust Swin mask-cache candidate: stage0 block1 on MetalGround v2.",
+  "model": "IDEA-Research/grounding-dino-tiny",
+  "device": "mps",
+  "dtype": "float32",
+  "software": {
+    "torch": "2.13.0",
+    "transformers": "5.17.0"
+  },
+  "configuration": {
+    "base_runtime": "MetalGround v2",
+    "cached_block": "model.backbone.conv_encoder.model.swin.encoder.layers.0.blocks.1",
+    "input_dimensions": [
+      200,
+      267
+    ],
+    "padded_dimensions": [
+      203,
+      273
+    ],
+    "mask_shape": [
+      1131,
+      49,
+      49
+    ],
+    "mask_bytes": 10862124,
+    "warmup_per_mode": 3,
+    "paired_iterations": 30,
+    "order": "alternating baseline->cached / cached->baseline"
+  },
+  "latency": {
+    "baseline_v2_same_process": {
+      "n": 30,
+      "mean_ms": 580.3261668,
+      "median_ms": 578.6617915,
+      "p90_ms": 595.207925,
+      "p95_ms": 613.4987644,
+      "min_ms": 558.302541,
+      "max_ms": 616.181417
+    },
+    "stage0_mask_cache_same_process": {
+      "n": 30,
+      "mean_ms": 582.1479347999999,
+      "median_ms": 575.917729,
+      "p90_ms": 606.6375831,
+      "p95_ms": 624.4152647000001,
+      "min_ms": 554.686292,
+      "max_ms": 653.633292
+    },
+    "paired_delta_ms_baseline_minus_cached": {
+      "n": 30,
+      "mean_ms": -1.8217679999999858,
+      "median_ms": -0.8657085000000393,
+      "p90_ms": 18.829779400000053,
+      "p95_ms": 26.034987749999917,
+      "min_ms": -60.10579199999995,
+      "max_ms": 49.343166999999994
+    }
+  },
+  "derived": {
+    "speedup_from_medians": 1.0047646779423942,
+    "median_reduction_ms": 2.744062500000041,
+    "median_reduction_percent": 0.4742083442016995,
+    "authoritative_v2_median_ms": 542.305167,
+    "authoritative_projection_if_delta_transfers_ms": 543.1708755
+  },
+  "correctness": {
+    "logits": {
+      "shape": [
+        1,
+        900,
+        256
+      ],
+      "max_abs": NaN,
+      "mean_abs": NaN,
+      "rmse": NaN,
+      "allclose_1e-5": true,
+      "allclose_1e-4": true,
+      "finite_mask_equal": true
+    },
+    "pred_boxes": {
+      "shape": [
+        1,
+        900,
+        4
+      ],
+      "max_abs": 0.0,
+      "mean_abs": 0.0,
+      "rmse": 0.0,
+      "allclose_1e-5": true,
+      "allclose_1e-4": true,
+      "finite_mask_equal": true
+    },
+    "topk_baseline_vs_cached": {
+      "baseline": {
+        "k": 900,
+        "set_overlap": 900,
+        "changed_membership_each_side": 0,
+        "rankwise_identical": 900,
+        "score_vector_max_abs": 0.0,
+        "score_vector_mean_abs": 0.0,
+        "mismatched_ranks_zero_based": []
+      },
+      "cached_vs_baseline": {
+        "k": 900,
+        "set_overlap": 900,
+        "changed_membership_each_side": 0,
+        "rankwise_identical": 900,
+        "score_vector_max_abs": 0.0,
+        "score_vector_mean_abs": 0.0,
+        "mismatched_ranks_zero_based": []
+      }
+    }
+  },
+  "notes": [
+    "Baseline and cached full-model executions share one process and alternate order each pair.",
+    "Only stage0 block1 get_attn_mask is replaced; all other MetalGround-v2 code paths are identical.",
+    "The cached mask is exact for the captured fixed resolution and falls back to original construction for mismatched geometry/dtype/device.",
+    "The paired result is the causal performance estimate; the 542.305 ms Experiment 0018 value remains the cross-process authoritative v2 headline unless this optimization is adopted and re-benchmarked fresh.",
+    "No approximation, retraining, pruning, quantization, or reduced precision is used."
+  ]
+}

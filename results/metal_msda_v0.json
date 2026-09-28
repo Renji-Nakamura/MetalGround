@@ -1,0 +1,101 @@
+{
+  "timestamp_utc": "2026-09-15T14:28:35.206515+00:00",
+  "experiment": "0006",
+  "kernel": "metal_msda_v0_fp32",
+  "fixture": "results/msda_cases/encoder_fp32.pt",
+  "method": "MLX mx.fast.metal_kernel; fused bilinear sampling + attention weighting + level/point reduction; one thread per output scalar.",
+  "shape": {
+    "value": [
+      1,
+      17821,
+      8,
+      32
+    ],
+    "spatial_shapes": [
+      4,
+      2
+    ],
+    "level_start_index": [
+      4
+    ],
+    "sampling_locations": [
+      1,
+      17821,
+      8,
+      4,
+      4,
+      2
+    ],
+    "attention_weights": [
+      1,
+      17821,
+      8,
+      4,
+      4
+    ],
+    "output": [
+      1,
+      17821,
+      256
+    ],
+    "spatial_shapes_list": [
+      [
+        100,
+        134
+      ],
+      [
+        50,
+        67
+      ],
+      [
+        25,
+        34
+      ],
+      [
+        13,
+        17
+      ]
+    ],
+    "im2col_step": 64
+  },
+  "threadgroup_size": 256,
+  "correctness_first_run": {
+    "max_abs": 4.589557647705078e-06,
+    "mean_abs": 1.865235291912171e-08,
+    "rmse": 5.0856693469241464e-08,
+    "max_rel": 0.13163496955992685,
+    "mean_rel": 9.65178439172026e-07,
+    "cosine_similarity": 0.9999999999999336,
+    "allclose_1e-5": true,
+    "allclose_1e-4": true,
+    "finite": true
+  },
+  "correctness_after_benchmark": {
+    "max_abs": 4.589557647705078e-06,
+    "mean_abs": 1.865235291912171e-08,
+    "rmse": 5.0856693469241464e-08,
+    "max_rel": 0.13163496955992685,
+    "mean_rel": 9.65178439172026e-07,
+    "cosine_similarity": 0.9999999999999336,
+    "allclose_1e-5": true,
+    "allclose_1e-4": true,
+    "finite": true
+  },
+  "latency": {
+    "n": 20,
+    "mean_ms": 5.48634995,
+    "median_ms": 5.268979,
+    "p90_ms": 6.2791047,
+    "p95_ms": 6.44877645,
+    "min_ms": 4.857416,
+    "max_ms": 6.46275
+  },
+  "authoritative_reference_median_ms": 69.892125,
+  "isolated_speedup_vs_experiment_0004": 13.264832712371788,
+  "notes": [
+    "Experiment 0004 PyTorch/MPS median remains the authoritative isolated reference.",
+    "JIT compilation is excluded by performing a first execution before warmup/timing.",
+    "No FP16, approximation, query pruning, or architecture change is used.",
+    "v0 is correctness-first; no threadgroup-memory or vectorization optimization is applied."
+  ]
+}

@@ -1,0 +1,111 @@
+{
+  "timestamp_utc": "2026-09-15T17:09:26.402829+00:00",
+  "experiment": "0020",
+  "purpose": "Decompose the MetalGround-v2 compiled encoder deformable island into self-attention/MSDA and FFN halves using the exact real layer-0 workload.",
+  "model": "IDEA-Research/grounding-dino-tiny",
+  "device": "mps",
+  "dtype": "float32",
+  "workload": {
+    "layer": "model.encoder.layers.0.deformable_layer",
+    "hidden_shape": [
+      1,
+      17821,
+      256
+    ],
+    "spatial_shapes_list": [
+      [
+        100,
+        134
+      ],
+      [
+        50,
+        67
+      ],
+      [
+        25,
+        34
+      ],
+      [
+        13,
+        17
+      ]
+    ],
+    "ffn_dim": 2048
+  },
+  "latency_mlx_internal": {
+    "full_compiled_island": {
+      "n": 20,
+      "mean_ms": 32.4311605,
+      "median_ms": 32.3710835,
+      "p90_ms": 32.725067,
+      "p95_ms": 32.84027535,
+      "min_ms": 30.958333,
+      "max_ms": 33.678334
+    },
+    "compiled_self_attention_half": {
+      "n": 20,
+      "mean_ms": 13.8485041,
+      "median_ms": 13.624395499999999,
+      "p90_ms": 15.6509161,
+      "p95_ms": 15.690721149999998,
+      "min_ms": 11.795958,
+      "max_ms": 15.741625
+    },
+    "compiled_msda_core_only": {
+      "n": 20,
+      "mean_ms": 6.38104175,
+      "median_ms": 6.1317085,
+      "p90_ms": 7.8737881000000005,
+      "p95_ms": 8.227981250000001,
+      "min_ms": 5.0835,
+      "max_ms": 9.514875
+    },
+    "compiled_ffn_half": {
+      "n": 20,
+      "mean_ms": 22.0751958,
+      "median_ms": 21.778604,
+      "p90_ms": 23.874821100000002,
+      "p95_ms": 24.338083000000005,
+      "min_ms": 19.523292,
+      "max_ms": 27.620333
+    },
+    "diagnostic_sum_halves_median_ms": 35.4029995,
+    "full_minus_halves_sum_median_ms": -3.0319160000000025,
+    "self_attention_minus_core_median_ms": 7.492686999999998
+  },
+  "correctness": {
+    "split_final_vs_full_hidden": {
+      "shape": [
+        1,
+        17821,
+        256
+      ],
+      "max_abs": 0.0,
+      "mean_abs": 0.0,
+      "rmse": 0.0,
+      "allclose_1e-5": true,
+      "allclose_1e-4": true
+    },
+    "split_attention_weights_vs_full": {
+      "shape": [
+        1,
+        17821,
+        8,
+        4,
+        4
+      ],
+      "max_abs": 0.0,
+      "mean_abs": 0.0,
+      "rmse": 0.0,
+      "allclose_1e-5": true,
+      "allclose_1e-4": true
+    }
+  },
+  "notes": [
+    "Component timings are MLX-internal and exclude PyTorch<->MLX entry/exit bridge time.",
+    "Each component is separately mx.compile'd, so sums are diagnostic and not an additive GPU timeline.",
+    "The full compiled island is measured in the same MLX-internal timing regime for comparison.",
+    "The MSDA core benchmark uses precomputed real value/location/weight tensors.",
+    "No retraining, approximation, pruning, or reduced precision is used."
+  ]
+}

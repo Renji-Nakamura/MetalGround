@@ -1,0 +1,177 @@
+{
+  "experiment": "0054b-1",
+  "purpose": "Localize 0054b fidelity failure without changing any preregistered gate.",
+  "pass1_metal_vs_pil_letterbox": {
+    "overall_u8": {
+      "n": 3243600,
+      "mean_abs": 0.4403906153656431,
+      "median_abs": 0.0,
+      "p95_abs": 3.0,
+      "p99_abs": 7.0,
+      "max_abs": 35.0,
+      "rmse": 1.5814009665930546
+    },
+    "per_channel_u8": {
+      "R": {
+        "n": 1081200,
+        "mean_abs": 0.21447465778764335,
+        "median_abs": 0.0,
+        "p95_abs": 1.0,
+        "p99_abs": 6.0,
+        "max_abs": 34.0,
+        "rmse": 1.2620173352006785
+      },
+      "G": {
+        "n": 1081200,
+        "mean_abs": 0.18604421013688494,
+        "median_abs": 0.0,
+        "p95_abs": 1.0,
+        "p99_abs": 5.0,
+        "max_abs": 35.0,
+        "rmse": 1.1931326342016182
+      },
+      "B": {
+        "n": 1081200,
+        "mean_abs": 0.920652978172401,
+        "median_abs": 0.0,
+        "p95_abs": 5.0,
+        "p99_abs": 9.0,
+        "max_abs": 34.0,
+        "rmse": 2.1180731371414985
+      }
+    },
+    "exact_pixel_fraction_rgb_triplet": 0.6017129115797263,
+    "pixels_with_any_channel_abs_gt_1_fraction": 0.17204772475027746
+  },
+  "manual_pil_second_resize_vs_hf_reference": {
+    "n": 2556000,
+    "mean_abs": 3.1109755616110395e-06,
+    "median_abs": 1.1175870895385742e-08,
+    "p95_abs": 1.1920928955078125e-07,
+    "p99_abs": 2.384185791015625e-07,
+    "max_abs": 0.01750713586807251,
+    "rmse": 0.0002307074634558964
+  },
+  "final_metal_vs_hf": {
+    "overall": {
+      "n": 2556000,
+      "mean_abs": 0.013900950488788444,
+      "median_abs": 1.1920928955078125e-07,
+      "p95_abs": 0.07407402992248535,
+      "p99_abs": 0.22440099716186523,
+      "max_abs": 1.1335785388946533,
+      "rmse": 0.043441068637080985
+    },
+    "per_channel": {
+      "R": {
+        "n": 852000,
+        "mean_abs": 0.006256004178127549,
+        "median_abs": 0.0,
+        "p95_abs": 0.03424942493438721,
+        "p99_abs": 0.12950587272644043,
+        "max_abs": 1.0810000896453857,
+        "rmse": 0.02895971780405545
+      },
+      "G": {
+        "n": 852000,
+        "mean_abs": 0.006063958563829582,
+        "median_abs": 1.1920928955078125e-07,
+        "p95_abs": 0.02516639232635498,
+        "p99_abs": 0.11707818508148193,
+        "max_abs": 1.1335785388946533,
+        "rmse": 0.026993693774966566
+      },
+      "B": {
+        "n": 852000,
+        "mean_abs": 0.0293828887244082,
+        "median_abs": 0.0098038911819458,
+        "p95_abs": 0.12854039669036865,
+        "p99_abs": 0.30283236503601074,
+        "max_abs": 1.0468411445617676,
+        "rmse": 0.06398479955495327
+      }
+    },
+    "regions": {
+      "letterbox_boundary_rows_pm3_src_px": {
+        "n": 31950,
+        "mean_abs": 0.021542974126238103,
+        "median_abs": 1.1920928955078125e-07,
+        "p95_abs": 0.0864410400390625,
+        "p99_abs": 0.20245361685752816,
+        "max_abs": 0.9256829023361206,
+        "rmse": 0.0514410630693894
+      },
+      "padding_away_from_boundary": {
+        "n": 626220,
+        "mean_abs": 1.862645149230957e-08,
+        "median_abs": 1.1175870895385742e-08,
+        "p95_abs": 4.470348358154297e-08,
+        "p99_abs": 4.470348358154297e-08,
+        "max_abs": 4.470348358154297e-08,
+        "rmse": 2.6603894042010793e-08
+      },
+      "image_interior_away_from_boundary": {
+        "n": 1897830,
+        "mean_abs": 0.018359136361925727,
+        "median_abs": 0.0010943412780761719,
+        "p95_abs": 0.09041404724121094,
+        "p99_abs": 0.25599128007888794,
+        "max_abs": 1.1335785388946533,
+        "rmse": 0.04997035022857446
+      }
+    },
+    "gradient_buckets_using_max_channel_abs_error": {
+      "grad_le_q50": {
+        "n": 426048,
+        "mean_abs": 0.009155814263495342,
+        "median_abs": 2.384185791015625e-07,
+        "p95_abs": 0.04684114456176758,
+        "p99_abs": 0.09586060047149658,
+        "max_abs": 0.559912919998169,
+        "rmse": 0.024156544795455735
+      },
+      "q50_to_q90": {
+        "n": 340752,
+        "mean_abs": 0.03815672956238627,
+        "median_abs": 0.02069711685180664,
+        "p95_abs": 0.1328974962234497,
+        "p99_abs": 0.29956430196762085,
+        "max_abs": 0.7429198026657104,
+        "rmse": 0.0659804600993945
+      },
+      "q90_to_q99": {
+        "n": 76681,
+        "mean_abs": 0.10969531492233056,
+        "median_abs": 0.08169931173324585,
+        "p95_abs": 0.2995644807815552,
+        "p99_abs": 0.4527873039245598,
+        "max_abs": 1.1335785388946533,
+        "rmse": 0.14764193298446993
+      },
+      "grad_gt_q99": {
+        "n": 8519,
+        "mean_abs": 0.2241554338334574,
+        "median_abs": 0.2363835573196411,
+        "p95_abs": 0.40958607792854307,
+        "p99_abs": 0.5259477794170376,
+        "max_abs": 1.0468411445617676,
+        "rmse": 0.2604880439905936
+      },
+      "gradient_quantiles": {
+        "q50": 0.22722564638191012,
+        "q90": 1.211560381959992,
+        "q99": 2.562151282526391
+      }
+    }
+  },
+  "diagnosis_flags": [
+    "pass1_has_material_resize_or_rounding_difference",
+    "HF_post_letterbox_path_contains_additional_semantics",
+    "final_error_is_strongly_edge_correlated"
+  ],
+  "notes": [
+    "Diagnostic intermediate readback occurs after all measured Metal timing and does not alter the 0054b timing region.",
+    "0054b preregistered gates are unchanged.",
+    "This diagnostic is causal localization, not a new accuracy gate."
+  ]
+}

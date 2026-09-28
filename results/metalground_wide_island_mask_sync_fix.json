@@ -1,0 +1,468 @@
+{
+  "timestamp_utc": "2026-09-15T19:11:00.827263+00:00",
+  "experiment": "0036",
+  "purpose": "Causal fix test for Experiment 0034/0035: eliminate an unsynchronized PyTorch-MPS mask inversion created after the producer sync by deriving the deformable valid-token mask inside the compiled MLX wide island.",
+  "model": "IDEA-Research/grounding-dino-tiny",
+  "device": "mps",
+  "dtype": "float32",
+  "software": {
+    "torch": "2.13.0",
+    "transformers": "5.17.0"
+  },
+  "bug_hypothesis": {
+    "old_sequence": [
+      "torch.mps.synchronize()",
+      "create ~key_padding_mask on MPS",
+      "mx.asarray(copy=False) immediately imports new mask",
+      "MLX consumes buffer without producer synchronization"
+    ],
+    "fixed_sequence": [
+      "torch.mps.synchronize()",
+      "import already-produced key_padding_mask into MLX",
+      "derive logical_not(key_padding_mask) inside MLX graph"
+    ]
+  },
+  "configuration": {
+    "prompt_cache": false,
+    "output_attentions": false,
+    "warmup_per_mode": 3,
+    "paired_iterations_if_correct": 20,
+    "threadgroup": 256,
+    "approximation": false,
+    "retraining": false,
+    "reduced_precision": false
+  },
+  "corrected_local_same_input_audit": [
+    {
+      "layer": 0,
+      "same_input_fixed_vs_separate": {
+        "vision": {
+          "shape": [
+            1,
+            17821,
+            256
+          ],
+          "max_abs": 3.1828880310058594e-05,
+          "mean_abs": 2.4906310613914684e-07,
+          "rmse": 3.774817685098242e-07,
+          "allclose_1e-5": false,
+          "allclose_1e-4": true,
+          "finite": true
+        },
+        "text": {
+          "shape": [
+            1,
+            8,
+            256
+          ],
+          "max_abs": 3.814697265625e-06,
+          "mean_abs": 5.31517798663117e-08,
+          "rmse": 1.277538927979549e-07,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        }
+      },
+      "returned_baseline_downstream_topk": {
+        "k": 900,
+        "set_overlap": 900,
+        "changed_membership_each_side": 0,
+        "rankwise_identical": 900,
+        "score_vector_max_abs": 0.0,
+        "score_vector_mean_abs": 0.0,
+        "mismatched_ranks_zero_based": []
+      }
+    },
+    {
+      "layer": 1,
+      "same_input_fixed_vs_separate": {
+        "vision": {
+          "shape": [
+            1,
+            17821,
+            256
+          ],
+          "max_abs": 1.71661376953125e-05,
+          "mean_abs": 2.66273872284728e-07,
+          "rmse": 4.113869351840549e-07,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        },
+        "text": {
+          "shape": [
+            1,
+            8,
+            256
+          ],
+          "max_abs": 1.9073486328125e-06,
+          "mean_abs": 2.947501798189478e-08,
+          "rmse": 7.830851700418862e-08,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        }
+      },
+      "returned_baseline_downstream_topk": {
+        "k": 900,
+        "set_overlap": 900,
+        "changed_membership_each_side": 0,
+        "rankwise_identical": 900,
+        "score_vector_max_abs": 0.0,
+        "score_vector_mean_abs": 0.0,
+        "mismatched_ranks_zero_based": []
+      }
+    },
+    {
+      "layer": 2,
+      "same_input_fixed_vs_separate": {
+        "vision": {
+          "shape": [
+            1,
+            17821,
+            256
+          ],
+          "max_abs": 1.71661376953125e-05,
+          "mean_abs": 2.8651507477661653e-07,
+          "rmse": 4.346498485574557e-07,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        },
+        "text": {
+          "shape": [
+            1,
+            8,
+            256
+          ],
+          "max_abs": 1.9073486328125e-06,
+          "mean_abs": 4.932257979817223e-08,
+          "rmse": 9.069290740626457e-08,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        }
+      },
+      "returned_baseline_downstream_topk": {
+        "k": 900,
+        "set_overlap": 900,
+        "changed_membership_each_side": 0,
+        "rankwise_identical": 900,
+        "score_vector_max_abs": 0.0,
+        "score_vector_mean_abs": 0.0,
+        "mismatched_ranks_zero_based": []
+      }
+    },
+    {
+      "layer": 3,
+      "same_input_fixed_vs_separate": {
+        "vision": {
+          "shape": [
+            1,
+            17821,
+            256
+          ],
+          "max_abs": 1.33514404296875e-05,
+          "mean_abs": 2.5079847887354845e-07,
+          "rmse": 3.7741341429864406e-07,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        },
+        "text": {
+          "shape": [
+            1,
+            8,
+            256
+          ],
+          "max_abs": 1.9073486328125e-06,
+          "mean_abs": 4.795386132627755e-08,
+          "rmse": 8.932265416206064e-08,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        }
+      },
+      "returned_baseline_downstream_topk": {
+        "k": 900,
+        "set_overlap": 900,
+        "changed_membership_each_side": 0,
+        "rankwise_identical": 900,
+        "score_vector_max_abs": 0.0,
+        "score_vector_mean_abs": 0.0,
+        "mismatched_ranks_zero_based": []
+      }
+    },
+    {
+      "layer": 4,
+      "same_input_fixed_vs_separate": {
+        "vision": {
+          "shape": [
+            1,
+            17821,
+            256
+          ],
+          "max_abs": 1.049041748046875e-05,
+          "mean_abs": 2.1921175630268408e-07,
+          "rmse": 3.28962045159642e-07,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        },
+        "text": {
+          "shape": [
+            1,
+            8,
+            256
+          ],
+          "max_abs": 1.9073486328125e-06,
+          "mean_abs": 7.813127922418062e-08,
+          "rmse": 1.279267394238559e-07,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        }
+      },
+      "returned_baseline_downstream_topk": {
+        "k": 900,
+        "set_overlap": 900,
+        "changed_membership_each_side": 0,
+        "rankwise_identical": 900,
+        "score_vector_max_abs": 0.0,
+        "score_vector_mean_abs": 0.0,
+        "mismatched_ranks_zero_based": []
+      }
+    },
+    {
+      "layer": 5,
+      "same_input_fixed_vs_separate": {
+        "vision": {
+          "shape": [
+            1,
+            17821,
+            256
+          ],
+          "max_abs": 1.087784767150879e-06,
+          "mean_abs": 2.221115558143083e-08,
+          "rmse": 3.107875912178315e-08,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        },
+        "text": {
+          "shape": [
+            1,
+            8,
+            256
+          ],
+          "max_abs": 4.76837158203125e-07,
+          "mean_abs": 1.181939524030895e-08,
+          "rmse": 2.1781518810826128e-08,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        }
+      },
+      "returned_baseline_downstream_topk": {
+        "k": 900,
+        "set_overlap": 900,
+        "changed_membership_each_side": 0,
+        "rankwise_identical": 900,
+        "score_vector_max_abs": 0.0,
+        "score_vector_mean_abs": 0.0,
+        "mismatched_ranks_zero_based": []
+      }
+    }
+  ],
+  "local_all_layers_allclose_1e-4": true,
+  "full_model_correctness": {
+    "fixed_vs_separate": {
+      "logits": {
+        "shape": [
+          1,
+          900,
+          256
+        ],
+        "finite_mask_equal": true,
+        "nan_mask_equal": true,
+        "posinf_mask_equal": true,
+        "neginf_mask_equal": true,
+        "finite_max_abs": 0.7077045440673828,
+        "finite_mean_abs": 0.014954030513763428,
+        "finite_rmse": 0.053395695984363556,
+        "allclose_1e-5": false,
+        "allclose_1e-4": false
+      },
+      "pred_boxes": {
+        "shape": [
+          1,
+          900,
+          4
+        ],
+        "finite_mask_equal": true,
+        "nan_mask_equal": true,
+        "posinf_mask_equal": true,
+        "neginf_mask_equal": true,
+        "finite_max_abs": 0.16824686527252197,
+        "finite_mean_abs": 0.0020120139233767986,
+        "finite_rmse": 0.00887848436832428,
+        "allclose_1e-5": false,
+        "allclose_1e-4": false
+      },
+      "topk": {
+        "k": 900,
+        "set_overlap": 900,
+        "changed_membership_each_side": 0,
+        "rankwise_identical": 898,
+        "score_vector_max_abs": 8.106231689453125e-06,
+        "score_vector_mean_abs": 5.219428089731082e-07,
+        "mismatched_ranks_zero_based": [
+          302,
+          303
+        ]
+      }
+    },
+    "separate_vs_original": {
+      "logits": {
+        "shape": [
+          1,
+          900,
+          256
+        ],
+        "finite_mask_equal": true,
+        "nan_mask_equal": true,
+        "posinf_mask_equal": true,
+        "neginf_mask_equal": true,
+        "finite_max_abs": 0.0003104209899902344,
+        "finite_mean_abs": 9.95664140646113e-06,
+        "finite_rmse": 2.3096010409062728e-05,
+        "allclose_1e-5": false,
+        "allclose_1e-4": true
+      },
+      "pred_boxes": {
+        "shape": [
+          1,
+          900,
+          4
+        ],
+        "finite_mask_equal": true,
+        "nan_mask_equal": true,
+        "posinf_mask_equal": true,
+        "neginf_mask_equal": true,
+        "finite_max_abs": 8.368492126464844e-05,
+        "finite_mean_abs": 1.5140623190745828e-06,
+        "finite_rmse": 4.208026439300738e-06,
+        "allclose_1e-5": false,
+        "allclose_1e-4": true
+      },
+      "topk": {
+        "k": 900,
+        "set_overlap": 900,
+        "changed_membership_each_side": 0,
+        "rankwise_identical": 900,
+        "score_vector_max_abs": 7.867813110351562e-06,
+        "score_vector_mean_abs": 5.789286205981625e-07,
+        "mismatched_ranks_zero_based": []
+      }
+    },
+    "fixed_vs_original": {
+      "logits": {
+        "shape": [
+          1,
+          900,
+          256
+        ],
+        "finite_mask_equal": true,
+        "nan_mask_equal": true,
+        "posinf_mask_equal": true,
+        "neginf_mask_equal": true,
+        "finite_max_abs": 0.7076988220214844,
+        "finite_mean_abs": 0.01495429314672947,
+        "finite_rmse": 0.05339790880680084,
+        "allclose_1e-5": false,
+        "allclose_1e-4": false
+      },
+      "pred_boxes": {
+        "shape": [
+          1,
+          900,
+          4
+        ],
+        "finite_mask_equal": true,
+        "nan_mask_equal": true,
+        "posinf_mask_equal": true,
+        "neginf_mask_equal": true,
+        "finite_max_abs": 0.1682538092136383,
+        "finite_mean_abs": 0.002012120559811592,
+        "finite_rmse": 0.008878474123775959,
+        "allclose_1e-5": false,
+        "allclose_1e-4": false
+      },
+      "topk": {
+        "k": 900,
+        "set_overlap": 900,
+        "changed_membership_each_side": 0,
+        "rankwise_identical": 898,
+        "score_vector_max_abs": 7.62939453125e-06,
+        "score_vector_mean_abs": 5.744669238083588e-07,
+        "mismatched_ranks_zero_based": [
+          302,
+          303
+        ]
+      }
+    }
+  },
+  "full_model_topk_set_preserved": true,
+  "latency": {
+    "separate_baseline": {
+      "n": 20,
+      "mean_ms": 507.69069785,
+      "median_ms": 505.2021035,
+      "p90_ms": 523.8700292,
+      "p95_ms": 525.9590607499999,
+      "min_ms": 494.277541,
+      "max_ms": 528.218042
+    },
+    "corrected_wide": {
+      "n": 20,
+      "mean_ms": 492.578048,
+      "median_ms": 489.4156665,
+      "p90_ms": 505.64175420000004,
+      "p95_ms": 506.48853575,
+      "min_ms": 480.462083,
+      "max_ms": 516.527542
+    },
+    "paired_delta_ms_separate_minus_fixed": {
+      "n": 20,
+      "mean_ms": 15.112649849999997,
+      "median_ms": 15.037500000000023,
+      "p90_ms": 23.89936699999997,
+      "p95_ms": 29.231902349999938,
+      "min_ms": 3.6951669999999694,
+      "max_ms": 32.981749000000036
+    }
+  },
+  "derived": {
+    "speedup_from_medians": 1.0322556838298516,
+    "median_difference_of_marginals_ms": 15.786437000000035,
+    "paired_delta_median_ms": 15.037500000000023,
+    "paired_delta_mean_ms": 15.112649849999997
+  },
+  "call_validation": {
+    "baseline_layer_calls": 120,
+    "fixed_layer_calls": 120,
+    "baseline_fusion_mlx_calls": 120,
+    "baseline_deformable_island_calls": 120,
+    "decoder_metal_msda_calls": 240,
+    "expected_each_encoder_mode": 120,
+    "expected_decoder_metal_msda_calls": 240
+  },
+  "decision_rule": "The synchronization hypothesis is supported if corrected same-input vision/text outputs return to the established 1e-4 envelope in all six layers and full-model top-900 membership is restored. If so, retain the corrected wide island and evaluate its paired latency; otherwise continue semantic debugging and do not adopt.",
+  "notes": [
+    "HF GroundingDinoEncoderLayer uses key_padding_mask for fusion and its logical inverse for deformable attention.",
+    "MLX DLPack import does not synchronize pending Metal producer work; explicit producer synchronization is required before sharing.",
+    "The fixed path performs the mask inversion inside MLX after importing the synchronized padding mask.",
+    "No approximation, quantization, pruning, retraining, or reduced precision is used.",
+    "Dataset-level accuracy equivalence remains unmeasured."
+  ]
+}

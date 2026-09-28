@@ -1,0 +1,175 @@
+{
+  "timestamp_utc": "2026-09-16T04:30:35.570368+00:00",
+  "experiment": "0046",
+  "purpose": "Paired full-model integration test replacing only the two stage-0 Swin MLPs with the exact compiled-MLX implementation validated in Experiment 0045.",
+  "model": "IDEA-Research/grounding-dino-tiny",
+  "device": "mps",
+  "dtype": "float32",
+  "software": {
+    "torch": "2.13.0",
+    "transformers": "5.17.0"
+  },
+  "configuration": {
+    "baseline": "current consolidated runtime: corrected encoder wide islands + exact fixed-prompt BERT cache + decoder Metal MSDA",
+    "candidate_delta": "stage0.block0.mlp and stage0.block1.mlp replaced by compiled MLX exact fc1->erf-GELU->fc2",
+    "fresh_torch_to_mlx_bridge_each_mlp_call": true,
+    "final_mlx_to_torch_bridge_each_mlp_call": true,
+    "prompt_cache": "enabled identically in both modes",
+    "warmup_per_mode": 3,
+    "paired_iterations": 20,
+    "approximation": false,
+    "retraining": false,
+    "reduced_precision": false
+  },
+  "correctness": {
+    "candidate_vs_current": {
+      "logits": {
+        "finite_mask_equal": true,
+        "max_abs": 1.5944910049438477,
+        "mean_abs": 0.019737515598535538,
+        "rmse": 0.07691836357116699,
+        "allclose_1e-5": false,
+        "allclose_1e-4": false
+      },
+      "pred_boxes": {
+        "finite_mask_equal": true,
+        "max_abs": 0.22995337843894958,
+        "mean_abs": 0.00260987039655447,
+        "rmse": 0.010995911434292793,
+        "allclose_1e-5": false,
+        "allclose_1e-4": false
+      },
+      "topk": {
+        "k": 900,
+        "set_overlap": 900,
+        "changed_membership_each_side": 0,
+        "rankwise_identical": 896,
+        "score_vector_max_abs": 1.239776611328125e-05,
+        "score_vector_mean_abs": 6.236597300812718e-07,
+        "mismatched_ranks_zero_based": [
+          302,
+          303,
+          472,
+          473
+        ]
+      }
+    },
+    "current_vs_original": {
+      "logits": {
+        "finite_mask_equal": true,
+        "max_abs": 0.7076988220214844,
+        "mean_abs": 0.01495429314672947,
+        "rmse": 0.05339790880680084,
+        "allclose_1e-5": false,
+        "allclose_1e-4": false
+      },
+      "pred_boxes": {
+        "finite_mask_equal": true,
+        "max_abs": 0.1682538092136383,
+        "mean_abs": 0.002012120559811592,
+        "rmse": 0.008878474123775959,
+        "allclose_1e-5": false,
+        "allclose_1e-4": false
+      },
+      "topk": {
+        "k": 900,
+        "set_overlap": 900,
+        "changed_membership_each_side": 0,
+        "rankwise_identical": 898,
+        "score_vector_max_abs": 7.62939453125e-06,
+        "score_vector_mean_abs": 5.744669238083588e-07,
+        "mismatched_ranks_zero_based": [
+          302,
+          303
+        ]
+      }
+    },
+    "candidate_vs_original": {
+      "logits": {
+        "finite_mask_equal": true,
+        "max_abs": 1.5872535705566406,
+        "mean_abs": 0.008581399917602539,
+        "rmse": 0.05608613044023514,
+        "allclose_1e-5": false,
+        "allclose_1e-4": false
+      },
+      "pred_boxes": {
+        "finite_mask_equal": true,
+        "max_abs": 0.2324000895023346,
+        "mean_abs": 0.0010737688280642033,
+        "rmse": 0.006741285789757967,
+        "allclose_1e-5": false,
+        "allclose_1e-4": false
+      },
+      "topk": {
+        "k": 900,
+        "set_overlap": 900,
+        "changed_membership_each_side": 0,
+        "rankwise_identical": 898,
+        "score_vector_max_abs": 1.239776611328125e-05,
+        "score_vector_mean_abs": 5.673562100128038e-07,
+        "mismatched_ranks_zero_based": [
+          472,
+          473
+        ]
+      }
+    }
+  },
+  "topk_membership_gate_passed": true,
+  "latency": {
+    "current_consolidated": {
+      "n": 20,
+      "mean_ms": 484.94156030000005,
+      "median_ms": 486.43275000000006,
+      "p90_ms": 489.5254708,
+      "p95_ms": 491.08616215,
+      "min_ms": 475.695,
+      "max_ms": 493.469791
+    },
+    "stage0_two_mlp_mlx": {
+      "n": 20,
+      "mean_ms": 477.79931239999996,
+      "median_ms": 478.3181875,
+      "p90_ms": 484.3506122,
+      "p95_ms": 484.89144165000005,
+      "min_ms": 466.628083,
+      "max_ms": 486.099208
+    },
+    "paired_delta_current_minus_candidate": {
+      "n": 20,
+      "mean_ms": 7.142247899999992,
+      "median_ms": 5.718750499999999,
+      "p90_ms": 15.983920799999984,
+      "p95_ms": 17.63806424999997,
+      "min_ms": -0.6384160000000065,
+      "max_ms": 21.314208000000008
+    }
+  },
+  "derived": {
+    "speedup_from_medians": 1.016964779329032,
+    "median_difference_of_marginals_ms": 8.114562500000034,
+    "paired_delta_median_ms": 5.718750499999999,
+    "paired_delta_mean_ms": 7.142247899999992,
+    "candidate_median_fps": 2.090658532611202,
+    "reduction_percent_from_medians": 1.6681776669025745
+  },
+  "call_validation": {
+    "block0_current_calls": 20,
+    "block0_mlx_calls": 20,
+    "block1_current_calls": 20,
+    "block1_mlx_calls": 20,
+    "expected_each_mode_per_mlp": 20,
+    "cache_hits": 40,
+    "cache_misses": 0,
+    "expected_cache_hits": 40,
+    "decoder_metal_msda_calls": 240,
+    "expected_decoder_metal_msda_calls": 240
+  },
+  "decision_rule": "Proceed to fresh-process robustness replication and adopt only if top-900 membership is preserved and same-process paired median full-model saving is at least 5 ms. Otherwise keep the current runtime.",
+  "notes": [
+    "Only the two stage-0 Swin MLP submodules are replaced; attention, shifting, masks, LayerNorm, patch merging, and all other backbone code remain unchanged.",
+    "The candidate uses exact FP32 erf GELU, with no approximation, pruning, quantization, retraining, or reduced precision.",
+    "The full-model timing includes both cross-runtime bridges for each replaced MLP.",
+    "Experiment 0039 remains the robust latency authority until any new candidate passes fresh-process replication."
+  ]
+}

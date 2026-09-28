@@ -1,0 +1,339 @@
+{
+  "timestamp_utc": "2026-09-15T18:24:58.062939+00:00",
+  "experiment": "0030",
+  "purpose": "Test whether the exact algebraically fully-folded Grounding DINO fusion specialization benefits from MLX compilation enough to justify a wider encoder execution island.",
+  "model": "IDEA-Research/grounding-dino-tiny",
+  "device": "mps",
+  "dtype": "float32",
+  "shape": {
+    "vision": [
+      1,
+      17821,
+      256
+    ],
+    "text": [
+      1,
+      8,
+      256
+    ],
+    "heads": 4,
+    "head_dim": 256,
+    "embed_dim": 1024
+  },
+  "latency": {
+    "pytorch_mps_fully_folded": {
+      "n": 20,
+      "mean_ms": 15.58454375,
+      "median_ms": 15.3268955,
+      "p90_ms": 16.268250300000002,
+      "p95_ms": 16.6017729,
+      "min_ms": 14.422917,
+      "max_ms": 17.003583
+    },
+    "mlx_compiled_internal": {
+      "n": 20,
+      "mean_ms": 5.5440438499999996,
+      "median_ms": 5.4661045,
+      "p90_ms": 6.4868294,
+      "p95_ms": 6.540405600000001,
+      "min_ms": 4.996875,
+      "max_ms": 6.568708
+    },
+    "mlx_compiled_bridge_included": {
+      "n": 20,
+      "mean_ms": 6.704264449999999,
+      "median_ms": 6.5760000000000005,
+      "p90_ms": 7.9204708,
+      "p95_ms": 8.0692809,
+      "min_ms": 5.664792,
+      "max_ms": 8.251166
+    }
+  },
+  "derived": {
+    "speedup_mlx_internal_vs_torch": 2.8039887455499612,
+    "speedup_mlx_bridge_vs_torch": 2.33073228406326,
+    "bridge_overhead_estimate_ms": 1.1098955000000004
+  },
+  "correctness": {
+    "preflight_mlx_vs_torch_fully_folded": {
+      "vision_output": {
+        "shape": [
+          1,
+          17821,
+          256
+        ],
+        "max_abs": 2.47955322265625e-05,
+        "mean_abs": 1.5913476545392768e-06,
+        "rmse": 2.1660887341568014e-06,
+        "allclose_1e-5": false,
+        "allclose_1e-4": true,
+        "finite": true
+      },
+      "vision_attention_weights": {
+        "shape": [
+          4,
+          17821,
+          8
+        ],
+        "max_abs": 2.205371856689453e-06,
+        "mean_abs": 8.361418935010079e-08,
+        "rmse": 1.561038089903377e-07,
+        "allclose_1e-5": true,
+        "allclose_1e-4": true,
+        "finite": true
+      },
+      "text_output": {
+        "shape": [
+          1,
+          8,
+          256
+        ],
+        "max_abs": 1.52587890625e-05,
+        "mean_abs": 1.5658624761272222e-06,
+        "rmse": 2.356936875003157e-06,
+        "allclose_1e-5": true,
+        "allclose_1e-4": true,
+        "finite": true
+      },
+      "text_attention_weights": {
+        "shape": [
+          4,
+          8,
+          17821
+        ],
+        "max_abs": 2.1606683731079102e-07,
+        "mean_abs": 5.145256096183992e-11,
+        "rmse": 7.590094663889602e-10,
+        "allclose_1e-5": true,
+        "allclose_1e-4": true,
+        "finite": true
+      }
+    },
+    "preflight_mlx_vs_original_attention": {
+      "vision_output": {
+        "shape": [
+          1,
+          17821,
+          256
+        ],
+        "max_abs": 5.91278076171875e-05,
+        "mean_abs": 2.3648910882911878e-06,
+        "rmse": 3.2061225283541717e-06,
+        "allclose_1e-5": false,
+        "allclose_1e-4": true,
+        "finite": true
+      },
+      "vision_attention_weights": {
+        "shape": [
+          4,
+          17821,
+          8
+        ],
+        "max_abs": 2.205371856689453e-06,
+        "mean_abs": 8.580099830624022e-08,
+        "rmse": 1.5789592566761712e-07,
+        "allclose_1e-5": true,
+        "allclose_1e-4": true,
+        "finite": true
+      },
+      "text_output": {
+        "shape": [
+          1,
+          8,
+          256
+        ],
+        "max_abs": 1.9073486328125e-05,
+        "mean_abs": 1.6672602214384824e-06,
+        "rmse": 2.4354962988581974e-06,
+        "allclose_1e-5": true,
+        "allclose_1e-4": true,
+        "finite": true
+      },
+      "text_attention_weights": {
+        "shape": [
+          4,
+          8,
+          17821
+        ],
+        "max_abs": 1.862645149230957e-07,
+        "mean_abs": 5.4159537965503546e-11,
+        "rmse": 7.440417726378712e-10,
+        "allclose_1e-5": true,
+        "allclose_1e-4": true,
+        "finite": true
+      }
+    },
+    "final": {
+      "mlx_internal_vs_torch_fully_folded": {
+        "vision_output": {
+          "shape": [
+            1,
+            17821,
+            256
+          ],
+          "max_abs": 2.47955322265625e-05,
+          "mean_abs": 1.5913476545392768e-06,
+          "rmse": 2.1660887341568014e-06,
+          "allclose_1e-5": false,
+          "allclose_1e-4": true,
+          "finite": true
+        },
+        "vision_attention_weights": {
+          "shape": [
+            4,
+            17821,
+            8
+          ],
+          "max_abs": 2.205371856689453e-06,
+          "mean_abs": 8.361418935010079e-08,
+          "rmse": 1.561038089903377e-07,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        },
+        "text_output": {
+          "shape": [
+            1,
+            8,
+            256
+          ],
+          "max_abs": 1.52587890625e-05,
+          "mean_abs": 1.5658624761272222e-06,
+          "rmse": 2.356936875003157e-06,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        },
+        "text_attention_weights": {
+          "shape": [
+            4,
+            8,
+            17821
+          ],
+          "max_abs": 2.1606683731079102e-07,
+          "mean_abs": 5.145256096183992e-11,
+          "rmse": 7.590094663889602e-10,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        }
+      },
+      "mlx_bridge_vs_torch_fully_folded": {
+        "vision_output": {
+          "shape": [
+            1,
+            17821,
+            256
+          ],
+          "max_abs": 2.47955322265625e-05,
+          "mean_abs": 1.5913476545392768e-06,
+          "rmse": 2.1660887341568014e-06,
+          "allclose_1e-5": false,
+          "allclose_1e-4": true,
+          "finite": true
+        },
+        "vision_attention_weights": {
+          "shape": [
+            4,
+            17821,
+            8
+          ],
+          "max_abs": 2.205371856689453e-06,
+          "mean_abs": 8.361418935010079e-08,
+          "rmse": 1.561038089903377e-07,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        },
+        "text_output": {
+          "shape": [
+            1,
+            8,
+            256
+          ],
+          "max_abs": 1.52587890625e-05,
+          "mean_abs": 1.5658624761272222e-06,
+          "rmse": 2.356936875003157e-06,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        },
+        "text_attention_weights": {
+          "shape": [
+            4,
+            8,
+            17821
+          ],
+          "max_abs": 2.1606683731079102e-07,
+          "mean_abs": 5.145256096183992e-11,
+          "rmse": 7.590094663889602e-10,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        }
+      },
+      "mlx_bridge_vs_original_attention": {
+        "vision_output": {
+          "shape": [
+            1,
+            17821,
+            256
+          ],
+          "max_abs": 5.91278076171875e-05,
+          "mean_abs": 2.3648910882911878e-06,
+          "rmse": 3.2061225283541717e-06,
+          "allclose_1e-5": false,
+          "allclose_1e-4": true,
+          "finite": true
+        },
+        "vision_attention_weights": {
+          "shape": [
+            4,
+            17821,
+            8
+          ],
+          "max_abs": 2.205371856689453e-06,
+          "mean_abs": 8.580099830624022e-08,
+          "rmse": 1.5789592566761712e-07,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        },
+        "text_output": {
+          "shape": [
+            1,
+            8,
+            256
+          ],
+          "max_abs": 1.9073486328125e-05,
+          "mean_abs": 1.6672602214384824e-06,
+          "rmse": 2.4354962988581974e-06,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        },
+        "text_attention_weights": {
+          "shape": [
+            4,
+            8,
+            17821
+          ],
+          "max_abs": 1.862645149230957e-07,
+          "mean_abs": 5.4159537965503546e-11,
+          "rmse": 7.440417726378712e-10,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        }
+      }
+    }
+  },
+  "decision_rule": "Proceed to a wider encoder-layer MLX execution island only if bridge-included MLX fully-folded fusion is at least ~5% faster than the PyTorch/MPS fully-folded specialization while preserving the established FP32 correctness envelope. Otherwise keep fusion in PyTorch and avoid the larger port.",
+  "notes": [
+    "The MLX implementation uses the same folded tensors and same algebra as Experiment 0013.",
+    "Folded weights are constructed once outside timed regions.",
+    "MLX-internal timing excludes PyTorch<->MLX conversion/synchronization; bridge-included timing includes conservative explicit synchronization.",
+    "No approximation, pruning, retraining, quantization, or reduced precision is used.",
+    "Floating-point association differs across backends, so bitwise equality is not required."
+  ]
+}

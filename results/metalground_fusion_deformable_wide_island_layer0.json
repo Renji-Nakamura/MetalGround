@@ -1,0 +1,184 @@
+{
+  "timestamp_utc": "2026-09-15T18:47:30.851437+00:00",
+  "experiment": "0033",
+  "purpose": "Layer-0 feasibility test for widening the MLX encoder island across fusion LayerNorm/residual + fully-folded fusion + deformable attention/FFN, removing the intermediate MLX->PyTorch->MLX boundary.",
+  "model": "IDEA-Research/grounding-dino-tiny",
+  "device": "mps",
+  "dtype": "float32",
+  "shape": {
+    "vision": [
+      1,
+      17821,
+      256
+    ],
+    "text": [
+      1,
+      8,
+      256
+    ],
+    "spatial_shapes": [
+      [
+        100,
+        134
+      ],
+      [
+        50,
+        67
+      ],
+      [
+        25,
+        34
+      ],
+      [
+        13,
+        17
+      ]
+    ]
+  },
+  "configuration": {
+    "current_path": "compiled MLX fusion attention -> PyTorch fusion LayerNorm/residual wrapper -> compiled MLX deformable island",
+    "wide_path": "single compiled MLX island containing fusion LayerNorms, fully-folded fusion, fusion layer-scale residuals, deformable attention, and deformable FFN",
+    "text_enhancer_inside_island": false,
+    "wide_timed_outputs": [
+      "vision_output",
+      "text_output"
+    ],
+    "output_attentions": false,
+    "threadgroup": 256,
+    "approximation": false,
+    "retraining": false,
+    "reduced_precision": false
+  },
+  "latency": {
+    "current_separate_boundaries": {
+      "n": 20,
+      "mean_ms": 44.283635499999995,
+      "median_ms": 43.202042,
+      "p90_ms": 49.6518375,
+      "p95_ms": 50.81137294999999,
+      "min_ms": 40.800334,
+      "max_ms": 51.238834
+    },
+    "wide_single_boundary": {
+      "n": 20,
+      "mean_ms": 40.392843750000004,
+      "median_ms": 39.2708955,
+      "p90_ms": 45.26399650000001,
+      "p95_ms": 49.8791694,
+      "min_ms": 36.418416,
+      "max_ms": 51.932792
+    }
+  },
+  "derived": {
+    "speedup_wide_vs_current": 1.1001033067860648,
+    "median_reduction_ms": 3.931146499999997,
+    "median_reduction_percent": 9.099446040073747
+  },
+  "correctness": {
+    "diagnostic_all_outputs_wide_vs_current": {
+      "vision_output": {
+        "shape": [
+          1,
+          17821,
+          256
+        ],
+        "max_abs": 3.1828880310058594e-05,
+        "mean_abs": 2.4906310613914684e-07,
+        "rmse": 3.774817685098242e-07,
+        "allclose_1e-5": false,
+        "allclose_1e-4": true,
+        "finite": true
+      },
+      "text_output": {
+        "shape": [
+          1,
+          8,
+          256
+        ],
+        "max_abs": 4.76837158203125e-07,
+        "mean_abs": 3.000849346790346e-08,
+        "rmse": 5.1960814317908444e-08,
+        "allclose_1e-5": true,
+        "allclose_1e-4": true,
+        "finite": true
+      },
+      "vision_attention": {
+        "shape": [
+          4,
+          17821,
+          8
+        ],
+        "max_abs": 1.3709068298339844e-06,
+        "mean_abs": 5.5123482667340795e-08,
+        "rmse": 9.991221361360658e-08,
+        "allclose_1e-5": true,
+        "allclose_1e-4": true,
+        "finite": true
+      },
+      "text_attention": {
+        "shape": [
+          4,
+          8,
+          17821
+        ],
+        "max_abs": 1.0803341865539551e-07,
+        "mean_abs": 3.211930027502419e-11,
+        "rmse": 4.355241722819869e-10,
+        "allclose_1e-5": true,
+        "allclose_1e-4": true,
+        "finite": true
+      },
+      "deformable_attention": {
+        "shape": [
+          1,
+          17821,
+          8,
+          4,
+          4
+        ],
+        "max_abs": 7.748603820800781e-07,
+        "mean_abs": 1.0835407238118933e-08,
+        "rmse": 3.4313064389834835e-08,
+        "allclose_1e-5": true,
+        "allclose_1e-4": true,
+        "finite": true
+      }
+    },
+    "timed_minimal_outputs_wide_vs_current": {
+      "vision_output": {
+        "shape": [
+          1,
+          17821,
+          256
+        ],
+        "max_abs": 3.1828880310058594e-05,
+        "mean_abs": 2.4906310613914684e-07,
+        "rmse": 3.774817685098242e-07,
+        "allclose_1e-5": false,
+        "allclose_1e-4": true,
+        "finite": true
+      },
+      "text_output": {
+        "shape": [
+          1,
+          8,
+          256
+        ],
+        "max_abs": 4.76837158203125e-07,
+        "mean_abs": 3.000849346790346e-08,
+        "rmse": 5.1960814317908444e-08,
+        "allclose_1e-5": true,
+        "allclose_1e-4": true,
+        "finite": true
+      }
+    }
+  },
+  "decision_rule": "Proceed to full-model six-layer wide-island integration if the single-boundary path saves at least ~1.5 ms/layer or ~5% against the current separate MLX fusion + deformable path, while vision/text outputs remain within the established FP32 backend envelope (target allclose 1e-4).",
+  "notes": [
+    "Both paths use the same folded fusion weights and the same MetalGround MSDA kernel.",
+    "The wide path keeps text enhancement in PyTorch and moves only the fusion-to-deformable segment into one MLX execution island.",
+    "GroundingDinoFusionLayer drop_path is inactive because the model is in eval mode.",
+    "The timed wide path does not bridge attention-weight tensors because output_attentions=False; diagnostic correctness evaluates them separately.",
+    "No approximation, quantization, pruning, retraining, or reduced precision is used."
+  ]
+}

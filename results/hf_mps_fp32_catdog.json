@@ -1,0 +1,63 @@
+{
+  "timestamp_utc": "2026-09-15T12:34:13.264716+00:00",
+  "tag": "fp32_catdog",
+  "model": "IDEA-Research/grounding-dino-tiny",
+  "device": "mps",
+  "dtype": "float32",
+  "image": "assets/input.jpg",
+  "image_size_wh": [
+    1200,
+    901
+  ],
+  "prompt": [
+    "a cat",
+    "a dog"
+  ],
+  "warmup": 3,
+  "iterations": 10,
+  "load_seconds": 4.4086616250024235,
+  "forward": {
+    "n": 10,
+    "mean_ms": 1010.4062711,
+    "median_ms": 999.116584,
+    "p90_ms": 1045.6459958,
+    "p95_ms": 1045.9857269000001,
+    "p99_ms": 1046.25751178,
+    "min_ms": 987.442834,
+    "max_ms": 1046.325458,
+    "fps_from_median": 1.0008841971138775
+  },
+  "end_to_end": {
+    "n": 10,
+    "mean_ms": 1029.6690999,
+    "median_ms": 1024.4051665,
+    "p90_ms": 1060.2335710999998,
+    "p95_ms": 1062.0674520500002,
+    "p99_ms": 1063.53455681,
+    "min_ms": 1011.182,
+    "max_ms": 1063.901333,
+    "fps_from_median": 0.9761762559404273
+  },
+  "rss_bytes": 473628672,
+  "mps_memory": {
+    "current_allocated_memory": 781274368,
+    "driver_allocated_memory": 2429861888,
+    "recommended_max_memory": 11453251584
+  },
+  "software": {
+    "python": "3.12.14",
+    "torch": "2.13.0"
+  },
+  "detections": [
+    {
+      "label": "a cat a dog",
+      "score": 0.505246102809906,
+      "box_xyxy": [
+        8.241534233093262,
+        312.5841064453125,
+        570.35009765625,
+        872.4279174804688
+      ]
+    }
+  ]
+}

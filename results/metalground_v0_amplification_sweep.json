@@ -1,0 +1,5505 @@
+{
+  "timestamp_utc": "2026-09-15T15:13:38.546558+00:00",
+  "experiment": "0008b",
+  "purpose": "Localize numerical amplification by patching decoder-only, encoder-only, cumulative encoder prefixes, and individual encoder layers.",
+  "encoder_modules": [
+    "model.encoder.layers.0.deformable_layer.self_attn.attn",
+    "model.encoder.layers.1.deformable_layer.self_attn.attn",
+    "model.encoder.layers.2.deformable_layer.self_attn.attn",
+    "model.encoder.layers.3.deformable_layer.self_attn.attn",
+    "model.encoder.layers.4.deformable_layer.self_attn.attn",
+    "model.encoder.layers.5.deformable_layer.self_attn.attn"
+  ],
+  "decoder_modules": [
+    "model.decoder.layers.0.encoder_attn.attn",
+    "model.decoder.layers.1.encoder_attn.attn",
+    "model.decoder.layers.2.encoder_attn.attn",
+    "model.decoder.layers.3.encoder_attn.attn",
+    "model.decoder.layers.4.encoder_attn.attn",
+    "model.decoder.layers.5.encoder_attn.attn"
+  ],
+  "variants": {
+    "decoder_only_all6": {
+      "patched_modules": [
+        "model.decoder.layers.0.encoder_attn.attn",
+        "model.decoder.layers.1.encoder_attn.attn",
+        "model.decoder.layers.2.encoder_attn.attn",
+        "model.decoder.layers.3.encoder_attn.attn",
+        "model.decoder.layers.4.encoder_attn.attn",
+        "model.decoder.layers.5.encoder_attn.attn"
+      ],
+      "comparison": {
+        "encoder_last_hidden_state_vision": {
+          "shape": [
+            1,
+            17821,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.0,
+          "mean_abs": 0.0,
+          "rmse": 0.0,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "encoder_last_hidden_state_text": {
+          "shape": [
+            1,
+            8,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.0,
+          "mean_abs": 0.0,
+          "rmse": 0.0,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "enc_outputs_class": {
+          "shape": [
+            1,
+            17821,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.0,
+          "mean_abs": 0.0,
+          "rmse": 0.0,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "enc_outputs_coord_logits": {
+          "shape": [
+            1,
+            17821,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.0,
+          "mean_abs": 0.0,
+          "rmse": 0.0,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "encoder_logits": {
+          "shape": [
+            1,
+            900,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.0,
+          "mean_abs": 0.0,
+          "rmse": 0.0,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "encoder_pred_boxes": {
+          "shape": [
+            1,
+            900,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.0,
+          "mean_abs": 0.0,
+          "rmse": 0.0,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "init_reference_points": {
+          "shape": [
+            1,
+            900,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.0,
+          "mean_abs": 0.0,
+          "rmse": 0.0,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "last_hidden_state": {
+          "shape": [
+            1,
+            900,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 9.34600830078125e-05,
+          "mean_abs": 1.0661509577403194e-06,
+          "rmse": 2.3950171907927142e-06,
+          "allclose_1e-5": false,
+          "allclose_1e-4": true
+        },
+        "logits": {
+          "shape": [
+            1,
+            900,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.00011372566223144531,
+          "mean_abs": 3.062287987631862e-06,
+          "rmse": 6.139695869933348e-06,
+          "allclose_1e-5": false,
+          "allclose_1e-4": true
+        },
+        "pred_boxes": {
+          "shape": [
+            1,
+            900,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 1.6123056411743164e-05,
+          "mean_abs": 4.3329706045369676e-07,
+          "rmse": 1.0406222372694174e-06,
+          "allclose_1e-5": false,
+          "allclose_1e-4": true
+        },
+        "intermediate_hidden_states": {
+          "layer_0": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 9.5367431640625e-07,
+            "mean_abs": 5.446960926747124e-08,
+            "rmse": 7.978275817777103e-08,
+            "allclose_1e-5": true,
+            "allclose_1e-4": true
+          },
+          "layer_1": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 2.1219253540039062e-05,
+            "mean_abs": 2.9022010039625457e-07,
+            "rmse": 5.478601110553427e-07,
+            "allclose_1e-5": false,
+            "allclose_1e-4": true
+          },
+          "layer_2": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 5.4836273193359375e-05,
+            "mean_abs": 5.260729381006968e-07,
+            "rmse": 1.1035106126655592e-06,
+            "allclose_1e-5": false,
+            "allclose_1e-4": true
+          },
+          "layer_3": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.00015854835510253906,
+            "mean_abs": 8.677973823978391e-07,
+            "rmse": 2.1224338979664026e-06,
+            "allclose_1e-5": false,
+            "allclose_1e-4": true
+          },
+          "layer_4": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 9.575486183166504e-05,
+            "mean_abs": 9.89964746622718e-07,
+            "rmse": 2.2595083919441095e-06,
+            "allclose_1e-5": false,
+            "allclose_1e-4": true
+          },
+          "layer_5": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 9.34600830078125e-05,
+            "mean_abs": 1.0661509577403194e-06,
+            "rmse": 2.3950171907927142e-06,
+            "allclose_1e-5": false,
+            "allclose_1e-4": true
+          }
+        },
+        "intermediate_reference_points": {
+          "layer_0": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 3.5762786865234375e-07,
+            "mean_abs": 2.0731627969894362e-08,
+            "rmse": 4.151441856947713e-08,
+            "allclose_1e-5": true,
+            "allclose_1e-4": true
+          },
+          "layer_1": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 4.410743713378906e-06,
+            "mean_abs": 1.1592430837481515e-07,
+            "rmse": 2.5413899606974155e-07,
+            "allclose_1e-5": true,
+            "allclose_1e-4": true
+          },
+          "layer_2": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 4.5299530029296875e-06,
+            "mean_abs": 1.9708622289726918e-07,
+            "rmse": 4.0182808902500255e-07,
+            "allclose_1e-5": true,
+            "allclose_1e-4": true
+          },
+          "layer_3": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.4543533325195312e-05,
+            "mean_abs": 3.2802637406348367e-07,
+            "rmse": 8.057327249844093e-07,
+            "allclose_1e-5": false,
+            "allclose_1e-4": true
+          },
+          "layer_4": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.5139579772949219e-05,
+            "mean_abs": 3.7683665254917287e-07,
+            "rmse": 8.891191782822716e-07,
+            "allclose_1e-5": false,
+            "allclose_1e-4": true
+          },
+          "layer_5": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.4901161193847656e-05,
+            "mean_abs": 4.06325824542364e-07,
+            "rmse": 9.201169746120286e-07,
+            "allclose_1e-5": false,
+            "allclose_1e-4": true
+          }
+        }
+      }
+    },
+    "encoder_only_all6": {
+      "patched_modules": [
+        "model.encoder.layers.0.deformable_layer.self_attn.attn",
+        "model.encoder.layers.1.deformable_layer.self_attn.attn",
+        "model.encoder.layers.2.deformable_layer.self_attn.attn",
+        "model.encoder.layers.3.deformable_layer.self_attn.attn",
+        "model.encoder.layers.4.deformable_layer.self_attn.attn",
+        "model.encoder.layers.5.deformable_layer.self_attn.attn"
+      ],
+      "comparison": {
+        "encoder_last_hidden_state_vision": {
+          "shape": [
+            1,
+            17821,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 1.9669532775878906e-06,
+          "mean_abs": 4.196397185296519e-08,
+          "rmse": 5.7778525075491416e-08,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "encoder_last_hidden_state_text": {
+          "shape": [
+            1,
+            8,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 9.5367431640625e-07,
+          "mean_abs": 1.822112949412258e-08,
+          "rmse": 3.642211865440004e-08,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "enc_outputs_class": {
+          "shape": [
+            1,
+            17821,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 1.2874603271484375e-05,
+          "mean_abs": 5.562278033721668e-07,
+          "rmse": 7.756192417218699e-07,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "enc_outputs_coord_logits": {
+          "shape": [
+            1,
+            17821,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 4.100799560546875e-05,
+          "mean_abs": 1.4050547179067507e-06,
+          "rmse": 2.1153032321308274e-06,
+          "allclose_1e-5": false,
+          "allclose_1e-4": true
+        },
+        "encoder_logits": {
+          "shape": [
+            1,
+            900,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.0,
+          "mean_abs": 0.0,
+          "rmse": 0.0,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "encoder_pred_boxes": {
+          "shape": [
+            1,
+            900,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.20368796586990356,
+          "mean_abs": 0.0005256799631752074,
+          "rmse": 0.008215204812586308,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "init_reference_points": {
+          "shape": [
+            1,
+            900,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.20368796586990356,
+          "mean_abs": 0.0005256799631752074,
+          "rmse": 0.008215204812586308,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "last_hidden_state": {
+          "shape": [
+            1,
+            900,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 1.4750564098358154,
+          "mean_abs": 0.004571109544485807,
+          "rmse": 0.020383786410093307,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "logits": {
+          "shape": [
+            1,
+            900,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 1.576970100402832,
+          "mean_abs": 0.01467806100845337,
+          "rmse": 0.07261442393064499,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "pred_boxes": {
+          "shape": [
+            1,
+            900,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.3022992014884949,
+          "mean_abs": 0.0020101265981793404,
+          "rmse": 0.010729660280048847,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "intermediate_hidden_states": {
+          "layer_0": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.1817139387130737,
+            "mean_abs": 0.001399506232701242,
+            "rmse": 0.01407733652740717,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_1": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.3180805444717407,
+            "mean_abs": 0.00223942706361413,
+            "rmse": 0.01628497987985611,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_2": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.8794803619384766,
+            "mean_abs": 0.0031682972330600023,
+            "rmse": 0.01861947402358055,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_3": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 2.3902010917663574,
+            "mean_abs": 0.003930600360035896,
+            "rmse": 0.019180914387106895,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_4": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.4193575382232666,
+            "mean_abs": 0.004198925569653511,
+            "rmse": 0.01750127226114273,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_5": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.4750564098358154,
+            "mean_abs": 0.004571109544485807,
+            "rmse": 0.020383786410093307,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          }
+        },
+        "intermediate_reference_points": {
+          "layer_0": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.27334094047546387,
+            "mean_abs": 0.000841367116663605,
+            "rmse": 0.009526274167001247,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_1": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.3136099576950073,
+            "mean_abs": 0.0011323899962008,
+            "rmse": 0.009779251180589199,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_2": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.32908326387405396,
+            "mean_abs": 0.0014546903548762202,
+            "rmse": 0.01041450910270214,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_3": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.30674993991851807,
+            "mean_abs": 0.0018350095488131046,
+            "rmse": 0.010664330795407295,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_4": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.31630778312683105,
+            "mean_abs": 0.0018870449857786298,
+            "rmse": 0.010725033469498158,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_5": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.2865240275859833,
+            "mean_abs": 0.0019755747634917498,
+            "rmse": 0.010631199926137924,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          }
+        }
+      }
+    },
+    "all12": {
+      "patched_modules": [
+        "model.decoder.layers.0.encoder_attn.attn",
+        "model.decoder.layers.1.encoder_attn.attn",
+        "model.decoder.layers.2.encoder_attn.attn",
+        "model.decoder.layers.3.encoder_attn.attn",
+        "model.decoder.layers.4.encoder_attn.attn",
+        "model.decoder.layers.5.encoder_attn.attn",
+        "model.encoder.layers.0.deformable_layer.self_attn.attn",
+        "model.encoder.layers.1.deformable_layer.self_attn.attn",
+        "model.encoder.layers.2.deformable_layer.self_attn.attn",
+        "model.encoder.layers.3.deformable_layer.self_attn.attn",
+        "model.encoder.layers.4.deformable_layer.self_attn.attn",
+        "model.encoder.layers.5.deformable_layer.self_attn.attn"
+      ],
+      "comparison": {
+        "encoder_last_hidden_state_vision": {
+          "shape": [
+            1,
+            17821,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 1.9669532775878906e-06,
+          "mean_abs": 4.196397185296519e-08,
+          "rmse": 5.7778525075491416e-08,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "encoder_last_hidden_state_text": {
+          "shape": [
+            1,
+            8,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 9.5367431640625e-07,
+          "mean_abs": 1.822112949412258e-08,
+          "rmse": 3.642211865440004e-08,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "enc_outputs_class": {
+          "shape": [
+            1,
+            17821,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 1.2874603271484375e-05,
+          "mean_abs": 5.562278033721668e-07,
+          "rmse": 7.756192417218699e-07,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "enc_outputs_coord_logits": {
+          "shape": [
+            1,
+            17821,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 4.100799560546875e-05,
+          "mean_abs": 1.4050547179067507e-06,
+          "rmse": 2.1153032321308274e-06,
+          "allclose_1e-5": false,
+          "allclose_1e-4": true
+        },
+        "encoder_logits": {
+          "shape": [
+            1,
+            900,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.0,
+          "mean_abs": 0.0,
+          "rmse": 0.0,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "encoder_pred_boxes": {
+          "shape": [
+            1,
+            900,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.20368796586990356,
+          "mean_abs": 0.0005256799631752074,
+          "rmse": 0.008215204812586308,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "init_reference_points": {
+          "shape": [
+            1,
+            900,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.20368796586990356,
+          "mean_abs": 0.0005256799631752074,
+          "rmse": 0.008215204812586308,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "last_hidden_state": {
+          "shape": [
+            1,
+            900,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 1.475052833557129,
+          "mean_abs": 0.004571128636598587,
+          "rmse": 0.020383860915899277,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "logits": {
+          "shape": [
+            1,
+            900,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 1.576970100402832,
+          "mean_abs": 0.014678400941193104,
+          "rmse": 0.07261483371257782,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "pred_boxes": {
+          "shape": [
+            1,
+            900,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.3022993206977844,
+          "mean_abs": 0.002010128227993846,
+          "rmse": 0.010729660280048847,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "intermediate_hidden_states": {
+          "layer_0": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.1817141771316528,
+            "mean_abs": 0.0013995064655318856,
+            "rmse": 0.014077335596084595,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_1": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.3180805444717407,
+            "mean_abs": 0.002239432418718934,
+            "rmse": 0.016284983605146408,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_2": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.8794829845428467,
+            "mean_abs": 0.003168307477608323,
+            "rmse": 0.018619481474161148,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_3": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 2.3902108669281006,
+            "mean_abs": 0.0039306143298745155,
+            "rmse": 0.01918099820613861,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_4": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.419363260269165,
+            "mean_abs": 0.004198936745524406,
+            "rmse": 0.017501365393400192,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_5": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.475052833557129,
+            "mean_abs": 0.004571128636598587,
+            "rmse": 0.020383860915899277,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          }
+        },
+        "intermediate_reference_points": {
+          "layer_0": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.27334094047546387,
+            "mean_abs": 0.0008413681061938405,
+            "rmse": 0.009526274167001247,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_1": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.3136099576950073,
+            "mean_abs": 0.0011323944199830294,
+            "rmse": 0.009779258631169796,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_2": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.3290834426879883,
+            "mean_abs": 0.0014546927995979786,
+            "rmse": 0.010414517484605312,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_3": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.30675023794174194,
+            "mean_abs": 0.001835016650147736,
+            "rmse": 0.010664350353181362,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_4": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.3163079619407654,
+            "mean_abs": 0.0018870624480769038,
+            "rmse": 0.010725051164627075,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_5": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.28652423620224,
+            "mean_abs": 0.0019755864050239325,
+            "rmse": 0.010631213895976543,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          }
+        }
+      }
+    },
+    "encoder_prefix_1": {
+      "patched_modules": [
+        "model.encoder.layers.0.deformable_layer.self_attn.attn"
+      ],
+      "comparison": {
+        "encoder_last_hidden_state_vision": {
+          "shape": [
+            1,
+            17821,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 1.519918441772461e-06,
+          "mean_abs": 4.1316408072589184e-08,
+          "rmse": 5.687216031446951e-08,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "encoder_last_hidden_state_text": {
+          "shape": [
+            1,
+            8,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 4.76837158203125e-07,
+          "mean_abs": 1.6755677734181518e-08,
+          "rmse": 2.879625071727787e-08,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "enc_outputs_class": {
+          "shape": [
+            1,
+            17821,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 9.059906005859375e-06,
+          "mean_abs": 5.36154573183012e-07,
+          "rmse": 7.481426109734457e-07,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "enc_outputs_coord_logits": {
+          "shape": [
+            1,
+            17821,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 3.4332275390625e-05,
+          "mean_abs": 1.3881682434657705e-06,
+          "rmse": 2.1078278678032802e-06,
+          "allclose_1e-5": false,
+          "allclose_1e-4": true
+        },
+        "encoder_logits": {
+          "shape": [
+            1,
+            900,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.0,
+          "mean_abs": 0.0,
+          "rmse": 0.0,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "encoder_pred_boxes": {
+          "shape": [
+            1,
+            900,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.20368796586990356,
+          "mean_abs": 0.0005256859585642815,
+          "rmse": 0.008215207606554031,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "init_reference_points": {
+          "shape": [
+            1,
+            900,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.20368796586990356,
+          "mean_abs": 0.0005256859585642815,
+          "rmse": 0.008215207606554031,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "last_hidden_state": {
+          "shape": [
+            1,
+            900,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 1.47505521774292,
+          "mean_abs": 0.0045711081475019455,
+          "rmse": 0.020383914932608604,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "logits": {
+          "shape": [
+            1,
+            900,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 1.5769119262695312,
+          "mean_abs": 0.014678850769996643,
+          "rmse": 0.0726153627038002,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "pred_boxes": {
+          "shape": [
+            1,
+            900,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.3022957742214203,
+          "mean_abs": 0.0020101035479456186,
+          "rmse": 0.010729597881436348,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "intermediate_hidden_states": {
+          "layer_0": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.1817065477371216,
+            "mean_abs": 0.0013995072804391384,
+            "rmse": 0.014077314175665379,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_1": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.3180700540542603,
+            "mean_abs": 0.0022393951658159494,
+            "rmse": 0.016284866258502007,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_2": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.8794710636138916,
+            "mean_abs": 0.0031681968830525875,
+            "rmse": 0.018619252368807793,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_3": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 2.3902058601379395,
+            "mean_abs": 0.003930333536118269,
+            "rmse": 0.01918088085949421,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_4": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.4194293022155762,
+            "mean_abs": 0.004198876675218344,
+            "rmse": 0.017501316964626312,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_5": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.47505521774292,
+            "mean_abs": 0.0045711081475019455,
+            "rmse": 0.020383914932608604,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          }
+        },
+        "intermediate_reference_points": {
+          "layer_0": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.27334094047546387,
+            "mean_abs": 0.0008413661853410304,
+            "rmse": 0.009526249952614307,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_1": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.3136100471019745,
+            "mean_abs": 0.0011323571670800447,
+            "rmse": 0.009779201820492744,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_2": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.3290814161300659,
+            "mean_abs": 0.00145462725777179,
+            "rmse": 0.01041440013796091,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_3": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.30674728751182556,
+            "mean_abs": 0.0018348490120843053,
+            "rmse": 0.01066412590444088,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_4": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.3163049817085266,
+            "mean_abs": 0.0018868964398279786,
+            "rmse": 0.010724805295467377,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_5": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.2865214943885803,
+            "mean_abs": 0.0019754683598876,
+            "rmse": 0.010631024837493896,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          }
+        }
+      }
+    },
+    "encoder_prefix_2": {
+      "patched_modules": [
+        "model.encoder.layers.0.deformable_layer.self_attn.attn",
+        "model.encoder.layers.1.deformable_layer.self_attn.attn"
+      ],
+      "comparison": {
+        "encoder_last_hidden_state_vision": {
+          "shape": [
+            1,
+            17821,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 1.5795230865478516e-06,
+          "mean_abs": 4.1727709287897596e-08,
+          "rmse": 5.748976761310587e-08,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "encoder_last_hidden_state_text": {
+          "shape": [
+            1,
+            8,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 2.384185791015625e-07,
+          "mean_abs": 1.8800335510604782e-08,
+          "rmse": 2.9956009228726543e-08,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "enc_outputs_class": {
+          "shape": [
+            1,
+            17821,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 9.775161743164062e-06,
+          "mean_abs": 5.568958840740379e-07,
+          "rmse": 7.750005579509889e-07,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "enc_outputs_coord_logits": {
+          "shape": [
+            1,
+            17821,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 3.9577484130859375e-05,
+          "mean_abs": 1.4021298966326867e-06,
+          "rmse": 2.121835905199987e-06,
+          "allclose_1e-5": false,
+          "allclose_1e-4": true
+        },
+        "encoder_logits": {
+          "shape": [
+            1,
+            900,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.0,
+          "mean_abs": 0.0,
+          "rmse": 0.0,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "encoder_pred_boxes": {
+          "shape": [
+            1,
+            900,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.18612927198410034,
+          "mean_abs": 0.0002622347674332559,
+          "rmse": 0.005235455930233002,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "init_reference_points": {
+          "shape": [
+            1,
+            900,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.18612927198410034,
+          "mean_abs": 0.0002622347674332559,
+          "rmse": 0.005235455930233002,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "last_hidden_state": {
+          "shape": [
+            1,
+            900,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 1.4543777704238892,
+          "mean_abs": 0.003606072859838605,
+          "rmse": 0.017969032749533653,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "logits": {
+          "shape": [
+            1,
+            900,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 1.589733600616455,
+          "mean_abs": 0.01085574459284544,
+          "rmse": 0.05936560779809952,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "pred_boxes": {
+          "shape": [
+            1,
+            900,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.2324555516242981,
+          "mean_abs": 0.0014179787831380963,
+          "rmse": 0.007678317371755838,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "intermediate_hidden_states": {
+          "layer_0": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.1840766668319702,
+            "mean_abs": 0.0009288211585953832,
+            "rmse": 0.010601375252008438,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_1": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.322395920753479,
+            "mean_abs": 0.0016484977677464485,
+            "rmse": 0.012907168827950954,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_2": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.8826415538787842,
+            "mean_abs": 0.002465980825945735,
+            "rmse": 0.016249435022473335,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_3": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 2.39936900138855,
+            "mean_abs": 0.0030638366006314754,
+            "rmse": 0.01679970882833004,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_4": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.4830617904663086,
+            "mean_abs": 0.003283114405348897,
+            "rmse": 0.014868907630443573,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_5": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.4543777704238892,
+            "mean_abs": 0.003606072859838605,
+            "rmse": 0.017969032749533653,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          }
+        },
+        "intermediate_reference_points": {
+          "layer_0": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.25737515091896057,
+            "mean_abs": 0.0004891379503533244,
+            "rmse": 0.006421336904168129,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_1": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.24135854840278625,
+            "mean_abs": 0.0007500913343392313,
+            "rmse": 0.006444958504289389,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_2": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.24239706993103027,
+            "mean_abs": 0.0009913393296301365,
+            "rmse": 0.007071564439684153,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_3": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.24389690160751343,
+            "mean_abs": 0.0013010090915486217,
+            "rmse": 0.00770784355700016,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_4": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.23748722672462463,
+            "mean_abs": 0.0013271059142425656,
+            "rmse": 0.007590833120048046,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_5": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.23461613059043884,
+            "mean_abs": 0.0014035458443686366,
+            "rmse": 0.007741288747638464,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          }
+        }
+      }
+    },
+    "encoder_prefix_3": {
+      "patched_modules": [
+        "model.encoder.layers.0.deformable_layer.self_attn.attn",
+        "model.encoder.layers.1.deformable_layer.self_attn.attn",
+        "model.encoder.layers.2.deformable_layer.self_attn.attn"
+      ],
+      "comparison": {
+        "encoder_last_hidden_state_vision": {
+          "shape": [
+            1,
+            17821,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 1.8477439880371094e-06,
+          "mean_abs": 4.161553235348947e-08,
+          "rmse": 5.7525827656945694e-08,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "encoder_last_hidden_state_text": {
+          "shape": [
+            1,
+            8,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 4.76837158203125e-07,
+          "mean_abs": 1.6778017197793815e-08,
+          "rmse": 2.7633896948486836e-08,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "enc_outputs_class": {
+          "shape": [
+            1,
+            17821,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 1.049041748046875e-05,
+          "mean_abs": 5.667085929417226e-07,
+          "rmse": 7.865531870265841e-07,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "enc_outputs_coord_logits": {
+          "shape": [
+            1,
+            17821,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 3.2901763916015625e-05,
+          "mean_abs": 1.40693191497121e-06,
+          "rmse": 2.1328778530005366e-06,
+          "allclose_1e-5": false,
+          "allclose_1e-4": true
+        },
+        "encoder_logits": {
+          "shape": [
+            1,
+            900,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.0,
+          "mean_abs": 0.0,
+          "rmse": 0.0,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "encoder_pred_boxes": {
+          "shape": [
+            1,
+            900,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.1861293762922287,
+          "mean_abs": 0.00039076380198821425,
+          "rmse": 0.0063928039744496346,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "init_reference_points": {
+          "shape": [
+            1,
+            900,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.1861293762922287,
+          "mean_abs": 0.00039076380198821425,
+          "rmse": 0.0063928039744496346,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "last_hidden_state": {
+          "shape": [
+            1,
+            900,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 1.4484182596206665,
+          "mean_abs": 0.006773513741791248,
+          "rmse": 0.02555566281080246,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "logits": {
+          "shape": [
+            1,
+            900,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 1.4810562133789062,
+          "mean_abs": 0.020238041877746582,
+          "rmse": 0.07715604454278946,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "pred_boxes": {
+          "shape": [
+            1,
+            900,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.224879652261734,
+          "mean_abs": 0.0027370399329811335,
+          "rmse": 0.01152705680578947,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "intermediate_hidden_states": {
+          "layer_0": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.1630607843399048,
+            "mean_abs": 0.0012795969378203154,
+            "rmse": 0.0120476633310318,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_1": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.2913609743118286,
+            "mean_abs": 0.0025304355658590794,
+            "rmse": 0.014914094470441341,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_2": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.9304540157318115,
+            "mean_abs": 0.004345343913882971,
+            "rmse": 0.020918019115924835,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_3": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 2.546734094619751,
+            "mean_abs": 0.0061691221781075,
+            "rmse": 0.02555980533361435,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_4": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.5527191162109375,
+            "mean_abs": 0.006204620935022831,
+            "rmse": 0.02226315811276436,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_5": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.4484182596206665,
+            "mean_abs": 0.006773513741791248,
+            "rmse": 0.02555566281080246,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          }
+        },
+        "intermediate_reference_points": {
+          "layer_0": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.25209152698516846,
+            "mean_abs": 0.0007233265205286443,
+            "rmse": 0.007449412252753973,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_1": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.22801056504249573,
+            "mean_abs": 0.0012089258525520563,
+            "rmse": 0.00782057736068964,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_2": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.23093003034591675,
+            "mean_abs": 0.0016615032218396664,
+            "rmse": 0.008658106438815594,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_3": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.23426920175552368,
+            "mean_abs": 0.0024642562493681908,
+            "rmse": 0.011096188798546791,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_4": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.22945982217788696,
+            "mean_abs": 0.002550485311076045,
+            "rmse": 0.011057608760893345,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_5": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.22698864340782166,
+            "mean_abs": 0.002697492716833949,
+            "rmse": 0.011424449272453785,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          }
+        }
+      }
+    },
+    "encoder_prefix_4": {
+      "patched_modules": [
+        "model.encoder.layers.0.deformable_layer.self_attn.attn",
+        "model.encoder.layers.1.deformable_layer.self_attn.attn",
+        "model.encoder.layers.2.deformable_layer.self_attn.attn",
+        "model.encoder.layers.3.deformable_layer.self_attn.attn"
+      ],
+      "comparison": {
+        "encoder_last_hidden_state_vision": {
+          "shape": [
+            1,
+            17821,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 1.6689300537109375e-06,
+          "mean_abs": 4.157468325161062e-08,
+          "rmse": 5.7291007493631696e-08,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "encoder_last_hidden_state_text": {
+          "shape": [
+            1,
+            8,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 1.7881393432617188e-07,
+          "mean_abs": 1.7844712374426308e-08,
+          "rmse": 2.770348572767034e-08,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "enc_outputs_class": {
+          "shape": [
+            1,
+            17821,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 9.5367431640625e-06,
+          "mean_abs": 5.405849492490233e-07,
+          "rmse": 7.551988687737321e-07,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "enc_outputs_coord_logits": {
+          "shape": [
+            1,
+            17821,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 2.777576446533203e-05,
+          "mean_abs": 1.3970191048429115e-06,
+          "rmse": 2.1081136765133124e-06,
+          "allclose_1e-5": false,
+          "allclose_1e-4": true
+        },
+        "encoder_logits": {
+          "shape": [
+            1,
+            900,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.0,
+          "mean_abs": 0.0,
+          "rmse": 0.0,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "encoder_pred_boxes": {
+          "shape": [
+            1,
+            900,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.20368820428848267,
+          "mean_abs": 0.0005256823496893048,
+          "rmse": 0.008215210400521755,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "init_reference_points": {
+          "shape": [
+            1,
+            900,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.20368820428848267,
+          "mean_abs": 0.0005256823496893048,
+          "rmse": 0.008215210400521755,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "last_hidden_state": {
+          "shape": [
+            1,
+            900,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 1.4750540256500244,
+          "mean_abs": 0.00457107974216342,
+          "rmse": 0.020383918657898903,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "logits": {
+          "shape": [
+            1,
+            900,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 1.5769424438476562,
+          "mean_abs": 0.014678172767162323,
+          "rmse": 0.07261534780263901,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "pred_boxes": {
+          "shape": [
+            1,
+            900,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.3022999167442322,
+          "mean_abs": 0.0020101007539778948,
+          "rmse": 0.010729692876338959,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "intermediate_hidden_states": {
+          "layer_0": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.181710124015808,
+            "mean_abs": 0.0013995066983625293,
+            "rmse": 0.014077330008149147,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_1": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.3180738687515259,
+            "mean_abs": 0.002239391440525651,
+            "rmse": 0.016284912824630737,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_2": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.879462718963623,
+            "mean_abs": 0.0031682427506893873,
+            "rmse": 0.018619373440742493,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_3": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 2.3901848793029785,
+            "mean_abs": 0.0039304872043430805,
+            "rmse": 0.01918085478246212,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_4": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.4193804264068604,
+            "mean_abs": 0.004198876675218344,
+            "rmse": 0.017501337453722954,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_5": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.4750540256500244,
+            "mean_abs": 0.00457107974216342,
+            "rmse": 0.020383918657898903,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          }
+        },
+        "intermediate_reference_points": {
+          "layer_0": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.2733410894870758,
+            "mean_abs": 0.0008413756149820983,
+            "rmse": 0.009526269510388374,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_1": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.31361037492752075,
+            "mean_abs": 0.001132373814471066,
+            "rmse": 0.009779241867363453,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_2": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.32908397912979126,
+            "mean_abs": 0.0014546674210578203,
+            "rmse": 0.010414483025670052,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_3": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.30675122141838074,
+            "mean_abs": 0.0018349633319303393,
+            "rmse": 0.010664273984730244,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_4": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.3163089156150818,
+            "mean_abs": 0.001887002494186163,
+            "rmse": 0.010725019499659538,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_5": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.2865257263183594,
+            "mean_abs": 0.0019755547400563955,
+            "rmse": 0.010631239973008633,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          }
+        }
+      }
+    },
+    "encoder_prefix_5": {
+      "patched_modules": [
+        "model.encoder.layers.0.deformable_layer.self_attn.attn",
+        "model.encoder.layers.1.deformable_layer.self_attn.attn",
+        "model.encoder.layers.2.deformable_layer.self_attn.attn",
+        "model.encoder.layers.3.deformable_layer.self_attn.attn",
+        "model.encoder.layers.4.deformable_layer.self_attn.attn"
+      ],
+      "comparison": {
+        "encoder_last_hidden_state_vision": {
+          "shape": [
+            1,
+            17821,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 1.9669532775878906e-06,
+          "mean_abs": 4.17663201801588e-08,
+          "rmse": 5.759932619753272e-08,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "encoder_last_hidden_state_text": {
+          "shape": [
+            1,
+            8,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 9.5367431640625e-07,
+          "mean_abs": 1.822112949412258e-08,
+          "rmse": 3.642211865440004e-08,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "enc_outputs_class": {
+          "shape": [
+            1,
+            17821,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 1.1444091796875e-05,
+          "mean_abs": 5.56542602225818e-07,
+          "rmse": 7.7484980920417e-07,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "enc_outputs_coord_logits": {
+          "shape": [
+            1,
+            17821,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 3.552436828613281e-05,
+          "mean_abs": 1.3949360209153383e-06,
+          "rmse": 2.1149292024347233e-06,
+          "allclose_1e-5": false,
+          "allclose_1e-4": true
+        },
+        "encoder_logits": {
+          "shape": [
+            1,
+            900,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.0,
+          "mean_abs": 0.0,
+          "rmse": 0.0,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "encoder_pred_boxes": {
+          "shape": [
+            1,
+            900,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.20368808507919312,
+          "mean_abs": 0.00043021547026000917,
+          "rmse": 0.007866659201681614,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "init_reference_points": {
+          "shape": [
+            1,
+            900,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.20368808507919312,
+          "mean_abs": 0.00043021547026000917,
+          "rmse": 0.007866659201681614,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "last_hidden_state": {
+          "shape": [
+            1,
+            900,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 1.4744384288787842,
+          "mean_abs": 0.003985831514000893,
+          "rmse": 0.019247328862547874,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "logits": {
+          "shape": [
+            1,
+            900,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 1.573753833770752,
+          "mean_abs": 0.012673861347138882,
+          "rmse": 0.06976984441280365,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "pred_boxes": {
+          "shape": [
+            1,
+            900,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.3028905689716339,
+          "mean_abs": 0.001743071130476892,
+          "rmse": 0.010076723992824554,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "intermediate_hidden_states": {
+          "layer_0": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.1814824342727661,
+            "mean_abs": 0.0012669070856645703,
+            "rmse": 0.013797234743833542,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_1": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.3177629709243774,
+            "mean_abs": 0.0018957449356094003,
+            "rmse": 0.015491473488509655,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_2": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.8783760070800781,
+            "mean_abs": 0.0028292115312069654,
+            "rmse": 0.017939534038305283,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_3": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 2.391937494277954,
+            "mean_abs": 0.0034485692158341408,
+            "rmse": 0.018346216529607773,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_4": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.423466682434082,
+            "mean_abs": 0.003647282486781478,
+            "rmse": 0.01638624630868435,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_5": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.4744384288787842,
+            "mean_abs": 0.003985831514000893,
+            "rmse": 0.019247328862547874,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          }
+        },
+        "intermediate_reference_points": {
+          "layer_0": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.2733570337295532,
+            "mean_abs": 0.000714281399268657,
+            "rmse": 0.009149008430540562,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_1": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.3136468529701233,
+            "mean_abs": 0.0009597366442903876,
+            "rmse": 0.009393729269504547,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_2": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.32942941784858704,
+            "mean_abs": 0.0012099938467144966,
+            "rmse": 0.00982450507581234,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_3": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.3072827458381653,
+            "mean_abs": 0.0015524689806625247,
+            "rmse": 0.009955613873898983,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_4": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.31687629222869873,
+            "mean_abs": 0.0016148987924680114,
+            "rmse": 0.010061339475214481,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_5": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.28727975487709045,
+            "mean_abs": 0.0016961557557806373,
+            "rmse": 0.00995717104524374,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          }
+        }
+      }
+    },
+    "encoder_prefix_6": {
+      "patched_modules": [
+        "model.encoder.layers.0.deformable_layer.self_attn.attn",
+        "model.encoder.layers.1.deformable_layer.self_attn.attn",
+        "model.encoder.layers.2.deformable_layer.self_attn.attn",
+        "model.encoder.layers.3.deformable_layer.self_attn.attn",
+        "model.encoder.layers.4.deformable_layer.self_attn.attn",
+        "model.encoder.layers.5.deformable_layer.self_attn.attn"
+      ],
+      "comparison": {
+        "encoder_last_hidden_state_vision": {
+          "shape": [
+            1,
+            17821,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 1.9669532775878906e-06,
+          "mean_abs": 4.196397185296519e-08,
+          "rmse": 5.7778525075491416e-08,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "encoder_last_hidden_state_text": {
+          "shape": [
+            1,
+            8,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 9.5367431640625e-07,
+          "mean_abs": 1.822112949412258e-08,
+          "rmse": 3.642211865440004e-08,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "enc_outputs_class": {
+          "shape": [
+            1,
+            17821,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 1.2874603271484375e-05,
+          "mean_abs": 5.562278033721668e-07,
+          "rmse": 7.756192417218699e-07,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "enc_outputs_coord_logits": {
+          "shape": [
+            1,
+            17821,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 4.100799560546875e-05,
+          "mean_abs": 1.4050547179067507e-06,
+          "rmse": 2.1153032321308274e-06,
+          "allclose_1e-5": false,
+          "allclose_1e-4": true
+        },
+        "encoder_logits": {
+          "shape": [
+            1,
+            900,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.0,
+          "mean_abs": 0.0,
+          "rmse": 0.0,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "encoder_pred_boxes": {
+          "shape": [
+            1,
+            900,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.20368796586990356,
+          "mean_abs": 0.0005256799631752074,
+          "rmse": 0.008215204812586308,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "init_reference_points": {
+          "shape": [
+            1,
+            900,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.20368796586990356,
+          "mean_abs": 0.0005256799631752074,
+          "rmse": 0.008215204812586308,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "last_hidden_state": {
+          "shape": [
+            1,
+            900,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 1.4750564098358154,
+          "mean_abs": 0.004571109544485807,
+          "rmse": 0.020383786410093307,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "logits": {
+          "shape": [
+            1,
+            900,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 1.576970100402832,
+          "mean_abs": 0.01467806100845337,
+          "rmse": 0.07261442393064499,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "pred_boxes": {
+          "shape": [
+            1,
+            900,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.3022992014884949,
+          "mean_abs": 0.0020101265981793404,
+          "rmse": 0.010729660280048847,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "intermediate_hidden_states": {
+          "layer_0": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.1817139387130737,
+            "mean_abs": 0.001399506232701242,
+            "rmse": 0.01407733652740717,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_1": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.3180805444717407,
+            "mean_abs": 0.00223942706361413,
+            "rmse": 0.01628497987985611,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_2": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.8794803619384766,
+            "mean_abs": 0.0031682972330600023,
+            "rmse": 0.01861947402358055,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_3": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 2.3902010917663574,
+            "mean_abs": 0.003930600360035896,
+            "rmse": 0.019180914387106895,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_4": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.4193575382232666,
+            "mean_abs": 0.004198925569653511,
+            "rmse": 0.01750127226114273,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_5": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.4750564098358154,
+            "mean_abs": 0.004571109544485807,
+            "rmse": 0.020383786410093307,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          }
+        },
+        "intermediate_reference_points": {
+          "layer_0": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.27334094047546387,
+            "mean_abs": 0.000841367116663605,
+            "rmse": 0.009526274167001247,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_1": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.3136099576950073,
+            "mean_abs": 0.0011323899962008,
+            "rmse": 0.009779251180589199,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_2": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.32908326387405396,
+            "mean_abs": 0.0014546903548762202,
+            "rmse": 0.01041450910270214,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_3": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.30674993991851807,
+            "mean_abs": 0.0018350095488131046,
+            "rmse": 0.010664330795407295,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_4": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.31630778312683105,
+            "mean_abs": 0.0018870449857786298,
+            "rmse": 0.010725033469498158,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_5": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.2865240275859833,
+            "mean_abs": 0.0019755747634917498,
+            "rmse": 0.010631199926137924,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          }
+        }
+      }
+    },
+    "encoder_only_layer_0": {
+      "patched_modules": [
+        "model.encoder.layers.0.deformable_layer.self_attn.attn"
+      ],
+      "comparison": {
+        "encoder_last_hidden_state_vision": {
+          "shape": [
+            1,
+            17821,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 1.519918441772461e-06,
+          "mean_abs": 4.1316408072589184e-08,
+          "rmse": 5.687216031446951e-08,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "encoder_last_hidden_state_text": {
+          "shape": [
+            1,
+            8,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 4.76837158203125e-07,
+          "mean_abs": 1.6755677734181518e-08,
+          "rmse": 2.879625071727787e-08,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "enc_outputs_class": {
+          "shape": [
+            1,
+            17821,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 9.059906005859375e-06,
+          "mean_abs": 5.36154573183012e-07,
+          "rmse": 7.481426109734457e-07,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "enc_outputs_coord_logits": {
+          "shape": [
+            1,
+            17821,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 3.4332275390625e-05,
+          "mean_abs": 1.3881682434657705e-06,
+          "rmse": 2.1078278678032802e-06,
+          "allclose_1e-5": false,
+          "allclose_1e-4": true
+        },
+        "encoder_logits": {
+          "shape": [
+            1,
+            900,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.0,
+          "mean_abs": 0.0,
+          "rmse": 0.0,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "encoder_pred_boxes": {
+          "shape": [
+            1,
+            900,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.20368796586990356,
+          "mean_abs": 0.0005256859585642815,
+          "rmse": 0.008215207606554031,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "init_reference_points": {
+          "shape": [
+            1,
+            900,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.20368796586990356,
+          "mean_abs": 0.0005256859585642815,
+          "rmse": 0.008215207606554031,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "last_hidden_state": {
+          "shape": [
+            1,
+            900,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 1.47505521774292,
+          "mean_abs": 0.0045711081475019455,
+          "rmse": 0.020383914932608604,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "logits": {
+          "shape": [
+            1,
+            900,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 1.5769119262695312,
+          "mean_abs": 0.014678850769996643,
+          "rmse": 0.0726153627038002,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "pred_boxes": {
+          "shape": [
+            1,
+            900,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.3022957742214203,
+          "mean_abs": 0.0020101035479456186,
+          "rmse": 0.010729597881436348,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "intermediate_hidden_states": {
+          "layer_0": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.1817065477371216,
+            "mean_abs": 0.0013995072804391384,
+            "rmse": 0.014077314175665379,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_1": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.3180700540542603,
+            "mean_abs": 0.0022393951658159494,
+            "rmse": 0.016284866258502007,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_2": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.8794710636138916,
+            "mean_abs": 0.0031681968830525875,
+            "rmse": 0.018619252368807793,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_3": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 2.3902058601379395,
+            "mean_abs": 0.003930333536118269,
+            "rmse": 0.01918088085949421,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_4": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.4194293022155762,
+            "mean_abs": 0.004198876675218344,
+            "rmse": 0.017501316964626312,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_5": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.47505521774292,
+            "mean_abs": 0.0045711081475019455,
+            "rmse": 0.020383914932608604,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          }
+        },
+        "intermediate_reference_points": {
+          "layer_0": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.27334094047546387,
+            "mean_abs": 0.0008413661853410304,
+            "rmse": 0.009526249952614307,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_1": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.3136100471019745,
+            "mean_abs": 0.0011323571670800447,
+            "rmse": 0.009779201820492744,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_2": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.3290814161300659,
+            "mean_abs": 0.00145462725777179,
+            "rmse": 0.01041440013796091,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_3": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.30674728751182556,
+            "mean_abs": 0.0018348490120843053,
+            "rmse": 0.01066412590444088,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_4": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.3163049817085266,
+            "mean_abs": 0.0018868964398279786,
+            "rmse": 0.010724805295467377,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_5": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.2865214943885803,
+            "mean_abs": 0.0019754683598876,
+            "rmse": 0.010631024837493896,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          }
+        }
+      }
+    },
+    "encoder_only_layer_1": {
+      "patched_modules": [
+        "model.encoder.layers.1.deformable_layer.self_attn.attn"
+      ],
+      "comparison": {
+        "encoder_last_hidden_state_vision": {
+          "shape": [
+            1,
+            17821,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 1.084059476852417e-06,
+          "mean_abs": 3.997541142553018e-08,
+          "rmse": 5.5085688899225715e-08,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "encoder_last_hidden_state_text": {
+          "shape": [
+            1,
+            8,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 4.76837158203125e-07,
+          "mean_abs": 1.5624209481757134e-08,
+          "rmse": 2.5717389107171584e-08,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "enc_outputs_class": {
+          "shape": [
+            1,
+            17821,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 9.059906005859375e-06,
+          "mean_abs": 5.645500777973211e-07,
+          "rmse": 7.848971108614933e-07,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "enc_outputs_coord_logits": {
+          "shape": [
+            1,
+            17821,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 3.719329833984375e-05,
+          "mean_abs": 1.3525201438824297e-06,
+          "rmse": 2.060539372905623e-06,
+          "allclose_1e-5": false,
+          "allclose_1e-4": true
+        },
+        "encoder_logits": {
+          "shape": [
+            1,
+            900,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.0,
+          "mean_abs": 0.0,
+          "rmse": 0.0,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "encoder_pred_boxes": {
+          "shape": [
+            1,
+            900,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.203688383102417,
+          "mean_abs": 0.00043021407327614725,
+          "rmse": 0.007866662926971912,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "init_reference_points": {
+          "shape": [
+            1,
+            900,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.203688383102417,
+          "mean_abs": 0.00043021407327614725,
+          "rmse": 0.007866662926971912,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "last_hidden_state": {
+          "shape": [
+            1,
+            900,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 1.4744489192962646,
+          "mean_abs": 0.003985850140452385,
+          "rmse": 0.019247572869062424,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "logits": {
+          "shape": [
+            1,
+            900,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 1.5737619400024414,
+          "mean_abs": 0.012673907913267612,
+          "rmse": 0.06977049261331558,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "pred_boxes": {
+          "shape": [
+            1,
+            900,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.3028929829597473,
+          "mean_abs": 0.0017431452870368958,
+          "rmse": 0.010076687671244144,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "intermediate_hidden_states": {
+          "layer_0": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.1814836263656616,
+            "mean_abs": 0.0012669159332290292,
+            "rmse": 0.013797220773994923,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_1": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.317764401435852,
+            "mean_abs": 0.0018957321299239993,
+            "rmse": 0.01549149863421917,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_2": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.878368854522705,
+            "mean_abs": 0.002829192206263542,
+            "rmse": 0.017939520999789238,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_3": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 2.391969919204712,
+            "mean_abs": 0.00344855897128582,
+            "rmse": 0.018346166238188744,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_4": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.4235401153564453,
+            "mean_abs": 0.0036472792271524668,
+            "rmse": 0.016386287286877632,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_5": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.4744489192962646,
+            "mean_abs": 0.003985850140452385,
+            "rmse": 0.019247572869062424,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          }
+        },
+        "intermediate_reference_points": {
+          "layer_0": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.273357093334198,
+            "mean_abs": 0.0007142790127545595,
+            "rmse": 0.009149011224508286,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_1": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.3136468529701233,
+            "mean_abs": 0.0009597259340807796,
+            "rmse": 0.00939375814050436,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_2": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.32943129539489746,
+            "mean_abs": 0.0012099602026864886,
+            "rmse": 0.009824535809457302,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_3": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.3072856068611145,
+            "mean_abs": 0.001552416244521737,
+            "rmse": 0.009955592453479767,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_4": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.3168787360191345,
+            "mean_abs": 0.0016149039147421718,
+            "rmse": 0.010061302222311497,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_5": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.2872817814350128,
+            "mean_abs": 0.001696201041340828,
+            "rmse": 0.00995713658630848,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          }
+        }
+      }
+    },
+    "encoder_only_layer_2": {
+      "patched_modules": [
+        "model.encoder.layers.2.deformable_layer.self_attn.attn"
+      ],
+      "comparison": {
+        "encoder_last_hidden_state_vision": {
+          "shape": [
+            1,
+            17821,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 1.1026859283447266e-06,
+          "mean_abs": 3.747151566813045e-08,
+          "rmse": 5.163706262578671e-08,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "encoder_last_hidden_state_text": {
+          "shape": [
+            1,
+            8,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 1.7881393432617188e-07,
+          "mean_abs": 1.3340269333639299e-08,
+          "rmse": 2.0411883738802317e-08,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "enc_outputs_class": {
+          "shape": [
+            1,
+            17821,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 1.0013580322265625e-05,
+          "mean_abs": 4.903975536763028e-07,
+          "rmse": 6.978491455811309e-07,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "enc_outputs_coord_logits": {
+          "shape": [
+            1,
+            17821,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 4.0531158447265625e-05,
+          "mean_abs": 1.2734645906675723e-06,
+          "rmse": 1.924215212056879e-06,
+          "allclose_1e-5": false,
+          "allclose_1e-4": true
+        },
+        "encoder_logits": {
+          "shape": [
+            1,
+            900,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.0,
+          "mean_abs": 0.0,
+          "rmse": 0.0,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "encoder_pred_boxes": {
+          "shape": [
+            1,
+            900,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.18612927198410034,
+          "mean_abs": 0.0002622156753204763,
+          "rmse": 0.005235457327216864,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "init_reference_points": {
+          "shape": [
+            1,
+            900,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.18612927198410034,
+          "mean_abs": 0.0002622156753204763,
+          "rmse": 0.005235457327216864,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "last_hidden_state": {
+          "shape": [
+            1,
+            900,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 1.4543912410736084,
+          "mean_abs": 0.0036060120910406113,
+          "rmse": 0.017969276756048203,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "logits": {
+          "shape": [
+            1,
+            900,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 1.589761734008789,
+          "mean_abs": 0.010855338536202908,
+          "rmse": 0.059366438537836075,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "pred_boxes": {
+          "shape": [
+            1,
+            900,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.2324557602405548,
+          "mean_abs": 0.0014179120771586895,
+          "rmse": 0.007678467780351639,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "intermediate_hidden_states": {
+          "layer_0": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.1840790510177612,
+            "mean_abs": 0.0009288094006478786,
+            "rmse": 0.010601385496556759,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_1": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.3224035501480103,
+            "mean_abs": 0.0016484487568959594,
+            "rmse": 0.012907278724014759,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_2": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.882659673690796,
+            "mean_abs": 0.0024658541660755873,
+            "rmse": 0.016249429434537888,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_3": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 2.3993587493896484,
+            "mean_abs": 0.003063836833462119,
+            "rmse": 0.0167999267578125,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_4": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.4830474853515625,
+            "mean_abs": 0.0032830603886395693,
+            "rmse": 0.01486913114786148,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_5": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.4543912410736084,
+            "mean_abs": 0.0036060120910406113,
+            "rmse": 0.017969276756048203,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          }
+        },
+        "intermediate_reference_points": {
+          "layer_0": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.2573755383491516,
+            "mean_abs": 0.0004891071002930403,
+            "rmse": 0.006421348080039024,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_1": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.2413589358329773,
+            "mean_abs": 0.0007500460487790406,
+            "rmse": 0.006444989237934351,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_2": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.24239742755889893,
+            "mean_abs": 0.0009912527166306973,
+            "rmse": 0.0070715779438614845,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_3": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.24389714002609253,
+            "mean_abs": 0.00130093761254102,
+            "rmse": 0.007707905489951372,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_4": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.23748743534088135,
+            "mean_abs": 0.0013270109193399549,
+            "rmse": 0.007590906694531441,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_5": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.23461636900901794,
+            "mean_abs": 0.0014034660998731852,
+            "rmse": 0.007741371635347605,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          }
+        }
+      }
+    },
+    "encoder_only_layer_3": {
+      "patched_modules": [
+        "model.encoder.layers.3.deformable_layer.self_attn.attn"
+      ],
+      "comparison": {
+        "encoder_last_hidden_state_vision": {
+          "shape": [
+            1,
+            17821,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 1.1324882507324219e-06,
+          "mean_abs": 3.354118760512392e-08,
+          "rmse": 4.626881278113615e-08,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "encoder_last_hidden_state_text": {
+          "shape": [
+            1,
+            8,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 4.76837158203125e-07,
+          "mean_abs": 1.2379302916087909e-08,
+          "rmse": 2.1524643400994137e-08,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "enc_outputs_class": {
+          "shape": [
+            1,
+            17821,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 7.62939453125e-06,
+          "mean_abs": 4.943212275065889e-07,
+          "rmse": 6.851046805422811e-07,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "enc_outputs_coord_logits": {
+          "shape": [
+            1,
+            17821,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 2.6106834411621094e-05,
+          "mean_abs": 1.167099753729417e-06,
+          "rmse": 1.7532621541249682e-06,
+          "allclose_1e-5": false,
+          "allclose_1e-4": true
+        },
+        "encoder_logits": {
+          "shape": [
+            1,
+            900,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.0,
+          "mean_abs": 0.0,
+          "rmse": 0.0,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "encoder_pred_boxes": {
+          "shape": [
+            1,
+            900,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.1861293762922287,
+          "mean_abs": 0.0001667393953539431,
+          "rmse": 0.004669553134590387,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "init_reference_points": {
+          "shape": [
+            1,
+            900,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.1861293762922287,
+          "mean_abs": 0.0001667393953539431,
+          "rmse": 0.004669553134590387,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "last_hidden_state": {
+          "shape": [
+            1,
+            900,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 1.4535744190216064,
+          "mean_abs": 0.0028635342605412006,
+          "rmse": 0.016663525253534317,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "logits": {
+          "shape": [
+            1,
+            900,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 1.5872840881347656,
+          "mean_abs": 0.008582176640629768,
+          "rmse": 0.05608731880784035,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "pred_boxes": {
+          "shape": [
+            1,
+            900,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.2324015200138092,
+          "mean_abs": 0.001073900144547224,
+          "rmse": 0.006741357501596212,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "intermediate_hidden_states": {
+          "layer_0": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.183859944343567,
+            "mean_abs": 0.0007706581964157522,
+            "rmse": 0.010225373320281506,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_1": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.3221651315689087,
+            "mean_abs": 0.0012749213492497802,
+            "rmse": 0.01188829354941845,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_2": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.881582260131836,
+            "mean_abs": 0.002053934382274747,
+            "rmse": 0.015474892221391201,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_3": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 2.401987075805664,
+            "mean_abs": 0.0024356674402952194,
+            "rmse": 0.01576824113726616,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_4": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.488267421722412,
+            "mean_abs": 0.0025745145976543427,
+            "rmse": 0.013475047424435616,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_5": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 1.4535744190216064,
+            "mean_abs": 0.0028635342605412006,
+            "rmse": 0.016663525253534317,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          }
+        },
+        "intermediate_reference_points": {
+          "layer_0": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.2573155462741852,
+            "mean_abs": 0.00034881694591604173,
+            "rmse": 0.005845245439559221,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_1": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.24126741290092468,
+            "mean_abs": 0.0005412703030742705,
+            "rmse": 0.005837335251271725,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_2": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.24231791496276855,
+            "mean_abs": 0.0007062929216772318,
+            "rmse": 0.006153748370707035,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_3": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.2438277304172516,
+            "mean_abs": 0.0009598275064490736,
+            "rmse": 0.006700453814119101,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_4": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.23743048310279846,
+            "mean_abs": 0.0009881150908768177,
+            "rmse": 0.00663321977481246,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_5": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.23455986380577087,
+            "mean_abs": 0.0010563237592577934,
+            "rmse": 0.006802073679864407,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          }
+        }
+      }
+    },
+    "encoder_only_layer_4": {
+      "patched_modules": [
+        "model.encoder.layers.4.deformable_layer.self_attn.attn"
+      ],
+      "comparison": {
+        "encoder_last_hidden_state_vision": {
+          "shape": [
+            1,
+            17821,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 1.2665987014770508e-06,
+          "mean_abs": 2.831549039683523e-08,
+          "rmse": 3.9304133281348186e-08,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "encoder_last_hidden_state_text": {
+          "shape": [
+            1,
+            8,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 4.76837158203125e-07,
+          "mean_abs": 1.0416528084533638e-08,
+          "rmse": 1.996446208352154e-08,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "enc_outputs_class": {
+          "shape": [
+            1,
+            17821,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 9.5367431640625e-06,
+          "mean_abs": 4.6065207470746827e-07,
+          "rmse": 6.439530011448369e-07,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "enc_outputs_coord_logits": {
+          "shape": [
+            1,
+            17821,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 2.5153160095214844e-05,
+          "mean_abs": 1.0185784731220338e-06,
+          "rmse": 1.5244504538713954e-06,
+          "allclose_1e-5": false,
+          "allclose_1e-4": true
+        },
+        "encoder_logits": {
+          "shape": [
+            1,
+            900,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.0,
+          "mean_abs": 0.0,
+          "rmse": 0.0,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "encoder_pred_boxes": {
+          "shape": [
+            1,
+            900,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.07912571728229523,
+          "mean_abs": 9.557912562740967e-05,
+          "rmse": 0.002367550740018487,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "init_reference_points": {
+          "shape": [
+            1,
+            900,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.07912571728229523,
+          "mean_abs": 9.557912562740967e-05,
+          "rmse": 0.002367550740018487,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "last_hidden_state": {
+          "shape": [
+            1,
+            900,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.35318708419799805,
+          "mean_abs": 0.0010912918951362371,
+          "rmse": 0.006395538803189993,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "logits": {
+          "shape": [
+            1,
+            900,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.3872809410095215,
+          "mean_abs": 0.003141700057312846,
+          "rmse": 0.01760924980044365,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "pred_boxes": {
+          "shape": [
+            1,
+            900,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.11897598206996918,
+          "mean_abs": 0.0004468017432373017,
+          "rmse": 0.0035725387278944254,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "intermediate_hidden_states": {
+          "layer_0": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.2066301703453064,
+            "mean_abs": 0.0001831148547353223,
+            "rmse": 0.00279516214504838,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_1": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.7084785103797913,
+            "mean_abs": 0.0004546038690023124,
+            "rmse": 0.005014356691390276,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_2": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.388708233833313,
+            "mean_abs": 0.0005474500940181315,
+            "rmse": 0.004805549047887325,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_3": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.4060112237930298,
+            "mean_abs": 0.0009090519160963595,
+            "rmse": 0.0057296003215014935,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_4": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.36784833669662476,
+            "mean_abs": 0.0009957508882507682,
+            "rmse": 0.006010148674249649,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_5": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.35318708419799805,
+            "mean_abs": 0.0010912918951362371,
+            "rmse": 0.006395538803189993,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          }
+        },
+        "intermediate_reference_points": {
+          "layer_0": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.08997008949518204,
+            "mean_abs": 0.00015243027883116156,
+            "rmse": 0.0026549461763352156,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_1": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.08456704020500183,
+            "mean_abs": 0.0002453831839375198,
+            "rmse": 0.0027171981055289507,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_2": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.1303975135087967,
+            "mean_abs": 0.0003370101621840149,
+            "rmse": 0.003457438200712204,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_3": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.1297604739665985,
+            "mean_abs": 0.00042551042861305177,
+            "rmse": 0.003721351269632578,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_4": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.12010622024536133,
+            "mean_abs": 0.0004296844417694956,
+            "rmse": 0.0035921733360737562,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_5": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.1160656064748764,
+            "mean_abs": 0.0004472670261748135,
+            "rmse": 0.003584821242839098,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          }
+        }
+      }
+    },
+    "encoder_only_layer_5": {
+      "patched_modules": [
+        "model.encoder.layers.5.deformable_layer.self_attn.attn"
+      ],
+      "comparison": {
+        "encoder_last_hidden_state_vision": {
+          "shape": [
+            1,
+            17821,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 4.76837158203125e-07,
+          "mean_abs": 1.674824012809495e-08,
+          "rmse": 2.443584534717047e-08,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "encoder_last_hidden_state_text": {
+          "shape": [
+            1,
+            8,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.0,
+          "mean_abs": 0.0,
+          "rmse": 0.0,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "enc_outputs_class": {
+          "shape": [
+            1,
+            17821,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 2.86102294921875e-06,
+          "mean_abs": 3.4566915019240696e-07,
+          "rmse": 5.038375547883334e-07,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "enc_outputs_coord_logits": {
+          "shape": [
+            1,
+            17821,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 1.621246337890625e-05,
+          "mean_abs": 7.15079522706219e-07,
+          "rmse": 1.071945689545828e-06,
+          "allclose_1e-5": false,
+          "allclose_1e-4": true
+        },
+        "encoder_logits": {
+          "shape": [
+            1,
+            900,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.0,
+          "mean_abs": 0.0,
+          "rmse": 0.0,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true
+        },
+        "encoder_pred_boxes": {
+          "shape": [
+            1,
+            900,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.07912576198577881,
+          "mean_abs": 9.553493873681873e-05,
+          "rmse": 0.00236755283549428,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "init_reference_points": {
+          "shape": [
+            1,
+            900,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.07912576198577881,
+          "mean_abs": 9.553493873681873e-05,
+          "rmse": 0.00236755283549428,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "last_hidden_state": {
+          "shape": [
+            1,
+            900,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.3531959056854248,
+          "mean_abs": 0.0010911141289398074,
+          "rmse": 0.006395380012691021,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "logits": {
+          "shape": [
+            1,
+            900,
+            256
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.38730287551879883,
+          "mean_abs": 0.0031406721100211143,
+          "rmse": 0.017608897760510445,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "pred_boxes": {
+          "shape": [
+            1,
+            900,
+            4
+          ],
+          "finite_mask_equal": true,
+          "nan_mask_equal": true,
+          "posinf_mask_equal": true,
+          "neginf_mask_equal": true,
+          "max_abs": 0.11897523701190948,
+          "mean_abs": 0.0004466812824830413,
+          "rmse": 0.0035723955370485783,
+          "allclose_1e-5": false,
+          "allclose_1e-4": false
+        },
+        "intermediate_hidden_states": {
+          "layer_0": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.20663005113601685,
+            "mean_abs": 0.0001831418921938166,
+            "rmse": 0.002795164007693529,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_1": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.7084803581237793,
+            "mean_abs": 0.00045469377073459327,
+            "rmse": 0.005014339461922646,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_2": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.3887253999710083,
+            "mean_abs": 0.0005475426441989839,
+            "rmse": 0.004805583506822586,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_3": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.4059785008430481,
+            "mean_abs": 0.0009090606472454965,
+            "rmse": 0.005729616153985262,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_4": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.3678574562072754,
+            "mean_abs": 0.000995562644675374,
+            "rmse": 0.006010061129927635,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_5": {
+            "shape": [
+              1,
+              900,
+              256
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.3531959056854248,
+            "mean_abs": 0.0010911141289398074,
+            "rmse": 0.006395380012691021,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          }
+        },
+        "intermediate_reference_points": {
+          "layer_0": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.08997011929750443,
+            "mean_abs": 0.0001524707768112421,
+            "rmse": 0.00265494710765779,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_1": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.08456692099571228,
+            "mean_abs": 0.0002454585046507418,
+            "rmse": 0.0027172125410288572,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_2": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.13039706647396088,
+            "mean_abs": 0.00033706435351632535,
+            "rmse": 0.0034574412275105715,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_3": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.1297595500946045,
+            "mean_abs": 0.00042548702913336456,
+            "rmse": 0.003721327753737569,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_4": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.12010538578033447,
+            "mean_abs": 0.0004296162514947355,
+            "rmse": 0.003592130960896611,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          },
+          "layer_5": {
+            "shape": [
+              1,
+              900,
+              4
+            ],
+            "finite_mask_equal": true,
+            "nan_mask_equal": true,
+            "posinf_mask_equal": true,
+            "neginf_mask_equal": true,
+            "max_abs": 0.11606486141681671,
+            "mean_abs": 0.0004471497086342424,
+            "rmse": 0.0035846903920173645,
+            "allclose_1e-5": false,
+            "allclose_1e-4": false
+          }
+        }
+      }
+    }
+  },
+  "interpretation_hint": "A sharp jump between encoder output and init_reference_points suggests discontinuous two-stage query/proposal selection. Decoder-only staying small would further isolate the issue to encoder-side perturbation."
+}

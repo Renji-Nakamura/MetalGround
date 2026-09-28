@@ -1,0 +1,59 @@
+{
+  "timestamp_utc": "2026-09-15T12:35:05.300850+00:00",
+  "tag": "fp32_catdog",
+  "model": "IDEA-Research/grounding-dino-tiny",
+  "device": "cpu",
+  "dtype": "float32",
+  "image": "assets/input.jpg",
+  "image_size_wh": [
+    1200,
+    901
+  ],
+  "prompt": [
+    "a cat",
+    "a dog"
+  ],
+  "warmup": 1,
+  "iterations": 5,
+  "load_seconds": 3.9435885829989274,
+  "forward": {
+    "n": 5,
+    "mean_ms": 2206.3391334,
+    "median_ms": 2205.659709,
+    "p90_ms": 2240.6166914,
+    "p95_ms": 2241.5983662000003,
+    "p99_ms": 2242.3837060400006,
+    "min_ms": 2169.945458,
+    "max_ms": 2242.580041,
+    "fps_from_median": 0.45337909375575397
+  },
+  "end_to_end": {
+    "n": 5,
+    "mean_ms": 2209.7527668,
+    "median_ms": 2170.208583,
+    "p90_ms": 2274.9970338,
+    "p95_ms": 2277.2712254,
+    "p99_ms": 2279.09057868,
+    "min_ms": 2162.777917,
+    "max_ms": 2279.545417,
+    "fps_from_median": 0.4607852018618617
+  },
+  "rss_bytes": 1553121280,
+  "mps_memory": {},
+  "software": {
+    "python": "3.12.14",
+    "torch": "2.13.0"
+  },
+  "detections": [
+    {
+      "label": "a cat a dog",
+      "score": 0.5052891373634338,
+      "box_xyxy": [
+        8.242607116699219,
+        312.58154296875,
+        570.3472290039062,
+        872.4295043945312
+      ]
+    }
+  ]
+}

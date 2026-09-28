@@ -1,0 +1,185 @@
+{
+  "timestamp_utc": "2026-09-15T15:56:51.340658+00:00",
+  "experiment": "0012",
+  "purpose": "Feasibility test for replacing GroundingDinoBiMultiHeadAttention with a faithful MLX implementation on the real layer-0 fusion workload.",
+  "model": "IDEA-Research/grounding-dino-tiny",
+  "device": "mps",
+  "dtype": "float32",
+  "image": "assets/input.jpg",
+  "prompt": [
+    "a cat",
+    "a dog"
+  ],
+  "software": {
+    "torch": "2.13.0",
+    "transformers": "5.17.0"
+  },
+  "fixture": {
+    "path": "results/fusion_cases/layer0_fp32.pt",
+    "source_path": "results/fusion_cases/grounding_dino_bimha_source.py",
+    "source_sha256": "b37cf807bc8e4525ff749f52a4b952684cd86c2a92df064970b6af840c0a22b7",
+    "vision_shape": [
+      1,
+      17821,
+      256
+    ],
+    "text_shape": [
+      1,
+      8,
+      256
+    ],
+    "embed_dim": 1024,
+    "num_heads": 4,
+    "head_dim": 256,
+    "dropout": 0.0
+  },
+  "latency": {
+    "pytorch_mps": {
+      "n": 20,
+      "mean_ms": 27.5536834,
+      "median_ms": 27.4899995,
+      "p90_ms": 28.929071200000003,
+      "p95_ms": 29.099500600000002,
+      "min_ms": 25.485875,
+      "max_ms": 29.489791
+    },
+    "mlx_eager_bridge_included": {
+      "n": 20,
+      "mean_ms": 28.66507495,
+      "median_ms": 28.655437499999998,
+      "p90_ms": 29.1073214,
+      "p95_ms": 29.785462150000004,
+      "min_ms": 26.872167,
+      "max_ms": 30.467166
+    },
+    "mlx_compiled_bridge_included": {
+      "n": 20,
+      "mean_ms": 25.915472949999998,
+      "median_ms": 25.701667,
+      "p90_ms": 26.931021100000002,
+      "p95_ms": 28.70188095,
+      "min_ms": 24.279,
+      "max_ms": 31.935167
+    },
+    "speedup_mlx_eager_vs_pytorch": 0.9593292547007877,
+    "speedup_mlx_compiled_vs_pytorch": 1.0695804089283392
+  },
+  "correctness": {
+    "mlx_eager_vs_pytorch": {
+      "vision_output": {
+        "shape": [
+          1,
+          17821,
+          256
+        ],
+        "max_abs": 2.384185791015625e-05,
+        "mean_abs": 1.5229879863909446e-06,
+        "rmse": 2.079586693071178e-06,
+        "allclose_1e-5": false,
+        "allclose_1e-4": true,
+        "finite": true
+      },
+      "vision_attention_weights": {
+        "shape": [
+          4,
+          17821,
+          8
+        ],
+        "max_abs": 1.9669532775878906e-06,
+        "mean_abs": 6.872829061421726e-08,
+        "rmse": 1.424701991936672e-07,
+        "allclose_1e-5": true,
+        "allclose_1e-4": true,
+        "finite": true
+      },
+      "text_output": {
+        "shape": [
+          1,
+          8,
+          256
+        ],
+        "max_abs": 1.9073486328125e-05,
+        "mean_abs": 1.836502633523196e-06,
+        "rmse": 2.5648751034168527e-06,
+        "allclose_1e-5": true,
+        "allclose_1e-4": true,
+        "finite": true
+      },
+      "text_attention_weights": {
+        "shape": [
+          4,
+          8,
+          17821
+        ],
+        "max_abs": 2.60770320892334e-07,
+        "mean_abs": 5.248449244654729e-11,
+        "rmse": 8.899916914550943e-10,
+        "allclose_1e-5": true,
+        "allclose_1e-4": true,
+        "finite": true
+      }
+    },
+    "mlx_compiled_vs_pytorch": {
+      "vision_output": {
+        "shape": [
+          1,
+          17821,
+          256
+        ],
+        "max_abs": 2.384185791015625e-05,
+        "mean_abs": 1.5229879863909446e-06,
+        "rmse": 2.079586693071178e-06,
+        "allclose_1e-5": false,
+        "allclose_1e-4": true,
+        "finite": true
+      },
+      "vision_attention_weights": {
+        "shape": [
+          4,
+          17821,
+          8
+        ],
+        "max_abs": 1.9669532775878906e-06,
+        "mean_abs": 6.872829061421726e-08,
+        "rmse": 1.424701991936672e-07,
+        "allclose_1e-5": true,
+        "allclose_1e-4": true,
+        "finite": true
+      },
+      "text_output": {
+        "shape": [
+          1,
+          8,
+          256
+        ],
+        "max_abs": 1.9073486328125e-05,
+        "mean_abs": 1.836502633523196e-06,
+        "rmse": 2.5648751034168527e-06,
+        "allclose_1e-5": true,
+        "allclose_1e-4": true,
+        "finite": true
+      },
+      "text_attention_weights": {
+        "shape": [
+          4,
+          8,
+          17821
+        ],
+        "max_abs": 2.60770320892334e-07,
+        "mean_abs": 5.248449244654729e-11,
+        "rmse": 8.899916914550943e-10,
+        "allclose_1e-5": true,
+        "allclose_1e-4": true,
+        "finite": true
+      }
+    }
+  },
+  "notes": [
+    "PyTorch and MLX use the same captured real fusion inputs and the same trained weights.",
+    "MLX projection weights are shared from PyTorch MPS with copy=False and cached outside timing.",
+    "MLX timings include input zero-copy bridge, evaluation/synchronization, output export, and conservative synchronization.",
+    "First mx.compile/JIT execution is excluded from timing.",
+    "No approximation or reduced precision is used.",
+    "This is an isolated operator feasibility benchmark; full-model integration is a later experiment."
+  ]
+}

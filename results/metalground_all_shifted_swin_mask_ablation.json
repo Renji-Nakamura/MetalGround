@@ -1,0 +1,466 @@
+{
+  "timestamp_utc": "2026-09-15T17:50:13.559214+00:00",
+  "experiment": "0025",
+  "purpose": "Paired same-process A/B benchmark of exact shifted-window mask caching across every shifted Swin block, to explain why the all-block full-model cache did not transfer Experiment 0023's gain.",
+  "model": "IDEA-Research/grounding-dino-tiny",
+  "device": "mps",
+  "dtype": "float32",
+  "software": {
+    "torch": "2.13.0",
+    "transformers": "5.17.0"
+  },
+  "protocol": {
+    "warmup_per_mode": 3,
+    "paired_iterations": 20,
+    "order": "alternating baseline->cached / cached->baseline",
+    "same_process": true,
+    "same_captured_real_inputs": true
+  },
+  "blocks": {
+    "model.backbone.conv_encoder.model.swin.encoder.layers.0.blocks.1": {
+      "stage": 0,
+      "block": 1,
+      "input_shape": [
+        1,
+        53400,
+        96
+      ],
+      "input_dimensions": [
+        200,
+        267
+      ],
+      "runtime_window_size": 7,
+      "runtime_shift_size": 3,
+      "mask_shape": [
+        1131,
+        49,
+        49
+      ],
+      "mask_numel": 2715531,
+      "mask_bytes": 10862124,
+      "skipped": false,
+      "baseline": {
+        "n": 20,
+        "mean_ms": 30.211254200000003,
+        "median_ms": 30.285062500000002,
+        "p90_ms": 30.923537500000002,
+        "p95_ms": 31.4183625,
+        "min_ms": 28.699,
+        "max_ms": 31.494125
+      },
+      "cached": {
+        "n": 20,
+        "mean_ms": 27.826443849999997,
+        "median_ms": 27.9467705,
+        "p90_ms": 29.3737464,
+        "p95_ms": 29.57958095,
+        "min_ms": 26.443417,
+        "max_ms": 29.636542
+      },
+      "paired_delta_ms": {
+        "n": 20,
+        "mean_ms": 2.3848103500000004,
+        "median_ms": 2.4808545000000013,
+        "p90_ms": 3.4768750000000033,
+        "p95_ms": 3.6787854000000015,
+        "min_ms": -0.49350000000000094,
+        "max_ms": 4.073708
+      },
+      "speedup_from_medians": 1.0836694887518399,
+      "median_reduction_ms": 2.3382920000000027,
+      "correctness": {
+        "shape": [
+          1,
+          53400,
+          96
+        ],
+        "max_abs": 0.0,
+        "mean_abs": 0.0,
+        "rmse": 0.0,
+        "allclose_1e-5": true,
+        "allclose_1e-4": true,
+        "finite": true
+      }
+    },
+    "model.backbone.conv_encoder.model.swin.encoder.layers.1.blocks.1": {
+      "stage": 1,
+      "block": 1,
+      "input_shape": [
+        1,
+        13400,
+        192
+      ],
+      "input_dimensions": [
+        100,
+        134
+      ],
+      "runtime_window_size": 7,
+      "runtime_shift_size": 3,
+      "mask_shape": [
+        300,
+        49,
+        49
+      ],
+      "mask_numel": 720300,
+      "mask_bytes": 2881200,
+      "skipped": false,
+      "baseline": {
+        "n": 20,
+        "mean_ms": 14.900283400000001,
+        "median_ms": 15.024687499999999,
+        "p90_ms": 15.4723542,
+        "p95_ms": 15.474852400000001,
+        "min_ms": 13.973375,
+        "max_ms": 15.5045
+      },
+      "cached": {
+        "n": 20,
+        "mean_ms": 14.57845635,
+        "median_ms": 14.609396,
+        "p90_ms": 14.992062500000001,
+        "p95_ms": 15.1794354,
+        "min_ms": 13.561208,
+        "max_ms": 15.415708
+      },
+      "paired_delta_ms": {
+        "n": 20,
+        "mean_ms": 0.32182705,
+        "median_ms": 0.39789549999999974,
+        "p90_ms": 0.900567200000001,
+        "p95_ms": 1.259584799999999,
+        "min_ms": -0.8091259999999991,
+        "max_ms": 1.5430419999999998
+      },
+      "speedup_from_medians": 1.0284263291925277,
+      "median_reduction_ms": 0.4152914999999986,
+      "correctness": {
+        "shape": [
+          1,
+          13400,
+          192
+        ],
+        "max_abs": 0.0,
+        "mean_abs": 0.0,
+        "rmse": 0.0,
+        "allclose_1e-5": true,
+        "allclose_1e-4": true,
+        "finite": true
+      }
+    },
+    "model.backbone.conv_encoder.model.swin.encoder.layers.2.blocks.1": {
+      "stage": 2,
+      "block": 1,
+      "input_shape": [
+        1,
+        3350,
+        384
+      ],
+      "input_dimensions": [
+        50,
+        67
+      ],
+      "runtime_window_size": 7,
+      "runtime_shift_size": 3,
+      "mask_shape": [
+        80,
+        49,
+        49
+      ],
+      "mask_numel": 192080,
+      "mask_bytes": 768320,
+      "skipped": false,
+      "baseline": {
+        "n": 20,
+        "mean_ms": 11.6799167,
+        "median_ms": 11.555625,
+        "p90_ms": 12.775203600000001,
+        "p95_ms": 13.280094100000003,
+        "min_ms": 9.82775,
+        "max_ms": 15.534959
+      },
+      "cached": {
+        "n": 20,
+        "mean_ms": 11.93108125,
+        "median_ms": 12.219062000000001,
+        "p90_ms": 13.589634,
+        "p95_ms": 13.780236050000001,
+        "min_ms": 9.552375,
+        "max_ms": 14.528875
+      },
+      "paired_delta_ms": {
+        "n": 20,
+        "mean_ms": -0.2511645500000001,
+        "median_ms": -0.3847705000000001,
+        "p90_ms": 1.4126878000000018,
+        "p95_ms": 2.2817896500000034,
+        "min_ms": -3.705375,
+        "max_ms": 5.7524180000000005
+      },
+      "speedup_from_medians": 0.9457047521323648,
+      "median_reduction_ms": -0.6634370000000018,
+      "correctness": {
+        "shape": [
+          1,
+          3350,
+          384
+        ],
+        "max_abs": 0.0,
+        "mean_abs": 0.0,
+        "rmse": 0.0,
+        "allclose_1e-5": true,
+        "allclose_1e-4": true,
+        "finite": true
+      }
+    },
+    "model.backbone.conv_encoder.model.swin.encoder.layers.2.blocks.3": {
+      "stage": 2,
+      "block": 3,
+      "input_shape": [
+        1,
+        3350,
+        384
+      ],
+      "input_dimensions": [
+        50,
+        67
+      ],
+      "runtime_window_size": 7,
+      "runtime_shift_size": 3,
+      "mask_shape": [
+        80,
+        49,
+        49
+      ],
+      "mask_numel": 192080,
+      "mask_bytes": 768320,
+      "skipped": false,
+      "baseline": {
+        "n": 20,
+        "mean_ms": 10.9830832,
+        "median_ms": 10.8794995,
+        "p90_ms": 11.966904500000002,
+        "p95_ms": 12.1372774,
+        "min_ms": 9.869833,
+        "max_ms": 12.6405
+      },
+      "cached": {
+        "n": 20,
+        "mean_ms": 10.74435205,
+        "median_ms": 10.887458,
+        "p90_ms": 12.0840702,
+        "p95_ms": 12.15547885,
+        "min_ms": 9.5845,
+        "max_ms": 12.9515
+      },
+      "paired_delta_ms": {
+        "n": 20,
+        "mean_ms": 0.23873114999999984,
+        "median_ms": 0.20350000000000001,
+        "p90_ms": 1.6448907999999998,
+        "p95_ms": 1.679569050000001,
+        "min_ms": -1.124416,
+        "max_ms": 2.079082999999999
+      },
+      "speedup_from_medians": 0.9992690212903691,
+      "median_reduction_ms": -0.007958500000000868,
+      "correctness": {
+        "shape": [
+          1,
+          3350,
+          384
+        ],
+        "max_abs": 0.0,
+        "mean_abs": 0.0,
+        "rmse": 0.0,
+        "allclose_1e-5": true,
+        "allclose_1e-4": true,
+        "finite": true
+      }
+    },
+    "model.backbone.conv_encoder.model.swin.encoder.layers.2.blocks.5": {
+      "stage": 2,
+      "block": 5,
+      "input_shape": [
+        1,
+        3350,
+        384
+      ],
+      "input_dimensions": [
+        50,
+        67
+      ],
+      "runtime_window_size": 7,
+      "runtime_shift_size": 3,
+      "mask_shape": [
+        80,
+        49,
+        49
+      ],
+      "mask_numel": 192080,
+      "mask_bytes": 768320,
+      "skipped": false,
+      "baseline": {
+        "n": 20,
+        "mean_ms": 11.1383021,
+        "median_ms": 11.2480415,
+        "p90_ms": 12.299129500000003,
+        "p95_ms": 13.191867000000002,
+        "min_ms": 9.814625,
+        "max_ms": 14.706167
+      },
+      "cached": {
+        "n": 20,
+        "mean_ms": 11.3211,
+        "median_ms": 10.9491875,
+        "p90_ms": 12.397325000000002,
+        "p95_ms": 13.314425000000005,
+        "min_ms": 9.620042,
+        "max_ms": 19.761125
+      },
+      "paired_delta_ms": {
+        "n": 20,
+        "mean_ms": -0.1827978999999999,
+        "median_ms": 0.1230834999999999,
+        "p90_ms": 1.786725400000001,
+        "p95_ms": 2.1294364,
+        "min_ms": -5.054957999999999,
+        "max_ms": 2.239834
+      },
+      "speedup_from_medians": 1.027294628026052,
+      "median_reduction_ms": 0.2988539999999986,
+      "correctness": {
+        "shape": [
+          1,
+          3350,
+          384
+        ],
+        "max_abs": 0.0,
+        "mean_abs": 0.0,
+        "rmse": 0.0,
+        "allclose_1e-5": true,
+        "allclose_1e-4": true,
+        "finite": true
+      }
+    },
+    "model.backbone.conv_encoder.model.swin.encoder.layers.3.blocks.1": {
+      "stage": 3,
+      "block": 1,
+      "input_shape": [
+        1,
+        850,
+        768
+      ],
+      "input_dimensions": [
+        25,
+        34
+      ],
+      "runtime_window_size": 7,
+      "runtime_shift_size": 3,
+      "mask_shape": [
+        20,
+        49,
+        49
+      ],
+      "mask_numel": 48020,
+      "mask_bytes": 192080,
+      "skipped": false,
+      "baseline": {
+        "n": 20,
+        "mean_ms": 8.79510005,
+        "median_ms": 8.7722295,
+        "p90_ms": 9.6271336,
+        "p95_ms": 9.694193450000002,
+        "min_ms": 7.933875,
+        "max_ms": 10.567917
+      },
+      "cached": {
+        "n": 20,
+        "mean_ms": 8.84272915,
+        "median_ms": 8.626583499999999,
+        "p90_ms": 9.639461900000002,
+        "p95_ms": 11.042852100000003,
+        "min_ms": 7.847958,
+        "max_ms": 12.434167
+      },
+      "paired_delta_ms": {
+        "n": 20,
+        "mean_ms": -0.04762909999999994,
+        "median_ms": -0.15249999999999986,
+        "p90_ms": 1.3886380000000007,
+        "p95_ms": 1.5360178500000008,
+        "min_ms": -2.8987510000000007,
+        "max_ms": 1.5482509999999996
+      },
+      "speedup_from_medians": 1.016883393060532,
+      "median_reduction_ms": 0.14564600000000105,
+      "correctness": {
+        "shape": [
+          1,
+          850,
+          768
+        ],
+        "max_abs": 0.0,
+        "mean_abs": 0.0,
+        "rmse": 0.0,
+        "allclose_1e-5": true,
+        "allclose_1e-4": true,
+        "finite": true
+      }
+    }
+  },
+  "derived": {
+    "ranked_by_median_reduction": [
+      {
+        "module": "model.backbone.conv_encoder.model.swin.encoder.layers.0.blocks.1",
+        "stage": 0,
+        "block": 1,
+        "median_reduction_ms": 2.3382920000000027,
+        "speedup": 1.0836694887518399
+      },
+      {
+        "module": "model.backbone.conv_encoder.model.swin.encoder.layers.1.blocks.1",
+        "stage": 1,
+        "block": 1,
+        "median_reduction_ms": 0.4152914999999986,
+        "speedup": 1.0284263291925277
+      },
+      {
+        "module": "model.backbone.conv_encoder.model.swin.encoder.layers.2.blocks.5",
+        "stage": 2,
+        "block": 5,
+        "median_reduction_ms": 0.2988539999999986,
+        "speedup": 1.027294628026052
+      },
+      {
+        "module": "model.backbone.conv_encoder.model.swin.encoder.layers.3.blocks.1",
+        "stage": 3,
+        "block": 1,
+        "median_reduction_ms": 0.14564600000000105,
+        "speedup": 1.016883393060532
+      },
+      {
+        "module": "model.backbone.conv_encoder.model.swin.encoder.layers.2.blocks.3",
+        "stage": 2,
+        "block": 3,
+        "median_reduction_ms": -0.007958500000000868,
+        "speedup": 0.9992690212903691
+      },
+      {
+        "module": "model.backbone.conv_encoder.model.swin.encoder.layers.2.blocks.1",
+        "stage": 2,
+        "block": 1,
+        "median_reduction_ms": -0.6634370000000018,
+        "speedup": 0.9457047521323648
+      }
+    ],
+    "diagnostic_sum_all_block_median_reductions_ms": 2.5266879999999983,
+    "diagnostic_sum_positive_block_median_reductions_ms": 3.198083500000001
+  },
+  "notes": [
+    "Each block uses its exact captured real input and runtime spatial dimensions.",
+    "Baseline and cached executions are paired and order-alternated to reduce thermal/scheduling drift.",
+    "The cache replaces only get_attn_mask; all other PyTorch/MPS Swin operations are unchanged.",
+    "Per-block reductions are diagnostic and should not be added as an exact full-model latency prediction.",
+    "No approximation, retraining, pruning, quantization, or reduced precision is used."
+  ]
+}

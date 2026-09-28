@@ -1,0 +1,91 @@
+{
+  "experiment": "0054c-0",
+  "purpose": "Qualify zero-copy Metal DLPack handoff between an evaluated MLX Metal producer and PyTorch MPS before full-model integration.",
+  "environment": {
+    "torch": "2.13.0",
+    "mlx": "0.32.2",
+    "torch_mps_available": true,
+    "mlx_metal_available": true
+  },
+  "source": {
+    "shape_chw": [
+      3,
+      800,
+      1065
+    ],
+    "dtype": "float32",
+    "source_file": "/Users/renji/Projects/metalground_bootstrap/results/metal_pixel_values_f32_chw_0054b2.bin",
+    "producer": "MLX custom Metal identity kernel",
+    "producer_sync_before_handoff": true
+  },
+  "dlpack": {
+    "mlx_dlpack_device": [
+      8,
+      0
+    ],
+    "torch_device": "mps",
+    "torch_dtype": "torch.float32",
+    "torch_shape": [
+      3,
+      800,
+      1065
+    ],
+    "copy_false_required": true
+  },
+  "correctness": {
+    "import_mean_abs": 0.0,
+    "import_max_abs": 0.0,
+    "mlx_to_torch_alias": {
+      "index": 3,
+      "before": 3.0,
+      "sentinel_written_by_torch": 12345.25,
+      "observed_via_mlx": 12345.25,
+      "pass": true
+    },
+    "torch_to_mlx_alias": {
+      "index": 5,
+      "sentinel_written_by_torch": 54321.5,
+      "observed_via_mlx": 54321.5,
+      "pass": true
+    }
+  },
+  "bridge_only_ms": {
+    "n": 500,
+    "mean": 0.00075625,
+    "median": 0.00075,
+    "p90": 0.000792,
+    "p95": 0.000792,
+    "min": 0.000666,
+    "max": 0.001042
+  },
+  "bridge_plus_trivial_torch_consumer_ms": {
+    "n": 100,
+    "mean": 0.26872465,
+    "median": 0.19245849999999998,
+    "p90": 0.3800334,
+    "p95": 0.39896214999999996,
+    "min": 0.11775,
+    "max": 2.607083
+  },
+  "pre_registered_gates": {
+    "dlpack_device_is_metal_8": true,
+    "torch_import_device_is_mps": true,
+    "torch_import_dtype_is_float32": true,
+    "shape_exact": true,
+    "import_value_max_abs_eq_0": true,
+    "mlx_to_torch_storage_alias_proven": true,
+    "torch_to_mlx_storage_alias_proven": true,
+    "bridge_only_p95_ms_le_1": true
+  },
+  "all_gates_pass": true,
+  "timing_semantics": {
+    "bridge_only": "CPU wall time for torch.from_dlpack(mlx_array, copy=False) after MLX producer eval+synchronize; no producer work included.",
+    "consumer_touch": "DLPack import + trivial MPS sum + torch.mps.synchronize; secondary diagnostic."
+  },
+  "guardrails": [
+    "0054c-0 does not claim the live CVPixelBuffer-to-model path is complete.",
+    "The CPU file-to-MLX upload used to seed this fixed-input probe is outside timing and is not part of the proposed live path.",
+    "Zero-copy is established for the MLX Metal <-> PyTorch MPS handoff by copy=False import plus bidirectional alias observation.",
+    "Cross-framework producer synchronization is explicit because DLPack itself does not synchronize pending Metal work."
+  ]
+}

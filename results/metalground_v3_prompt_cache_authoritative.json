@@ -1,0 +1,318 @@
+{
+  "timestamp_utc": "2026-09-15T18:07:06.827091+00:00",
+  "experiment": "0028",
+  "purpose": "Fresh-process authoritative benchmark of MetalGround v3: MetalGround v2 plus exact fixed-prompt BERT text-backbone caching.",
+  "model": "IDEA-Research/grounding-dino-tiny",
+  "device": "mps",
+  "dtype": "float32",
+  "software": {
+    "torch": "2.13.0",
+    "transformers": "5.17.0"
+  },
+  "configuration": {
+    "runtime_name": "MetalGround v3",
+    "base_runtime": "MetalGround v2",
+    "prompt": [
+      "a cat",
+      "a dog"
+    ],
+    "prompt_cache": "exact cached output of model.text_backbone for unchanged tokenized prompt",
+    "image_conditioned_text_layers_cached": false,
+    "warmup": 5,
+    "timed_iterations": 30,
+    "threadgroup": 256,
+    "approximation": false,
+    "retraining": false,
+    "reduced_precision": false
+  },
+  "baselines": {
+    "original_pytorch_mps_median_ms": 999.116584,
+    "metalground_v2_median_ms": 542.305167
+  },
+  "latency": {
+    "n": 30,
+    "mean_ms": 554.9202720666667,
+    "median_ms": 555.1238125,
+    "p90_ms": 565.0051414,
+    "p95_ms": 565.50185015,
+    "p99_ms": 566.0683725,
+    "min_ms": 544.460541,
+    "max_ms": 566.153125
+  },
+  "derived": {
+    "speedup_vs_original": 1.7998085499169612,
+    "latency_reduction_vs_original_ms": 443.9927715,
+    "latency_reduction_vs_original_percent": 44.438534862714285,
+    "speedup_vs_v2": 0.9769084928238418,
+    "latency_reduction_vs_v2_ms": -12.818645500000002,
+    "latency_reduction_vs_v2_percent": -2.3637328721966617,
+    "fps_from_median": 1.8013999354423298
+  },
+  "correctness": {
+    "original_reference_detections": [
+      {
+        "label": "a cat a dog",
+        "score": 0.505246102809906,
+        "box": [
+          8.241534233093262,
+          312.5841064453125,
+          570.35009765625,
+          872.4279174804688
+        ]
+      },
+      {
+        "label": "a dog",
+        "score": 0.3197939693927765,
+        "box": [
+          472.915283203125,
+          17.95140266418457,
+          1129.7747802734375,
+          891.8092041015625
+        ]
+      }
+    ],
+    "cache_specific_first": {
+      "logits": {
+        "shape": [
+          1,
+          900,
+          256
+        ],
+        "finite_mask_equal": true,
+        "nan_mask_equal": true,
+        "posinf_mask_equal": true,
+        "neginf_mask_equal": true,
+        "finite_max_abs": 0.0,
+        "finite_mean_abs": 0.0,
+        "finite_rmse": 0.0,
+        "allclose_1e-5": true,
+        "allclose_1e-4": true
+      },
+      "pred_boxes": {
+        "shape": [
+          1,
+          900,
+          4
+        ],
+        "finite_mask_equal": true,
+        "nan_mask_equal": true,
+        "posinf_mask_equal": true,
+        "neginf_mask_equal": true,
+        "finite_max_abs": 0.0,
+        "finite_mean_abs": 0.0,
+        "finite_rmse": 0.0,
+        "allclose_1e-5": true,
+        "allclose_1e-4": true
+      },
+      "topk": {
+        "k": 900,
+        "set_overlap": 900,
+        "changed_membership_each_side": 0,
+        "rankwise_identical": 900,
+        "score_vector_max_abs": 0.0,
+        "score_vector_mean_abs": 0.0,
+        "mismatched_ranks_zero_based": []
+      }
+    },
+    "end_to_end_first": {
+      "logits": {
+        "shape": [
+          1,
+          900,
+          256
+        ],
+        "finite_mask_equal": true,
+        "nan_mask_equal": true,
+        "posinf_mask_equal": true,
+        "neginf_mask_equal": true,
+        "finite_max_abs": 0.7076663970947266,
+        "finite_mean_abs": 0.014952391386032104,
+        "finite_rmse": 0.0533963218331337,
+        "allclose_1e-5": false,
+        "allclose_1e-4": false
+      },
+      "pred_boxes": {
+        "shape": [
+          1,
+          900,
+          4
+        ],
+        "finite_mask_equal": true,
+        "nan_mask_equal": true,
+        "posinf_mask_equal": true,
+        "neginf_mask_equal": true,
+        "finite_max_abs": 0.1682472825050354,
+        "finite_mean_abs": 0.0020120516419410706,
+        "finite_rmse": 0.00887820590287447,
+        "allclose_1e-5": false,
+        "allclose_1e-4": false
+      },
+      "topk": {
+        "k": 900,
+        "set_overlap": 900,
+        "changed_membership_each_side": 0,
+        "rankwise_identical": 898,
+        "score_vector_max_abs": 7.62939453125e-06,
+        "score_vector_mean_abs": 5.313880819812766e-07,
+        "mismatched_ranks_zero_based": [
+          302,
+          303
+        ]
+      },
+      "detections": [
+        {
+          "label": "a cat a dog",
+          "score": 0.5051670670509338,
+          "box": [
+            8.241605758666992,
+            312.5823059082031,
+            570.352783203125,
+            872.4296875
+          ]
+        },
+        {
+          "label": "a dog",
+          "score": 0.31981927156448364,
+          "box": [
+            472.91943359375,
+            17.94871711730957,
+            1129.7764892578125,
+            891.8095092773438
+          ]
+        }
+      ]
+    },
+    "cache_specific_final": {
+      "logits": {
+        "shape": [
+          1,
+          900,
+          256
+        ],
+        "finite_mask_equal": true,
+        "nan_mask_equal": true,
+        "posinf_mask_equal": true,
+        "neginf_mask_equal": true,
+        "finite_max_abs": 0.0,
+        "finite_mean_abs": 0.0,
+        "finite_rmse": 0.0,
+        "allclose_1e-5": true,
+        "allclose_1e-4": true
+      },
+      "pred_boxes": {
+        "shape": [
+          1,
+          900,
+          4
+        ],
+        "finite_mask_equal": true,
+        "nan_mask_equal": true,
+        "posinf_mask_equal": true,
+        "neginf_mask_equal": true,
+        "finite_max_abs": 0.0,
+        "finite_mean_abs": 0.0,
+        "finite_rmse": 0.0,
+        "allclose_1e-5": true,
+        "allclose_1e-4": true
+      },
+      "topk": {
+        "k": 900,
+        "set_overlap": 900,
+        "changed_membership_each_side": 0,
+        "rankwise_identical": 900,
+        "score_vector_max_abs": 0.0,
+        "score_vector_mean_abs": 0.0,
+        "mismatched_ranks_zero_based": []
+      }
+    },
+    "end_to_end_final": {
+      "logits": {
+        "shape": [
+          1,
+          900,
+          256
+        ],
+        "finite_mask_equal": true,
+        "nan_mask_equal": true,
+        "posinf_mask_equal": true,
+        "neginf_mask_equal": true,
+        "finite_max_abs": 0.7076663970947266,
+        "finite_mean_abs": 0.014952391386032104,
+        "finite_rmse": 0.0533963218331337,
+        "allclose_1e-5": false,
+        "allclose_1e-4": false
+      },
+      "pred_boxes": {
+        "shape": [
+          1,
+          900,
+          4
+        ],
+        "finite_mask_equal": true,
+        "nan_mask_equal": true,
+        "posinf_mask_equal": true,
+        "neginf_mask_equal": true,
+        "finite_max_abs": 0.1682472825050354,
+        "finite_mean_abs": 0.0020120516419410706,
+        "finite_rmse": 0.00887820590287447,
+        "allclose_1e-5": false,
+        "allclose_1e-4": false
+      },
+      "topk": {
+        "k": 900,
+        "set_overlap": 900,
+        "changed_membership_each_side": 0,
+        "rankwise_identical": 898,
+        "score_vector_max_abs": 7.62939453125e-06,
+        "score_vector_mean_abs": 5.313880819812766e-07,
+        "mismatched_ranks_zero_based": [
+          302,
+          303
+        ]
+      },
+      "detections": [
+        {
+          "label": "a cat a dog",
+          "score": 0.5051670670509338,
+          "box": [
+            8.241605758666992,
+            312.5823059082031,
+            570.352783203125,
+            872.4296875
+          ]
+        },
+        {
+          "label": "a dog",
+          "score": 0.31981927156448364,
+          "box": [
+            472.91943359375,
+            17.94871711730957,
+            1129.7764892578125,
+            891.8095092773438
+          ]
+        }
+      ]
+    }
+  },
+  "cache_validation": {
+    "prime": {
+      "calls": 1,
+      "hits": 0,
+      "misses": 1
+    },
+    "benchmark_region": {
+      "calls": 35,
+      "hits": 35,
+      "misses": 0,
+      "expected_hits": 35
+    }
+  },
+  "notes": [
+    "The prompt cache is exact only while the tokenized prompt and model state are unchanged.",
+    "Only the initial BERT text-backbone output is cached; image-conditioned text enhancement and cross-modal fusion still execute each frame.",
+    "The cache prime and all correctness-only forwards are excluded from the timed benchmark.",
+    "The benchmark region is validated to contain text-cache hits only.",
+    "No approximation, quantization, pruning, retraining, or reduced precision is used.",
+    "Dataset-level accuracy equivalence remains unmeasured."
+  ]
+}

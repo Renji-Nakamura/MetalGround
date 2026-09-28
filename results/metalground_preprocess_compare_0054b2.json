@@ -1,0 +1,37 @@
+{
+  "experiment": "0054b-2",
+  "difference": {
+    "mean_abs": 3.2128817529354904e-06,
+    "median_abs": 1.1920928955078125e-07,
+    "p95_abs": 3.5762786865234375e-07,
+    "p99_abs": 4.76837158203125e-07,
+    "max_abs": 0.017507553100585938,
+    "rmse": 0.00023070730710342984
+  },
+  "pass1_letterbox_difference_u8": {
+    "mean_abs": 0.0,
+    "median_abs": 0.0,
+    "p95_abs": 0.0,
+    "p99_abs": 0.0,
+    "max_abs": 0.0,
+    "rmse": 0.0
+  },
+  "pass1_exact_rgb_triplet_fraction": 1.0,
+  "metal_timing_ms": {
+    "max": 1.406708,
+    "mean": 0.7953572900000002,
+    "median": 0.729,
+    "min": 0.667125,
+    "n": 200,
+    "p90": 1.1008664,
+    "p95": 1.1683892999999999
+  },
+  "original_0054b_preregistered_gates_reapplied_unchanged": {
+    "shape_exact": true,
+    "mean_abs_le_0_010": true,
+    "p99_abs_le_0_050": true,
+    "max_abs_le_0_250": true,
+    "metal_p95_ms_le_3": true
+  },
+  "all_original_gates_pass": true
+}

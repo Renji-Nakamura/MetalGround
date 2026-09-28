@@ -1,0 +1,180 @@
+{
+  "timestamp_utc": "2026-09-15T17:41:09.869493+00:00",
+  "experiment": "0023",
+  "purpose": "Causal ablation of static Swin geometry specialization in the original PyTorch/MPS SDPA path: cache relative-position bias lookup and shifted-window attention mask separately.",
+  "model": "IDEA-Research/grounding-dino-tiny",
+  "device": "mps",
+  "dtype": "float32",
+  "software": {
+    "torch": "2.13.0",
+    "transformers": "5.17.0"
+  },
+  "blocks": {
+    "stage0_block0": {
+      "input_shape": [
+        1,
+        53400,
+        96
+      ],
+      "input_dimensions": [
+        200,
+        267
+      ],
+      "window_size": 7,
+      "shift_size": 0,
+      "padded_dimensions": [
+        203,
+        273
+      ],
+      "has_shift_mask": false,
+      "latency": {
+        "baseline": {
+          "n": 30,
+          "mean_ms": 24.58772786666667,
+          "median_ms": 24.5357295,
+          "p90_ms": 25.9621003,
+          "p95_ms": 26.0886106,
+          "min_ms": 22.705458,
+          "max_ms": 27.89925
+        },
+        "cache_relative_position_bias": {
+          "n": 30,
+          "mean_ms": 24.844687500000003,
+          "median_ms": 24.829645499999998,
+          "p90_ms": 25.2791708,
+          "p95_ms": 25.489183,
+          "min_ms": 23.996666,
+          "max_ms": 26.397084
+        }
+      },
+      "derived": {
+        "speedup_cache_relative_position_bias": 0.9881626984968432
+      },
+      "correctness": {
+        "cache_relative_position_bias": {
+          "shape": [
+            1,
+            53400,
+            96
+          ],
+          "max_abs": 0.0,
+          "mean_abs": 0.0,
+          "rmse": 0.0,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        }
+      }
+    },
+    "stage0_block1": {
+      "input_shape": [
+        1,
+        53400,
+        96
+      ],
+      "input_dimensions": [
+        200,
+        267
+      ],
+      "window_size": 7,
+      "shift_size": 3,
+      "padded_dimensions": [
+        203,
+        273
+      ],
+      "has_shift_mask": true,
+      "latency": {
+        "baseline": {
+          "n": 30,
+          "mean_ms": 32.22936933333333,
+          "median_ms": 32.0197295,
+          "p90_ms": 33.083353900000006,
+          "p95_ms": 34.983739549999996,
+          "min_ms": 28.59075,
+          "max_ms": 38.16825
+        },
+        "cache_relative_position_bias": {
+          "n": 30,
+          "mean_ms": 30.878334666666667,
+          "median_ms": 31.264854,
+          "p90_ms": 31.642820299999997,
+          "p95_ms": 31.6947503,
+          "min_ms": 29.077,
+          "max_ms": 31.8325
+        },
+        "cache_shift_mask": {
+          "n": 30,
+          "mean_ms": 28.639130533333333,
+          "median_ms": 28.594937,
+          "p90_ms": 29.5839128,
+          "p95_ms": 29.6379538,
+          "min_ms": 27.082958,
+          "max_ms": 29.802125
+        },
+        "cache_both": {
+          "n": 30,
+          "mean_ms": 29.81254726666667,
+          "median_ms": 29.606979000000003,
+          "p90_ms": 30.953708300000002,
+          "p95_ms": 31.14383545,
+          "min_ms": 27.570333,
+          "max_ms": 34.299042
+        }
+      },
+      "derived": {
+        "speedup_cache_relative_position_bias": 1.0241445394243645,
+        "speedup_cache_shift_mask": 1.1197691920076618,
+        "speedup_cache_both": 1.0814926271268674,
+        "reduction_cache_both_ms": 2.4127504999999942
+      },
+      "correctness": {
+        "cache_relative_position_bias": {
+          "shape": [
+            1,
+            53400,
+            96
+          ],
+          "max_abs": 0.0,
+          "mean_abs": 0.0,
+          "rmse": 0.0,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        },
+        "cache_shift_mask": {
+          "shape": [
+            1,
+            53400,
+            96
+          ],
+          "max_abs": 0.0,
+          "mean_abs": 0.0,
+          "rmse": 0.0,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        },
+        "cache_both": {
+          "shape": [
+            1,
+            53400,
+            96
+          ],
+          "max_abs": 0.0,
+          "mean_abs": 0.0,
+          "rmse": 0.0,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        }
+      }
+    }
+  },
+  "notes": [
+    "All timed variants remain in the original PyTorch/MPS Swin path and use the model's normal attention backend.",
+    "Only tensors that are deterministic functions of fixed inference geometry and trained weights are precomputed.",
+    "The shift-mask cache is specialized to the captured fixed input resolution.",
+    "No approximation, retraining, pruning, quantization, or reduced precision is used.",
+    "If shift-mask caching recovers most of Experiment 0022's shifted-block gain, backend migration is unnecessary for this optimization."
+  ]
+}

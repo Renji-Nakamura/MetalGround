@@ -1,0 +1,126 @@
+{
+  "timestamp_utc": "2026-09-15T18:00:11.885692+00:00",
+  "experiment": "0027",
+  "purpose": "Same-process paired full-model A/B benchmark of exact fixed-prompt BERT text-backbone caching on MetalGround v2.",
+  "model": "IDEA-Research/grounding-dino-tiny",
+  "device": "mps",
+  "dtype": "float32",
+  "software": {
+    "torch": "2.13.0",
+    "transformers": "5.17.0"
+  },
+  "configuration": {
+    "base_runtime": "MetalGround v2",
+    "cached_module": "model.text_backbone",
+    "prompt": [
+      "a cat",
+      "a dog"
+    ],
+    "warmup_per_mode": 3,
+    "paired_iterations": 30,
+    "order": "alternating baseline->cached / cached->baseline",
+    "cache_scope": "exact output for unchanged tokenized prompt",
+    "approximation": false,
+    "retraining": false,
+    "reduced_precision": false
+  },
+  "latency": {
+    "baseline_v2_same_process": {
+      "n": 30,
+      "mean_ms": 574.7913749666666,
+      "median_ms": 572.1918129999999,
+      "p90_ms": 584.1478916,
+      "p95_ms": 590.6028034999999,
+      "min_ms": 555.416791,
+      "max_ms": 639.383709
+    },
+    "cached_text_backbone_same_process": {
+      "n": 30,
+      "mean_ms": 562.3446320666667,
+      "median_ms": 561.6847084999999,
+      "p90_ms": 572.7756083,
+      "p95_ms": 583.4060773,
+      "min_ms": 544.718542,
+      "max_ms": 584.371958
+    },
+    "paired_delta_ms_baseline_minus_cached": {
+      "n": 30,
+      "mean_ms": 12.446742899999988,
+      "median_ms": 10.303124000000025,
+      "p90_ms": 22.182453599999985,
+      "p95_ms": 32.62627269999995,
+      "min_ms": -12.306749999999965,
+      "max_ms": 89.5726249999999
+    }
+  },
+  "derived": {
+    "speedup_from_medians": 1.0187064100927006,
+    "median_reduction_ms": 10.507104499999969,
+    "median_reduction_percent": 1.836290604178912,
+    "authoritative_v2_median_ms": 542.305167,
+    "authoritative_projection_if_paired_delta_transfers_ms": 532.002043
+  },
+  "correctness": {
+    "logits": {
+      "shape": [
+        1,
+        900,
+        256
+      ],
+      "finite_mask_equal": true,
+      "nan_mask_equal": true,
+      "posinf_mask_equal": true,
+      "neginf_mask_equal": true,
+      "finite_max_abs": 0.0,
+      "finite_mean_abs": 0.0,
+      "finite_rmse": 0.0,
+      "allclose_1e-5": true,
+      "allclose_1e-4": true
+    },
+    "pred_boxes": {
+      "shape": [
+        1,
+        900,
+        4
+      ],
+      "finite_mask_equal": true,
+      "nan_mask_equal": true,
+      "posinf_mask_equal": true,
+      "neginf_mask_equal": true,
+      "finite_max_abs": 0.0,
+      "finite_mean_abs": 0.0,
+      "finite_rmse": 0.0,
+      "allclose_1e-5": true,
+      "allclose_1e-4": true
+    },
+    "topk_cached_vs_baseline": {
+      "k": 900,
+      "set_overlap": 900,
+      "changed_membership_each_side": 0,
+      "rankwise_identical": 900,
+      "score_vector_max_abs": 0.0,
+      "score_vector_mean_abs": 0.0,
+      "mismatched_ranks_zero_based": []
+    }
+  },
+  "cache_validation": {
+    "prime": {
+      "calls": 1,
+      "hits": 0,
+      "misses": 1
+    },
+    "timed_region": {
+      "calls": 60,
+      "hits": 30,
+      "misses": 0,
+      "expected_hits": 30
+    }
+  },
+  "notes": [
+    "Only the initial BERT text-backbone output is cached; image-conditioned text enhancement and fusion still execute every frame.",
+    "Baseline and cached full-model executions share one process and alternate order each pair.",
+    "The experiment assumes the tokenized prompt is unchanged; a production cache must be keyed by prompt/tokenization/model state.",
+    "The paired delta is the causal performance estimate; Experiment 0018's 542.305 ms remains the authoritative v2 headline until a fresh adopted variant is benchmarked.",
+    "No approximation, quantization, pruning, retraining, or reduced precision is used."
+  ]
+}

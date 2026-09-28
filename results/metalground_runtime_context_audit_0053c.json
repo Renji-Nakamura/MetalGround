@@ -1,0 +1,1300 @@
+{
+  "timestamp_utc": "2026-09-17T00:38:08.417684+00:00",
+  "experiment": "0053c",
+  "purpose": "Fresh-process audit of the persistent runtime-context gap, separating OpenCV import, camera initialization, and camera activity during MetalGround runtime construction.",
+  "protocol": {
+    "conditions": [
+      "pristine_no_opencv",
+      "opencv_import_only",
+      "camera_init_then_close_before_build",
+      "camera_active_during_build_then_close"
+    ],
+    "fresh_processes_per_condition": 5,
+    "initial_warmups_per_worker": 3,
+    "post_context_warmups_per_worker": 1,
+    "measurements_per_worker": 8,
+    "round_orders": [
+      [
+        "pristine_no_opencv",
+        "opencv_import_only",
+        "camera_init_then_close_before_build",
+        "camera_active_during_build_then_close"
+      ],
+      [
+        "opencv_import_only",
+        "camera_active_during_build_then_close",
+        "pristine_no_opencv",
+        "camera_init_then_close_before_build"
+      ],
+      [
+        "camera_init_then_close_before_build",
+        "pristine_no_opencv",
+        "camera_active_during_build_then_close",
+        "opencv_import_only"
+      ],
+      [
+        "camera_active_during_build_then_close",
+        "camera_init_then_close_before_build",
+        "opencv_import_only",
+        "pristine_no_opencv"
+      ],
+      [
+        "pristine_no_opencv",
+        "opencv_import_only",
+        "camera_init_then_close_before_build",
+        "camera_active_during_build_then_close"
+      ]
+    ],
+    "inter_worker_settle_s": 2.0,
+    "fixed_image": "assets/input.jpg",
+    "prompt": [
+      "a cat",
+      "a dog"
+    ],
+    "performance_timing": true,
+    "approximation": false,
+    "retraining": false,
+    "quantization": false,
+    "reduced_precision": false
+  },
+  "historical_context_ms": {
+    "exp0047_standalone_authority": 476.360333,
+    "exp0053b_closed_same_process": 525.020313,
+    "exp0053b_live_same_process": 538.6341045
+  },
+  "per_mode_process_medians_ms": {
+    "pristine_no_opencv": [
+      523.039521,
+      510.774667,
+      526.565604,
+      516.8781670000001,
+      534.918417
+    ],
+    "opencv_import_only": [
+      528.7015005000001,
+      530.633938,
+      523.187979,
+      521.5251665,
+      543.0352915
+    ],
+    "camera_init_then_close_before_build": [
+      519.576417,
+      515.7632085,
+      525.7432289999999,
+      518.5752709999999,
+      531.0854795
+    ],
+    "camera_active_during_build_then_close": [
+      523.452729,
+      521.4814585,
+      519.1604995,
+      527.8842085,
+      559.0888335
+    ]
+  },
+  "per_mode_summary_of_process_medians_ms": {
+    "pristine_no_opencv": {
+      "n": 5,
+      "mean": 522.4352752000001,
+      "median": 523.039521,
+      "p90": 531.5772918,
+      "p95": 533.2478543999999,
+      "min": 510.774667,
+      "max": 534.918417
+    },
+    "opencv_import_only": {
+      "n": 5,
+      "mean": 529.4167751,
+      "median": 528.7015005000001,
+      "p90": 538.0747501,
+      "p95": 540.5550208,
+      "min": 521.5251665,
+      "max": 543.0352915
+    },
+    "camera_init_then_close_before_build": {
+      "n": 5,
+      "mean": 522.148721,
+      "median": 519.576417,
+      "p90": 528.9485793,
+      "p95": 530.0170294,
+      "min": 515.7632085,
+      "max": 531.0854795
+    },
+    "camera_active_during_build_then_close": {
+      "n": 5,
+      "mean": 530.2135458,
+      "median": 523.452729,
+      "p90": 546.6069835,
+      "p95": 552.8479085,
+      "min": 519.1604995,
+      "max": 559.0888335
+    }
+  },
+  "round_summaries": [
+    {
+      "round_index": 0,
+      "mode_process_medians_ms": {
+        "pristine_no_opencv": 523.039521,
+        "opencv_import_only": 528.7015005000001,
+        "camera_init_then_close_before_build": 519.576417,
+        "camera_active_during_build_then_close": 523.452729
+      },
+      "contrasts_ms": {
+        "opencv_import_only_minus_pristine": 5.6619795000000295,
+        "camera_init_increment_minus_import_only": -9.125083500000073,
+        "active_during_build_increment_minus_camera_init": 3.8763119999999844,
+        "camera_init_minus_pristine": -3.463104000000044,
+        "active_during_build_minus_pristine": 0.4132079999999405
+      }
+    },
+    {
+      "round_index": 1,
+      "mode_process_medians_ms": {
+        "opencv_import_only": 530.633938,
+        "camera_active_during_build_then_close": 521.4814585,
+        "pristine_no_opencv": 510.774667,
+        "camera_init_then_close_before_build": 515.7632085
+      },
+      "contrasts_ms": {
+        "opencv_import_only_minus_pristine": 19.85927099999992,
+        "camera_init_increment_minus_import_only": -14.870729499999925,
+        "active_during_build_increment_minus_camera_init": 5.718250000000012,
+        "camera_init_minus_pristine": 4.988541499999997,
+        "active_during_build_minus_pristine": 10.706791500000008
+      }
+    },
+    {
+      "round_index": 2,
+      "mode_process_medians_ms": {
+        "camera_init_then_close_before_build": 525.7432289999999,
+        "pristine_no_opencv": 526.565604,
+        "camera_active_during_build_then_close": 519.1604995,
+        "opencv_import_only": 523.187979
+      },
+      "contrasts_ms": {
+        "opencv_import_only_minus_pristine": -3.3776249999999663,
+        "camera_init_increment_minus_import_only": 2.5552499999998872,
+        "active_during_build_increment_minus_camera_init": -6.582729499999914,
+        "camera_init_minus_pristine": -0.8223750000000791,
+        "active_during_build_minus_pristine": -7.405104499999993
+      }
+    },
+    {
+      "round_index": 3,
+      "mode_process_medians_ms": {
+        "camera_active_during_build_then_close": 527.8842085,
+        "camera_init_then_close_before_build": 518.5752709999999,
+        "opencv_import_only": 521.5251665,
+        "pristine_no_opencv": 516.8781670000001
+      },
+      "contrasts_ms": {
+        "opencv_import_only_minus_pristine": 4.646999499999879,
+        "camera_init_increment_minus_import_only": -2.949895500000025,
+        "active_during_build_increment_minus_camera_init": 9.30893750000007,
+        "camera_init_minus_pristine": 1.6971039999998538,
+        "active_during_build_minus_pristine": 11.006041499999924
+      }
+    },
+    {
+      "round_index": 4,
+      "mode_process_medians_ms": {
+        "pristine_no_opencv": 534.918417,
+        "opencv_import_only": 543.0352915,
+        "camera_init_then_close_before_build": 531.0854795,
+        "camera_active_during_build_then_close": 559.0888335
+      },
+      "contrasts_ms": {
+        "opencv_import_only_minus_pristine": 8.116874499999994,
+        "camera_init_increment_minus_import_only": -11.949811999999952,
+        "active_during_build_increment_minus_camera_init": 28.003353999999945,
+        "camera_init_minus_pristine": -3.8329374999999573,
+        "active_during_build_minus_pristine": 24.170416499999988
+      }
+    }
+  ],
+  "pre_registered_contrast_rule": {
+    "definition": "A fresh-process context effect is material iff all 5 round-paired deltas have the same sign and the median round delta magnitude is >=10 ms.",
+    "material_threshold_ms": 10.0,
+    "contrasts": {
+      "opencv_import_only_minus_pristine": {
+        "round_deltas_ms": [
+          5.6619795000000295,
+          19.85927099999992,
+          -3.3776249999999663,
+          4.646999499999879,
+          8.116874499999994
+        ],
+        "median_round_delta_ms": 5.6619795000000295,
+        "all_5_positive": false,
+        "all_5_negative": false,
+        "material_threshold_ms": 10.0,
+        "material_slowdown": false,
+        "material_speedup": false
+      },
+      "camera_init_increment_minus_import_only": {
+        "round_deltas_ms": [
+          -9.125083500000073,
+          -14.870729499999925,
+          2.5552499999998872,
+          -2.949895500000025,
+          -11.949811999999952
+        ],
+        "median_round_delta_ms": -9.125083500000073,
+        "all_5_positive": false,
+        "all_5_negative": false,
+        "material_threshold_ms": 10.0,
+        "material_slowdown": false,
+        "material_speedup": false
+      },
+      "active_during_build_increment_minus_camera_init": {
+        "round_deltas_ms": [
+          3.8763119999999844,
+          5.718250000000012,
+          -6.582729499999914,
+          9.30893750000007,
+          28.003353999999945
+        ],
+        "median_round_delta_ms": 5.718250000000012,
+        "all_5_positive": false,
+        "all_5_negative": false,
+        "material_threshold_ms": 10.0,
+        "material_slowdown": false,
+        "material_speedup": false
+      },
+      "camera_init_minus_pristine": {
+        "round_deltas_ms": [
+          -3.463104000000044,
+          4.988541499999997,
+          -0.8223750000000791,
+          1.6971039999998538,
+          -3.8329374999999573
+        ],
+        "median_round_delta_ms": -0.8223750000000791,
+        "all_5_positive": false,
+        "all_5_negative": false,
+        "material_threshold_ms": 10.0,
+        "material_slowdown": false,
+        "material_speedup": false
+      },
+      "active_during_build_minus_pristine": {
+        "round_deltas_ms": [
+          0.4132079999999405,
+          10.706791500000008,
+          -7.405104499999993,
+          11.006041499999924,
+          24.170416499999988
+        ],
+        "median_round_delta_ms": 10.706791500000008,
+        "all_5_positive": false,
+        "all_5_negative": false,
+        "material_threshold_ms": 10.0,
+        "material_slowdown": false,
+        "material_speedup": false
+      }
+    },
+    "material_slowdown_contrasts": []
+  },
+  "headline_context": {
+    "pristine_median_of_process_medians_ms": 523.039521,
+    "active_build_median_of_process_medians_ms": 523.452729,
+    "pristine_minus_historical_0047_ms": 46.67918800000001,
+    "active_build_minus_pristine_ms": 0.4132079999999405
+  },
+  "workers": [
+    {
+      "worker_mode": "pristine_no_opencv",
+      "pid": 48743,
+      "environment": {
+        "torch": "2.13.0",
+        "device": "mps",
+        "dtype": "float32"
+      },
+      "context": {
+        "mode": "pristine_no_opencv",
+        "opencv_imported": false,
+        "camera_initialized": false,
+        "camera_active_during_build": false
+      },
+      "build_wall_ms": 8118.606208,
+      "initial_warmups_ms": [
+        515.903333,
+        508.133083,
+        512.691084
+      ],
+      "post_context_warmups_ms": [
+        511.154084
+      ],
+      "measurements_ms": [
+        506.148125,
+        516.799459,
+        512.911334,
+        520.639167,
+        532.890583,
+        539.928292,
+        537.404916,
+        525.439875
+      ],
+      "summary_ms": {
+        "n": 8,
+        "mean": 524.020218875,
+        "median": 523.039521,
+        "p90": 538.1619287999999,
+        "p95": 539.0451104,
+        "min": 506.148125,
+        "max": 539.928292
+      },
+      "round_index": 0,
+      "order_index": 0
+    },
+    {
+      "worker_mode": "opencv_import_only",
+      "pid": 48755,
+      "environment": {
+        "torch": "2.13.0",
+        "device": "mps",
+        "dtype": "float32"
+      },
+      "context": {
+        "mode": "opencv_import_only",
+        "opencv_imported": true,
+        "camera_initialized": false,
+        "camera_active_during_build": false
+      },
+      "build_wall_ms": 8187.812583,
+      "initial_warmups_ms": [
+        497.991375,
+        517.088958,
+        515.843625
+      ],
+      "post_context_warmups_ms": [
+        516.970084
+      ],
+      "measurements_ms": [
+        526.615583,
+        529.072792,
+        528.330209,
+        527.746541,
+        548.102542,
+        540.887833,
+        527.591958,
+        532.552292
+      ],
+      "summary_ms": {
+        "n": 8,
+        "mean": 532.61246875,
+        "median": 528.7015005000001,
+        "p90": 543.0522457,
+        "p95": 545.57739385,
+        "min": 526.615583,
+        "max": 548.102542
+      },
+      "round_index": 0,
+      "order_index": 1
+    },
+    {
+      "worker_mode": "camera_init_then_close_before_build",
+      "pid": 48766,
+      "environment": {
+        "torch": "2.13.0",
+        "device": "mps",
+        "dtype": "float32"
+      },
+      "context": {
+        "mode": "camera_init_then_close_before_build",
+        "opencv_imported": true,
+        "camera_initialized": true,
+        "camera_active_during_build": false,
+        "camera_init": {
+          "backend": "AVFOUNDATION",
+          "actual_size": [
+            1280,
+            720
+          ],
+          "actual_fps": 30.0,
+          "successful_reads": 3
+        }
+      },
+      "build_wall_ms": 8194.421625,
+      "initial_warmups_ms": [
+        514.287625,
+        532.8935,
+        538.580167
+      ],
+      "post_context_warmups_ms": [
+        544.04
+      ],
+      "measurements_ms": [
+        527.153125,
+        538.26925,
+        528.645167,
+        505.010833,
+        518.498125,
+        519.079167,
+        516.766125,
+        520.073667
+      ],
+      "summary_ms": {
+        "n": 8,
+        "mean": 521.686932375,
+        "median": 519.576417,
+        "p90": 531.5323919,
+        "p95": 534.90082095,
+        "min": 505.010833,
+        "max": 538.26925
+      },
+      "round_index": 0,
+      "order_index": 2
+    },
+    {
+      "worker_mode": "camera_active_during_build_then_close",
+      "pid": 48778,
+      "environment": {
+        "torch": "2.13.0",
+        "device": "mps",
+        "dtype": "float32"
+      },
+      "context": {
+        "mode": "camera_active_during_build_then_close",
+        "opencv_imported": true,
+        "camera_initialized": true,
+        "camera_active_during_build": true,
+        "camera_active": {
+          "backend": "AVFOUNDATION",
+          "actual_size": [
+            1280,
+            720
+          ],
+          "actual_fps": 30.0
+        },
+        "active_camera_frames_during_build_and_warmup": 300,
+        "active_camera_read_failures": 0
+      },
+      "build_wall_ms": 8244.200292,
+      "initial_warmups_ms": [
+        516.127916,
+        533.91625,
+        523.044166
+      ],
+      "post_context_warmups_ms": [
+        516.477084
+      ],
+      "measurements_ms": [
+        516.568917,
+        517.912833,
+        516.130125,
+        516.083958,
+        532.281833,
+        528.992625,
+        538.6785,
+        551.258125
+      ],
+      "summary_ms": {
+        "n": 8,
+        "mean": 527.2383645,
+        "median": 523.452729,
+        "p90": 542.4523875,
+        "p95": 546.8552562499999,
+        "min": 516.083958,
+        "max": 551.258125
+      },
+      "round_index": 0,
+      "order_index": 3
+    },
+    {
+      "worker_mode": "opencv_import_only",
+      "pid": 48790,
+      "environment": {
+        "torch": "2.13.0",
+        "device": "mps",
+        "dtype": "float32"
+      },
+      "context": {
+        "mode": "opencv_import_only",
+        "opencv_imported": true,
+        "camera_initialized": false,
+        "camera_active_during_build": false
+      },
+      "build_wall_ms": 7924.673458,
+      "initial_warmups_ms": [
+        500.0475,
+        497.7025,
+        502.009625
+      ],
+      "post_context_warmups_ms": [
+        495.801958
+      ],
+      "measurements_ms": [
+        504.418,
+        520.839625,
+        534.06725,
+        531.847417,
+        527.641333,
+        567.672208,
+        554.365083,
+        529.420459
+      ],
+      "summary_ms": {
+        "n": 8,
+        "mean": 533.783921875,
+        "median": 530.633938,
+        "p90": 558.3572205,
+        "p95": 563.01471425,
+        "min": 504.418,
+        "max": 567.672208
+      },
+      "round_index": 1,
+      "order_index": 0
+    },
+    {
+      "worker_mode": "camera_active_during_build_then_close",
+      "pid": 48802,
+      "environment": {
+        "torch": "2.13.0",
+        "device": "mps",
+        "dtype": "float32"
+      },
+      "context": {
+        "mode": "camera_active_during_build_then_close",
+        "opencv_imported": true,
+        "camera_initialized": true,
+        "camera_active_during_build": true,
+        "camera_active": {
+          "backend": "AVFOUNDATION",
+          "actual_size": [
+            1280,
+            720
+          ],
+          "actual_fps": 30.0
+        },
+        "active_camera_frames_during_build_and_warmup": 294,
+        "active_camera_read_failures": 0
+      },
+      "build_wall_ms": 7993.716458,
+      "initial_warmups_ms": [
+        536.099458,
+        538.10825,
+        530.989833
+      ],
+      "post_context_warmups_ms": [
+        538.081667
+      ],
+      "measurements_ms": [
+        546.311417,
+        520.837208,
+        529.3955,
+        559.899625,
+        522.125709,
+        517.454417,
+        517.593167,
+        507.707083
+      ],
+      "summary_ms": {
+        "n": 8,
+        "mean": 527.66551575,
+        "median": 521.4814585,
+        "p90": 550.3878794,
+        "p95": 555.1437522,
+        "min": 507.707083,
+        "max": 559.899625
+      },
+      "round_index": 1,
+      "order_index": 1
+    },
+    {
+      "worker_mode": "pristine_no_opencv",
+      "pid": 48812,
+      "environment": {
+        "torch": "2.13.0",
+        "device": "mps",
+        "dtype": "float32"
+      },
+      "context": {
+        "mode": "pristine_no_opencv",
+        "opencv_imported": false,
+        "camera_initialized": false,
+        "camera_active_during_build": false
+      },
+      "build_wall_ms": 7777.736583,
+      "initial_warmups_ms": [
+        536.41175,
+        543.103292,
+        537.608375
+      ],
+      "post_context_warmups_ms": [
+        520.5595
+      ],
+      "measurements_ms": [
+        521.229917,
+        517.436542,
+        506.48,
+        505.624708,
+        506.310625,
+        504.038833,
+        515.069334,
+        517.212417
+      ],
+      "summary_ms": {
+        "n": 8,
+        "mean": 511.675297,
+        "median": 510.774667,
+        "p90": 518.5745545,
+        "p95": 519.90223575,
+        "min": 504.038833,
+        "max": 521.229917
+      },
+      "round_index": 1,
+      "order_index": 2
+    },
+    {
+      "worker_mode": "camera_init_then_close_before_build",
+      "pid": 48824,
+      "environment": {
+        "torch": "2.13.0",
+        "device": "mps",
+        "dtype": "float32"
+      },
+      "context": {
+        "mode": "camera_init_then_close_before_build",
+        "opencv_imported": true,
+        "camera_initialized": true,
+        "camera_active_during_build": false,
+        "camera_init": {
+          "backend": "AVFOUNDATION",
+          "actual_size": [
+            1280,
+            720
+          ],
+          "actual_fps": 30.0,
+          "successful_reads": 3
+        }
+      },
+      "build_wall_ms": 8076.393375,
+      "initial_warmups_ms": [
+        528.507583,
+        515.066959,
+        519.47275
+      ],
+      "post_context_warmups_ms": [
+        512.512667
+      ],
+      "measurements_ms": [
+        507.443958,
+        508.606209,
+        507.105042,
+        513.779,
+        518.4165,
+        517.747417,
+        520.04375,
+        550.190208
+      ],
+      "summary_ms": {
+        "n": 8,
+        "mean": 517.9165105,
+        "median": 515.7632085,
+        "p90": 529.0876874,
+        "p95": 539.6389477,
+        "min": 507.105042,
+        "max": 550.190208
+      },
+      "round_index": 1,
+      "order_index": 3
+    },
+    {
+      "worker_mode": "camera_init_then_close_before_build",
+      "pid": 48836,
+      "environment": {
+        "torch": "2.13.0",
+        "device": "mps",
+        "dtype": "float32"
+      },
+      "context": {
+        "mode": "camera_init_then_close_before_build",
+        "opencv_imported": true,
+        "camera_initialized": true,
+        "camera_active_during_build": false,
+        "camera_init": {
+          "backend": "AVFOUNDATION",
+          "actual_size": [
+            1280,
+            720
+          ],
+          "actual_fps": 30.0,
+          "successful_reads": 3
+        }
+      },
+      "build_wall_ms": 7902.625584,
+      "initial_warmups_ms": [
+        512.132292,
+        512.279333,
+        527.903083
+      ],
+      "post_context_warmups_ms": [
+        523.974083
+      ],
+      "measurements_ms": [
+        529.6345,
+        533.986042,
+        533.389,
+        530.160292,
+        518.887166,
+        517.851375,
+        521.851958,
+        505.118458
+      ],
+      "summary_ms": {
+        "n": 8,
+        "mean": 523.859848875,
+        "median": 525.7432289999999,
+        "p90": 533.5681126,
+        "p95": 533.7770773,
+        "min": 505.118458,
+        "max": 533.986042
+      },
+      "round_index": 2,
+      "order_index": 0
+    },
+    {
+      "worker_mode": "pristine_no_opencv",
+      "pid": 48846,
+      "environment": {
+        "torch": "2.13.0",
+        "device": "mps",
+        "dtype": "float32"
+      },
+      "context": {
+        "mode": "pristine_no_opencv",
+        "opencv_imported": false,
+        "camera_initialized": false,
+        "camera_active_during_build": false
+      },
+      "build_wall_ms": 7850.805042,
+      "initial_warmups_ms": [
+        525.483167,
+        528.666375,
+        531.5255
+      ],
+      "post_context_warmups_ms": [
+        527.314334
+      ],
+      "measurements_ms": [
+        543.763791,
+        546.235458,
+        521.128708,
+        532.0025,
+        533.200209,
+        513.858875,
+        508.001875,
+        507.545417
+      ],
+      "summary_ms": {
+        "n": 8,
+        "mean": 525.717104125,
+        "median": 526.565604,
+        "p90": 544.5052911,
+        "p95": 545.37037455,
+        "min": 507.545417,
+        "max": 546.235458
+      },
+      "round_index": 2,
+      "order_index": 1
+    },
+    {
+      "worker_mode": "camera_active_during_build_then_close",
+      "pid": 48858,
+      "environment": {
+        "torch": "2.13.0",
+        "device": "mps",
+        "dtype": "float32"
+      },
+      "context": {
+        "mode": "camera_active_during_build_then_close",
+        "opencv_imported": true,
+        "camera_initialized": true,
+        "camera_active_during_build": true,
+        "camera_active": {
+          "backend": "AVFOUNDATION",
+          "actual_size": [
+            1280,
+            720
+          ],
+          "actual_fps": 30.0
+        },
+        "active_camera_frames_during_build_and_warmup": 302,
+        "active_camera_read_failures": 0
+      },
+      "build_wall_ms": 8209.029542,
+      "initial_warmups_ms": [
+        548.359209,
+        565.322208,
+        544.013166
+      ],
+      "post_context_warmups_ms": [
+        516.069834
+      ],
+      "measurements_ms": [
+        518.858667,
+        522.058209,
+        517.893,
+        519.373208,
+        519.812708,
+        524.252084,
+        518.947791,
+        516.57175
+      ],
+      "summary_ms": {
+        "n": 8,
+        "mean": 519.7209271250001,
+        "median": 519.1604995,
+        "p90": 522.7163715,
+        "p95": 523.48422775,
+        "min": 516.57175,
+        "max": 524.252084
+      },
+      "round_index": 2,
+      "order_index": 2
+    },
+    {
+      "worker_mode": "opencv_import_only",
+      "pid": 48870,
+      "environment": {
+        "torch": "2.13.0",
+        "device": "mps",
+        "dtype": "float32"
+      },
+      "context": {
+        "mode": "opencv_import_only",
+        "opencv_imported": true,
+        "camera_initialized": false,
+        "camera_active_during_build": false
+      },
+      "build_wall_ms": 7934.584209,
+      "initial_warmups_ms": [
+        504.037375,
+        510.683084,
+        512.178583
+      ],
+      "post_context_warmups_ms": [
+        512.369875
+      ],
+      "measurements_ms": [
+        513.374834,
+        518.90775,
+        521.382625,
+        520.844542,
+        532.885125,
+        524.993333,
+        549.000209,
+        545.734917
+      ],
+      "summary_ms": {
+        "n": 8,
+        "mean": 528.390416875,
+        "median": 523.187979,
+        "p90": 546.7145046,
+        "p95": 547.8573568,
+        "min": 513.374834,
+        "max": 549.000209
+      },
+      "round_index": 2,
+      "order_index": 3
+    },
+    {
+      "worker_mode": "camera_active_during_build_then_close",
+      "pid": 48879,
+      "environment": {
+        "torch": "2.13.0",
+        "device": "mps",
+        "dtype": "float32"
+      },
+      "context": {
+        "mode": "camera_active_during_build_then_close",
+        "opencv_imported": true,
+        "camera_initialized": true,
+        "camera_active_during_build": true,
+        "camera_active": {
+          "backend": "AVFOUNDATION",
+          "actual_size": [
+            1280,
+            720
+          ],
+          "actual_fps": 30.0
+        },
+        "active_camera_frames_during_build_and_warmup": 292,
+        "active_camera_read_failures": 0
+      },
+      "build_wall_ms": 7956.0355,
+      "initial_warmups_ms": [
+        526.34725,
+        537.817125,
+        560.732833
+      ],
+      "post_context_warmups_ms": [
+        535.337208
+      ],
+      "measurements_ms": [
+        543.678625,
+        543.679917,
+        538.671834,
+        519.175375,
+        528.740042,
+        527.028375,
+        516.908959,
+        519.121708
+      ],
+      "summary_ms": {
+        "n": 8,
+        "mean": 529.625604375,
+        "median": 527.8842085,
+        "p90": 543.6790126,
+        "p95": 543.6794648,
+        "min": 516.908959,
+        "max": 543.679917
+      },
+      "round_index": 3,
+      "order_index": 0
+    },
+    {
+      "worker_mode": "camera_init_then_close_before_build",
+      "pid": 48891,
+      "environment": {
+        "torch": "2.13.0",
+        "device": "mps",
+        "dtype": "float32"
+      },
+      "context": {
+        "mode": "camera_init_then_close_before_build",
+        "opencv_imported": true,
+        "camera_initialized": true,
+        "camera_active_during_build": false,
+        "camera_init": {
+          "backend": "AVFOUNDATION",
+          "actual_size": [
+            1280,
+            720
+          ],
+          "actual_fps": 30.0,
+          "successful_reads": 3
+        }
+      },
+      "build_wall_ms": 7791.095459,
+      "initial_warmups_ms": [
+        532.261875,
+        528.192458,
+        519.782041
+      ],
+      "post_context_warmups_ms": [
+        530.77875
+      ],
+      "measurements_ms": [
+        527.595458,
+        518.54575,
+        517.767375,
+        518.604792,
+        505.62725,
+        515.187292,
+        527.362833,
+        538.027
+      ],
+      "summary_ms": {
+        "n": 8,
+        "mean": 521.08971875,
+        "median": 518.5752709999999,
+        "p90": 530.7249206,
+        "p95": 534.3759603,
+        "min": 505.62725,
+        "max": 538.027
+      },
+      "round_index": 3,
+      "order_index": 1
+    },
+    {
+      "worker_mode": "opencv_import_only",
+      "pid": 48903,
+      "environment": {
+        "torch": "2.13.0",
+        "device": "mps",
+        "dtype": "float32"
+      },
+      "context": {
+        "mode": "opencv_import_only",
+        "opencv_imported": true,
+        "camera_initialized": false,
+        "camera_active_during_build": false
+      },
+      "build_wall_ms": 7860.395958,
+      "initial_warmups_ms": [
+        517.242375,
+        517.043666,
+        512.267333
+      ],
+      "post_context_warmups_ms": [
+        506.043291
+      ],
+      "measurements_ms": [
+        503.265041,
+        508.34975,
+        526.17925,
+        514.944958,
+        518.152125,
+        524.898208,
+        532.291,
+        528.448375
+      ],
+      "summary_ms": {
+        "n": 8,
+        "mean": 519.566088375,
+        "median": 521.5251665,
+        "p90": 529.6011625000001,
+        "p95": 530.94608125,
+        "min": 503.265041,
+        "max": 532.291
+      },
+      "round_index": 3,
+      "order_index": 2
+    },
+    {
+      "worker_mode": "pristine_no_opencv",
+      "pid": 48914,
+      "environment": {
+        "torch": "2.13.0",
+        "device": "mps",
+        "dtype": "float32"
+      },
+      "context": {
+        "mode": "pristine_no_opencv",
+        "opencv_imported": false,
+        "camera_initialized": false,
+        "camera_active_during_build": false
+      },
+      "build_wall_ms": 7831.596625,
+      "initial_warmups_ms": [
+        526.580875,
+        518.780209,
+        524.238708
+      ],
+      "post_context_warmups_ms": [
+        519.642708
+      ],
+      "measurements_ms": [
+        515.186959,
+        506.151125,
+        509.176375,
+        507.963459,
+        521.824083,
+        518.569375,
+        519.224667,
+        537.146709
+      ],
+      "summary_ms": {
+        "n": 8,
+        "mean": 516.905344,
+        "median": 516.8781670000001,
+        "p90": 526.4208708,
+        "p95": 531.7837899,
+        "min": 506.151125,
+        "max": 537.146709
+      },
+      "round_index": 3,
+      "order_index": 3
+    },
+    {
+      "worker_mode": "pristine_no_opencv",
+      "pid": 48924,
+      "environment": {
+        "torch": "2.13.0",
+        "device": "mps",
+        "dtype": "float32"
+      },
+      "context": {
+        "mode": "pristine_no_opencv",
+        "opencv_imported": false,
+        "camera_initialized": false,
+        "camera_active_during_build": false
+      },
+      "build_wall_ms": 7775.389375,
+      "initial_warmups_ms": [
+        517.956792,
+        523.820625,
+        531.578
+      ],
+      "post_context_warmups_ms": [
+        524.902083
+      ],
+      "measurements_ms": [
+        520.438458,
+        532.937917,
+        536.117042,
+        550.861709,
+        533.719792,
+        544.959,
+        545.555583,
+        523.049709
+      ],
+      "summary_ms": {
+        "n": 8,
+        "mean": 535.9549012499999,
+        "median": 534.918417,
+        "p90": 547.1474208,
+        "p95": 549.0045649,
+        "min": 520.438458,
+        "max": 550.861709
+      },
+      "round_index": 4,
+      "order_index": 0
+    },
+    {
+      "worker_mode": "opencv_import_only",
+      "pid": 48936,
+      "environment": {
+        "torch": "2.13.0",
+        "device": "mps",
+        "dtype": "float32"
+      },
+      "context": {
+        "mode": "opencv_import_only",
+        "opencv_imported": true,
+        "camera_initialized": false,
+        "camera_active_during_build": false
+      },
+      "build_wall_ms": 8107.829875,
+      "initial_warmups_ms": [
+        512.5765,
+        515.912542,
+        522.224042
+      ],
+      "post_context_warmups_ms": [
+        531.007375
+      ],
+      "measurements_ms": [
+        539.408084,
+        543.680625,
+        563.155791,
+        578.212584,
+        555.446709,
+        542.389958,
+        532.375875,
+        524.132541
+      ],
+      "summary_ms": {
+        "n": 8,
+        "mean": 547.350270875,
+        "median": 543.0352915,
+        "p90": 567.6728289,
+        "p95": 572.94270645,
+        "min": 524.132541,
+        "max": 578.212584
+      },
+      "round_index": 4,
+      "order_index": 1
+    },
+    {
+      "worker_mode": "camera_init_then_close_before_build",
+      "pid": 48946,
+      "environment": {
+        "torch": "2.13.0",
+        "device": "mps",
+        "dtype": "float32"
+      },
+      "context": {
+        "mode": "camera_init_then_close_before_build",
+        "opencv_imported": true,
+        "camera_initialized": true,
+        "camera_active_during_build": false,
+        "camera_init": {
+          "backend": "AVFOUNDATION",
+          "actual_size": [
+            1280,
+            720
+          ],
+          "actual_fps": 30.0,
+          "successful_reads": 3
+        }
+      },
+      "build_wall_ms": 8220.574125,
+      "initial_warmups_ms": [
+        554.726,
+        549.106458,
+        541.131167
+      ],
+      "post_context_warmups_ms": [
+        540.203958
+      ],
+      "measurements_ms": [
+        535.350084,
+        513.555833,
+        516.510791,
+        530.887709,
+        520.103459,
+        531.28325,
+        531.735583,
+        532.478708
+      ],
+      "summary_ms": {
+        "n": 8,
+        "mean": 526.488177125,
+        "median": 531.0854795,
+        "p90": 533.3401208,
+        "p95": 534.3451024,
+        "min": 513.555833,
+        "max": 535.350084
+      },
+      "round_index": 4,
+      "order_index": 2
+    },
+    {
+      "worker_mode": "camera_active_during_build_then_close",
+      "pid": 48958,
+      "environment": {
+        "torch": "2.13.0",
+        "device": "mps",
+        "dtype": "float32"
+      },
+      "context": {
+        "mode": "camera_active_during_build_then_close",
+        "opencv_imported": true,
+        "camera_initialized": true,
+        "camera_active_during_build": true,
+        "camera_active": {
+          "backend": "AVFOUNDATION",
+          "actual_size": [
+            1280,
+            720
+          ],
+          "actual_fps": 30.0
+        },
+        "active_camera_frames_during_build_and_warmup": 307,
+        "active_camera_read_failures": 0
+      },
+      "build_wall_ms": 8438.719042,
+      "initial_warmups_ms": [
+        562.316208,
+        547.0115,
+        557.094459
+      ],
+      "post_context_warmups_ms": [
+        538.155
+      ],
+      "measurements_ms": [
+        553.899042,
+        553.282542,
+        557.772292,
+        582.921416,
+        588.176334,
+        560.405375,
+        563.81875,
+        529.162917
+      ],
+      "summary_ms": {
+        "n": 8,
+        "mean": 561.1798335,
+        "median": 559.0888335,
+        "p90": 584.4978914,
+        "p95": 586.3371127,
+        "min": 529.162917,
+        "max": 588.176334
+      },
+      "round_index": 4,
+      "order_index": 3
+    }
+  ]
+}

@@ -1,0 +1,703 @@
+{
+  "timestamp_utc": "2026-09-16T04:48:42.658077+00:00",
+  "experiment": "0048",
+  "purpose": "Exact real-workload microbenchmark of every remaining Swin MLP in stages 1-3 after adopting the robust stage0 MLX MLP optimization from Experiment 0047.",
+  "model": "IDEA-Research/grounding-dino-tiny",
+  "device": "mps",
+  "dtype": "float32",
+  "software": {
+    "torch": "2.13.0",
+    "transformers": "5.17.0"
+  },
+  "configuration": {
+    "runtime_during_capture": "current adopted runtime including stage0 block0/block1 compiled MLX MLPs from Experiment 0047",
+    "targets": [
+      "stage1.block0.mlp",
+      "stage1.block1.mlp",
+      "stage2.block0.mlp",
+      "stage2.block1.mlp",
+      "stage2.block2.mlp",
+      "stage2.block3.mlp",
+      "stage2.block4.mlp",
+      "stage2.block5.mlp",
+      "stage3.block0.mlp",
+      "stage3.block1.mlp"
+    ],
+    "candidate_per_target": "compiled MLX fc1 -> exact erf GELU -> fc2",
+    "fresh_torch_to_mlx_bridge_each_call": true,
+    "final_mlx_to_torch_bridge_each_call": true,
+    "warmup_per_target": 2,
+    "pairs_per_target": 20,
+    "approximation": false,
+    "retraining": false,
+    "reduced_precision": false
+  },
+  "results": [
+    {
+      "name": "stage1.block0.mlp",
+      "input_shape": [
+        1,
+        13400,
+        192
+      ],
+      "correctness": {
+        "shape": [
+          1,
+          13400,
+          192
+        ],
+        "max_abs": 2.384185791015625e-06,
+        "mean_abs": 1.9405742079925403e-07,
+        "rmse": 2.5326917807433347e-07,
+        "allclose_1e-5": true,
+        "allclose_1e-4": true,
+        "finite": true
+      },
+      "correctness_gate_passed": true,
+      "latency": {
+        "current_pytorch_mps": {
+          "n": 20,
+          "mean_ms": 5.28604565,
+          "median_ms": 5.142291,
+          "p90_ms": 5.928958300000001,
+          "p95_ms": 6.14081845,
+          "min_ms": 4.723583,
+          "max_ms": 6.603667
+        },
+        "compiled_mlx_bridge_included": {
+          "n": 20,
+          "mean_ms": 5.4597479,
+          "median_ms": 5.2238745,
+          "p90_ms": 6.231392,
+          "p95_ms": 6.273094050000001,
+          "min_ms": 4.765958,
+          "max_ms": 6.535333
+        },
+        "paired_delta_current_minus_mlx": {
+          "n": 20,
+          "mean_ms": -0.1737022500000001,
+          "median_ms": -0.09425049999999979,
+          "p90_ms": 0.8047798000000006,
+          "p95_ms": 0.9088962000000008,
+          "min_ms": -1.7880829999999994,
+          "max_ms": 1.5283759999999997
+        }
+      },
+      "derived": {
+        "speedup_from_medians": 0.984382568915084,
+        "median_difference_of_marginals_ms": -0.08158349999999981,
+        "paired_delta_median_ms": -0.09425049999999979,
+        "paired_delta_mean_ms": -0.1737022500000001,
+        "reduction_percent_from_medians": -1.5865204827964774
+      },
+      "stage_index": 1,
+      "block_index": 0
+    },
+    {
+      "name": "stage1.block1.mlp",
+      "input_shape": [
+        1,
+        13400,
+        192
+      ],
+      "correctness": {
+        "shape": [
+          1,
+          13400,
+          192
+        ],
+        "max_abs": 2.6226043701171875e-06,
+        "mean_abs": 2.651192403391178e-07,
+        "rmse": 3.3734519888639625e-07,
+        "allclose_1e-5": true,
+        "allclose_1e-4": true,
+        "finite": true
+      },
+      "correctness_gate_passed": true,
+      "latency": {
+        "current_pytorch_mps": {
+          "n": 20,
+          "mean_ms": 5.7479855,
+          "median_ms": 4.9645005,
+          "p90_ms": 6.3842581000000065,
+          "p95_ms": 10.366067300000003,
+          "min_ms": 4.647584,
+          "max_ms": 13.208625
+        },
+        "compiled_mlx_bridge_included": {
+          "n": 20,
+          "mean_ms": 5.95716245,
+          "median_ms": 5.181875,
+          "p90_ms": 6.249221100000001,
+          "p95_ms": 6.788712200000008,
+          "min_ms": 4.751417,
+          "max_ms": 16.666417
+        },
+        "paired_delta_current_minus_mlx": {
+          "n": 20,
+          "mean_ms": -0.20917694999999994,
+          "median_ms": -0.2726454999999999,
+          "p90_ms": 0.8735708,
+          "p95_ms": 1.4416413500000047,
+          "min_ms": -6.449957999999999,
+          "max_ms": 7.947875
+        }
+      },
+      "derived": {
+        "speedup_from_medians": 0.9580509950548788,
+        "median_difference_of_marginals_ms": -0.21737450000000003,
+        "paired_delta_median_ms": -0.2726454999999999,
+        "paired_delta_mean_ms": -0.20917694999999994,
+        "reduction_percent_from_medians": -4.37857746212333
+      },
+      "stage_index": 1,
+      "block_index": 1
+    },
+    {
+      "name": "stage2.block0.mlp",
+      "input_shape": [
+        1,
+        3350,
+        384
+      ],
+      "correctness": {
+        "shape": [
+          1,
+          3350,
+          384
+        ],
+        "max_abs": 7.3909759521484375e-06,
+        "mean_abs": 3.2771143310128537e-07,
+        "rmse": 4.5470221721188864e-07,
+        "allclose_1e-5": true,
+        "allclose_1e-4": true,
+        "finite": true
+      },
+      "correctness_gate_passed": true,
+      "latency": {
+        "current_pytorch_mps": {
+          "n": 20,
+          "mean_ms": 4.3569854,
+          "median_ms": 4.208688,
+          "p90_ms": 4.9415958,
+          "p95_ms": 5.0101559,
+          "min_ms": 3.922917,
+          "max_ms": 5.291791
+        },
+        "compiled_mlx_bridge_included": {
+          "n": 20,
+          "mean_ms": 4.55357505,
+          "median_ms": 4.366583,
+          "p90_ms": 5.3133206,
+          "p95_ms": 5.3469298,
+          "min_ms": 4.144959,
+          "max_ms": 5.53875
+        },
+        "paired_delta_current_minus_mlx": {
+          "n": 20,
+          "mean_ms": -0.19658965000000006,
+          "median_ms": -0.06137449999999989,
+          "p90_ms": 0.5585454999999994,
+          "p95_ms": 0.5810141999999999,
+          "min_ms": -1.357666,
+          "max_ms": 0.9715819999999997
+        }
+      },
+      "derived": {
+        "speedup_from_medians": 0.9638401468608292,
+        "median_difference_of_marginals_ms": -0.1578949999999999,
+        "paired_delta_median_ms": -0.06137449999999989,
+        "paired_delta_mean_ms": -0.19658965000000006,
+        "reduction_percent_from_medians": -3.7516442178655174
+      },
+      "stage_index": 2,
+      "block_index": 0
+    },
+    {
+      "name": "stage2.block1.mlp",
+      "input_shape": [
+        1,
+        3350,
+        384
+      ],
+      "correctness": {
+        "shape": [
+          1,
+          3350,
+          384
+        ],
+        "max_abs": 6.556510925292969e-06,
+        "mean_abs": 3.377737698428973e-07,
+        "rmse": 4.4895423911839316e-07,
+        "allclose_1e-5": true,
+        "allclose_1e-4": true,
+        "finite": true
+      },
+      "correctness_gate_passed": true,
+      "latency": {
+        "current_pytorch_mps": {
+          "n": 20,
+          "mean_ms": 4.4539395,
+          "median_ms": 4.3730835,
+          "p90_ms": 4.9405578000000006,
+          "p95_ms": 5.046321450000001,
+          "min_ms": 4.092625,
+          "max_ms": 5.300208
+        },
+        "compiled_mlx_bridge_included": {
+          "n": 20,
+          "mean_ms": 4.85598535,
+          "median_ms": 4.593771,
+          "p90_ms": 5.988374700000001,
+          "p95_ms": 6.230583350000001,
+          "min_ms": 4.124625,
+          "max_ms": 6.443542
+        },
+        "paired_delta_current_minus_mlx": {
+          "n": 20,
+          "mean_ms": -0.40204585000000004,
+          "median_ms": -0.24229149999999988,
+          "p90_ms": 0.22558750000000027,
+          "p95_ms": 0.3387063000000003,
+          "min_ms": -2.0922090000000004,
+          "max_ms": 0.6561259999999995
+        }
+      },
+      "derived": {
+        "speedup_from_medians": 0.9519594032876257,
+        "median_difference_of_marginals_ms": -0.22068750000000037,
+        "paired_delta_median_ms": -0.24229149999999988,
+        "paired_delta_mean_ms": -0.40204585000000004,
+        "reduction_percent_from_medians": -5.0464963680661565
+      },
+      "stage_index": 2,
+      "block_index": 1
+    },
+    {
+      "name": "stage2.block2.mlp",
+      "input_shape": [
+        1,
+        3350,
+        384
+      ],
+      "correctness": {
+        "shape": [
+          1,
+          3350,
+          384
+        ],
+        "max_abs": 1.1444091796875e-05,
+        "mean_abs": 3.813706541677675e-07,
+        "rmse": 4.972363853994466e-07,
+        "allclose_1e-5": true,
+        "allclose_1e-4": true,
+        "finite": true
+      },
+      "correctness_gate_passed": true,
+      "latency": {
+        "current_pytorch_mps": {
+          "n": 20,
+          "mean_ms": 4.51037505,
+          "median_ms": 4.4179585,
+          "p90_ms": 4.9873211,
+          "p95_ms": 5.1196976,
+          "min_ms": 4.095292,
+          "max_ms": 5.17175
+        },
+        "compiled_mlx_bridge_included": {
+          "n": 20,
+          "mean_ms": 4.656816650000001,
+          "median_ms": 4.400562000000001,
+          "p90_ms": 5.234370800000001,
+          "p95_ms": 5.660383,
+          "min_ms": 4.203875,
+          "max_ms": 5.846583
+        },
+        "paired_delta_current_minus_mlx": {
+          "n": 20,
+          "mean_ms": -0.14644160000000003,
+          "median_ms": -0.019749500000000086,
+          "p90_ms": 0.6879919999999999,
+          "p95_ms": 0.7242815500000002,
+          "min_ms": -1.416875,
+          "max_ms": 0.8024580000000006
+        }
+      },
+      "derived": {
+        "speedup_from_medians": 1.0039532450627895,
+        "median_difference_of_marginals_ms": 0.01739649999999937,
+        "paired_delta_median_ms": -0.019749500000000086,
+        "paired_delta_mean_ms": -0.14644160000000003,
+        "reduction_percent_from_medians": 0.39376784548789606
+      },
+      "stage_index": 2,
+      "block_index": 2
+    },
+    {
+      "name": "stage2.block3.mlp",
+      "input_shape": [
+        1,
+        3350,
+        384
+      ],
+      "correctness": {
+        "shape": [
+          1,
+          3350,
+          384
+        ],
+        "max_abs": 1.1444091796875e-05,
+        "mean_abs": 4.173992351752531e-07,
+        "rmse": 5.351802201403189e-07,
+        "allclose_1e-5": true,
+        "allclose_1e-4": true,
+        "finite": true
+      },
+      "correctness_gate_passed": true,
+      "latency": {
+        "current_pytorch_mps": {
+          "n": 20,
+          "mean_ms": 4.4248397,
+          "median_ms": 4.170479,
+          "p90_ms": 5.067829200000001,
+          "p95_ms": 5.57658155,
+          "min_ms": 3.916292,
+          "max_ms": 6.294583
+        },
+        "compiled_mlx_bridge_included": {
+          "n": 20,
+          "mean_ms": 5.6467209,
+          "median_ms": 5.317521,
+          "p90_ms": 8.166529200000003,
+          "p95_ms": 9.771719050000002,
+          "min_ms": 4.238333,
+          "max_ms": 10.190708
+        },
+        "paired_delta_current_minus_mlx": {
+          "n": 20,
+          "mean_ms": -1.2218812000000001,
+          "median_ms": -1.0900410000000003,
+          "p90_ms": 0.08616720000000001,
+          "p95_ms": 0.18073270000000044,
+          "min_ms": -5.203583000000001,
+          "max_ms": 0.18912500000000065
+        }
+      },
+      "derived": {
+        "speedup_from_medians": 0.7842900855492625,
+        "median_difference_of_marginals_ms": -1.147042,
+        "paired_delta_median_ms": -1.0900410000000003,
+        "paired_delta_mean_ms": -1.2218812000000001,
+        "reduction_percent_from_medians": -27.503843083732104
+      },
+      "stage_index": 2,
+      "block_index": 3
+    },
+    {
+      "name": "stage2.block4.mlp",
+      "input_shape": [
+        1,
+        3350,
+        384
+      ],
+      "correctness": {
+        "shape": [
+          1,
+          3350,
+          384
+        ],
+        "max_abs": 1.52587890625e-05,
+        "mean_abs": 4.949230287820683e-07,
+        "rmse": 6.432176746784535e-07,
+        "allclose_1e-5": true,
+        "allclose_1e-4": true,
+        "finite": true
+      },
+      "correctness_gate_passed": true,
+      "latency": {
+        "current_pytorch_mps": {
+          "n": 20,
+          "mean_ms": 4.5988397,
+          "median_ms": 4.335708,
+          "p90_ms": 5.366146499999999,
+          "p95_ms": 5.4929402,
+          "min_ms": 4.082709,
+          "max_ms": 5.946208
+        },
+        "compiled_mlx_bridge_included": {
+          "n": 20,
+          "mean_ms": 4.6554102,
+          "median_ms": 4.3207705,
+          "p90_ms": 5.411008300000001,
+          "p95_ms": 5.544812150000001,
+          "min_ms": 4.084209,
+          "max_ms": 6.995541
+        },
+        "paired_delta_current_minus_mlx": {
+          "n": 20,
+          "mean_ms": -0.05657050000000012,
+          "median_ms": -0.036061999999999816,
+          "p90_ms": 0.9486670999999997,
+          "p95_ms": 1.1417262500000003,
+          "min_ms": -2.6785830000000006,
+          "max_ms": 1.5608330000000006
+        }
+      },
+      "derived": {
+        "speedup_from_medians": 1.0034571380266553,
+        "median_difference_of_marginals_ms": 0.01493750000000027,
+        "paired_delta_median_ms": -0.036061999999999816,
+        "paired_delta_mean_ms": -0.05657050000000012,
+        "reduction_percent_from_medians": 0.34452274000002464
+      },
+      "stage_index": 2,
+      "block_index": 4
+    },
+    {
+      "name": "stage2.block5.mlp",
+      "input_shape": [
+        1,
+        3350,
+        384
+      ],
+      "correctness": {
+        "shape": [
+          1,
+          3350,
+          384
+        ],
+        "max_abs": 3.814697265625e-05,
+        "mean_abs": 5.24090580711345e-07,
+        "rmse": 9.958655482478207e-07,
+        "allclose_1e-5": false,
+        "allclose_1e-4": true,
+        "finite": true
+      },
+      "correctness_gate_passed": true,
+      "latency": {
+        "current_pytorch_mps": {
+          "n": 20,
+          "mean_ms": 4.539673,
+          "median_ms": 4.3402085,
+          "p90_ms": 5.255912499999999,
+          "p95_ms": 5.4137708,
+          "min_ms": 4.042209,
+          "max_ms": 5.542416
+        },
+        "compiled_mlx_bridge_included": {
+          "n": 20,
+          "mean_ms": 4.7987478,
+          "median_ms": 4.5016875,
+          "p90_ms": 5.975862500000001,
+          "p95_ms": 6.1017625,
+          "min_ms": 4.159583,
+          "max_ms": 6.208875
+        },
+        "paired_delta_current_minus_mlx": {
+          "n": 20,
+          "mean_ms": -0.2590748,
+          "median_ms": -0.10008300000000014,
+          "p90_ms": 0.7198583000000004,
+          "p95_ms": 1.0777642500000006,
+          "min_ms": -1.8489579999999997,
+          "max_ms": 1.3828330000000006
+        }
+      },
+      "derived": {
+        "speedup_from_medians": 0.964129229316784,
+        "median_difference_of_marginals_ms": -0.16147899999999993,
+        "paired_delta_median_ms": -0.10008300000000014,
+        "paired_delta_mean_ms": -0.2590748,
+        "reduction_percent_from_medians": -3.7205355457001645
+      },
+      "stage_index": 2,
+      "block_index": 5
+    },
+    {
+      "name": "stage3.block0.mlp",
+      "input_shape": [
+        1,
+        850,
+        768
+      ],
+      "correctness": {
+        "shape": [
+          1,
+          850,
+          768
+        ],
+        "max_abs": 1.52587890625e-05,
+        "mean_abs": 2.0104164377698908e-07,
+        "rmse": 2.987095513162785e-07,
+        "allclose_1e-5": true,
+        "allclose_1e-4": true,
+        "finite": true
+      },
+      "correctness_gate_passed": true,
+      "latency": {
+        "current_pytorch_mps": {
+          "n": 20,
+          "mean_ms": 4.3323666,
+          "median_ms": 4.24275,
+          "p90_ms": 4.7225869000000005,
+          "p95_ms": 4.820531250000001,
+          "min_ms": 3.9495,
+          "max_ms": 5.604875
+        },
+        "compiled_mlx_bridge_included": {
+          "n": 20,
+          "mean_ms": 4.514997849999999,
+          "median_ms": 4.362709,
+          "p90_ms": 5.1312336,
+          "p95_ms": 5.296039250000001,
+          "min_ms": 3.993458,
+          "max_ms": 5.872333
+        },
+        "paired_delta_current_minus_mlx": {
+          "n": 20,
+          "mean_ms": -0.18263124999999986,
+          "median_ms": -0.2590834999999998,
+          "p90_ms": 0.46785930000000037,
+          "p95_ms": 0.5878777000000011,
+          "min_ms": -1.447749,
+          "max_ms": 1.3534579999999998
+        }
+      },
+      "derived": {
+        "speedup_from_medians": 0.9725035522653471,
+        "median_difference_of_marginals_ms": -0.1199589999999997,
+        "paired_delta_median_ms": -0.2590834999999998,
+        "paired_delta_mean_ms": -0.18263124999999986,
+        "reduction_percent_from_medians": -2.827387897000759
+      },
+      "stage_index": 3,
+      "block_index": 0
+    },
+    {
+      "name": "stage3.block1.mlp",
+      "input_shape": [
+        1,
+        850,
+        768
+      ],
+      "correctness": {
+        "shape": [
+          1,
+          850,
+          768
+        ],
+        "max_abs": 4.00543212890625e-05,
+        "mean_abs": 2.539057959438651e-07,
+        "rmse": 6.19565639681241e-07,
+        "allclose_1e-5": false,
+        "allclose_1e-4": true,
+        "finite": true
+      },
+      "correctness_gate_passed": true,
+      "latency": {
+        "current_pytorch_mps": {
+          "n": 20,
+          "mean_ms": 4.38224385,
+          "median_ms": 4.2466455,
+          "p90_ms": 4.923104200000001,
+          "p95_ms": 5.13344195,
+          "min_ms": 3.932292,
+          "max_ms": 5.307291
+        },
+        "compiled_mlx_bridge_included": {
+          "n": 20,
+          "mean_ms": 4.46680415,
+          "median_ms": 4.352833,
+          "p90_ms": 4.902066400000001,
+          "p95_ms": 5.228512800000001,
+          "min_ms": 4.035125,
+          "max_ms": 5.598458
+        },
+        "paired_delta_current_minus_mlx": {
+          "n": 20,
+          "mean_ms": -0.08456029999999995,
+          "median_ms": 0.08089549999999956,
+          "p90_ms": 0.5893753000000007,
+          "p95_ms": 0.90740415,
+          "min_ms": -1.5093740000000002,
+          "max_ms": 1.0148330000000003
+        }
+      },
+      "derived": {
+        "speedup_from_medians": 0.9756049680748146,
+        "median_difference_of_marginals_ms": -0.10618750000000077,
+        "paired_delta_median_ms": 0.08089549999999956,
+        "paired_delta_mean_ms": -0.08456029999999995,
+        "reduction_percent_from_medians": -2.500503044108598
+      },
+      "stage_index": 3,
+      "block_index": 1
+    }
+  ],
+  "stage_summaries": {
+    "1": {
+      "blocks": 2,
+      "correctness_all_passed": true,
+      "all_block_paired_medians_positive": false,
+      "per_block_paired_medians_ms": [
+        -0.09425049999999979,
+        -0.2726454999999999
+      ],
+      "median_block_paired_saving_ms": -0.18344799999999983,
+      "per_block_reduction_percent": [
+        -1.5865204827964774,
+        -4.37857746212333
+      ],
+      "median_block_reduction_percent": -2.9825489724599037,
+      "selected_for_full_model_test": false
+    },
+    "2": {
+      "blocks": 6,
+      "correctness_all_passed": true,
+      "all_block_paired_medians_positive": false,
+      "per_block_paired_medians_ms": [
+        -0.06137449999999989,
+        -0.24229149999999988,
+        -0.019749500000000086,
+        -1.0900410000000003,
+        -0.036061999999999816,
+        -0.10008300000000014
+      ],
+      "median_block_paired_saving_ms": -0.08072875000000002,
+      "per_block_reduction_percent": [
+        -3.7516442178655174,
+        -5.0464963680661565,
+        0.39376784548789606,
+        -27.503843083732104,
+        0.34452274000002464,
+        -3.7205355457001645
+      ],
+      "median_block_reduction_percent": -3.736089881782841,
+      "selected_for_full_model_test": false
+    },
+    "3": {
+      "blocks": 2,
+      "correctness_all_passed": true,
+      "all_block_paired_medians_positive": false,
+      "per_block_paired_medians_ms": [
+        -0.2590834999999998,
+        0.08089549999999956
+      ],
+      "median_block_paired_saving_ms": -0.08909400000000012,
+      "per_block_reduction_percent": [
+        -2.827387897000759,
+        -2.500503044108598
+      ],
+      "median_block_reduction_percent": -2.6639454705546783,
+      "selected_for_full_model_test": false
+    }
+  },
+  "selected_stages_for_full_model_test": [],
+  "stage_selection_rule": "A stage proceeds to full-model testing only if every MLP passes 1e-4 correctness, every block has positive paired median saving, and the stage median of block-level reduction percentages is at least 15%. Isolated block savings are a selection heuristic only and must not be summed as a claimed full-model speedup.",
+  "notes": [
+    "Stage0 is already adopted from Experiment 0047 and is not re-benchmarked here.",
+    "Captured stage1-3 inputs are produced with the adopted stage0 MLX MLP path active.",
+    "This does not reopen generic whole-Swin-block substitution; only MLP submodules are tested.",
+    "Experiment 0047 is the current robust runtime authority: 476.360 ms / 2.099 FPS under its controlled multi-process protocol."
+  ]
+}

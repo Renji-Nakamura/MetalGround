@@ -1,0 +1,4299 @@
+{
+  "timestamp_utc": "2026-09-15T13:40:08.369467+00:00",
+  "tag": "stage_profile",
+  "model": "IDEA-Research/grounding-dino-tiny",
+  "device": "mps",
+  "dtype": "float32",
+  "image": "assets/input.jpg",
+  "image_size_wh": [
+    1200,
+    901
+  ],
+  "prompt": [
+    "a cat",
+    "a dog"
+  ],
+  "warmup": 1,
+  "iterations_per_group": 3,
+  "methodology_note": "MPS is asynchronous. Module hooks synchronize at measured boundaries. These measurements are diagnostic and can perturb scheduling; the uninstrumented baseline remains the authoritative end-to-end latency.",
+  "baseline_file": "results/hf_mps_fp32_catdog.json",
+  "baseline_forward_median_ms": 999.116584,
+  "processed_inputs": {
+    "input_ids": {
+      "shape": [
+        1,
+        8
+      ],
+      "dtype": "int64",
+      "device": "mps:0"
+    },
+    "token_type_ids": {
+      "shape": [
+        1,
+        8
+      ],
+      "dtype": "int64",
+      "device": "mps:0"
+    },
+    "attention_mask": {
+      "shape": [
+        1,
+        8
+      ],
+      "dtype": "int64",
+      "device": "mps:0"
+    },
+    "pixel_mask": {
+      "shape": [
+        1,
+        800,
+        1065
+      ],
+      "dtype": "int64",
+      "device": "mps:0"
+    },
+    "pixel_values": {
+      "shape": [
+        1,
+        3,
+        800,
+        1065
+      ],
+      "dtype": "float32",
+      "device": "mps:0"
+    }
+  },
+  "software": {
+    "python": "3.12.14",
+    "torch": "2.13.0",
+    "transformers": "5.17.0"
+  },
+  "groups": {
+    "coarse": {
+      "selected_modules": [
+        "model.backbone",
+        "model.text_backbone",
+        "model.text_projection",
+        "model.input_proj_vision.0",
+        "model.input_proj_vision.1",
+        "model.input_proj_vision.2",
+        "model.input_proj_vision.3",
+        "model.encoder",
+        "model.enc_output",
+        "model.enc_output_norm",
+        "model.encoder_output_bbox_embed",
+        "model.encoder_output_class_embed",
+        "model.decoder"
+      ],
+      "instrumented_full_forward": {
+        "n": 3,
+        "mean_ms": 1011.192625,
+        "median_ms": 1016.495333,
+        "p90_ms": 1020.1671002,
+        "p95_ms": 1020.6260711,
+        "min_ms": 995.9975,
+        "max_ms": 1021.085042
+      },
+      "modules": {
+        "model.backbone": {
+          "class": "GroundingDinoConvModel",
+          "n": 3,
+          "mean_ms": 163.26830533333333,
+          "median_ms": 164.652833,
+          "p90_ms": 164.6597994,
+          "p95_ms": 164.6606702,
+          "min_ms": 160.490542,
+          "max_ms": 164.661541,
+          "io_example": {
+            "input": [
+              {
+                "shape": [
+                  1,
+                  3,
+                  800,
+                  1065
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  800,
+                  1065
+                ],
+                "dtype": "int64",
+                "device": "mps:0"
+              }
+            ],
+            "output": [
+              [
+                [
+                  "Tensor",
+                  "Tensor"
+                ],
+                [
+                  "Tensor",
+                  "Tensor"
+                ],
+                [
+                  "Tensor",
+                  "Tensor"
+                ]
+              ],
+              [
+                {
+                  "shape": [
+                    1,
+                    256,
+                    100,
+                    134
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                },
+                {
+                  "shape": [
+                    1,
+                    256,
+                    50,
+                    67
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                },
+                {
+                  "shape": [
+                    1,
+                    256,
+                    25,
+                    34
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                }
+              ]
+            ]
+          }
+        },
+        "model.text_backbone": {
+          "class": "BertModel",
+          "n": 3,
+          "mean_ms": 11.361778000000001,
+          "median_ms": 11.413917,
+          "p90_ms": 11.657383399999999,
+          "p95_ms": 11.6878167,
+          "min_ms": 10.953167,
+          "max_ms": 11.71825,
+          "io_example": {
+            "input": [
+              {
+                "shape": [
+                  1,
+                  8
+                ],
+                "dtype": "int64",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  1,
+                  8,
+                  8
+                ],
+                "dtype": "bool",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  8
+                ],
+                "dtype": "int64",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  8
+                ],
+                "dtype": "int64",
+                "device": "mps:0"
+              }
+            ],
+            "output": {
+              "last_hidden_state": {
+                "shape": [
+                  1,
+                  8,
+                  768
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            }
+          }
+        },
+        "model.text_projection": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 0.2985973333333333,
+          "median_ms": 0.290375,
+          "p90_ms": 0.33010860000000003,
+          "p95_ms": 0.3350753,
+          "min_ms": 0.265375,
+          "max_ms": 0.340042,
+          "io_example": {
+            "input": [
+              {
+                "shape": [
+                  1,
+                  8,
+                  768
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ],
+            "output": {
+              "shape": [
+                1,
+                8,
+                256
+              ],
+              "dtype": "float32",
+              "device": "mps:0"
+            }
+          }
+        },
+        "model.input_proj_vision.0": {
+          "class": "Sequential",
+          "n": 3,
+          "mean_ms": 1.3300276666666668,
+          "median_ms": 1.333041,
+          "p90_ms": 1.3331754,
+          "p95_ms": 1.3331922,
+          "min_ms": 1.323833,
+          "max_ms": 1.333209,
+          "io_example": {
+            "input": [
+              {
+                "shape": [
+                  1,
+                  192,
+                  100,
+                  134
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ],
+            "output": {
+              "shape": [
+                1,
+                256,
+                100,
+                134
+              ],
+              "dtype": "float32",
+              "device": "mps:0"
+            }
+          }
+        },
+        "model.input_proj_vision.1": {
+          "class": "Sequential",
+          "n": 3,
+          "mean_ms": 0.6074443333333334,
+          "median_ms": 0.598833,
+          "p90_ms": 0.6305337999999999,
+          "p95_ms": 0.6344964000000001,
+          "min_ms": 0.585041,
+          "max_ms": 0.638459,
+          "io_example": {
+            "input": [
+              {
+                "shape": [
+                  1,
+                  384,
+                  50,
+                  67
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ],
+            "output": {
+              "shape": [
+                1,
+                256,
+                50,
+                67
+              ],
+              "dtype": "float32",
+              "device": "mps:0"
+            }
+          }
+        },
+        "model.input_proj_vision.2": {
+          "class": "Sequential",
+          "n": 3,
+          "mean_ms": 0.45152733333333334,
+          "median_ms": 0.449583,
+          "p90_ms": 0.46094940000000006,
+          "p95_ms": 0.4623702,
+          "min_ms": 0.441208,
+          "max_ms": 0.463791,
+          "io_example": {
+            "input": [
+              {
+                "shape": [
+                  1,
+                  768,
+                  25,
+                  34
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ],
+            "output": {
+              "shape": [
+                1,
+                256,
+                25,
+                34
+              ],
+              "dtype": "float32",
+              "device": "mps:0"
+            }
+          }
+        },
+        "model.input_proj_vision.3": {
+          "class": "Sequential",
+          "n": 3,
+          "mean_ms": 1.4366663333333332,
+          "median_ms": 1.439417,
+          "p90_ms": 1.4464162,
+          "p95_ms": 1.4472911,
+          "min_ms": 1.422416,
+          "max_ms": 1.448166,
+          "io_example": {
+            "input": [
+              {
+                "shape": [
+                  1,
+                  768,
+                  25,
+                  34
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ],
+            "output": {
+              "shape": [
+                1,
+                256,
+                13,
+                17
+              ],
+              "dtype": "float32",
+              "device": "mps:0"
+            }
+          }
+        },
+        "model.encoder": {
+          "class": "GroundingDinoEncoder",
+          "n": 3,
+          "mean_ms": 739.8574026666666,
+          "median_ms": 743.686167,
+          "p90_ms": 746.4281333999999,
+          "p95_ms": 746.7708792,
+          "min_ms": 728.772416,
+          "max_ms": 747.113625,
+          "io_example": {
+            "input": [],
+            "output": {
+              "last_hidden_state_vision": {
+                "shape": [
+                  1,
+                  17821,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              "last_hidden_state_text": {
+                "shape": [
+                  1,
+                  8,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            }
+          }
+        },
+        "model.enc_output": {
+          "class": "Linear",
+          "n": 3,
+          "mean_ms": 1.2638749999999999,
+          "median_ms": 1.261541,
+          "p90_ms": 1.2674418,
+          "p95_ms": 1.2681794000000002,
+          "min_ms": 1.261167,
+          "max_ms": 1.268917,
+          "io_example": {
+            "input": [
+              {
+                "shape": [
+                  1,
+                  17821,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ],
+            "output": {
+              "shape": [
+                1,
+                17821,
+                256
+              ],
+              "dtype": "float32",
+              "device": "mps:0"
+            }
+          }
+        },
+        "model.enc_output_norm": {
+          "class": "LayerNorm",
+          "n": 3,
+          "mean_ms": 0.6824723333333332,
+          "median_ms": 0.680792,
+          "p90_ms": 0.6861248,
+          "p95_ms": 0.6867913999999999,
+          "min_ms": 0.679167,
+          "max_ms": 0.687458,
+          "io_example": {
+            "input": [
+              {
+                "shape": [
+                  1,
+                  17821,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ],
+            "output": {
+              "shape": [
+                1,
+                17821,
+                256
+              ],
+              "dtype": "float32",
+              "device": "mps:0"
+            }
+          }
+        },
+        "model.encoder_output_bbox_embed": {
+          "class": "GroundingDinoMLPPredictionHead",
+          "n": 3,
+          "mean_ms": 3.8205003333333334,
+          "median_ms": 3.327459,
+          "p90_ms": 4.5173918,
+          "p95_ms": 4.6661334,
+          "min_ms": 3.319167,
+          "max_ms": 4.814875,
+          "io_example": {
+            "input": [
+              {
+                "shape": [
+                  1,
+                  17821,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ],
+            "output": {
+              "shape": [
+                1,
+                17821,
+                4
+              ],
+              "dtype": "float32",
+              "device": "mps:0"
+            }
+          }
+        },
+        "model.encoder_output_class_embed": {
+          "class": "GroundingDinoContrastiveEmbedding",
+          "n": 6,
+          "mean_ms": 0.8284791666666668,
+          "median_ms": 0.6007290000000001,
+          "p90_ms": 1.573375,
+          "p95_ms": 1.933729,
+          "min_ms": 0.30025,
+          "max_ms": 2.294083,
+          "io_example": {
+            "input": [
+              {
+                "shape": [
+                  1,
+                  17821,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  8,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  8
+                ],
+                "dtype": "bool",
+                "device": "mps:0"
+              }
+            ],
+            "output": {
+              "shape": [
+                1,
+                17821,
+                256
+              ],
+              "dtype": "float32",
+              "device": "mps:0"
+            }
+          }
+        },
+        "model.decoder": {
+          "class": "GroundingDinoDecoder",
+          "n": 3,
+          "mean_ms": 72.04591666666667,
+          "median_ms": 71.876542,
+          "p90_ms": 72.34530840000001,
+          "p95_ms": 72.40390420000001,
+          "min_ms": 71.798708,
+          "max_ms": 72.4625,
+          "io_example": {
+            "input": [],
+            "output": {
+              "last_hidden_state": {
+                "shape": [
+                  1,
+                  900,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              "intermediate_hidden_states": {
+                "shape": [
+                  1,
+                  6,
+                  900,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              "intermediate_reference_points": {
+                "shape": [
+                  1,
+                  6,
+                  900,
+                  4
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            }
+          }
+        }
+      },
+      "aggregate": {
+        "sum_module_medians_ms": 1001.611229,
+        "sum_module_means_ms": 997.2529925
+      }
+    },
+    "encoder_layers": {
+      "selected_modules": [
+        "model.encoder.layers.0",
+        "model.encoder.layers.1",
+        "model.encoder.layers.2",
+        "model.encoder.layers.3",
+        "model.encoder.layers.4",
+        "model.encoder.layers.5"
+      ],
+      "instrumented_full_forward": {
+        "n": 3,
+        "mean_ms": 1010.76525,
+        "median_ms": 1015.770042,
+        "p90_ms": 1016.9360748,
+        "p95_ms": 1017.0818288999999,
+        "min_ms": 999.298125,
+        "max_ms": 1017.227583
+      },
+      "modules": {
+        "model.encoder.layers.0": {
+          "class": "GroundingDinoEncoderLayer",
+          "n": 3,
+          "mean_ms": 122.377889,
+          "median_ms": 123.439667,
+          "p90_ms": 123.6588998,
+          "p95_ms": 123.6863039,
+          "min_ms": 119.980292,
+          "max_ms": 123.713708,
+          "io_example": {
+            "input": [],
+            "output": [
+              [
+                {
+                  "shape": [
+                    1,
+                    17821,
+                    256
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                },
+                {
+                  "shape": [
+                    1,
+                    8,
+                    256
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                }
+              ],
+              [
+                {
+                  "shape": [
+                    4,
+                    17821,
+                    8
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                },
+                {
+                  "shape": [
+                    4,
+                    8,
+                    17821
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                },
+                {
+                  "shape": [
+                    1,
+                    4,
+                    8,
+                    8
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                },
+                {
+                  "shape": [
+                    1,
+                    17821,
+                    8,
+                    4,
+                    4
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                }
+              ]
+            ]
+          }
+        },
+        "model.encoder.layers.1": {
+          "class": "GroundingDinoEncoderLayer",
+          "n": 3,
+          "mean_ms": 123.06183266666666,
+          "median_ms": 124.056916,
+          "p90_ms": 124.985016,
+          "p95_ms": 125.1010285,
+          "min_ms": 119.911541,
+          "max_ms": 125.217041,
+          "io_example": {
+            "input": [],
+            "output": [
+              [
+                {
+                  "shape": [
+                    1,
+                    17821,
+                    256
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                },
+                {
+                  "shape": [
+                    1,
+                    8,
+                    256
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                }
+              ],
+              [
+                {
+                  "shape": [
+                    4,
+                    17821,
+                    8
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                },
+                {
+                  "shape": [
+                    4,
+                    8,
+                    17821
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                },
+                {
+                  "shape": [
+                    1,
+                    4,
+                    8,
+                    8
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                },
+                {
+                  "shape": [
+                    1,
+                    17821,
+                    8,
+                    4,
+                    4
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                }
+              ]
+            ]
+          }
+        },
+        "model.encoder.layers.2": {
+          "class": "GroundingDinoEncoderLayer",
+          "n": 3,
+          "mean_ms": 122.33029166666667,
+          "median_ms": 123.319958,
+          "p90_ms": 123.78235800000002,
+          "p95_ms": 123.840158,
+          "min_ms": 119.772959,
+          "max_ms": 123.897958,
+          "io_example": {
+            "input": [],
+            "output": [
+              [
+                {
+                  "shape": [
+                    1,
+                    17821,
+                    256
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                },
+                {
+                  "shape": [
+                    1,
+                    8,
+                    256
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                }
+              ],
+              [
+                {
+                  "shape": [
+                    4,
+                    17821,
+                    8
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                },
+                {
+                  "shape": [
+                    4,
+                    8,
+                    17821
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                },
+                {
+                  "shape": [
+                    1,
+                    4,
+                    8,
+                    8
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                },
+                {
+                  "shape": [
+                    1,
+                    17821,
+                    8,
+                    4,
+                    4
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                }
+              ]
+            ]
+          }
+        },
+        "model.encoder.layers.3": {
+          "class": "GroundingDinoEncoderLayer",
+          "n": 3,
+          "mean_ms": 124.96223633333334,
+          "median_ms": 124.865,
+          "p90_ms": 125.1414336,
+          "p95_ms": 125.1759878,
+          "min_ms": 124.811167,
+          "max_ms": 125.210542,
+          "io_example": {
+            "input": [],
+            "output": [
+              [
+                {
+                  "shape": [
+                    1,
+                    17821,
+                    256
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                },
+                {
+                  "shape": [
+                    1,
+                    8,
+                    256
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                }
+              ],
+              [
+                {
+                  "shape": [
+                    4,
+                    17821,
+                    8
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                },
+                {
+                  "shape": [
+                    4,
+                    8,
+                    17821
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                },
+                {
+                  "shape": [
+                    1,
+                    4,
+                    8,
+                    8
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                },
+                {
+                  "shape": [
+                    1,
+                    17821,
+                    8,
+                    4,
+                    4
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                }
+              ]
+            ]
+          }
+        },
+        "model.encoder.layers.4": {
+          "class": "GroundingDinoEncoderLayer",
+          "n": 3,
+          "mean_ms": 126.17722199999999,
+          "median_ms": 127.16275,
+          "p90_ms": 127.57294999999999,
+          "p95_ms": 127.624225,
+          "min_ms": 123.693416,
+          "max_ms": 127.6755,
+          "io_example": {
+            "input": [],
+            "output": [
+              [
+                {
+                  "shape": [
+                    1,
+                    17821,
+                    256
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                },
+                {
+                  "shape": [
+                    1,
+                    8,
+                    256
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                }
+              ],
+              [
+                {
+                  "shape": [
+                    4,
+                    17821,
+                    8
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                },
+                {
+                  "shape": [
+                    4,
+                    8,
+                    17821
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                },
+                {
+                  "shape": [
+                    1,
+                    4,
+                    8,
+                    8
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                },
+                {
+                  "shape": [
+                    1,
+                    17821,
+                    8,
+                    4,
+                    4
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                }
+              ]
+            ]
+          }
+        },
+        "model.encoder.layers.5": {
+          "class": "GroundingDinoEncoderLayer",
+          "n": 3,
+          "mean_ms": 126.07163866666667,
+          "median_ms": 126.22025,
+          "p90_ms": 126.9076164,
+          "p95_ms": 126.9935372,
+          "min_ms": 124.915208,
+          "max_ms": 127.079458,
+          "io_example": {
+            "input": [],
+            "output": [
+              [
+                {
+                  "shape": [
+                    1,
+                    17821,
+                    256
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                },
+                {
+                  "shape": [
+                    1,
+                    8,
+                    256
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                }
+              ],
+              [
+                {
+                  "shape": [
+                    4,
+                    17821,
+                    8
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                },
+                {
+                  "shape": [
+                    4,
+                    8,
+                    17821
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                },
+                {
+                  "shape": [
+                    1,
+                    4,
+                    8,
+                    8
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                },
+                {
+                  "shape": [
+                    1,
+                    17821,
+                    8,
+                    4,
+                    4
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                }
+              ]
+            ]
+          }
+        }
+      },
+      "aggregate": {
+        "sum_module_medians_ms": 749.064541,
+        "sum_module_means_ms": 744.9811103333333
+      }
+    },
+    "encoder_parts": {
+      "selected_modules": [
+        "model.encoder.layers.0.text_enhancer_layer",
+        "model.encoder.layers.0.fusion_layer",
+        "model.encoder.layers.0.deformable_layer",
+        "model.encoder.layers.1.text_enhancer_layer",
+        "model.encoder.layers.1.fusion_layer",
+        "model.encoder.layers.1.deformable_layer",
+        "model.encoder.layers.2.text_enhancer_layer",
+        "model.encoder.layers.2.fusion_layer",
+        "model.encoder.layers.2.deformable_layer",
+        "model.encoder.layers.3.text_enhancer_layer",
+        "model.encoder.layers.3.fusion_layer",
+        "model.encoder.layers.3.deformable_layer",
+        "model.encoder.layers.4.text_enhancer_layer",
+        "model.encoder.layers.4.fusion_layer",
+        "model.encoder.layers.4.deformable_layer",
+        "model.encoder.layers.5.text_enhancer_layer",
+        "model.encoder.layers.5.fusion_layer",
+        "model.encoder.layers.5.deformable_layer"
+      ],
+      "instrumented_full_forward": {
+        "n": 3,
+        "mean_ms": 1012.7206526666665,
+        "median_ms": 1015.331375,
+        "p90_ms": 1016.1991413999999,
+        "p95_ms": 1016.3076122,
+        "min_ms": 1006.4145,
+        "max_ms": 1016.416083
+      },
+      "modules": {
+        "model.encoder.layers.0.text_enhancer_layer": {
+          "class": "GroundingDinoTextEnhancerLayer",
+          "n": 3,
+          "mean_ms": 0.8091526666666667,
+          "median_ms": 0.853417,
+          "p90_ms": 0.8940834,
+          "p95_ms": 0.8991667,
+          "min_ms": 0.669791,
+          "max_ms": 0.90425,
+          "io_example": {
+            "input": [],
+            "output": [
+              {
+                "shape": [
+                  1,
+                  8,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  4,
+                  8,
+                  8
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ]
+          }
+        },
+        "model.encoder.layers.0.fusion_layer": {
+          "class": "GroundingDinoFusionLayer",
+          "n": 3,
+          "mean_ms": 30.002319666666665,
+          "median_ms": 29.751375,
+          "p90_ms": 30.3928086,
+          "p95_ms": 30.4729878,
+          "min_ms": 29.702417,
+          "max_ms": 30.553167,
+          "io_example": {
+            "input": [],
+            "output": [
+              [
+                {
+                  "shape": [
+                    1,
+                    17821,
+                    256
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                },
+                {
+                  "shape": [
+                    4,
+                    17821,
+                    8
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                }
+              ],
+              [
+                {
+                  "shape": [
+                    1,
+                    8,
+                    256
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                },
+                {
+                  "shape": [
+                    4,
+                    8,
+                    17821
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                }
+              ]
+            ]
+          }
+        },
+        "model.encoder.layers.0.deformable_layer": {
+          "class": "GroundingDinoDeformableLayer",
+          "n": 3,
+          "mean_ms": 92.72334699999999,
+          "median_ms": 93.113458,
+          "p90_ms": 93.2632244,
+          "p95_ms": 93.28194520000001,
+          "min_ms": 91.755917,
+          "max_ms": 93.300666,
+          "io_example": {
+            "input": [],
+            "output": [
+              {
+                "shape": [
+                  1,
+                  17821,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  17821,
+                  8,
+                  4,
+                  4
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ]
+          }
+        },
+        "model.encoder.layers.1.text_enhancer_layer": {
+          "class": "GroundingDinoTextEnhancerLayer",
+          "n": 3,
+          "mean_ms": 0.6750833333333333,
+          "median_ms": 0.669792,
+          "p90_ms": 0.6857248,
+          "p95_ms": 0.6877163999999999,
+          "min_ms": 0.66575,
+          "max_ms": 0.689708,
+          "io_example": {
+            "input": [],
+            "output": [
+              {
+                "shape": [
+                  1,
+                  8,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  4,
+                  8,
+                  8
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ]
+          }
+        },
+        "model.encoder.layers.1.fusion_layer": {
+          "class": "GroundingDinoFusionLayer",
+          "n": 3,
+          "mean_ms": 29.682374666666664,
+          "median_ms": 29.73675,
+          "p90_ms": 29.9009828,
+          "p95_ms": 29.921511900000002,
+          "min_ms": 29.368333,
+          "max_ms": 29.942041,
+          "io_example": {
+            "input": [],
+            "output": [
+              [
+                {
+                  "shape": [
+                    1,
+                    17821,
+                    256
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                },
+                {
+                  "shape": [
+                    4,
+                    17821,
+                    8
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                }
+              ],
+              [
+                {
+                  "shape": [
+                    1,
+                    8,
+                    256
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                },
+                {
+                  "shape": [
+                    4,
+                    8,
+                    17821
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                }
+              ]
+            ]
+          }
+        },
+        "model.encoder.layers.1.deformable_layer": {
+          "class": "GroundingDinoDeformableLayer",
+          "n": 3,
+          "mean_ms": 91.80734733333333,
+          "median_ms": 90.708125,
+          "p90_ms": 93.35605859999998,
+          "p95_ms": 93.6870503,
+          "min_ms": 90.695875,
+          "max_ms": 94.018042,
+          "io_example": {
+            "input": [],
+            "output": [
+              {
+                "shape": [
+                  1,
+                  17821,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  17821,
+                  8,
+                  4,
+                  4
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ]
+          }
+        },
+        "model.encoder.layers.2.text_enhancer_layer": {
+          "class": "GroundingDinoTextEnhancerLayer",
+          "n": 3,
+          "mean_ms": 0.6663746666666667,
+          "median_ms": 0.662708,
+          "p90_ms": 0.6743416,
+          "p95_ms": 0.6757958000000001,
+          "min_ms": 0.659166,
+          "max_ms": 0.67725,
+          "io_example": {
+            "input": [],
+            "output": [
+              {
+                "shape": [
+                  1,
+                  8,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  4,
+                  8,
+                  8
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ]
+          }
+        },
+        "model.encoder.layers.2.fusion_layer": {
+          "class": "GroundingDinoFusionLayer",
+          "n": 3,
+          "mean_ms": 29.791625666666665,
+          "median_ms": 29.976209,
+          "p90_ms": 30.458209,
+          "p95_ms": 30.518459,
+          "min_ms": 28.819959,
+          "max_ms": 30.578709,
+          "io_example": {
+            "input": [],
+            "output": [
+              [
+                {
+                  "shape": [
+                    1,
+                    17821,
+                    256
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                },
+                {
+                  "shape": [
+                    4,
+                    17821,
+                    8
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                }
+              ],
+              [
+                {
+                  "shape": [
+                    1,
+                    8,
+                    256
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                },
+                {
+                  "shape": [
+                    4,
+                    8,
+                    17821
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                }
+              ]
+            ]
+          }
+        },
+        "model.encoder.layers.2.deformable_layer": {
+          "class": "GroundingDinoDeformableLayer",
+          "n": 3,
+          "mean_ms": 92.06775,
+          "median_ms": 91.580875,
+          "p90_ms": 93.14960860000001,
+          "p95_ms": 93.3457003,
+          "min_ms": 91.080583,
+          "max_ms": 93.541792,
+          "io_example": {
+            "input": [],
+            "output": [
+              {
+                "shape": [
+                  1,
+                  17821,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  17821,
+                  8,
+                  4,
+                  4
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ]
+          }
+        },
+        "model.encoder.layers.3.text_enhancer_layer": {
+          "class": "GroundingDinoTextEnhancerLayer",
+          "n": 3,
+          "mean_ms": 0.6532223333333333,
+          "median_ms": 0.653708,
+          "p90_ms": 0.6575088,
+          "p95_ms": 0.6579839000000001,
+          "min_ms": 0.6475,
+          "max_ms": 0.658459,
+          "io_example": {
+            "input": [],
+            "output": [
+              {
+                "shape": [
+                  1,
+                  8,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  4,
+                  8,
+                  8
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ]
+          }
+        },
+        "model.encoder.layers.3.fusion_layer": {
+          "class": "GroundingDinoFusionLayer",
+          "n": 3,
+          "mean_ms": 29.238083333333332,
+          "median_ms": 29.3065,
+          "p90_ms": 29.5374328,
+          "p95_ms": 29.5662994,
+          "min_ms": 28.812584,
+          "max_ms": 29.595166,
+          "io_example": {
+            "input": [],
+            "output": [
+              [
+                {
+                  "shape": [
+                    1,
+                    17821,
+                    256
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                },
+                {
+                  "shape": [
+                    4,
+                    17821,
+                    8
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                }
+              ],
+              [
+                {
+                  "shape": [
+                    1,
+                    8,
+                    256
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                },
+                {
+                  "shape": [
+                    4,
+                    8,
+                    17821
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                }
+              ]
+            ]
+          }
+        },
+        "model.encoder.layers.3.deformable_layer": {
+          "class": "GroundingDinoDeformableLayer",
+          "n": 3,
+          "mean_ms": 92.13055566666667,
+          "median_ms": 91.926625,
+          "p90_ms": 92.744725,
+          "p95_ms": 92.84698750000001,
+          "min_ms": 91.515792,
+          "max_ms": 92.94925,
+          "io_example": {
+            "input": [],
+            "output": [
+              {
+                "shape": [
+                  1,
+                  17821,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  17821,
+                  8,
+                  4,
+                  4
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ]
+          }
+        },
+        "model.encoder.layers.4.text_enhancer_layer": {
+          "class": "GroundingDinoTextEnhancerLayer",
+          "n": 3,
+          "mean_ms": 0.6561253333333333,
+          "median_ms": 0.653083,
+          "p90_ms": 0.6608838,
+          "p95_ms": 0.6618589,
+          "min_ms": 0.652459,
+          "max_ms": 0.662834,
+          "io_example": {
+            "input": [],
+            "output": [
+              {
+                "shape": [
+                  1,
+                  8,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  4,
+                  8,
+                  8
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ]
+          }
+        },
+        "model.encoder.layers.4.fusion_layer": {
+          "class": "GroundingDinoFusionLayer",
+          "n": 3,
+          "mean_ms": 30.486153,
+          "median_ms": 30.229042,
+          "p90_ms": 31.299342,
+          "p95_ms": 31.4331295,
+          "min_ms": 29.6625,
+          "max_ms": 31.566917,
+          "io_example": {
+            "input": [],
+            "output": [
+              [
+                {
+                  "shape": [
+                    1,
+                    17821,
+                    256
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                },
+                {
+                  "shape": [
+                    4,
+                    17821,
+                    8
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                }
+              ],
+              [
+                {
+                  "shape": [
+                    1,
+                    8,
+                    256
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                },
+                {
+                  "shape": [
+                    4,
+                    8,
+                    17821
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                }
+              ]
+            ]
+          }
+        },
+        "model.encoder.layers.4.deformable_layer": {
+          "class": "GroundingDinoDeformableLayer",
+          "n": 3,
+          "mean_ms": 93.33593066666667,
+          "median_ms": 93.066084,
+          "p90_ms": 94.3897168,
+          "p95_ms": 94.55517090000001,
+          "min_ms": 92.221083,
+          "max_ms": 94.720625,
+          "io_example": {
+            "input": [],
+            "output": [
+              {
+                "shape": [
+                  1,
+                  17821,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  17821,
+                  8,
+                  4,
+                  4
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ]
+          }
+        },
+        "model.encoder.layers.5.text_enhancer_layer": {
+          "class": "GroundingDinoTextEnhancerLayer",
+          "n": 3,
+          "mean_ms": 0.7362363333333333,
+          "median_ms": 0.655542,
+          "p90_ms": 0.851442,
+          "p95_ms": 0.8759294999999999,
+          "min_ms": 0.65275,
+          "max_ms": 0.900417,
+          "io_example": {
+            "input": [],
+            "output": [
+              {
+                "shape": [
+                  1,
+                  8,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  4,
+                  8,
+                  8
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ]
+          }
+        },
+        "model.encoder.layers.5.fusion_layer": {
+          "class": "GroundingDinoFusionLayer",
+          "n": 3,
+          "mean_ms": 30.855666666666668,
+          "median_ms": 30.812667,
+          "p90_ms": 31.637533400000002,
+          "p95_ms": 31.7406417,
+          "min_ms": 29.910583,
+          "max_ms": 31.84375,
+          "io_example": {
+            "input": [],
+            "output": [
+              [
+                {
+                  "shape": [
+                    1,
+                    17821,
+                    256
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                },
+                {
+                  "shape": [
+                    4,
+                    17821,
+                    8
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                }
+              ],
+              [
+                {
+                  "shape": [
+                    1,
+                    8,
+                    256
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                },
+                {
+                  "shape": [
+                    4,
+                    8,
+                    17821
+                  ],
+                  "dtype": "float32",
+                  "device": "mps:0"
+                }
+              ]
+            ]
+          }
+        },
+        "model.encoder.layers.5.deformable_layer": {
+          "class": "GroundingDinoDeformableLayer",
+          "n": 3,
+          "mean_ms": 94.104986,
+          "median_ms": 93.9165,
+          "p90_ms": 94.7103664,
+          "p95_ms": 94.8095997,
+          "min_ms": 93.489625,
+          "max_ms": 94.908833,
+          "io_example": {
+            "input": [],
+            "output": [
+              {
+                "shape": [
+                  1,
+                  17821,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  17821,
+                  8,
+                  4,
+                  4
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ]
+          }
+        }
+      },
+      "aggregate": {
+        "sum_module_medians_ms": 738.27246,
+        "sum_module_means_ms": 740.4223343333333
+      }
+    },
+    "decoder_layers": {
+      "selected_modules": [
+        "model.decoder.layers.0",
+        "model.decoder.layers.1",
+        "model.decoder.layers.2",
+        "model.decoder.layers.3",
+        "model.decoder.layers.4",
+        "model.decoder.layers.5"
+      ],
+      "instrumented_full_forward": {
+        "n": 3,
+        "mean_ms": 1017.8932356666668,
+        "median_ms": 1018.141416,
+        "p90_ms": 1018.9235832,
+        "p95_ms": 1019.0213541,
+        "min_ms": 1016.419166,
+        "max_ms": 1019.119125
+      },
+      "modules": {
+        "model.decoder.layers.0": {
+          "class": "GroundingDinoDecoderLayer",
+          "n": 3,
+          "mean_ms": 10.939736333333334,
+          "median_ms": 10.876042,
+          "p90_ms": 11.159908399999999,
+          "p95_ms": 11.1953917,
+          "min_ms": 10.712292,
+          "max_ms": 11.230875,
+          "io_example": {
+            "input": [],
+            "output": [
+              {
+                "shape": [
+                  1,
+                  900,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ]
+          }
+        },
+        "model.decoder.layers.1": {
+          "class": "GroundingDinoDecoderLayer",
+          "n": 3,
+          "mean_ms": 10.651680333333333,
+          "median_ms": 10.656167,
+          "p90_ms": 10.6778662,
+          "p95_ms": 10.6805786,
+          "min_ms": 10.615583,
+          "max_ms": 10.683291,
+          "io_example": {
+            "input": [],
+            "output": [
+              {
+                "shape": [
+                  1,
+                  900,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ]
+          }
+        },
+        "model.decoder.layers.2": {
+          "class": "GroundingDinoDecoderLayer",
+          "n": 3,
+          "mean_ms": 11.503472,
+          "median_ms": 11.524541,
+          "p90_ms": 11.5492418,
+          "p95_ms": 11.552329400000001,
+          "min_ms": 11.430458,
+          "max_ms": 11.555417,
+          "io_example": {
+            "input": [],
+            "output": [
+              {
+                "shape": [
+                  1,
+                  900,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ]
+          }
+        },
+        "model.decoder.layers.3": {
+          "class": "GroundingDinoDecoderLayer",
+          "n": 3,
+          "mean_ms": 12.193499666666668,
+          "median_ms": 12.129,
+          "p90_ms": 12.3903664,
+          "p95_ms": 12.4230372,
+          "min_ms": 11.995791,
+          "max_ms": 12.455708,
+          "io_example": {
+            "input": [],
+            "output": [
+              {
+                "shape": [
+                  1,
+                  900,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ]
+          }
+        },
+        "model.decoder.layers.4": {
+          "class": "GroundingDinoDecoderLayer",
+          "n": 3,
+          "mean_ms": 11.627777666666667,
+          "median_ms": 11.677,
+          "p90_ms": 11.9719664,
+          "p95_ms": 12.0088372,
+          "min_ms": 11.160625,
+          "max_ms": 12.045708,
+          "io_example": {
+            "input": [],
+            "output": [
+              {
+                "shape": [
+                  1,
+                  900,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ]
+          }
+        },
+        "model.decoder.layers.5": {
+          "class": "GroundingDinoDecoderLayer",
+          "n": 3,
+          "mean_ms": 10.703888666666666,
+          "median_ms": 10.66225,
+          "p90_ms": 10.770216399999999,
+          "p95_ms": 10.7837122,
+          "min_ms": 10.652208,
+          "max_ms": 10.797208,
+          "io_example": {
+            "input": [],
+            "output": [
+              {
+                "shape": [
+                  1,
+                  900,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ]
+          }
+        }
+      },
+      "aggregate": {
+        "sum_module_medians_ms": 67.525,
+        "sum_module_means_ms": 67.62005466666668
+      }
+    },
+    "decoder_parts": {
+      "selected_modules": [
+        "model.decoder.layers.0.self_attn",
+        "model.decoder.layers.0.encoder_attn_text",
+        "model.decoder.layers.0.encoder_attn",
+        "model.decoder.layers.1.self_attn",
+        "model.decoder.layers.1.encoder_attn_text",
+        "model.decoder.layers.1.encoder_attn",
+        "model.decoder.layers.2.self_attn",
+        "model.decoder.layers.2.encoder_attn_text",
+        "model.decoder.layers.2.encoder_attn",
+        "model.decoder.layers.3.self_attn",
+        "model.decoder.layers.3.encoder_attn_text",
+        "model.decoder.layers.3.encoder_attn",
+        "model.decoder.layers.4.self_attn",
+        "model.decoder.layers.4.encoder_attn_text",
+        "model.decoder.layers.4.encoder_attn",
+        "model.decoder.layers.5.self_attn",
+        "model.decoder.layers.5.encoder_attn_text",
+        "model.decoder.layers.5.encoder_attn"
+      ],
+      "instrumented_full_forward": {
+        "n": 3,
+        "mean_ms": 1022.121597,
+        "median_ms": 1027.518666,
+        "p90_ms": 1028.6017996,
+        "p95_ms": 1028.7371913000002,
+        "min_ms": 1009.973542,
+        "max_ms": 1028.872583
+      },
+      "modules": {
+        "model.decoder.layers.0.self_attn": {
+          "class": "GroundingDinoMultiheadAttention",
+          "n": 3,
+          "mean_ms": 2.892111,
+          "median_ms": 2.913375,
+          "p90_ms": 2.9237414,
+          "p95_ms": 2.9250372000000002,
+          "min_ms": 2.836625,
+          "max_ms": 2.926333,
+          "io_example": {
+            "input": [],
+            "output": [
+              {
+                "shape": [
+                  1,
+                  900,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  8,
+                  900,
+                  900
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ]
+          }
+        },
+        "model.decoder.layers.0.encoder_attn_text": {
+          "class": "GroundingDinoMultiheadAttention",
+          "n": 3,
+          "mean_ms": 0.6837079999999999,
+          "median_ms": 0.675458,
+          "p90_ms": 0.6967916,
+          "p95_ms": 0.6994583000000001,
+          "min_ms": 0.673541,
+          "max_ms": 0.702125,
+          "io_example": {
+            "input": [],
+            "output": [
+              {
+                "shape": [
+                  1,
+                  900,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  8,
+                  900,
+                  8
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ]
+          }
+        },
+        "model.decoder.layers.0.encoder_attn": {
+          "class": "GroundingDinoMultiscaleDeformableAttention",
+          "n": 3,
+          "mean_ms": 7.043694333333334,
+          "median_ms": 7.276708,
+          "p90_ms": 7.5765416000000005,
+          "p95_ms": 7.6140208,
+          "min_ms": 6.202875,
+          "max_ms": 7.6515,
+          "io_example": {
+            "input": [],
+            "output": [
+              {
+                "shape": [
+                  1,
+                  900,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  900,
+                  8,
+                  4,
+                  4
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ]
+          }
+        },
+        "model.decoder.layers.1.self_attn": {
+          "class": "GroundingDinoMultiheadAttention",
+          "n": 3,
+          "mean_ms": 2.872417,
+          "median_ms": 2.813459,
+          "p90_ms": 2.9565918,
+          "p95_ms": 2.9744834,
+          "min_ms": 2.811417,
+          "max_ms": 2.992375,
+          "io_example": {
+            "input": [],
+            "output": [
+              {
+                "shape": [
+                  1,
+                  900,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  8,
+                  900,
+                  900
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ]
+          }
+        },
+        "model.decoder.layers.1.encoder_attn_text": {
+          "class": "GroundingDinoMultiheadAttention",
+          "n": 3,
+          "mean_ms": 0.674222,
+          "median_ms": 0.672375,
+          "p90_ms": 0.6773077999999999,
+          "p95_ms": 0.6779244,
+          "min_ms": 0.67175,
+          "max_ms": 0.678541,
+          "io_example": {
+            "input": [],
+            "output": [
+              {
+                "shape": [
+                  1,
+                  900,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  8,
+                  900,
+                  8
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ]
+          }
+        },
+        "model.decoder.layers.1.encoder_attn": {
+          "class": "GroundingDinoMultiscaleDeformableAttention",
+          "n": 3,
+          "mean_ms": 6.710056000000001,
+          "median_ms": 6.29,
+          "p90_ms": 7.337067200000001,
+          "p95_ms": 7.4679506,
+          "min_ms": 6.241334,
+          "max_ms": 7.598834,
+          "io_example": {
+            "input": [],
+            "output": [
+              {
+                "shape": [
+                  1,
+                  900,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  900,
+                  8,
+                  4,
+                  4
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ]
+          }
+        },
+        "model.decoder.layers.2.self_attn": {
+          "class": "GroundingDinoMultiheadAttention",
+          "n": 3,
+          "mean_ms": 2.8767780000000003,
+          "median_ms": 2.853917,
+          "p90_ms": 2.9438834000000003,
+          "p95_ms": 2.9551292000000005,
+          "min_ms": 2.810042,
+          "max_ms": 2.966375,
+          "io_example": {
+            "input": [],
+            "output": [
+              {
+                "shape": [
+                  1,
+                  900,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  8,
+                  900,
+                  900
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ]
+          }
+        },
+        "model.decoder.layers.2.encoder_attn_text": {
+          "class": "GroundingDinoMultiheadAttention",
+          "n": 3,
+          "mean_ms": 0.7566666666666667,
+          "median_ms": 0.687709,
+          "p90_ms": 0.8703418,
+          "p95_ms": 0.8931709,
+          "min_ms": 0.666291,
+          "max_ms": 0.916,
+          "io_example": {
+            "input": [],
+            "output": [
+              {
+                "shape": [
+                  1,
+                  900,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  8,
+                  900,
+                  8
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ]
+          }
+        },
+        "model.decoder.layers.2.encoder_attn": {
+          "class": "GroundingDinoMultiscaleDeformableAttention",
+          "n": 3,
+          "mean_ms": 6.697722333333334,
+          "median_ms": 6.281834,
+          "p90_ms": 7.2935668,
+          "p95_ms": 7.4200333999999994,
+          "min_ms": 6.264833,
+          "max_ms": 7.5465,
+          "io_example": {
+            "input": [],
+            "output": [
+              {
+                "shape": [
+                  1,
+                  900,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  900,
+                  8,
+                  4,
+                  4
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ]
+          }
+        },
+        "model.decoder.layers.3.self_attn": {
+          "class": "GroundingDinoMultiheadAttention",
+          "n": 3,
+          "mean_ms": 2.8485833333333335,
+          "median_ms": 2.8285,
+          "p90_ms": 2.8815999999999997,
+          "p95_ms": 2.8882375,
+          "min_ms": 2.822375,
+          "max_ms": 2.894875,
+          "io_example": {
+            "input": [],
+            "output": [
+              {
+                "shape": [
+                  1,
+                  900,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  8,
+                  900,
+                  900
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ]
+          }
+        },
+        "model.decoder.layers.3.encoder_attn_text": {
+          "class": "GroundingDinoMultiheadAttention",
+          "n": 3,
+          "mean_ms": 0.7153053333333332,
+          "median_ms": 0.673375,
+          "p90_ms": 0.776575,
+          "p95_ms": 0.7894749999999999,
+          "min_ms": 0.670166,
+          "max_ms": 0.802375,
+          "io_example": {
+            "input": [],
+            "output": [
+              {
+                "shape": [
+                  1,
+                  900,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  8,
+                  900,
+                  8
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ]
+          }
+        },
+        "model.decoder.layers.3.encoder_attn": {
+          "class": "GroundingDinoMultiscaleDeformableAttention",
+          "n": 3,
+          "mean_ms": 6.644431,
+          "median_ms": 6.311917,
+          "p90_ms": 7.1241506,
+          "p95_ms": 7.2256798,
+          "min_ms": 6.294167,
+          "max_ms": 7.327209,
+          "io_example": {
+            "input": [],
+            "output": [
+              {
+                "shape": [
+                  1,
+                  900,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  900,
+                  8,
+                  4,
+                  4
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ]
+          }
+        },
+        "model.decoder.layers.4.self_attn": {
+          "class": "GroundingDinoMultiheadAttention",
+          "n": 3,
+          "mean_ms": 3.0851253333333335,
+          "median_ms": 2.831042,
+          "p90_ms": 3.4617756,
+          "p95_ms": 3.5406173,
+          "min_ms": 2.804875,
+          "max_ms": 3.619459,
+          "io_example": {
+            "input": [],
+            "output": [
+              {
+                "shape": [
+                  1,
+                  900,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  8,
+                  900,
+                  900
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ]
+          }
+        },
+        "model.decoder.layers.4.encoder_attn_text": {
+          "class": "GroundingDinoMultiheadAttention",
+          "n": 3,
+          "mean_ms": 0.707861,
+          "median_ms": 0.693584,
+          "p90_ms": 0.7590496,
+          "p95_ms": 0.7672327999999999,
+          "min_ms": 0.654583,
+          "max_ms": 0.775416,
+          "io_example": {
+            "input": [],
+            "output": [
+              {
+                "shape": [
+                  1,
+                  900,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  8,
+                  900,
+                  8
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ]
+          }
+        },
+        "model.decoder.layers.4.encoder_attn": {
+          "class": "GroundingDinoMultiscaleDeformableAttention",
+          "n": 3,
+          "mean_ms": 7.0892636666666675,
+          "median_ms": 7.180958,
+          "p90_ms": 7.638658,
+          "p95_ms": 7.6958705,
+          "min_ms": 6.33375,
+          "max_ms": 7.753083,
+          "io_example": {
+            "input": [],
+            "output": [
+              {
+                "shape": [
+                  1,
+                  900,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  900,
+                  8,
+                  4,
+                  4
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ]
+          }
+        },
+        "model.decoder.layers.5.self_attn": {
+          "class": "GroundingDinoMultiheadAttention",
+          "n": 3,
+          "mean_ms": 2.8467773333333333,
+          "median_ms": 2.814166,
+          "p90_ms": 2.9038332000000002,
+          "p95_ms": 2.9150416000000003,
+          "min_ms": 2.799916,
+          "max_ms": 2.92625,
+          "io_example": {
+            "input": [],
+            "output": [
+              {
+                "shape": [
+                  1,
+                  900,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  8,
+                  900,
+                  900
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ]
+          }
+        },
+        "model.decoder.layers.5.encoder_attn_text": {
+          "class": "GroundingDinoMultiheadAttention",
+          "n": 3,
+          "mean_ms": 0.6921526666666667,
+          "median_ms": 0.664875,
+          "p90_ms": 0.7316078,
+          "p95_ms": 0.7399494,
+          "min_ms": 0.663292,
+          "max_ms": 0.748291,
+          "io_example": {
+            "input": [],
+            "output": [
+              {
+                "shape": [
+                  1,
+                  900,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  8,
+                  900,
+                  8
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ]
+          }
+        },
+        "model.decoder.layers.5.encoder_attn": {
+          "class": "GroundingDinoMultiscaleDeformableAttention",
+          "n": 3,
+          "mean_ms": 6.829583333333333,
+          "median_ms": 6.4845,
+          "p90_ms": 7.4945336000000005,
+          "p95_ms": 7.6207878000000004,
+          "min_ms": 6.257208,
+          "max_ms": 7.747042,
+          "io_example": {
+            "input": [],
+            "output": [
+              {
+                "shape": [
+                  1,
+                  900,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  900,
+                  8,
+                  4,
+                  4
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ]
+          }
+        }
+      },
+      "aggregate": {
+        "sum_module_medians_ms": 60.947752,
+        "sum_module_means_ms": 62.66645833333334
+      }
+    },
+    "msda_wrappers": {
+      "selected_modules": [
+        "model.encoder.layers.0.deformable_layer.self_attn",
+        "model.encoder.layers.1.deformable_layer.self_attn",
+        "model.encoder.layers.2.deformable_layer.self_attn",
+        "model.encoder.layers.3.deformable_layer.self_attn",
+        "model.encoder.layers.4.deformable_layer.self_attn",
+        "model.encoder.layers.5.deformable_layer.self_attn",
+        "model.decoder.layers.0.encoder_attn",
+        "model.decoder.layers.1.encoder_attn",
+        "model.decoder.layers.2.encoder_attn",
+        "model.decoder.layers.3.encoder_attn",
+        "model.decoder.layers.4.encoder_attn",
+        "model.decoder.layers.5.encoder_attn"
+      ],
+      "instrumented_full_forward": {
+        "n": 3,
+        "mean_ms": 1032.4707643333334,
+        "median_ms": 998.738209,
+        "p90_ms": 1080.678209,
+        "p95_ms": 1090.920709,
+        "min_ms": 997.510875,
+        "max_ms": 1101.163209
+      },
+      "modules": {
+        "model.encoder.layers.0.deformable_layer.self_attn": {
+          "class": "GroundingDinoMultiscaleDeformableAttention",
+          "n": 3,
+          "mean_ms": 70.87437533333333,
+          "median_ms": 70.895,
+          "p90_ms": 71.0179672,
+          "p95_ms": 71.0333381,
+          "min_ms": 70.679417,
+          "max_ms": 71.048709,
+          "io_example": {
+            "input": [],
+            "output": [
+              {
+                "shape": [
+                  1,
+                  17821,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  17821,
+                  8,
+                  4,
+                  4
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ]
+          }
+        },
+        "model.encoder.layers.1.deformable_layer.self_attn": {
+          "class": "GroundingDinoMultiscaleDeformableAttention",
+          "n": 3,
+          "mean_ms": 105.977014,
+          "median_ms": 71.615875,
+          "p90_ms": 154.543375,
+          "p95_ms": 164.90931249999997,
+          "min_ms": 71.039917,
+          "max_ms": 175.27525,
+          "io_example": {
+            "input": [],
+            "output": [
+              {
+                "shape": [
+                  1,
+                  17821,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  17821,
+                  8,
+                  4,
+                  4
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ]
+          }
+        },
+        "model.encoder.layers.2.deformable_layer.self_attn": {
+          "class": "GroundingDinoMultiscaleDeformableAttention",
+          "n": 3,
+          "mean_ms": 71.48194433333333,
+          "median_ms": 71.611333,
+          "p90_ms": 71.68503299999999,
+          "p95_ms": 71.6942455,
+          "min_ms": 71.131042,
+          "max_ms": 71.703458,
+          "io_example": {
+            "input": [],
+            "output": [
+              {
+                "shape": [
+                  1,
+                  17821,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  17821,
+                  8,
+                  4,
+                  4
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ]
+          }
+        },
+        "model.encoder.layers.3.deformable_layer.self_attn": {
+          "class": "GroundingDinoMultiscaleDeformableAttention",
+          "n": 3,
+          "mean_ms": 70.46545833333333,
+          "median_ms": 70.308,
+          "p90_ms": 70.8096336,
+          "p95_ms": 70.8723378,
+          "min_ms": 70.153333,
+          "max_ms": 70.935042,
+          "io_example": {
+            "input": [],
+            "output": [
+              {
+                "shape": [
+                  1,
+                  17821,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  17821,
+                  8,
+                  4,
+                  4
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ]
+          }
+        },
+        "model.encoder.layers.4.deformable_layer.self_attn": {
+          "class": "GroundingDinoMultiscaleDeformableAttention",
+          "n": 3,
+          "mean_ms": 70.82838866666667,
+          "median_ms": 70.988875,
+          "p90_ms": 71.202575,
+          "p95_ms": 71.2292875,
+          "min_ms": 70.240291,
+          "max_ms": 71.256,
+          "io_example": {
+            "input": [],
+            "output": [
+              {
+                "shape": [
+                  1,
+                  17821,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  17821,
+                  8,
+                  4,
+                  4
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ]
+          }
+        },
+        "model.encoder.layers.5.deformable_layer.self_attn": {
+          "class": "GroundingDinoMultiscaleDeformableAttention",
+          "n": 3,
+          "mean_ms": 70.58806966666667,
+          "median_ms": 70.681375,
+          "p90_ms": 70.700975,
+          "p95_ms": 70.70342500000001,
+          "min_ms": 70.376959,
+          "max_ms": 70.705875,
+          "io_example": {
+            "input": [],
+            "output": [
+              {
+                "shape": [
+                  1,
+                  17821,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  17821,
+                  8,
+                  4,
+                  4
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ]
+          }
+        },
+        "model.decoder.layers.0.encoder_attn": {
+          "class": "GroundingDinoMultiscaleDeformableAttention",
+          "n": 3,
+          "mean_ms": 6.571139333333334,
+          "median_ms": 6.274459,
+          "p90_ms": 7.0145254,
+          "p95_ms": 7.1070337,
+          "min_ms": 6.239417,
+          "max_ms": 7.199542,
+          "io_example": {
+            "input": [],
+            "output": [
+              {
+                "shape": [
+                  1,
+                  900,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  900,
+                  8,
+                  4,
+                  4
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ]
+          }
+        },
+        "model.decoder.layers.1.encoder_attn": {
+          "class": "GroundingDinoMultiscaleDeformableAttention",
+          "n": 3,
+          "mean_ms": 6.296222,
+          "median_ms": 6.257958,
+          "p90_ms": 6.3513915999999995,
+          "p95_ms": 6.3630708,
+          "min_ms": 6.255958,
+          "max_ms": 6.37475,
+          "io_example": {
+            "input": [],
+            "output": [
+              {
+                "shape": [
+                  1,
+                  900,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  900,
+                  8,
+                  4,
+                  4
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ]
+          }
+        },
+        "model.decoder.layers.2.encoder_attn": {
+          "class": "GroundingDinoMultiscaleDeformableAttention",
+          "n": 3,
+          "mean_ms": 6.470333666666666,
+          "median_ms": 6.447667,
+          "p90_ms": 6.613467,
+          "p95_ms": 6.6341920000000005,
+          "min_ms": 6.308417,
+          "max_ms": 6.654917,
+          "io_example": {
+            "input": [],
+            "output": [
+              {
+                "shape": [
+                  1,
+                  900,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  900,
+                  8,
+                  4,
+                  4
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ]
+          }
+        },
+        "model.decoder.layers.3.encoder_attn": {
+          "class": "GroundingDinoMultiscaleDeformableAttention",
+          "n": 3,
+          "mean_ms": 7.113180333333333,
+          "median_ms": 7.418375,
+          "p90_ms": 7.446175,
+          "p95_ms": 7.44965,
+          "min_ms": 6.468041,
+          "max_ms": 7.453125,
+          "io_example": {
+            "input": [],
+            "output": [
+              {
+                "shape": [
+                  1,
+                  900,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  900,
+                  8,
+                  4,
+                  4
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ]
+          }
+        },
+        "model.decoder.layers.4.encoder_attn": {
+          "class": "GroundingDinoMultiscaleDeformableAttention",
+          "n": 3,
+          "mean_ms": 6.764680666666667,
+          "median_ms": 6.585584,
+          "p90_ms": 7.2009832000000005,
+          "p95_ms": 7.2779081,
+          "min_ms": 6.353625,
+          "max_ms": 7.354833,
+          "io_example": {
+            "input": [],
+            "output": [
+              {
+                "shape": [
+                  1,
+                  900,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  900,
+                  8,
+                  4,
+                  4
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ]
+          }
+        },
+        "model.decoder.layers.5.encoder_attn": {
+          "class": "GroundingDinoMultiscaleDeformableAttention",
+          "n": 3,
+          "mean_ms": 6.307014,
+          "median_ms": 6.284709,
+          "p90_ms": 6.370008200000001,
+          "p95_ms": 6.3806706,
+          "min_ms": 6.245,
+          "max_ms": 6.391333,
+          "io_example": {
+            "input": [],
+            "output": [
+              {
+                "shape": [
+                  1,
+                  900,
+                  256
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  900,
+                  8,
+                  4,
+                  4
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              }
+            ]
+          }
+        }
+      },
+      "aggregate": {
+        "sum_module_medians_ms": 465.36921,
+        "sum_module_means_ms": 499.73782033333333
+      }
+    },
+    "msda_cores": {
+      "selected_modules": [
+        "model.encoder.layers.0.deformable_layer.self_attn.attn",
+        "model.encoder.layers.1.deformable_layer.self_attn.attn",
+        "model.encoder.layers.2.deformable_layer.self_attn.attn",
+        "model.encoder.layers.3.deformable_layer.self_attn.attn",
+        "model.encoder.layers.4.deformable_layer.self_attn.attn",
+        "model.encoder.layers.5.deformable_layer.self_attn.attn",
+        "model.decoder.layers.0.encoder_attn.attn",
+        "model.decoder.layers.1.encoder_attn.attn",
+        "model.decoder.layers.2.encoder_attn.attn",
+        "model.decoder.layers.3.encoder_attn.attn",
+        "model.decoder.layers.4.encoder_attn.attn",
+        "model.decoder.layers.5.encoder_attn.attn"
+      ],
+      "instrumented_full_forward": {
+        "n": 3,
+        "mean_ms": 1035.6276526666668,
+        "median_ms": 1040.233166,
+        "p90_ms": 1047.7687004,
+        "p95_ms": 1048.7106422,
+        "min_ms": 1016.997208,
+        "max_ms": 1049.652584
+      },
+      "modules": {
+        "model.encoder.layers.0.deformable_layer.self_attn.attn": {
+          "class": "MultiScaleDeformableAttention",
+          "n": 3,
+          "mean_ms": 62.993763666666666,
+          "median_ms": 63.2665,
+          "p90_ms": 63.3186,
+          "p95_ms": 63.3251125,
+          "min_ms": 62.383166,
+          "max_ms": 63.331625,
+          "io_example": {
+            "input": [
+              {
+                "shape": [
+                  1,
+                  17821,
+                  8,
+                  32
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  4,
+                  2
+                ],
+                "dtype": "int64",
+                "device": "mps:0"
+              },
+              [
+                [
+                  "int",
+                  "int"
+                ],
+                [
+                  "int",
+                  "int"
+                ],
+                [
+                  "int",
+                  "int"
+                ],
+                [
+                  "int",
+                  "int"
+                ]
+              ],
+              {
+                "shape": [
+                  4
+                ],
+                "dtype": "int64",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  17821,
+                  8,
+                  4,
+                  4,
+                  2
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  17821,
+                  8,
+                  4,
+                  4
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              "int"
+            ],
+            "output": {
+              "shape": [
+                1,
+                17821,
+                256
+              ],
+              "dtype": "float32",
+              "device": "mps:0"
+            }
+          }
+        },
+        "model.encoder.layers.1.deformable_layer.self_attn.attn": {
+          "class": "MultiScaleDeformableAttention",
+          "n": 3,
+          "mean_ms": 64.34076366666666,
+          "median_ms": 64.206916,
+          "p90_ms": 65.420016,
+          "p95_ms": 65.57165350000001,
+          "min_ms": 63.092084,
+          "max_ms": 65.723291,
+          "io_example": {
+            "input": [
+              {
+                "shape": [
+                  1,
+                  17821,
+                  8,
+                  32
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  4,
+                  2
+                ],
+                "dtype": "int64",
+                "device": "mps:0"
+              },
+              [
+                [
+                  "int",
+                  "int"
+                ],
+                [
+                  "int",
+                  "int"
+                ],
+                [
+                  "int",
+                  "int"
+                ],
+                [
+                  "int",
+                  "int"
+                ]
+              ],
+              {
+                "shape": [
+                  4
+                ],
+                "dtype": "int64",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  17821,
+                  8,
+                  4,
+                  4,
+                  2
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  17821,
+                  8,
+                  4,
+                  4
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              "int"
+            ],
+            "output": {
+              "shape": [
+                1,
+                17821,
+                256
+              ],
+              "dtype": "float32",
+              "device": "mps:0"
+            }
+          }
+        },
+        "model.encoder.layers.2.deformable_layer.self_attn.attn": {
+          "class": "MultiScaleDeformableAttention",
+          "n": 3,
+          "mean_ms": 64.94301366666667,
+          "median_ms": 64.741917,
+          "p90_ms": 66.0848162,
+          "p95_ms": 66.2526786,
+          "min_ms": 63.666583,
+          "max_ms": 66.420541,
+          "io_example": {
+            "input": [
+              {
+                "shape": [
+                  1,
+                  17821,
+                  8,
+                  32
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  4,
+                  2
+                ],
+                "dtype": "int64",
+                "device": "mps:0"
+              },
+              [
+                [
+                  "int",
+                  "int"
+                ],
+                [
+                  "int",
+                  "int"
+                ],
+                [
+                  "int",
+                  "int"
+                ],
+                [
+                  "int",
+                  "int"
+                ]
+              ],
+              {
+                "shape": [
+                  4
+                ],
+                "dtype": "int64",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  17821,
+                  8,
+                  4,
+                  4,
+                  2
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  17821,
+                  8,
+                  4,
+                  4
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              "int"
+            ],
+            "output": {
+              "shape": [
+                1,
+                17821,
+                256
+              ],
+              "dtype": "float32",
+              "device": "mps:0"
+            }
+          }
+        },
+        "model.encoder.layers.3.deformable_layer.self_attn.attn": {
+          "class": "MultiScaleDeformableAttention",
+          "n": 3,
+          "mean_ms": 63.750916999999994,
+          "median_ms": 64.256125,
+          "p90_ms": 64.3883586,
+          "p95_ms": 64.4048878,
+          "min_ms": 62.575209,
+          "max_ms": 64.421417,
+          "io_example": {
+            "input": [
+              {
+                "shape": [
+                  1,
+                  17821,
+                  8,
+                  32
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  4,
+                  2
+                ],
+                "dtype": "int64",
+                "device": "mps:0"
+              },
+              [
+                [
+                  "int",
+                  "int"
+                ],
+                [
+                  "int",
+                  "int"
+                ],
+                [
+                  "int",
+                  "int"
+                ],
+                [
+                  "int",
+                  "int"
+                ]
+              ],
+              {
+                "shape": [
+                  4
+                ],
+                "dtype": "int64",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  17821,
+                  8,
+                  4,
+                  4,
+                  2
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  17821,
+                  8,
+                  4,
+                  4
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              "int"
+            ],
+            "output": {
+              "shape": [
+                1,
+                17821,
+                256
+              ],
+              "dtype": "float32",
+              "device": "mps:0"
+            }
+          }
+        },
+        "model.encoder.layers.4.deformable_layer.self_attn.attn": {
+          "class": "MultiScaleDeformableAttention",
+          "n": 3,
+          "mean_ms": 62.897972333333335,
+          "median_ms": 63.036875,
+          "p90_ms": 63.8455086,
+          "p95_ms": 63.9465878,
+          "min_ms": 61.609375,
+          "max_ms": 64.047667,
+          "io_example": {
+            "input": [
+              {
+                "shape": [
+                  1,
+                  17821,
+                  8,
+                  32
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  4,
+                  2
+                ],
+                "dtype": "int64",
+                "device": "mps:0"
+              },
+              [
+                [
+                  "int",
+                  "int"
+                ],
+                [
+                  "int",
+                  "int"
+                ],
+                [
+                  "int",
+                  "int"
+                ],
+                [
+                  "int",
+                  "int"
+                ]
+              ],
+              {
+                "shape": [
+                  4
+                ],
+                "dtype": "int64",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  17821,
+                  8,
+                  4,
+                  4,
+                  2
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  17821,
+                  8,
+                  4,
+                  4
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              "int"
+            ],
+            "output": {
+              "shape": [
+                1,
+                17821,
+                256
+              ],
+              "dtype": "float32",
+              "device": "mps:0"
+            }
+          }
+        },
+        "model.encoder.layers.5.deformable_layer.self_attn.attn": {
+          "class": "MultiScaleDeformableAttention",
+          "n": 3,
+          "mean_ms": 64.218833,
+          "median_ms": 64.791041,
+          "p90_ms": 64.8127746,
+          "p95_ms": 64.81549129999999,
+          "min_ms": 63.04725,
+          "max_ms": 64.818208,
+          "io_example": {
+            "input": [
+              {
+                "shape": [
+                  1,
+                  17821,
+                  8,
+                  32
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  4,
+                  2
+                ],
+                "dtype": "int64",
+                "device": "mps:0"
+              },
+              [
+                [
+                  "int",
+                  "int"
+                ],
+                [
+                  "int",
+                  "int"
+                ],
+                [
+                  "int",
+                  "int"
+                ],
+                [
+                  "int",
+                  "int"
+                ]
+              ],
+              {
+                "shape": [
+                  4
+                ],
+                "dtype": "int64",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  17821,
+                  8,
+                  4,
+                  4,
+                  2
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  17821,
+                  8,
+                  4,
+                  4
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              "int"
+            ],
+            "output": {
+              "shape": [
+                1,
+                17821,
+                256
+              ],
+              "dtype": "float32",
+              "device": "mps:0"
+            }
+          }
+        },
+        "model.decoder.layers.0.encoder_attn.attn": {
+          "class": "MultiScaleDeformableAttention",
+          "n": 3,
+          "mean_ms": 4.478167,
+          "median_ms": 4.821292,
+          "p90_ms": 5.1237584,
+          "p95_ms": 5.1615667,
+          "min_ms": 3.413834,
+          "max_ms": 5.199375,
+          "io_example": {
+            "input": [
+              {
+                "shape": [
+                  1,
+                  17821,
+                  8,
+                  32
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  4,
+                  2
+                ],
+                "dtype": "int64",
+                "device": "mps:0"
+              },
+              [
+                [
+                  "int",
+                  "int"
+                ],
+                [
+                  "int",
+                  "int"
+                ],
+                [
+                  "int",
+                  "int"
+                ],
+                [
+                  "int",
+                  "int"
+                ]
+              ],
+              {
+                "shape": [
+                  4
+                ],
+                "dtype": "int64",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  900,
+                  8,
+                  4,
+                  4,
+                  2
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  900,
+                  8,
+                  4,
+                  4
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              "int"
+            ],
+            "output": {
+              "shape": [
+                1,
+                900,
+                256
+              ],
+              "dtype": "float32",
+              "device": "mps:0"
+            }
+          }
+        },
+        "model.decoder.layers.1.encoder_attn.attn": {
+          "class": "MultiScaleDeformableAttention",
+          "n": 3,
+          "mean_ms": 3.5379996666666664,
+          "median_ms": 3.455583,
+          "p90_ms": 3.6626166000000002,
+          "p95_ms": 3.6884958,
+          "min_ms": 3.444041,
+          "max_ms": 3.714375,
+          "io_example": {
+            "input": [
+              {
+                "shape": [
+                  1,
+                  17821,
+                  8,
+                  32
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  4,
+                  2
+                ],
+                "dtype": "int64",
+                "device": "mps:0"
+              },
+              [
+                [
+                  "int",
+                  "int"
+                ],
+                [
+                  "int",
+                  "int"
+                ],
+                [
+                  "int",
+                  "int"
+                ],
+                [
+                  "int",
+                  "int"
+                ]
+              ],
+              {
+                "shape": [
+                  4
+                ],
+                "dtype": "int64",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  900,
+                  8,
+                  4,
+                  4,
+                  2
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  900,
+                  8,
+                  4,
+                  4
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              "int"
+            ],
+            "output": {
+              "shape": [
+                1,
+                900,
+                256
+              ],
+              "dtype": "float32",
+              "device": "mps:0"
+            }
+          }
+        },
+        "model.decoder.layers.2.encoder_attn.attn": {
+          "class": "MultiScaleDeformableAttention",
+          "n": 3,
+          "mean_ms": 3.483458333333333,
+          "median_ms": 3.487167,
+          "p90_ms": 3.4920998,
+          "p95_ms": 3.4927164,
+          "min_ms": 3.469875,
+          "max_ms": 3.493333,
+          "io_example": {
+            "input": [
+              {
+                "shape": [
+                  1,
+                  17821,
+                  8,
+                  32
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  4,
+                  2
+                ],
+                "dtype": "int64",
+                "device": "mps:0"
+              },
+              [
+                [
+                  "int",
+                  "int"
+                ],
+                [
+                  "int",
+                  "int"
+                ],
+                [
+                  "int",
+                  "int"
+                ],
+                [
+                  "int",
+                  "int"
+                ]
+              ],
+              {
+                "shape": [
+                  4
+                ],
+                "dtype": "int64",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  900,
+                  8,
+                  4,
+                  4,
+                  2
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  900,
+                  8,
+                  4,
+                  4
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              "int"
+            ],
+            "output": {
+              "shape": [
+                1,
+                900,
+                256
+              ],
+              "dtype": "float32",
+              "device": "mps:0"
+            }
+          }
+        },
+        "model.decoder.layers.3.encoder_attn.attn": {
+          "class": "MultiScaleDeformableAttention",
+          "n": 3,
+          "mean_ms": 3.6962916666666668,
+          "median_ms": 3.511833,
+          "p90_ms": 3.9559338,
+          "p95_ms": 4.0114464,
+          "min_ms": 3.510083,
+          "max_ms": 4.066959,
+          "io_example": {
+            "input": [
+              {
+                "shape": [
+                  1,
+                  17821,
+                  8,
+                  32
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  4,
+                  2
+                ],
+                "dtype": "int64",
+                "device": "mps:0"
+              },
+              [
+                [
+                  "int",
+                  "int"
+                ],
+                [
+                  "int",
+                  "int"
+                ],
+                [
+                  "int",
+                  "int"
+                ],
+                [
+                  "int",
+                  "int"
+                ]
+              ],
+              {
+                "shape": [
+                  4
+                ],
+                "dtype": "int64",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  900,
+                  8,
+                  4,
+                  4,
+                  2
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  900,
+                  8,
+                  4,
+                  4
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              "int"
+            ],
+            "output": {
+              "shape": [
+                1,
+                900,
+                256
+              ],
+              "dtype": "float32",
+              "device": "mps:0"
+            }
+          }
+        },
+        "model.decoder.layers.4.encoder_attn.attn": {
+          "class": "MultiScaleDeformableAttention",
+          "n": 3,
+          "mean_ms": 3.9810413333333337,
+          "median_ms": 3.829791,
+          "p90_ms": 4.4019246,
+          "p95_ms": 4.4734413,
+          "min_ms": 3.568375,
+          "max_ms": 4.544958,
+          "io_example": {
+            "input": [
+              {
+                "shape": [
+                  1,
+                  17821,
+                  8,
+                  32
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  4,
+                  2
+                ],
+                "dtype": "int64",
+                "device": "mps:0"
+              },
+              [
+                [
+                  "int",
+                  "int"
+                ],
+                [
+                  "int",
+                  "int"
+                ],
+                [
+                  "int",
+                  "int"
+                ],
+                [
+                  "int",
+                  "int"
+                ]
+              ],
+              {
+                "shape": [
+                  4
+                ],
+                "dtype": "int64",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  900,
+                  8,
+                  4,
+                  4,
+                  2
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  900,
+                  8,
+                  4,
+                  4
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              "int"
+            ],
+            "output": {
+              "shape": [
+                1,
+                900,
+                256
+              ],
+              "dtype": "float32",
+              "device": "mps:0"
+            }
+          }
+        },
+        "model.decoder.layers.5.encoder_attn.attn": {
+          "class": "MultiScaleDeformableAttention",
+          "n": 3,
+          "mean_ms": 4.417097,
+          "median_ms": 4.841125,
+          "p90_ms": 4.8732578,
+          "p95_ms": 4.8772744,
+          "min_ms": 3.528875,
+          "max_ms": 4.881291,
+          "io_example": {
+            "input": [
+              {
+                "shape": [
+                  1,
+                  17821,
+                  8,
+                  32
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  4,
+                  2
+                ],
+                "dtype": "int64",
+                "device": "mps:0"
+              },
+              [
+                [
+                  "int",
+                  "int"
+                ],
+                [
+                  "int",
+                  "int"
+                ],
+                [
+                  "int",
+                  "int"
+                ],
+                [
+                  "int",
+                  "int"
+                ]
+              ],
+              {
+                "shape": [
+                  4
+                ],
+                "dtype": "int64",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  900,
+                  8,
+                  4,
+                  4,
+                  2
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              {
+                "shape": [
+                  1,
+                  900,
+                  8,
+                  4,
+                  4
+                ],
+                "dtype": "float32",
+                "device": "mps:0"
+              },
+              "int"
+            ],
+            "output": {
+              "shape": [
+                1,
+                900,
+                256
+              ],
+              "dtype": "float32",
+              "device": "mps:0"
+            }
+          }
+        }
+      },
+      "aggregate": {
+        "sum_module_medians_ms": 408.246165,
+        "sum_module_means_ms": 406.73931833333336
+      }
+    }
+  },
+  "msda_summary": {
+    "msda_wrappers": {
+      "encoder_count": 6,
+      "encoder_sum_median_ms": 426.100458,
+      "decoder_count": 6,
+      "decoder_sum_median_ms": 39.268752,
+      "total_sum_median_ms": 465.36921
+    },
+    "msda_cores": {
+      "encoder_count": 6,
+      "encoder_sum_median_ms": 384.299374,
+      "decoder_count": 6,
+      "decoder_sum_median_ms": 23.946791,
+      "total_sum_median_ms": 408.246165
+    }
+  }
+}

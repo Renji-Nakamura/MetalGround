@@ -1,0 +1,119 @@
+{
+  "experiment": "0054c-1",
+  "purpose": "Verify that the adopted MetalGround full model can consume an exact-value MLX-Metal -> PyTorch-MPS DLPack view without behavioral divergence or material latency regression.",
+  "model": "IDEA-Research/grounding-dino-tiny",
+  "image": "assets/input.jpg",
+  "prompt": [
+    "a cat",
+    "a dog"
+  ],
+  "thresholds": {
+    "box": 0.3,
+    "text": 0.25
+  },
+  "bridge": {
+    "producer": "MLX custom Metal identity kernel",
+    "copy_false": true,
+    "producer_eval_and_sync_before_handoff": true,
+    "torch_device": "mps",
+    "torch_dtype": "torch.float32",
+    "torch_shape": [
+      1,
+      3,
+      800,
+      1065
+    ],
+    "pixel_values_mean_abs": 0.0,
+    "pixel_values_max_abs": 0.0,
+    "mlx_owner_kept_alive_through_model_use": true
+  },
+  "correctness": {
+    "raw": {
+      "logits": {
+        "finite_mask_equal": true,
+        "max_abs": 0.0,
+        "mean_abs": 0.0,
+        "rmse": 0.0,
+        "allclose_1e5": true
+      },
+      "pred_boxes": {
+        "finite_mask_equal": true,
+        "max_abs": 0.0,
+        "mean_abs": 0.0,
+        "rmse": 0.0,
+        "allclose_1e5": true
+      },
+      "topk": {
+        "k": 900,
+        "set_overlap": 900,
+        "changed_membership_each_side": 0,
+        "rankwise_identical": 900,
+        "score_vector_max_abs": 0.0,
+        "score_vector_mean_abs": 0.0,
+        "mismatched_ranks_zero_based": []
+      }
+    },
+    "postprocess": {
+      "reference_count": 2,
+      "candidate_count": 2,
+      "count_equal": true,
+      "label_multiset_equal": true,
+      "same_label_greedy_min_iou": 0.9999999113377543
+    }
+  },
+  "timing": {
+    "warmup_per_mode": 3,
+    "pairs": 20,
+    "alternating_order": true,
+    "reference_model_only_ms": {
+      "n": 20,
+      "mean_ms": 477.75492495,
+      "median_ms": 472.6355625,
+      "p90_ms": 498.85377470000003,
+      "p95_ms": 499.24849165000006,
+      "min_ms": 463.24775,
+      "max_ms": 504.663333
+    },
+    "candidate_dlpack_import_plus_model_ms": {
+      "n": 20,
+      "mean_ms": 477.41849590000004,
+      "median_ms": 474.18345850000003,
+      "p90_ms": 490.8098039,
+      "p95_ms": 491.75288570000004,
+      "min_ms": 467.994375,
+      "max_ms": 493.923041
+    },
+    "paired_candidate_minus_reference_ms": {
+      "n": 20,
+      "mean_ms": -0.33642904999999246,
+      "median_ms": -0.3221254999999701,
+      "p90_ms": 13.060913100000024,
+      "p95_ms": 14.64246460000001,
+      "min_ms": -17.016291000000024,
+      "max_ms": 15.116792000000032
+    },
+    "candidate_timing_includes_dlpack_import": true,
+    "producer_work_excluded": true
+  },
+  "pre_registered_gates": {
+    "bridge_device_mps": true,
+    "bridge_dtype_float32": true,
+    "bridge_shape_exact": true,
+    "pixel_values_max_abs_eq_0": true,
+    "raw_logits_allclose_1e5": true,
+    "raw_boxes_allclose_1e5": true,
+    "topk_membership_900_of_900": true,
+    "topk_rankwise_900_of_900": true,
+    "post_count_equal": true,
+    "post_label_multiset_equal": true,
+    "post_same_label_min_iou_ge_0_9999": true,
+    "paired_median_regression_ms_le_10": true
+  },
+  "all_gates_pass": true,
+  "guardrails": [
+    "0054c-1 isolates full-model consumption of bridged Metal storage; it does not yet compose the live camera and 0054b preprocessing producer in one process.",
+    "The candidate producer values are intentionally exact copies of the HF reference pixel_values so preprocessing numerical error cannot confound the bridge integration result.",
+    "CPU->MLX seeding occurs before timing and is not part of the proposed final live path.",
+    "A positive candidate-reference timing delta above 10 ms median is a pre-registered integration regression failure even though 0054c-0 bridge creation itself is sub-microsecond."
+  ]
+}

@@ -1,0 +1,173 @@
+{
+  "timestamp_utc": "2026-09-15T15:40:52.033410+00:00",
+  "experiment": "0009",
+  "model": "IDEA-Research/grounding-dino-tiny",
+  "device": "mps",
+  "dtype": "float32",
+  "image": "assets/input.jpg",
+  "prompt": [
+    "a cat",
+    "a dog"
+  ],
+  "software": {
+    "torch": "2.13.0",
+    "transformers": "5.17.0"
+  },
+  "metalground": {
+    "kernel": "metal_msda_v0_fp32",
+    "patched_modules": [
+      "model.encoder.layers.0.deformable_layer.self_attn.attn",
+      "model.encoder.layers.1.deformable_layer.self_attn.attn",
+      "model.encoder.layers.2.deformable_layer.self_attn.attn",
+      "model.encoder.layers.3.deformable_layer.self_attn.attn",
+      "model.encoder.layers.4.deformable_layer.self_attn.attn",
+      "model.encoder.layers.5.deformable_layer.self_attn.attn",
+      "model.decoder.layers.0.encoder_attn.attn",
+      "model.decoder.layers.1.encoder_attn.attn",
+      "model.decoder.layers.2.encoder_attn.attn",
+      "model.decoder.layers.3.encoder_attn.attn",
+      "model.decoder.layers.4.encoder_attn.attn",
+      "model.decoder.layers.5.encoder_attn.attn"
+    ],
+    "num_patched_modules": 12,
+    "threadgroup_size": 256,
+    "interop": "large compute tensors zero-copy MPS<->MLX; tiny static metadata native MLX int32; conservative explicit synchronization per MSDA"
+  },
+  "correctness_context": {
+    "experiment_0008d_conclusion": "large rank-wise raw-output differences are causally dominated by three adjacent proposal rank swaps inside an unchanged top-900 set",
+    "first_patched_forward_rank_sensitive_comparison": {
+      "logits_mask_aware": {
+        "shape": [
+          1,
+          900,
+          256
+        ],
+        "finite_mask_equal": true,
+        "nan_mask_equal": true,
+        "posinf_mask_equal": true,
+        "neginf_mask_equal": true,
+        "finite_max_abs": 1.576970100402832,
+        "finite_mean_abs": 0.014678400941193104,
+        "finite_rmse": 0.07261483371257782,
+        "finite_allclose_1e-5": false,
+        "finite_allclose_1e-4": false
+      },
+      "pred_boxes": {
+        "shape": [
+          1,
+          900,
+          4
+        ],
+        "finite_mask_equal": true,
+        "nan_mask_equal": true,
+        "posinf_mask_equal": true,
+        "neginf_mask_equal": true,
+        "finite_max_abs": 0.3022993206977844,
+        "finite_mean_abs": 0.002010128227993846,
+        "finite_rmse": 0.010729660280048847,
+        "finite_allclose_1e-5": false,
+        "finite_allclose_1e-4": false
+      }
+    },
+    "reference_detections": [
+      {
+        "label": "a cat a dog",
+        "score": 0.505246102809906,
+        "box": [
+          8.241534233093262,
+          312.5841064453125,
+          570.35009765625,
+          872.4279174804688
+        ]
+      },
+      {
+        "label": "a dog",
+        "score": 0.3197939693927765,
+        "box": [
+          472.915283203125,
+          17.95140266418457,
+          1129.7747802734375,
+          891.8092041015625
+        ]
+      }
+    ],
+    "patched_detections": [
+      {
+        "label": "a cat a dog",
+        "score": 0.5054613351821899,
+        "box": [
+          8.22758674621582,
+          312.5824279785156,
+          570.3585205078125,
+          872.43603515625
+        ]
+      },
+      {
+        "label": "a dog",
+        "score": 0.3197981119155884,
+        "box": [
+          472.9186096191406,
+          17.951940536499023,
+          1129.7734375,
+          891.81103515625
+        ]
+      }
+    ],
+    "final_benchmark_detections": [
+      {
+        "label": "a cat a dog",
+        "score": 0.5054613351821899,
+        "box": [
+          8.22758674621582,
+          312.5824279785156,
+          570.3585205078125,
+          872.43603515625
+        ]
+      },
+      {
+        "label": "a dog",
+        "score": 0.3197981119155884,
+        "box": [
+          472.9186096191406,
+          17.951940536499023,
+          1129.7734375,
+          891.81103515625
+        ]
+      }
+    ],
+    "first_forward_call_counts": {
+      "total": 12,
+      "encoder": 6,
+      "decoder": 6
+    }
+  },
+  "performance": {
+    "patched_forward_latency": {
+      "n": 10,
+      "mean_ms": 632.8667666,
+      "median_ms": 632.6745625000001,
+      "p90_ms": 638.2054458,
+      "p95_ms": 642.2788269,
+      "p99_ms": 645.53753178,
+      "min_ms": 623.781833,
+      "max_ms": 646.352208
+    },
+    "experiment_0001_authoritative_median_ms": 999.116584,
+    "speedup_vs_experiment_0001": 1.5791951237173374,
+    "fps_from_median": 1.5805914434879778,
+    "benchmark_call_counts": {
+      "total": 156,
+      "encoder": 78,
+      "decoder": 78,
+      "expected_total": 156
+    }
+  },
+  "notes": [
+    "Experiment 0001's uninstrumented PyTorch/MPS median remains the authoritative external baseline.",
+    "The reference forward in this script is a correctness oracle, not a timing baseline.",
+    "First patched execution/JIT is excluded from timing.",
+    "This v0 hybrid integration intentionally retains conservative synchronization at every MSDA boundary.",
+    "Raw query-wise tensors are rank-sensitive; Experiment 0008d established that three adjacent top-k rank swaps dominate the large raw max error.",
+    "Dataset-level accuracy equivalence has not yet been established."
+  ]
+}

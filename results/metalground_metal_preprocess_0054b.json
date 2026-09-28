@@ -1,0 +1,42 @@
+{
+  "diagnostic_intermediate_file" : "\/Users\/renji\/Projects\/metalground_bootstrap\/results\/metal_letterbox_rgba8.raw",
+  "diagnostic_intermediate_format" : "RGBA8 1200x901; readback after measured timing",
+  "experiment" : "0054b",
+  "implementation" : {
+    "approximation" : false,
+    "intermediate_quantized_u8" : true,
+    "pass1" : "BGRA8Unorm 1280x720 -> RGBA8Unorm 1200x901 letterbox, linear sampling",
+    "pass2" : "RGBA8Unorm 1200x901 -> float32 CHW 3x800x1065 resize+normalize, linear sampling",
+    "reduced_precision_output" : false
+  },
+  "input_shape_hwc" : [
+    720,
+    1280,
+    4
+  ],
+  "letterbox_shape_hw" : [
+    901,
+    1200
+  ],
+  "metal_device" : "Apple M3",
+  "output_file" : "\/Users\/renji\/Projects\/metalground_bootstrap\/results\/metal_pixel_values_f32_chw.bin",
+  "output_shape_chw" : [
+    3,
+    800,
+    1065
+  ],
+  "samples" : 200,
+  "scope" : "fixed-input two-pass Metal preprocessing",
+  "shader_library_creation" : "MTLDevice.makeLibrary(source:options:) runtime compilation",
+  "timing_ms" : {
+    "max" : 1.204458,
+    "mean" : 0.67019415999999976,
+    "median" : 0.6249165000000001,
+    "min" : 0.49512499999999998,
+    "n" : 200,
+    "p90" : 0.9623624999999999,
+    "p95" : 1.0261711499999999
+  },
+  "timing_semantics" : "CPU submit-to-command-buffer-completion; input upload and diagnostic readback excluded.",
+  "warmup" : 20
+}

@@ -1,0 +1,129 @@
+{
+  "timestamp_utc": "2026-09-15T19:50:18.411298+00:00",
+  "experiment": "0041",
+  "purpose": "Feasibility test for a multi-layer encoder MLX super-island: port GroundingDino text enhancement to MLX and execute encoder layers 0-1 continuously without the intermediate MLX->PyTorch->MLX boundary.",
+  "model": "IDEA-Research/grounding-dino-tiny",
+  "device": "mps",
+  "dtype": "float32",
+  "software": {
+    "torch": "2.13.0",
+    "transformers": "5.17.0"
+  },
+  "configuration": {
+    "layers": [
+      0,
+      1
+    ],
+    "current_path": "wide layer0 -> PyTorch text enhancer -> return -> wide layer1 -> PyTorch text enhancer",
+    "candidate_path": "one Torch->MLX import -> wide0 -> MLX text enhancer0 -> wide1 -> MLX text enhancer1 -> one MLX->Torch return",
+    "text_length": 8,
+    "text_attention_layout": "query_key_value",
+    "text_attention_heads": 4,
+    "text_attention_head_dim": 64,
+    "prompt_cache": "irrelevant to isolated encoder-prefix segment",
+    "approximation": false,
+    "retraining": false,
+    "reduced_precision": false
+  },
+  "text_enhancer_correctness": {
+    "hidden_states": {
+      "shape": [
+        1,
+        8,
+        256
+      ],
+      "max_abs": 1.9073486328125e-06,
+      "mean_abs": 7.092444320733193e-08,
+      "rmse": 1.10235667705183e-07,
+      "allclose_1e-5": true,
+      "allclose_1e-4": true,
+      "finite": true
+    },
+    "attention_weights": {
+      "shape": [
+        1,
+        4,
+        8,
+        8
+      ],
+      "max_abs": 2.980232238769531e-07,
+      "mean_abs": 1.2902319213026203e-08,
+      "rmse": 4.0989739602537156e-08,
+      "allclose_1e-5": true,
+      "allclose_1e-4": true,
+      "finite": true
+    }
+  },
+  "two_layer_correctness": {
+    "vision_output": {
+      "shape": [
+        1,
+        17821,
+        256
+      ],
+      "max_abs": 1.621246337890625e-05,
+      "mean_abs": 2.462537338487891e-07,
+      "rmse": 3.8325637774505594e-07,
+      "allclose_1e-5": true,
+      "allclose_1e-4": true,
+      "finite": true
+    },
+    "text_output": {
+      "shape": [
+        1,
+        8,
+        256
+      ],
+      "max_abs": 1.9073486328125e-06,
+      "mean_abs": 6.252516016047593e-08,
+      "rmse": 1.1276482325683901e-07,
+      "allclose_1e-5": true,
+      "allclose_1e-4": true,
+      "finite": true
+    }
+  },
+  "correctness_gate_passed": true,
+  "latency": {
+    "current_two_layers": {
+      "n": 20,
+      "mean_ms": 83.7785749,
+      "median_ms": 83.66981200000001,
+      "p90_ms": 86.0991747,
+      "p95_ms": 86.66808750000001,
+      "min_ms": 80.843667,
+      "max_ms": 88.334625
+    },
+    "mlx_super_island_two_layers": {
+      "n": 20,
+      "mean_ms": 81.25696669999999,
+      "median_ms": 80.760875,
+      "p90_ms": 82.9745375,
+      "p95_ms": 83.20417705,
+      "min_ms": 78.645458,
+      "max_ms": 84.354666
+    },
+    "paired_delta_current_minus_super": {
+      "n": 20,
+      "mean_ms": 2.5216081999999993,
+      "median_ms": 2.5120415000000094,
+      "p90_ms": 4.865674600000002,
+      "p95_ms": 5.944080299999989,
+      "min_ms": -0.6934169999999966,
+      "max_ms": 6.069125
+    }
+  },
+  "derived": {
+    "speedup_from_medians": 1.0360191367416463,
+    "median_difference_of_marginals_ms": 2.9089370000000088,
+    "paired_delta_median_ms": 2.5120415000000094,
+    "paired_delta_mean_ms": 2.5216081999999993
+  },
+  "decision_rule": "Proceed to a six-layer encoder super-island if the two-layer candidate preserves vision/text outputs within the established FP32 1e-4 envelope and shows a materially positive paired saving (target >=2 ms over two layers). If correctness fails, fix the text-enhancer port before any full-model integration. If correctness passes but latency is flat/regressive, keep the current per-layer wide islands.",
+  "notes": [
+    "The candidate keeps both vision and text branches in MLX between layers 0 and 1.",
+    "Dropout is mathematically omitted because model.eval() makes it an identity.",
+    "The text self-attention mask is inverted inside MLX from the captured encoder mask semantics.",
+    "No approximation, pruning, quantization, retraining, or reduced precision is used.",
+    "This is an isolated encoder-prefix feasibility benchmark, not a full-model authority."
+  ]
+}

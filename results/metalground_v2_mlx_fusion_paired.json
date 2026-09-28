@@ -1,0 +1,119 @@
+{
+  "timestamp_utc": "2026-09-15T18:33:47.854259+00:00",
+  "experiment": "0031",
+  "purpose": "Same-process paired full-model A/B test replacing all six PyTorch fully-folded fusion attention calls in MetalGround v2 with the exact compiled-MLX algebra validated in Experiment 0030.",
+  "model": "IDEA-Research/grounding-dino-tiny",
+  "device": "mps",
+  "dtype": "float32",
+  "configuration": {
+    "baseline": "MetalGround v2 with six PyTorch/MPS fully-folded fusion attentions",
+    "candidate": "same runtime with six compiled-MLX fully-folded fusion attentions",
+    "encoder_deformable_islands": 6,
+    "decoder_metal_msda": true,
+    "fusion_calls_per_forward": 6,
+    "warmup_per_mode": 3,
+    "paired_iterations": 20,
+    "order": "alternating torch->mlx / mlx->torch",
+    "conservative_sync_at_each_mlx_fusion_boundary": true,
+    "prompt_cache": false,
+    "approximation": false,
+    "retraining": false,
+    "reduced_precision": false
+  },
+  "latency": {
+    "pytorch_fusion_full_model": {
+      "n": 20,
+      "mean_ms": 575.95791255,
+      "median_ms": 575.3401664999999,
+      "p90_ms": 596.6179541000001,
+      "p95_ms": 627.1768973000001,
+      "min_ms": 530.79125,
+      "max_ms": 704.316542
+    },
+    "mlx_fusion_full_model": {
+      "n": 20,
+      "mean_ms": 520.3452917,
+      "median_ms": 517.9273539999999,
+      "p90_ms": 538.7226622000001,
+      "p95_ms": 571.0788395999999,
+      "min_ms": 471.080958,
+      "max_ms": 625.679417
+    },
+    "paired_delta_ms_torch_minus_mlx": {
+      "n": 20,
+      "mean_ms": 55.612620849999985,
+      "median_ms": 56.02683400000001,
+      "p90_ms": 81.05989610000005,
+      "p95_ms": 100.38539969999992,
+      "min_ms": -65.280125,
+      "max_ms": 136.11141700000007
+    }
+  },
+  "derived": {
+    "speedup_from_medians": 1.110851091483382,
+    "median_difference_of_marginals_ms": 57.41281249999997,
+    "paired_delta_median_ms": 56.02683400000001,
+    "paired_delta_mean_ms": 55.612620849999985
+  },
+  "correctness": {
+    "logits": {
+      "shape": [
+        1,
+        900,
+        256
+      ],
+      "finite_mask_equal": true,
+      "nan_mask_equal": true,
+      "posinf_mask_equal": true,
+      "neginf_mask_equal": true,
+      "finite_max_abs": 0.707672119140625,
+      "finite_mean_abs": 0.014952138066291809,
+      "finite_rmse": 0.05339410901069641,
+      "allclose_1e-5": false,
+      "allclose_1e-4": false
+    },
+    "pred_boxes": {
+      "shape": [
+        1,
+        900,
+        4
+      ],
+      "finite_mask_equal": true,
+      "nan_mask_equal": true,
+      "posinf_mask_equal": true,
+      "neginf_mask_equal": true,
+      "finite_max_abs": 0.16824033856391907,
+      "finite_mean_abs": 0.002011949196457863,
+      "finite_rmse": 0.00887821614742279,
+      "allclose_1e-5": false,
+      "allclose_1e-4": false
+    },
+    "topk": {
+      "k": 900,
+      "set_overlap": 900,
+      "changed_membership_each_side": 0,
+      "rankwise_identical": 898,
+      "score_vector_max_abs": 7.62939453125e-06,
+      "score_vector_mean_abs": 5.406593572843121e-07,
+      "mismatched_ranks_zero_based": [
+        302,
+        303
+      ]
+    }
+  },
+  "call_validation": {
+    "calls": 240,
+    "torch_calls": 120,
+    "mlx_calls": 120,
+    "expected_total_calls": 240,
+    "expected_calls_each_mode": 120
+  },
+  "decision_rule": "If full-model paired delta is materially positive (target >=20 ms) and correctness remains within the established FP32 backend envelope, adopt MLX fusion and next test a wider fusion+deformable execution island to remove the extra per-layer bridge. Otherwise keep the PyTorch fully-folded implementation.",
+  "notes": [
+    "Only the six fusion attention implementations differ between paired modes.",
+    "Fusion LayerNorm, layer-scale residuals, text enhancer, deformable islands, decoder, and backbone are identical.",
+    "Each MLX fusion call uses conservative explicit cross-runtime synchronization, so a wider island can only reduce boundary count if this candidate is successful.",
+    "Prompt caching is intentionally disabled to isolate the fusion replacement.",
+    "No approximation, quantization, pruning, retraining, or reduced precision is used."
+  ]
+}

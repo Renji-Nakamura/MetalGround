@@ -1,0 +1,745 @@
+{
+  "timestamp_utc": "2026-09-16T11:09:08.958518+00:00",
+  "experiment": "0051",
+  "purpose": "Multi-image, multi-prompt behavioral-faithfulness sweep comparing untouched PyTorch/MPS Grounding DINO against the adopted MetalGround runtime at fixed webcam-style geometry.",
+  "model": "IDEA-Research/grounding-dino-tiny",
+  "device": "mps",
+  "dtype": "float32",
+  "source_manifest": "assets/faithfulness_0051/manifest.json",
+  "prompt_manifest": "assets/faithfulness_0051/prompts.json",
+  "configuration": {
+    "images": 2,
+    "prompt_sets": 2,
+    "cases": 4,
+    "fixed_pixel_values_shape": [
+      1,
+      3,
+      800,
+      1065
+    ],
+    "threshold_profiles": [
+      {
+        "id": "permissive",
+        "box_threshold": 0.2,
+        "text_threshold": 0.2
+      },
+      {
+        "id": "default",
+        "box_threshold": 0.3,
+        "text_threshold": 0.25
+      },
+      {
+        "id": "strict",
+        "box_threshold": 0.4,
+        "text_threshold": 0.3
+      }
+    ],
+    "original": "untouched transformers/PyTorch MPS FP32",
+    "final": "adopted MetalGround: corrected wide encoder MLX islands + exact prompt cache + decoder custom Metal MSDA + exact compiled MLX stage0 block0/block1 Swin MLPs",
+    "performance_timing": false,
+    "approximation": false,
+    "retraining": false,
+    "reduced_precision": false
+  },
+  "summary": {
+    "total_cases": 4,
+    "topk": {
+      "membership_preserved_cases": 4,
+      "membership_preserved_rate": 1.0,
+      "rankwise_exact_cases": 1,
+      "rankwise_exact_rate": 0.25,
+      "adjacent_swap_only_cases": 3,
+      "max_changed_membership_each_side": 0,
+      "max_mismatch_count": 4,
+      "median_rankwise_identical": 898.0,
+      "max_score_vector_abs_diff": 3.075599670410156e-05,
+      "mismatch_rank_histogram": {
+        "466": 1,
+        "467": 1,
+        "712": 1,
+        "713": 1,
+        "724": 1,
+        "725": 1,
+        "814": 1,
+        "815": 1
+      }
+    },
+    "threshold_profiles": {
+      "permissive": {
+        "box_threshold": 0.2,
+        "text_threshold": 0.2,
+        "count_equal_cases": 4,
+        "label_multiset_equal_cases": 4,
+        "all_label_matched_cases": 4,
+        "all_matched_iou_ge_0_99_cases": 4,
+        "count_equal_rate": 1.0,
+        "label_multiset_equal_rate": 1.0,
+        "high_iou_agreement_rate": 1.0,
+        "max_score_abs_diff": 0.000192299485206604,
+        "max_box_abs_diff_px": 0.03289794921875
+      },
+      "default": {
+        "box_threshold": 0.3,
+        "text_threshold": 0.25,
+        "count_equal_cases": 4,
+        "label_multiset_equal_cases": 4,
+        "all_label_matched_cases": 4,
+        "all_matched_iou_ge_0_99_cases": 4,
+        "count_equal_rate": 1.0,
+        "label_multiset_equal_rate": 1.0,
+        "high_iou_agreement_rate": 1.0,
+        "max_score_abs_diff": 2.1666288375854492e-05,
+        "max_box_abs_diff_px": 0.00592041015625
+      },
+      "strict": {
+        "box_threshold": 0.4,
+        "text_threshold": 0.3,
+        "count_equal_cases": 4,
+        "label_multiset_equal_cases": 4,
+        "all_label_matched_cases": 4,
+        "all_matched_iou_ge_0_99_cases": 4,
+        "count_equal_rate": 1.0,
+        "label_multiset_equal_rate": 1.0,
+        "high_iou_agreement_rate": 1.0,
+        "max_score_abs_diff": 0.0,
+        "max_box_abs_diff_px": 0.0
+      }
+    },
+    "by_prompt": {
+      "animals": {
+        "cases": 2,
+        "topk_membership_preserved": 2,
+        "rankwise_exact": 1,
+        "default_detection_high_iou_agreement": 2
+      },
+      "road": {
+        "cases": 2,
+        "topk_membership_preserved": 2,
+        "rankwise_exact": 0,
+        "default_detection_high_iou_agreement": 2
+      }
+    },
+    "raw_output": {
+      "max_logit_abs_diff": 1.2598552703857422,
+      "median_logit_max_abs_diff": 0.8580553531646729,
+      "max_box_abs_diff": 0.573058009147644,
+      "median_box_max_abs_diff": 0.40707337856292725
+    }
+  },
+  "cases": [
+    {
+      "image_id": "sentinel_baseline_input",
+      "image_path": "assets/faithfulness_0051/images/sentinel_baseline_input.png",
+      "sentinel": true,
+      "prompt_id": "animals",
+      "labels": [
+        "a cat",
+        "a dog",
+        "a bird",
+        "a horse"
+      ],
+      "raw": {
+        "logits": {
+          "finite_mask_equal": true,
+          "max_abs": 0.9230585098266602,
+          "mean_abs": 0.003957558423280716,
+          "rmse": 0.030301887542009354
+        },
+        "pred_boxes": {
+          "finite_mask_equal": true,
+          "max_abs": 0.5422471761703491,
+          "mean_abs": 0.0011312253773212433,
+          "rmse": 0.017185913398861885
+        }
+      },
+      "topk": {
+        "k": 900,
+        "set_overlap": 900,
+        "changed_membership_each_side": 0,
+        "rankwise_identical": 898,
+        "mismatch_count": 2,
+        "mismatched_ranks_zero_based": [
+          712,
+          713
+        ],
+        "all_rank_mismatches_are_adjacent_swaps": true,
+        "adjacent_swap_pairs": [
+          {
+            "ranks_zero_based": [
+              712,
+              713
+            ],
+            "proposal_indices_original_order": [
+              9962,
+              15308
+            ],
+            "original_score_gap_abs": 0.0,
+            "final_score_gap_abs": 1.430511474609375e-06
+          }
+        ],
+        "score_vector_max_abs": 1.0013580322265625e-05,
+        "score_vector_mean_abs": 9.147327659775328e-07
+      },
+      "postprocess": {
+        "permissive": {
+          "original_count": 5,
+          "final_count": 5,
+          "count_equal": true,
+          "label_multiset_equal": true,
+          "matched_same_label": 5,
+          "unmatched_original": 0,
+          "unmatched_final": 0,
+          "all_label_matched": true,
+          "all_matched_iou_ge_0_50": true,
+          "all_matched_iou_ge_0_99": true,
+          "min_matched_iou": 0.9998627034645905,
+          "median_matched_iou": 0.9999688173913164,
+          "max_score_abs_diff": 4.521012306213379e-05,
+          "max_box_abs_diff_px": 0.03289794921875,
+          "matches": [
+            {
+              "ref_index": 0,
+              "cand_index": 0,
+              "label": "a cat a dog a bird a horse",
+              "iou": 0.9999812169002208,
+              "score_abs_diff": 2.1666288375854492e-05,
+              "box_max_abs_diff_px": 0.00592041015625
+            },
+            {
+              "ref_index": 1,
+              "cand_index": 1,
+              "label": "a a dog a horse",
+              "iou": 0.9999763191310382,
+              "score_abs_diff": 2.0116567611694336e-05,
+              "box_max_abs_diff_px": 0.0103759765625
+            },
+            {
+              "ref_index": 2,
+              "cand_index": 2,
+              "label": "a dog a",
+              "iou": 0.9999688173913164,
+              "score_abs_diff": 9.834766387939453e-07,
+              "box_max_abs_diff_px": 0.0128631591796875
+            },
+            {
+              "ref_index": 3,
+              "cand_index": 3,
+              "label": "cat",
+              "iou": 0.9998875807703411,
+              "score_abs_diff": 2.9280781745910645e-05,
+              "box_max_abs_diff_px": 0.019794464111328125
+            },
+            {
+              "ref_index": 4,
+              "cand_index": 4,
+              "label": "a cat a",
+              "iou": 0.9998627034645905,
+              "score_abs_diff": 4.521012306213379e-05,
+              "box_max_abs_diff_px": 0.03289794921875
+            }
+          ]
+        },
+        "default": {
+          "original_count": 1,
+          "final_count": 1,
+          "count_equal": true,
+          "label_multiset_equal": true,
+          "matched_same_label": 1,
+          "unmatched_original": 0,
+          "unmatched_final": 0,
+          "all_label_matched": true,
+          "all_matched_iou_ge_0_50": true,
+          "all_matched_iou_ge_0_99": true,
+          "min_matched_iou": 0.9999812169002208,
+          "median_matched_iou": 0.9999812169002208,
+          "max_score_abs_diff": 2.1666288375854492e-05,
+          "max_box_abs_diff_px": 0.00592041015625,
+          "matches": [
+            {
+              "ref_index": 0,
+              "cand_index": 0,
+              "label": "a cat a a bird a horse",
+              "iou": 0.9999812169002208,
+              "score_abs_diff": 2.1666288375854492e-05,
+              "box_max_abs_diff_px": 0.00592041015625
+            }
+          ]
+        },
+        "strict": {
+          "original_count": 0,
+          "final_count": 0,
+          "count_equal": true,
+          "label_multiset_equal": true,
+          "matched_same_label": 0,
+          "unmatched_original": 0,
+          "unmatched_final": 0,
+          "all_label_matched": true,
+          "all_matched_iou_ge_0_50": true,
+          "all_matched_iou_ge_0_99": true,
+          "min_matched_iou": 1.0,
+          "median_matched_iou": null,
+          "max_score_abs_diff": 0.0,
+          "max_box_abs_diff_px": 0.0,
+          "matches": []
+        }
+      }
+    },
+    {
+      "image_id": "coco_000_000000000632",
+      "image_path": "assets/faithfulness_0051/images/coco_000_000000000632.png",
+      "sentinel": false,
+      "prompt_id": "animals",
+      "labels": [
+        "a cat",
+        "a dog",
+        "a bird",
+        "a horse"
+      ],
+      "raw": {
+        "logits": {
+          "finite_mask_equal": true,
+          "max_abs": 0.0021505355834960938,
+          "mean_abs": 1.622448871785309e-05,
+          "rmse": 7.31517793610692e-05
+        },
+        "pred_boxes": {
+          "finite_mask_equal": true,
+          "max_abs": 0.0004609525203704834,
+          "mean_abs": 1.7869627981781377e-06,
+          "rmse": 9.955981113307644e-06
+        }
+      },
+      "topk": {
+        "k": 900,
+        "set_overlap": 900,
+        "changed_membership_each_side": 0,
+        "rankwise_identical": 900,
+        "mismatch_count": 0,
+        "mismatched_ranks_zero_based": [],
+        "all_rank_mismatches_are_adjacent_swaps": true,
+        "adjacent_swap_pairs": [],
+        "score_vector_max_abs": 1.5974044799804688e-05,
+        "score_vector_mean_abs": 1.0369037681812188e-06
+      },
+      "postprocess": {
+        "permissive": {
+          "original_count": 7,
+          "final_count": 7,
+          "count_equal": true,
+          "label_multiset_equal": true,
+          "matched_same_label": 7,
+          "unmatched_original": 0,
+          "unmatched_final": 0,
+          "all_label_matched": true,
+          "all_matched_iou_ge_0_50": true,
+          "all_matched_iou_ge_0_99": true,
+          "min_matched_iou": 0.9999975878408182,
+          "median_matched_iou": 0.9999983134151503,
+          "max_score_abs_diff": 7.599592208862305e-07,
+          "max_box_abs_diff_px": 0.00018310546875,
+          "matches": [
+            {
+              "ref_index": 2,
+              "cand_index": 2,
+              "label": "a bird",
+              "iou": 0.999999214384309,
+              "score_abs_diff": 7.599592208862305e-07,
+              "box_max_abs_diff_px": 3.0517578125e-05
+            },
+            {
+              "ref_index": 1,
+              "cand_index": 1,
+              "label": "a cat a dog a horse",
+              "iou": 0.9999988517554446,
+              "score_abs_diff": 1.1920928955078125e-07,
+              "box_max_abs_diff_px": 6.103515625e-05
+            },
+            {
+              "ref_index": 3,
+              "cand_index": 3,
+              "label": "a bird",
+              "iou": 0.9999988028578178,
+              "score_abs_diff": 3.2782554626464844e-07,
+              "box_max_abs_diff_px": 3.0517578125e-05
+            },
+            {
+              "ref_index": 5,
+              "cand_index": 5,
+              "label": "a cat",
+              "iou": 0.9999983134151503,
+              "score_abs_diff": 2.086162567138672e-07,
+              "box_max_abs_diff_px": 6.103515625e-05
+            },
+            {
+              "ref_index": 6,
+              "cand_index": 6,
+              "label": "a bird",
+              "iou": 0.999998161423669,
+              "score_abs_diff": 2.5331974029541016e-07,
+              "box_max_abs_diff_px": 6.103515625e-05
+            },
+            {
+              "ref_index": 4,
+              "cand_index": 4,
+              "label": "a cat a horse",
+              "iou": 0.9999981219446998,
+              "score_abs_diff": 5.066394805908203e-07,
+              "box_max_abs_diff_px": 0.00018310546875
+            },
+            {
+              "ref_index": 0,
+              "cand_index": 0,
+              "label": "a cat a dog a horse",
+              "iou": 0.9999975878408182,
+              "score_abs_diff": 4.76837158203125e-07,
+              "box_max_abs_diff_px": 0.0001220703125
+            }
+          ]
+        },
+        "default": {
+          "original_count": 1,
+          "final_count": 1,
+          "count_equal": true,
+          "label_multiset_equal": true,
+          "matched_same_label": 1,
+          "unmatched_original": 0,
+          "unmatched_final": 0,
+          "all_label_matched": true,
+          "all_matched_iou_ge_0_50": true,
+          "all_matched_iou_ge_0_99": true,
+          "min_matched_iou": 0.9999975878408182,
+          "median_matched_iou": 0.9999975878408182,
+          "max_score_abs_diff": 4.76837158203125e-07,
+          "max_box_abs_diff_px": 0.0001220703125,
+          "matches": [
+            {
+              "ref_index": 0,
+              "cand_index": 0,
+              "label": "a cat a horse",
+              "iou": 0.9999975878408182,
+              "score_abs_diff": 4.76837158203125e-07,
+              "box_max_abs_diff_px": 0.0001220703125
+            }
+          ]
+        },
+        "strict": {
+          "original_count": 0,
+          "final_count": 0,
+          "count_equal": true,
+          "label_multiset_equal": true,
+          "matched_same_label": 0,
+          "unmatched_original": 0,
+          "unmatched_final": 0,
+          "all_label_matched": true,
+          "all_matched_iou_ge_0_50": true,
+          "all_matched_iou_ge_0_99": true,
+          "min_matched_iou": 1.0,
+          "median_matched_iou": null,
+          "max_score_abs_diff": 0.0,
+          "max_box_abs_diff_px": 0.0,
+          "matches": []
+        }
+      }
+    },
+    {
+      "image_id": "sentinel_baseline_input",
+      "image_path": "assets/faithfulness_0051/images/sentinel_baseline_input.png",
+      "sentinel": true,
+      "prompt_id": "road",
+      "labels": [
+        "a person",
+        "a bicycle",
+        "a car",
+        "a motorcycle",
+        "a bus",
+        "a truck",
+        "a traffic light",
+        "a stop sign"
+      ],
+      "raw": {
+        "logits": {
+          "finite_mask_equal": true,
+          "max_abs": 0.7930521965026855,
+          "mean_abs": 0.0039057922549545765,
+          "rmse": 0.01856204681098461
+        },
+        "pred_boxes": {
+          "finite_mask_equal": true,
+          "max_abs": 0.573058009147644,
+          "mean_abs": 0.0013241267297416925,
+          "rmse": 0.01676299422979355
+        }
+      },
+      "topk": {
+        "k": 900,
+        "set_overlap": 900,
+        "changed_membership_each_side": 0,
+        "rankwise_identical": 898,
+        "mismatch_count": 2,
+        "mismatched_ranks_zero_based": [
+          724,
+          725
+        ],
+        "all_rank_mismatches_are_adjacent_swaps": true,
+        "adjacent_swap_pairs": [
+          {
+            "ranks_zero_based": [
+              724,
+              725
+            ],
+            "proposal_indices_original_order": [
+              9758,
+              8087
+            ],
+            "original_score_gap_abs": 7.152557373046875e-07,
+            "final_score_gap_abs": 1.6689300537109375e-06
+          }
+        ],
+        "score_vector_max_abs": 1.1444091796875e-05,
+        "score_vector_mean_abs": 8.96665085292625e-07
+      },
+      "postprocess": {
+        "permissive": {
+          "original_count": 3,
+          "final_count": 3,
+          "count_equal": true,
+          "label_multiset_equal": true,
+          "matched_same_label": 3,
+          "unmatched_original": 0,
+          "unmatched_final": 0,
+          "all_label_matched": true,
+          "all_matched_iou_ge_0_50": true,
+          "all_matched_iou_ge_0_99": true,
+          "min_matched_iou": 0.999927084031143,
+          "median_matched_iou": 0.9999548789568791,
+          "max_score_abs_diff": 2.9549002647399902e-05,
+          "max_box_abs_diff_px": 0.02581787109375,
+          "matches": [
+            {
+              "ref_index": 0,
+              "cand_index": 0,
+              "label": "a a",
+              "iou": 0.9999722611004391,
+              "score_abs_diff": 2.7507543563842773e-05,
+              "box_max_abs_diff_px": 0.0045166015625
+            },
+            {
+              "ref_index": 1,
+              "cand_index": 1,
+              "label": "a a",
+              "iou": 0.9999548789568791,
+              "score_abs_diff": 2.9549002647399902e-05,
+              "box_max_abs_diff_px": 0.025054931640625
+            },
+            {
+              "ref_index": 2,
+              "cand_index": 2,
+              "label": "a",
+              "iou": 0.999927084031143,
+              "score_abs_diff": 1.6063451766967773e-05,
+              "box_max_abs_diff_px": 0.02581787109375
+            }
+          ]
+        },
+        "default": {
+          "original_count": 0,
+          "final_count": 0,
+          "count_equal": true,
+          "label_multiset_equal": true,
+          "matched_same_label": 0,
+          "unmatched_original": 0,
+          "unmatched_final": 0,
+          "all_label_matched": true,
+          "all_matched_iou_ge_0_50": true,
+          "all_matched_iou_ge_0_99": true,
+          "min_matched_iou": 1.0,
+          "median_matched_iou": null,
+          "max_score_abs_diff": 0.0,
+          "max_box_abs_diff_px": 0.0,
+          "matches": []
+        },
+        "strict": {
+          "original_count": 0,
+          "final_count": 0,
+          "count_equal": true,
+          "label_multiset_equal": true,
+          "matched_same_label": 0,
+          "unmatched_original": 0,
+          "unmatched_final": 0,
+          "all_label_matched": true,
+          "all_matched_iou_ge_0_50": true,
+          "all_matched_iou_ge_0_99": true,
+          "min_matched_iou": 1.0,
+          "median_matched_iou": null,
+          "max_score_abs_diff": 0.0,
+          "max_box_abs_diff_px": 0.0,
+          "matches": []
+        }
+      }
+    },
+    {
+      "image_id": "coco_000_000000000632",
+      "image_path": "assets/faithfulness_0051/images/coco_000_000000000632.png",
+      "sentinel": false,
+      "prompt_id": "road",
+      "labels": [
+        "a person",
+        "a bicycle",
+        "a car",
+        "a motorcycle",
+        "a bus",
+        "a truck",
+        "a traffic light",
+        "a stop sign"
+      ],
+      "raw": {
+        "logits": {
+          "finite_mask_equal": true,
+          "max_abs": 1.2598552703857422,
+          "mean_abs": 0.007944704964756966,
+          "rmse": 0.03952166065573692
+        },
+        "pred_boxes": {
+          "finite_mask_equal": true,
+          "max_abs": 0.27189958095550537,
+          "mean_abs": 0.0013008953537791967,
+          "rmse": 0.01130884513258934
+        }
+      },
+      "topk": {
+        "k": 900,
+        "set_overlap": 900,
+        "changed_membership_each_side": 0,
+        "rankwise_identical": 896,
+        "mismatch_count": 4,
+        "mismatched_ranks_zero_based": [
+          466,
+          467,
+          814,
+          815
+        ],
+        "all_rank_mismatches_are_adjacent_swaps": true,
+        "adjacent_swap_pairs": [
+          {
+            "ranks_zero_based": [
+              466,
+              467
+            ],
+            "proposal_indices_original_order": [
+              17270,
+              3636
+            ],
+            "original_score_gap_abs": 2.86102294921875e-06,
+            "final_score_gap_abs": 0.0
+          },
+          {
+            "ranks_zero_based": [
+              814,
+              815
+            ],
+            "proposal_indices_original_order": [
+              11971,
+              15574
+            ],
+            "original_score_gap_abs": 9.5367431640625e-07,
+            "final_score_gap_abs": 1.1920928955078125e-06
+          }
+        ],
+        "score_vector_max_abs": 3.075599670410156e-05,
+        "score_vector_mean_abs": 9.92057266557822e-07
+      },
+      "postprocess": {
+        "permissive": {
+          "original_count": 4,
+          "final_count": 4,
+          "count_equal": true,
+          "label_multiset_equal": true,
+          "matched_same_label": 4,
+          "unmatched_original": 0,
+          "unmatched_final": 0,
+          "all_label_matched": true,
+          "all_matched_iou_ge_0_50": true,
+          "all_matched_iou_ge_0_99": true,
+          "min_matched_iou": 0.9995787116479845,
+          "median_matched_iou": 0.9998257478691398,
+          "max_score_abs_diff": 0.000192299485206604,
+          "max_box_abs_diff_px": 0.02301025390625,
+          "matches": [
+            {
+              "ref_index": 2,
+              "cand_index": 2,
+              "label": "a bus",
+              "iou": 0.9999437717176847,
+              "score_abs_diff": 8.243322372436523e-05,
+              "box_max_abs_diff_px": 0.01708984375
+            },
+            {
+              "ref_index": 0,
+              "cand_index": 0,
+              "label": "a car",
+              "iou": 0.9998353741830461,
+              "score_abs_diff": 2.592802047729492e-06,
+              "box_max_abs_diff_px": 0.01177978515625
+            },
+            {
+              "ref_index": 1,
+              "cand_index": 1,
+              "label": "a person",
+              "iou": 0.9998161215552335,
+              "score_abs_diff": 5.8531761169433594e-05,
+              "box_max_abs_diff_px": 0.022247314453125
+            },
+            {
+              "ref_index": 3,
+              "cand_index": 3,
+              "label": "a person",
+              "iou": 0.9995787116479845,
+              "score_abs_diff": 0.000192299485206604,
+              "box_max_abs_diff_px": 0.02301025390625
+            }
+          ]
+        },
+        "default": {
+          "original_count": 0,
+          "final_count": 0,
+          "count_equal": true,
+          "label_multiset_equal": true,
+          "matched_same_label": 0,
+          "unmatched_original": 0,
+          "unmatched_final": 0,
+          "all_label_matched": true,
+          "all_matched_iou_ge_0_50": true,
+          "all_matched_iou_ge_0_99": true,
+          "min_matched_iou": 1.0,
+          "median_matched_iou": null,
+          "max_score_abs_diff": 0.0,
+          "max_box_abs_diff_px": 0.0,
+          "matches": []
+        },
+        "strict": {
+          "original_count": 0,
+          "final_count": 0,
+          "count_equal": true,
+          "label_multiset_equal": true,
+          "matched_same_label": 0,
+          "unmatched_original": 0,
+          "unmatched_final": 0,
+          "all_label_matched": true,
+          "all_matched_iou_ge_0_50": true,
+          "all_matched_iou_ge_0_99": true,
+          "min_matched_iou": 1.0,
+          "median_matched_iou": null,
+          "max_score_abs_diff": 0.0,
+          "max_box_abs_diff_px": 0.0,
+          "matches": []
+        }
+      }
+    }
+  ],
+  "interpretation_guardrails": [
+    "Top-k membership preservation measures proposal-set stability, not dataset-level detection accuracy.",
+    "Raw logits/boxes may diverge after near-tie ordered proposal swaps even when proposal membership is unchanged.",
+    "Postprocessed agreement is therefore reported separately at three fixed threshold profiles.",
+    "All images are letterboxed to one fixed geometry because the current runtime is intentionally shape-specialized for the webcam use case."
+  ]
+}

@@ -1,0 +1,468 @@
+{
+  "timestamp_utc": "2026-09-15T15:19:29.854644+00:00",
+  "experiment": "0008c",
+  "purpose": "Directly audit two-stage top-k proposal selection under tiny encoder perturbations from Metal MSDA v0.",
+  "model": "IDEA-Research/grounding-dino-tiny",
+  "num_queries": 900,
+  "reference_selection_reconstruction_max_abs": 0.0,
+  "variants": {
+    "encoder_all6": {
+      "patched_modules": [
+        "model.encoder.layers.0.deformable_layer.self_attn.attn",
+        "model.encoder.layers.1.deformable_layer.self_attn.attn",
+        "model.encoder.layers.2.deformable_layer.self_attn.attn",
+        "model.encoder.layers.3.deformable_layer.self_attn.attn",
+        "model.encoder.layers.4.deformable_layer.self_attn.attn",
+        "model.encoder.layers.5.deformable_layer.self_attn.attn"
+      ],
+      "selection": {
+        "topk_k": 900,
+        "overlap_count": 900,
+        "changed_membership_count_each_side": 0,
+        "jaccard": 1.0,
+        "rankwise_identical_count": 894,
+        "score_vector_max_abs": 1.0013580322265625e-05,
+        "score_vector_mean_abs": 5.211066991250846e-07,
+        "reference_cutoff_score_rank_k": -3.2975246906280518,
+        "reference_rank_k_plus_1_score": -3.297788143157959,
+        "reference_cutoff_margin": 0.00026345252990722656,
+        "patched_cutoff_score_rank_k": -3.2975244522094727,
+        "patched_rank_k_plus_1_score": -3.2977888584136963,
+        "patched_cutoff_margin": 0.0002644062042236328,
+        "candidates_near_cutoff": {
+          "1e-07": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 0
+          },
+          "5e-07": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          },
+          "1e-06": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          },
+          "2e-06": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          },
+          "5e-06": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          },
+          "1e-05": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          },
+          "2e-05": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          },
+          "5e-05": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          },
+          "1e-04": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          }
+        },
+        "reference_only_candidates": [],
+        "patched_only_candidates": [],
+        "gathered_reference_points_max_abs": 0.20368796586990356,
+        "gathered_reference_points_mean_abs": 0.0005256799631752074,
+        "selection_reconstruction_max_abs_reference": 0.0,
+        "selection_reconstruction_max_abs_patched": 0.0
+      }
+    },
+    "encoder_only_layer_0": {
+      "patched_modules": [
+        "model.encoder.layers.0.deformable_layer.self_attn.attn"
+      ],
+      "selection": {
+        "topk_k": 900,
+        "overlap_count": 900,
+        "changed_membership_count_each_side": 0,
+        "jaccard": 1.0,
+        "rankwise_identical_count": 894,
+        "score_vector_max_abs": 6.9141387939453125e-06,
+        "score_vector_mean_abs": 5.131798843649449e-07,
+        "reference_cutoff_score_rank_k": -3.2975246906280518,
+        "reference_rank_k_plus_1_score": -3.297788143157959,
+        "reference_cutoff_margin": 0.00026345252990722656,
+        "patched_cutoff_score_rank_k": -3.2975242137908936,
+        "patched_rank_k_plus_1_score": -3.2977893352508545,
+        "patched_cutoff_margin": 0.0002651214599609375,
+        "candidates_near_cutoff": {
+          "1e-07": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 0
+          },
+          "5e-07": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          },
+          "1e-06": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          },
+          "2e-06": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          },
+          "5e-06": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          },
+          "1e-05": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          },
+          "2e-05": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          },
+          "5e-05": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          },
+          "1e-04": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          }
+        },
+        "reference_only_candidates": [],
+        "patched_only_candidates": [],
+        "gathered_reference_points_max_abs": 0.20368796586990356,
+        "gathered_reference_points_mean_abs": 0.0005256859585642815,
+        "selection_reconstruction_max_abs_reference": 0.0,
+        "selection_reconstruction_max_abs_patched": 0.0
+      }
+    },
+    "encoder_only_layer_1": {
+      "patched_modules": [
+        "model.encoder.layers.1.deformable_layer.self_attn.attn"
+      ],
+      "selection": {
+        "topk_k": 900,
+        "overlap_count": 900,
+        "changed_membership_count_each_side": 0,
+        "jaccard": 1.0,
+        "rankwise_identical_count": 896,
+        "score_vector_max_abs": 7.152557373046875e-06,
+        "score_vector_mean_abs": 4.855599513575726e-07,
+        "reference_cutoff_score_rank_k": -3.2975246906280518,
+        "reference_rank_k_plus_1_score": -3.297788143157959,
+        "reference_cutoff_margin": 0.00026345252990722656,
+        "patched_cutoff_score_rank_k": -3.2975246906280518,
+        "patched_rank_k_plus_1_score": -3.2977888584136963,
+        "patched_cutoff_margin": 0.00026416778564453125,
+        "candidates_near_cutoff": {
+          "1e-07": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          },
+          "5e-07": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          },
+          "1e-06": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          },
+          "2e-06": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          },
+          "5e-06": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          },
+          "1e-05": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          },
+          "2e-05": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          },
+          "5e-05": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          },
+          "1e-04": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          }
+        },
+        "reference_only_candidates": [],
+        "patched_only_candidates": [],
+        "gathered_reference_points_max_abs": 0.203688383102417,
+        "gathered_reference_points_mean_abs": 0.00043021407327614725,
+        "selection_reconstruction_max_abs_reference": 0.0,
+        "selection_reconstruction_max_abs_patched": 0.0
+      }
+    },
+    "encoder_only_layer_2": {
+      "patched_modules": [
+        "model.encoder.layers.2.deformable_layer.self_attn.attn"
+      ],
+      "selection": {
+        "topk_k": 900,
+        "overlap_count": 900,
+        "changed_membership_count_each_side": 0,
+        "jaccard": 1.0,
+        "rankwise_identical_count": 896,
+        "score_vector_max_abs": 7.62939453125e-06,
+        "score_vector_mean_abs": 4.622478968485666e-07,
+        "reference_cutoff_score_rank_k": -3.2975246906280518,
+        "reference_rank_k_plus_1_score": -3.297788143157959,
+        "reference_cutoff_margin": 0.00026345252990722656,
+        "patched_cutoff_score_rank_k": -3.2975244522094727,
+        "patched_rank_k_plus_1_score": -3.297788619995117,
+        "patched_cutoff_margin": 0.00026416778564453125,
+        "candidates_near_cutoff": {
+          "1e-07": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 0
+          },
+          "5e-07": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          },
+          "1e-06": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          },
+          "2e-06": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          },
+          "5e-06": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          },
+          "1e-05": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          },
+          "2e-05": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          },
+          "5e-05": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          },
+          "1e-04": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          }
+        },
+        "reference_only_candidates": [],
+        "patched_only_candidates": [],
+        "gathered_reference_points_max_abs": 0.18612927198410034,
+        "gathered_reference_points_mean_abs": 0.0002622156753204763,
+        "selection_reconstruction_max_abs_reference": 0.0,
+        "selection_reconstruction_max_abs_patched": 0.0
+      }
+    },
+    "encoder_only_layer_3": {
+      "patched_modules": [
+        "model.encoder.layers.3.deformable_layer.self_attn.attn"
+      ],
+      "selection": {
+        "topk_k": 900,
+        "overlap_count": 900,
+        "changed_membership_count_each_side": 0,
+        "jaccard": 1.0,
+        "rankwise_identical_count": 898,
+        "score_vector_max_abs": 5.9604644775390625e-06,
+        "score_vector_mean_abs": 4.2444020209586597e-07,
+        "reference_cutoff_score_rank_k": -3.2975246906280518,
+        "reference_rank_k_plus_1_score": -3.297788143157959,
+        "reference_cutoff_margin": 0.00026345252990722656,
+        "patched_cutoff_score_rank_k": -3.2975242137908936,
+        "patched_rank_k_plus_1_score": -3.297788143157959,
+        "patched_cutoff_margin": 0.0002639293670654297,
+        "candidates_near_cutoff": {
+          "1e-07": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 0
+          },
+          "5e-07": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          },
+          "1e-06": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          },
+          "2e-06": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          },
+          "5e-06": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          },
+          "1e-05": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          },
+          "2e-05": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          },
+          "5e-05": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          },
+          "1e-04": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          }
+        },
+        "reference_only_candidates": [],
+        "patched_only_candidates": [],
+        "gathered_reference_points_max_abs": 0.1861293762922287,
+        "gathered_reference_points_mean_abs": 0.0001667393953539431,
+        "selection_reconstruction_max_abs_reference": 0.0,
+        "selection_reconstruction_max_abs_patched": 0.0
+      }
+    },
+    "encoder_only_layer_4": {
+      "patched_modules": [
+        "model.encoder.layers.4.deformable_layer.self_attn.attn"
+      ],
+      "selection": {
+        "topk_k": 900,
+        "overlap_count": 900,
+        "changed_membership_count_each_side": 0,
+        "jaccard": 1.0,
+        "rankwise_identical_count": 898,
+        "score_vector_max_abs": 8.106231689453125e-06,
+        "score_vector_mean_abs": 4.0332218986804946e-07,
+        "reference_cutoff_score_rank_k": -3.2975246906280518,
+        "reference_rank_k_plus_1_score": -3.297788143157959,
+        "reference_cutoff_margin": 0.00026345252990722656,
+        "patched_cutoff_score_rank_k": -3.2975239753723145,
+        "patched_rank_k_plus_1_score": -3.297788619995117,
+        "patched_cutoff_margin": 0.0002646446228027344,
+        "candidates_near_cutoff": {
+          "1e-07": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 0
+          },
+          "5e-07": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 0
+          },
+          "1e-06": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          },
+          "2e-06": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          },
+          "5e-06": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          },
+          "1e-05": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          },
+          "2e-05": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          },
+          "5e-05": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          },
+          "1e-04": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          }
+        },
+        "reference_only_candidates": [],
+        "patched_only_candidates": [],
+        "gathered_reference_points_max_abs": 0.07912571728229523,
+        "gathered_reference_points_mean_abs": 9.557912562740967e-05,
+        "selection_reconstruction_max_abs_reference": 0.0,
+        "selection_reconstruction_max_abs_patched": 0.0
+      }
+    },
+    "encoder_only_layer_5": {
+      "patched_modules": [
+        "model.encoder.layers.5.deformable_layer.self_attn.attn"
+      ],
+      "selection": {
+        "topk_k": 900,
+        "overlap_count": 900,
+        "changed_membership_count_each_side": 0,
+        "jaccard": 1.0,
+        "rankwise_identical_count": 898,
+        "score_vector_max_abs": 2.384185791015625e-06,
+        "score_vector_mean_abs": 2.9966543024784187e-07,
+        "reference_cutoff_score_rank_k": -3.2975246906280518,
+        "reference_rank_k_plus_1_score": -3.297788143157959,
+        "reference_cutoff_margin": 0.00026345252990722656,
+        "patched_cutoff_score_rank_k": -3.2975244522094727,
+        "patched_rank_k_plus_1_score": -3.297788619995117,
+        "patched_cutoff_margin": 0.00026416778564453125,
+        "candidates_near_cutoff": {
+          "1e-07": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 0
+          },
+          "5e-07": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          },
+          "1e-06": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          },
+          "2e-06": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          },
+          "5e-06": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          },
+          "1e-05": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          },
+          "2e-05": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          },
+          "5e-05": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          },
+          "1e-04": {
+            "reference_candidates_within_cutoff": 1,
+            "patched_candidates_within_reference_cutoff": 1
+          }
+        },
+        "reference_only_candidates": [],
+        "patched_only_candidates": [],
+        "gathered_reference_points_max_abs": 0.07912576198577881,
+        "gathered_reference_points_mean_abs": 9.553493873681873e-05,
+        "selection_reconstruction_max_abs_reference": 0.0,
+        "selection_reconstruction_max_abs_patched": 0.0
+      }
+    }
+  },
+  "notes": [
+    "Selection is reconstructed from model outputs using enc_outputs_class.max(-1) followed by torch.topk(k=900), then gathering enc_outputs_coord_logits and sigmoid.",
+    "The reconstructed reference points are checked against the model's actual init_reference_points.",
+    "This experiment directly tests whether small encoder score perturbations change the top-k proposal membership/order."
+  ]
+}

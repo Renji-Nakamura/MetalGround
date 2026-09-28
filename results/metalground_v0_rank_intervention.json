@@ -1,0 +1,387 @@
+{
+  "timestamp_utc": "2026-09-15T15:29:53.682846+00:00",
+  "experiment": "0008d",
+  "purpose": "Causal intervention on two-stage proposal ordering: compare normal Metal encoder inference against Metal encoder inference with the reference top-k proposal order forcibly restored.",
+  "model": "IDEA-Research/grounding-dino-tiny",
+  "embedding_init_target": true,
+  "topk": {
+    "k": 900,
+    "set_overlap": 900,
+    "rankwise_identical": 894,
+    "normal_rank_audit": {
+      "mismatched_rank_count": 6,
+      "mismatched_ranks_zero_based": [
+        472,
+        473,
+        793,
+        794,
+        808,
+        809
+      ],
+      "details": [
+        {
+          "rank_zero_based": 472,
+          "rank_one_based": 473,
+          "reference_proposal_index": 15691,
+          "metal_proposal_index": 15170,
+          "reference_proposal_rank_in_metal": 473,
+          "metal_proposal_rank_in_reference": 473,
+          "reference_score_of_reference_proposal": -3.137152671813965,
+          "metal_score_of_reference_proposal": -3.1371543407440186,
+          "reference_score_of_metal_proposal": -3.1371536254882812,
+          "metal_score_of_metal_proposal": -3.137153387069702,
+          "reference_coord_of_reference_proposal": [
+            -1.6395670175552368,
+            2.781059503555298,
+            -2.3529818058013916,
+            -2.6217379570007324
+          ],
+          "metal_coord_of_reference_proposal": [
+            -1.6395677328109741,
+            2.7810611724853516,
+            -2.352980613708496,
+            -2.621738910675049
+          ],
+          "reference_coord_of_metal_proposal": [
+            -0.6249646544456482,
+            5.02913761138916,
+            -2.82558536529541,
+            -2.210906982421875
+          ],
+          "metal_coord_of_metal_proposal": [
+            -0.6249639987945557,
+            5.029135227203369,
+            -2.8255820274353027,
+            -2.2109034061431885
+          ]
+        },
+        {
+          "rank_zero_based": 473,
+          "rank_one_based": 474,
+          "reference_proposal_index": 15170,
+          "metal_proposal_index": 15691,
+          "reference_proposal_rank_in_metal": 472,
+          "metal_proposal_rank_in_reference": 472,
+          "reference_score_of_reference_proposal": -3.1371536254882812,
+          "metal_score_of_reference_proposal": -3.137153387069702,
+          "reference_score_of_metal_proposal": -3.137152671813965,
+          "metal_score_of_metal_proposal": -3.1371543407440186,
+          "reference_coord_of_reference_proposal": [
+            -0.6249646544456482,
+            5.02913761138916,
+            -2.82558536529541,
+            -2.210906982421875
+          ],
+          "metal_coord_of_reference_proposal": [
+            -0.6249639987945557,
+            5.029135227203369,
+            -2.8255820274353027,
+            -2.2109034061431885
+          ],
+          "reference_coord_of_metal_proposal": [
+            -1.6395670175552368,
+            2.781059503555298,
+            -2.3529818058013916,
+            -2.6217379570007324
+          ],
+          "metal_coord_of_metal_proposal": [
+            -1.6395677328109741,
+            2.7810611724853516,
+            -2.352980613708496,
+            -2.621738910675049
+          ]
+        },
+        {
+          "rank_zero_based": 793,
+          "rank_one_based": 794,
+          "reference_proposal_index": 8072,
+          "metal_proposal_index": 15222,
+          "reference_proposal_rank_in_metal": 794,
+          "metal_proposal_rank_in_reference": 794,
+          "reference_score_of_reference_proposal": -3.2699027061462402,
+          "metal_score_of_reference_proposal": -3.2699036598205566,
+          "reference_score_of_metal_proposal": -3.2699036598205566,
+          "metal_score_of_metal_proposal": -3.2699034214019775,
+          "reference_coord_of_reference_proposal": [
+            -1.5456987619400024,
+            3.9759881496429443,
+            -2.1899964809417725,
+            -2.8798701763153076
+          ],
+          "metal_coord_of_reference_proposal": [
+            -1.5456970930099487,
+            3.97598934173584,
+            -2.1899967193603516,
+            -2.8798720836639404
+          ],
+          "reference_coord_of_metal_proposal": [
+            -1.858741283416748,
+            1.2534515857696533,
+            -1.5208301544189453,
+            -1.360662817955017
+          ],
+          "metal_coord_of_metal_proposal": [
+            -1.8587408065795898,
+            1.2534525394439697,
+            -1.5208300352096558,
+            -1.3606629371643066
+          ]
+        },
+        {
+          "rank_zero_based": 794,
+          "rank_one_based": 795,
+          "reference_proposal_index": 15222,
+          "metal_proposal_index": 8072,
+          "reference_proposal_rank_in_metal": 793,
+          "metal_proposal_rank_in_reference": 793,
+          "reference_score_of_reference_proposal": -3.2699036598205566,
+          "metal_score_of_reference_proposal": -3.2699034214019775,
+          "reference_score_of_metal_proposal": -3.2699027061462402,
+          "metal_score_of_metal_proposal": -3.2699036598205566,
+          "reference_coord_of_reference_proposal": [
+            -1.858741283416748,
+            1.2534515857696533,
+            -1.5208301544189453,
+            -1.360662817955017
+          ],
+          "metal_coord_of_reference_proposal": [
+            -1.8587408065795898,
+            1.2534525394439697,
+            -1.5208300352096558,
+            -1.3606629371643066
+          ],
+          "reference_coord_of_metal_proposal": [
+            -1.5456987619400024,
+            3.9759881496429443,
+            -2.1899964809417725,
+            -2.8798701763153076
+          ],
+          "metal_coord_of_metal_proposal": [
+            -1.5456970930099487,
+            3.97598934173584,
+            -2.1899967193603516,
+            -2.8798720836639404
+          ]
+        },
+        {
+          "rank_zero_based": 808,
+          "rank_one_based": 809,
+          "reference_proposal_index": 8607,
+          "metal_proposal_index": 9025,
+          "reference_proposal_rank_in_metal": 809,
+          "metal_proposal_rank_in_reference": 809,
+          "reference_score_of_reference_proposal": -3.274256467819214,
+          "metal_score_of_reference_proposal": -3.274256706237793,
+          "reference_score_of_metal_proposal": -3.274256467819214,
+          "metal_score_of_metal_proposal": -3.274256467819214,
+          "reference_coord_of_reference_proposal": [
+            -0.926559567451477,
+            2.355886220932007,
+            -1.3695565462112427,
+            -0.5258135795593262
+          ],
+          "metal_coord_of_reference_proposal": [
+            -0.9265600442886353,
+            2.355886459350586,
+            -1.3695590496063232,
+            -0.5258095264434814
+          ],
+          "reference_coord_of_metal_proposal": [
+            -0.6917325854301453,
+            2.926718235015869,
+            -1.9590883255004883,
+            -0.5556459426879883
+          ],
+          "metal_coord_of_metal_proposal": [
+            -0.6917325854301453,
+            2.9267120361328125,
+            -1.95908784866333,
+            -0.5556399822235107
+          ]
+        },
+        {
+          "rank_zero_based": 809,
+          "rank_one_based": 810,
+          "reference_proposal_index": 9025,
+          "metal_proposal_index": 8607,
+          "reference_proposal_rank_in_metal": 808,
+          "metal_proposal_rank_in_reference": 808,
+          "reference_score_of_reference_proposal": -3.274256467819214,
+          "metal_score_of_reference_proposal": -3.274256467819214,
+          "reference_score_of_metal_proposal": -3.274256467819214,
+          "metal_score_of_metal_proposal": -3.274256706237793,
+          "reference_coord_of_reference_proposal": [
+            -0.6917325854301453,
+            2.926718235015869,
+            -1.9590883255004883,
+            -0.5556459426879883
+          ],
+          "metal_coord_of_reference_proposal": [
+            -0.6917325854301453,
+            2.9267120361328125,
+            -1.95908784866333,
+            -0.5556399822235107
+          ],
+          "reference_coord_of_metal_proposal": [
+            -0.926559567451477,
+            2.355886220932007,
+            -1.3695565462112427,
+            -0.5258135795593262
+          ],
+          "metal_coord_of_metal_proposal": [
+            -0.9265600442886353,
+            2.355886459350586,
+            -1.3695590496063232,
+            -0.5258095264434814
+          ]
+        }
+      ],
+      "proposal_identity_aligned_reference_points": {
+        "shape": [
+          1,
+          900,
+          4
+        ],
+        "finite_mask_equal": true,
+        "neginf_mask_equal": true,
+        "nan_mask_equal": true,
+        "max_abs": 2.205371856689453e-06,
+        "mean_abs": 1.6711135231162189e-07,
+        "rmse": 2.7470676400298544e-07,
+        "allclose_1e-5": true,
+        "allclose_1e-4": true
+      }
+    }
+  },
+  "normal_metal_vs_reference": {
+    "init_reference_points": {
+      "shape": [
+        1,
+        900,
+        4
+      ],
+      "finite_mask_equal": true,
+      "neginf_mask_equal": true,
+      "nan_mask_equal": true,
+      "max_abs": 0.20368796586990356,
+      "mean_abs": 0.0005256799631752074,
+      "rmse": 0.008215204812586308,
+      "allclose_1e-5": false,
+      "allclose_1e-4": false
+    },
+    "last_hidden_state": {
+      "shape": [
+        1,
+        900,
+        256
+      ],
+      "finite_mask_equal": true,
+      "neginf_mask_equal": true,
+      "nan_mask_equal": true,
+      "max_abs": 1.4750564098358154,
+      "mean_abs": 0.004571109544485807,
+      "rmse": 0.020383786410093307,
+      "allclose_1e-5": false,
+      "allclose_1e-4": false
+    },
+    "logits": {
+      "shape": [
+        1,
+        900,
+        256
+      ],
+      "finite_mask_equal": true,
+      "neginf_mask_equal": true,
+      "nan_mask_equal": true,
+      "max_abs": 1.576970100402832,
+      "mean_abs": 0.01467806100845337,
+      "rmse": 0.07261442393064499,
+      "allclose_1e-5": false,
+      "allclose_1e-4": false
+    },
+    "pred_boxes": {
+      "shape": [
+        1,
+        900,
+        4
+      ],
+      "finite_mask_equal": true,
+      "neginf_mask_equal": true,
+      "nan_mask_equal": true,
+      "max_abs": 0.3022992014884949,
+      "mean_abs": 0.0020101265981793404,
+      "rmse": 0.010729660280048847,
+      "allclose_1e-5": false,
+      "allclose_1e-4": false
+    }
+  },
+  "forced_reference_order_metal_vs_reference": {
+    "init_reference_points": {
+      "shape": [
+        1,
+        900,
+        4
+      ],
+      "finite_mask_equal": true,
+      "neginf_mask_equal": true,
+      "nan_mask_equal": true,
+      "max_abs": 2.205371856689453e-06,
+      "mean_abs": 1.6711135231162189e-07,
+      "rmse": 2.7470676400298544e-07,
+      "allclose_1e-5": true,
+      "allclose_1e-4": true
+    },
+    "last_hidden_state": {
+      "shape": [
+        1,
+        900,
+        256
+      ],
+      "finite_mask_equal": true,
+      "neginf_mask_equal": true,
+      "nan_mask_equal": true,
+      "max_abs": 0.000921785831451416,
+      "mean_abs": 3.3451694889663486e-06,
+      "rmse": 8.625253940408584e-06,
+      "allclose_1e-5": false,
+      "allclose_1e-4": false
+    },
+    "logits": {
+      "shape": [
+        1,
+        900,
+        256
+      ],
+      "finite_mask_equal": true,
+      "neginf_mask_equal": true,
+      "nan_mask_equal": true,
+      "max_abs": 0.000225067138671875,
+      "mean_abs": 9.69359462033026e-06,
+      "rmse": 2.0524543288047425e-05,
+      "allclose_1e-5": false,
+      "allclose_1e-4": true
+    },
+    "pred_boxes": {
+      "shape": [
+        1,
+        900,
+        4
+      ],
+      "finite_mask_equal": true,
+      "neginf_mask_equal": true,
+      "nan_mask_equal": true,
+      "max_abs": 6.520748138427734e-05,
+      "mean_abs": 1.4804388683842262e-06,
+      "rmse": 3.6653855204349384e-06,
+      "allclose_1e-5": false,
+      "allclose_1e-4": true
+    }
+  },
+  "topk_interception_count": 1,
+  "notes": [
+    "Only encoder MSDA cores are replaced by MetalGround v0; decoder MSDA remains the PyTorch/MPS reference.",
+    "The forced-order run uses the same Metal encoder outputs and coordinate logits; only the proposal top-k order is replaced by the reference order.",
+    "If forced order collapses final-output error, rank instability is causally responsible for the large rank-wise divergence.",
+    "Proposal-identity-aligned coordinate error separates real coordinate drift from simple rank permutation."
+  ]
+}

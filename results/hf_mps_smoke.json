@@ -1,0 +1,63 @@
+{
+  "timestamp_utc": "2026-09-15T12:32:29.842971+00:00",
+  "tag": "smoke",
+  "model": "IDEA-Research/grounding-dino-tiny",
+  "device": "mps",
+  "dtype": "float32",
+  "image": "assets/input.jpg",
+  "image_size_wh": [
+    1200,
+    901
+  ],
+  "prompt": [
+    "a cat",
+    "a dog"
+  ],
+  "warmup": 1,
+  "iterations": 1,
+  "load_seconds": 26.259332917001302,
+  "forward": {
+    "n": 1,
+    "mean_ms": 996.102875,
+    "median_ms": 996.102875,
+    "p90_ms": 996.102875,
+    "p95_ms": 996.102875,
+    "p99_ms": 996.102875,
+    "min_ms": 996.102875,
+    "max_ms": 996.102875,
+    "fps_from_median": 1.0039123720027412
+  },
+  "end_to_end": {
+    "n": 1,
+    "mean_ms": 1055.815125,
+    "median_ms": 1055.815125,
+    "p90_ms": 1055.815125,
+    "p95_ms": 1055.815125,
+    "p99_ms": 1055.815125,
+    "min_ms": 1055.815125,
+    "max_ms": 1055.815125,
+    "fps_from_median": 0.9471355129526108
+  },
+  "rss_bytes": 579895296,
+  "mps_memory": {
+    "current_allocated_memory": 811266304,
+    "driver_allocated_memory": 2429878272,
+    "recommended_max_memory": 11453251584
+  },
+  "software": {
+    "python": "3.12.14",
+    "torch": "2.13.0"
+  },
+  "detections": [
+    {
+      "label": "a cat a dog",
+      "score": 0.505246102809906,
+      "box_xyxy": [
+        8.241534233093262,
+        312.5841064453125,
+        570.35009765625,
+        872.4279174804688
+      ]
+    }
+  ]
+}

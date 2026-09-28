@@ -1,0 +1,194 @@
+{
+  "timestamp_utc": "2026-09-15T20:04:39.122757+00:00",
+  "experiment": "0042",
+  "purpose": "Full-model feasibility test of a six-layer MLX encoder super-island that keeps both vision and text branches in MLX across all encoder layers, eliminating five intermediate MLX->PyTorch->MLX boundaries.",
+  "model": "IDEA-Research/grounding-dino-tiny",
+  "device": "mps",
+  "dtype": "float32",
+  "software": {
+    "torch": "2.13.0",
+    "transformers": "5.17.0"
+  },
+  "configuration": {
+    "baseline": "current consolidated runtime: corrected per-layer wide fusion+deformable islands + PyTorch text enhancers + exact prompt cache + decoder Metal MSDA",
+    "candidate": "single six-layer encoder MLX super-island: six corrected wide vision islands + six MLX text enhancers, one entry and one exit for the whole encoder",
+    "prompt_cache": "enabled identically in both modes",
+    "output_attentions": false,
+    "warmup_per_mode": 3,
+    "paired_iterations": 20,
+    "approximation": false,
+    "retraining": false,
+    "reduced_precision": false
+  },
+  "correctness": {
+    "super_vs_current": {
+      "logits": {
+        "finite_mask_equal": true,
+        "nan_mask_equal": true,
+        "posinf_mask_equal": true,
+        "neginf_mask_equal": true,
+        "finite_max_abs": 1.594477653503418,
+        "finite_mean_abs": 0.019739964976906776,
+        "finite_rmse": 0.0769205167889595,
+        "allclose_1e-5": false,
+        "allclose_1e-4": false
+      },
+      "pred_boxes": {
+        "finite_mask_equal": true,
+        "nan_mask_equal": true,
+        "posinf_mask_equal": true,
+        "neginf_mask_equal": true,
+        "finite_max_abs": 0.22995203733444214,
+        "finite_mean_abs": 0.0026102615520358086,
+        "finite_rmse": 0.010996688157320023,
+        "allclose_1e-5": false,
+        "allclose_1e-4": false
+      },
+      "topk": {
+        "k": 900,
+        "set_overlap": 900,
+        "changed_membership_each_side": 0,
+        "rankwise_identical": 896,
+        "score_vector_max_abs": 6.9141387939453125e-06,
+        "score_vector_mean_abs": 5.507467903953511e-07,
+        "mismatched_ranks_zero_based": [
+          302,
+          303,
+          472,
+          473
+        ]
+      }
+    },
+    "current_vs_original": {
+      "logits": {
+        "finite_mask_equal": true,
+        "nan_mask_equal": true,
+        "posinf_mask_equal": true,
+        "neginf_mask_equal": true,
+        "finite_max_abs": 0.7076988220214844,
+        "finite_mean_abs": 0.01495429314672947,
+        "finite_rmse": 0.05339790880680084,
+        "allclose_1e-5": false,
+        "allclose_1e-4": false
+      },
+      "pred_boxes": {
+        "finite_mask_equal": true,
+        "nan_mask_equal": true,
+        "posinf_mask_equal": true,
+        "neginf_mask_equal": true,
+        "finite_max_abs": 0.1682538092136383,
+        "finite_mean_abs": 0.002012120559811592,
+        "finite_rmse": 0.008878474123775959,
+        "allclose_1e-5": false,
+        "allclose_1e-4": false
+      },
+      "topk": {
+        "k": 900,
+        "set_overlap": 900,
+        "changed_membership_each_side": 0,
+        "rankwise_identical": 898,
+        "score_vector_max_abs": 7.62939453125e-06,
+        "score_vector_mean_abs": 5.744669238083588e-07,
+        "mismatched_ranks_zero_based": [
+          302,
+          303
+        ]
+      }
+    },
+    "super_vs_original": {
+      "logits": {
+        "finite_mask_equal": true,
+        "nan_mask_equal": true,
+        "posinf_mask_equal": true,
+        "neginf_mask_equal": true,
+        "finite_max_abs": 1.587240219116211,
+        "finite_mean_abs": 0.008582767099142075,
+        "finite_rmse": 0.05608623847365379,
+        "allclose_1e-5": false,
+        "allclose_1e-4": false
+      },
+      "pred_boxes": {
+        "finite_mask_equal": true,
+        "nan_mask_equal": true,
+        "posinf_mask_equal": true,
+        "neginf_mask_equal": true,
+        "finite_max_abs": 0.23239874839782715,
+        "finite_mean_abs": 0.0010739500867202878,
+        "finite_rmse": 0.006741355638951063,
+        "allclose_1e-5": false,
+        "allclose_1e-4": false
+      },
+      "topk": {
+        "k": 900,
+        "set_overlap": 900,
+        "changed_membership_each_side": 0,
+        "rankwise_identical": 898,
+        "score_vector_max_abs": 8.58306884765625e-06,
+        "score_vector_mean_abs": 5.363314130590879e-07,
+        "mismatched_ranks_zero_based": [
+          472,
+          473
+        ]
+      }
+    }
+  },
+  "topk_membership_gate_passed": true,
+  "latency": {
+    "current_consolidated": {
+      "n": 20,
+      "mean_ms": 483.45881035,
+      "median_ms": 484.601542,
+      "p90_ms": 490.996617,
+      "p95_ms": 491.9011128,
+      "min_ms": 472.173917,
+      "max_ms": 492.101958
+    },
+    "six_layer_super_island": {
+      "n": 20,
+      "mean_ms": 478.03896864999996,
+      "median_ms": 480.209375,
+      "p90_ms": 486.2554336,
+      "p95_ms": 486.45413510000003,
+      "min_ms": 466.566417,
+      "max_ms": 486.763875
+    },
+    "paired_delta_current_minus_super": {
+      "n": 20,
+      "mean_ms": 5.419841700000001,
+      "median_ms": 4.426687500000014,
+      "p90_ms": 12.865232400000018,
+      "p95_ms": 19.141589300000042,
+      "min_ms": -7.501166000000012,
+      "max_ms": 20.640333999999996
+    }
+  },
+  "derived": {
+    "speedup_from_medians": 1.0091463582942335,
+    "median_difference_of_marginals_ms": 4.392166999999972,
+    "paired_delta_median_ms": 4.426687500000014,
+    "paired_delta_mean_ms": 5.419841700000001,
+    "super_median_fps": 2.0824249838937443
+  },
+  "call_validation": {
+    "current_encoder_layer_calls": 120,
+    "super_root_calls": 20,
+    "super_identity_calls": 100,
+    "cache_hits": 40,
+    "cache_misses": 0,
+    "decoder_metal_msda_calls": 240,
+    "expected_current_encoder_layer_calls": 120,
+    "expected_super_root_calls": 20,
+    "expected_super_identity_calls": 100,
+    "expected_cache_hits": 40,
+    "expected_decoder_metal_msda_calls": 240
+  },
+  "decision_rule": "Proceed to multi-process replication and adopt the six-layer encoder super-island if top-900 membership is preserved and the same-process paired saving is materially positive (target >=5 ms full-model). If membership changes, debug numerical/semantic divergence before timing. If the saving is <5 ms, keep the current per-layer wide runtime.",
+  "notes": [
+    "Both modes use the exact fixed-prompt BERT cache, so the experiment isolates encoder execution scheduling.",
+    "The candidate resolves all six text positional embeddings before the final PyTorch producer sync.",
+    "No Torch bridge or mx.eval occurs between the six encoder layers in super mode.",
+    "Layers 1-5 are identity wrappers only because layer 0 has already executed their exact encoder computations inside the super-island.",
+    "No approximation, pruning, quantization, retraining, or reduced precision is used.",
+    "Dataset-level accuracy equivalence remains unmeasured."
+  ]
+}

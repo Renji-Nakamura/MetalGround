@@ -1,0 +1,181 @@
+{
+  "timestamp_utc": "2026-09-15T16:04:42.815665+00:00",
+  "experiment": "0013",
+  "purpose": "Test algebraic specialization of GroundingDinoBiMultiHeadAttention that avoids expanding all 17,821 vision tokens to the 1,024-d internal space.",
+  "model": "IDEA-Research/grounding-dino-tiny",
+  "device": "mps",
+  "dtype": "float32",
+  "software": {
+    "torch": "2.13.0",
+    "transformers": "5.17.0"
+  },
+  "shape": {
+    "batch": 1,
+    "vision_tokens": 17821,
+    "text_tokens": 8,
+    "input_dim": 256,
+    "embed_dim": 1024,
+    "heads": 4,
+    "head_dim": 256
+  },
+  "variants": {
+    "reference": {
+      "latency": {
+        "n": 20,
+        "mean_ms": 27.96348125,
+        "median_ms": 27.686854,
+        "p90_ms": 29.734145800000004,
+        "p95_ms": 30.29701635,
+        "min_ms": 25.355208,
+        "max_ms": 30.34325
+      }
+    },
+    "value_folded": {
+      "description": "Reference q/k and score path; fold value projections and output projections around the attention reductions.",
+      "latency": {
+        "n": 20,
+        "mean_ms": 24.8026373,
+        "median_ms": 25.0577915,
+        "p90_ms": 25.8400173,
+        "p95_ms": 26.49791695,
+        "min_ms": 22.731084,
+        "max_ms": 26.932541
+      },
+      "speedup_vs_reference": 1.1049199607235938,
+      "correctness": {
+        "vision_output": {
+          "shape": [
+            1,
+            17821,
+            256
+          ],
+          "max_abs": 5.14984130859375e-05,
+          "mean_abs": 1.561699946250883e-06,
+          "rmse": 2.3413924736814806e-06,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        },
+        "vision_attention_weights": {
+          "shape": [
+            4,
+            17821,
+            8
+          ],
+          "max_abs": 0.0,
+          "mean_abs": 0.0,
+          "rmse": 0.0,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        },
+        "text_output": {
+          "shape": [
+            1,
+            8,
+            256
+          ],
+          "max_abs": 7.927417755126953e-06,
+          "mean_abs": 8.824354154057801e-07,
+          "rmse": 1.2793908581443247e-06,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        },
+        "text_attention_weights": {
+          "shape": [
+            4,
+            8,
+            17821
+          ],
+          "max_abs": 0.0,
+          "mean_abs": 0.0,
+          "rmse": 0.0,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        }
+      }
+    },
+    "fully_folded": {
+      "description": "Value folding plus bilinear score specialization that removes the full-length vision 256->1024 query projection.",
+      "latency": {
+        "n": 20,
+        "mean_ms": 15.81124585,
+        "median_ms": 15.836896,
+        "p90_ms": 17.062604200000003,
+        "p95_ms": 17.15742945,
+        "min_ms": 14.755667,
+        "max_ms": 17.851166
+      },
+      "speedup_vs_reference": 1.7482500358656141,
+      "correctness": {
+        "vision_output": {
+          "shape": [
+            1,
+            17821,
+            256
+          ],
+          "max_abs": 5.14984130859375e-05,
+          "mean_abs": 1.7787649539968697e-06,
+          "rmse": 2.5438525881327223e-06,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        },
+        "vision_attention_weights": {
+          "shape": [
+            4,
+            17821,
+            8
+          ],
+          "max_abs": 5.960464477539062e-07,
+          "mean_abs": 3.615577881532772e-08,
+          "rmse": 6.445372946473071e-08,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        },
+        "text_output": {
+          "shape": [
+            1,
+            8,
+            256
+          ],
+          "max_abs": 8.58306884765625e-06,
+          "mean_abs": 9.680807124823332e-07,
+          "rmse": 1.4081020935918787e-06,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        },
+        "text_attention_weights": {
+          "shape": [
+            4,
+            8,
+            17821
+          ],
+          "max_abs": 8.195638656616211e-08,
+          "mean_abs": 2.299776862002556e-11,
+          "rmse": 2.575370472435168e-10,
+          "allclose_1e-5": true,
+          "allclose_1e-4": true,
+          "finite": true
+        }
+      }
+    }
+  },
+  "analytical_operation_count": {
+    "note": "MAC estimates only; not measured hardware FLOPs.",
+    "original_three_large_vision_projection_macs": 14015004672,
+    "cross_attention_score_and_two_value_reductions_macs": 437968896
+  },
+  "notes": [
+    "Batch-1 specialization only.",
+    "Weights are folded once outside the timed loop; model weights are unchanged.",
+    "No approximation, pruning, retraining, or reduced precision is used.",
+    "The specialization changes floating-point association, so bitwise equality is not expected.",
+    "value_folded preserves the original q/k score and softmax path; therefore attention weights should be much more numerically stable than fully_folded.",
+    "This experiment uses PyTorch/MPS only; there is no MLX bridge in the specialized operator timing."
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "experiment": "0054b",
+  "model": "IDEA-Research/grounding-dino-tiny",
+  "input": {
+    "width": 1280,
+    "height": 720,
+    "format": "BGRA8",
+    "raw_file": "input_1280x720_bgra8.raw"
+  },
+  "letterbox": {
+    "width": 1200,
+    "height": 901,
+    "fill_u8": 114,
+    "resized_width": 1200,
+    "resized_height": 675,
+    "left": 0,
+    "top": 113,
+    "reference_png": "letterbox_reference.png",
+    "resize_resample": "PIL.Image.Resampling.BILINEAR"
+  },
+  "processor": {
+    "class": "GroundingDinoImageProcessor",
+    "output_shape_chw": [
+      3,
+      800,
+      1065
+    ],
+    "image_mean": [
+      0.485,
+      0.456,
+      0.406
+    ],
+    "image_std": [
+      0.229,
+      0.224,
+      0.225
+    ],
+    "do_resize": true,
+    "size": "SizeDict(height=None, width=None, longest_edge=1333, shortest_edge=800, max_height=None, max_width=None, min_pixels=None, max_pixels=None)",
+    "resample": "2",
+    "do_rescale": true,
+    "rescale_factor": 0.00392156862745098,
+    "do_normalize": true
+  },
+  "cpu_reference_timing_ms": {
+    "n": 30,
+    "mean": 8.312116566666665,
+    "median": 8.232603999999998,
+    "p90": 8.879424700000001,
+    "p95": 9.357999999999999,
+    "min": 7.405125,
+    "max": 9.614125
+  },
+  "reference_file": "reference_pixel_values_f32_chw.bin",
+  "reference_stats": {
+    "min": -2.1179039478302,
+    "max": 2.5354249477386475,
+    "mean": 0.152407705783844,
+    "std": 1.223875880241394
+  }
+}

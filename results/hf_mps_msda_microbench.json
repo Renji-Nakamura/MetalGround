@@ -1,0 +1,240 @@
+{
+  "timestamp_utc": "2026-09-15T13:48:55.762162+00:00",
+  "model": "IDEA-Research/grounding-dino-tiny",
+  "device": "mps",
+  "dtype": "float32",
+  "image": "assets/input.jpg",
+  "image_size_wh": [
+    1200,
+    901
+  ],
+  "prompt": [
+    "a cat",
+    "a dog"
+  ],
+  "targets": {
+    "encoder": "model.encoder.layers.0.deformable_layer.self_attn.attn",
+    "decoder": "model.decoder.layers.0.encoder_attn.attn"
+  },
+  "warmup": 3,
+  "iterations": 20,
+  "software": {
+    "python": "3.12.14",
+    "torch": "2.13.0",
+    "transformers": "5.17.0"
+  },
+  "implementation_source": {
+    "class": "MultiScaleDeformableAttention",
+    "source_file": "/Users/renji/Projects/metalground_bootstrap/.venv/lib/python3.12/site-packages/transformers/models/grounding_dino/modeling_grounding_dino.py",
+    "sha256": "762b1421e0203c24107d7aa37ffa422d3afc332da143b6db728a7155ea8b23bd"
+  },
+  "results": {
+    "encoder": {
+      "latency": {
+        "n": 20,
+        "mean_ms": 68.6013395,
+        "median_ms": 69.892125,
+        "p90_ms": 72.6357086,
+        "p95_ms": 72.8892559,
+        "min_ms": 60.523583,
+        "max_ms": 74.557416
+      },
+      "correctness_vs_captured": {
+        "max_abs": 0.0,
+        "mean_abs": 0.0,
+        "max_rel": 0.0,
+        "mean_rel": 0.0
+      },
+      "args_summary": [
+        {
+          "shape": [
+            1,
+            17821,
+            8,
+            32
+          ],
+          "dtype": "float32",
+          "numel": 4562176,
+          "bytes": 18248704
+        },
+        {
+          "shape": [
+            4,
+            2
+          ],
+          "dtype": "int64",
+          "numel": 8,
+          "bytes": 64
+        },
+        [
+          [
+            100,
+            134
+          ],
+          [
+            50,
+            67
+          ],
+          [
+            25,
+            34
+          ],
+          [
+            13,
+            17
+          ]
+        ],
+        {
+          "shape": [
+            4
+          ],
+          "dtype": "int64",
+          "numel": 4,
+          "bytes": 32
+        },
+        {
+          "shape": [
+            1,
+            17821,
+            8,
+            4,
+            4,
+            2
+          ],
+          "dtype": "float32",
+          "numel": 4562176,
+          "bytes": 18248704
+        },
+        {
+          "shape": [
+            1,
+            17821,
+            8,
+            4,
+            4
+          ],
+          "dtype": "float32",
+          "numel": 2281088,
+          "bytes": 9124352
+        },
+        64
+      ],
+      "input_tensor_bytes": 45621856,
+      "output_summary": {
+        "shape": [
+          1,
+          17821,
+          256
+        ],
+        "dtype": "float32",
+        "numel": 4562176,
+        "bytes": 18248704
+      },
+      "output_tensor_bytes": 18248704
+    },
+    "decoder": {
+      "latency": {
+        "n": 20,
+        "mean_ms": 3.92862905,
+        "median_ms": 3.540291,
+        "p90_ms": 4.540866899999999,
+        "p95_ms": 4.744374400000003,
+        "min_ms": 3.393,
+        "max_ms": 8.320334
+      },
+      "correctness_vs_captured": {
+        "max_abs": 0.0,
+        "mean_abs": 0.0,
+        "max_rel": 0.0,
+        "mean_rel": 0.0
+      },
+      "args_summary": [
+        {
+          "shape": [
+            1,
+            17821,
+            8,
+            32
+          ],
+          "dtype": "float32",
+          "numel": 4562176,
+          "bytes": 18248704
+        },
+        {
+          "shape": [
+            4,
+            2
+          ],
+          "dtype": "int64",
+          "numel": 8,
+          "bytes": 64
+        },
+        [
+          [
+            100,
+            134
+          ],
+          [
+            50,
+            67
+          ],
+          [
+            25,
+            34
+          ],
+          [
+            13,
+            17
+          ]
+        ],
+        {
+          "shape": [
+            4
+          ],
+          "dtype": "int64",
+          "numel": 4,
+          "bytes": 32
+        },
+        {
+          "shape": [
+            1,
+            900,
+            8,
+            4,
+            4,
+            2
+          ],
+          "dtype": "float32",
+          "numel": 230400,
+          "bytes": 921600
+        },
+        {
+          "shape": [
+            1,
+            900,
+            8,
+            4,
+            4
+          ],
+          "dtype": "float32",
+          "numel": 115200,
+          "bytes": 460800
+        },
+        64
+      ],
+      "input_tensor_bytes": 19631200,
+      "output_summary": {
+        "shape": [
+          1,
+          900,
+          256
+        ],
+        "dtype": "float32",
+        "numel": 230400,
+        "bytes": 921600
+      },
+      "output_tensor_bytes": 921600
+    }
+  },
+  "methodology_note": "Cases are captured from a real end-to-end Grounding DINO forward pass, then replayed directly through the same MultiScaleDeformableAttention module with MPS synchronization around each isolated invocation."
+}
